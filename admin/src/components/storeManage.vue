@@ -7,7 +7,7 @@
            <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">Store Pick-up name</p>
         </div>
         <sui-segment id="storeSeg" @click="gotoDetailStore">
-            <docs-wireframe name="short-paragraph" />
+          
         </sui-segment>
 
     </div>
