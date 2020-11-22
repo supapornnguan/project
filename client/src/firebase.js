@@ -1,10 +1,11 @@
-
-import firebase from "firebase/app";
+import firebase from 'firebase/app'
 import "firebase/database";
+import "firebase/auth";
 import "firebase/firestore"
 import "firebase/storage"
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+ 
   var firebaseConfig = {
     apiKey: "AIzaSyAbCAcighGGp5vconFgpXYBzHwhf6HRwMM",
     authDomain: "shopaholic-2385d.firebaseapp.com",
@@ -16,7 +17,10 @@ import "firebase/storage"
     measurementId: "G-EKWW1CJT1N"
   };
   // Initialize Firebase
+
   firebase.initializeApp(firebaseConfig);
   export default firebase.database();
+  export const auth = firebase.auth();
   export const store = firebase.firestore();
   export const storage = firebase.storage();
+ 

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>ADMIN SHOPAHOLIC</h1>
+    <h1 style="font-weight:600">ADMIN SHOPAHOLIC</h1>
     <div id="menuAdmin">
       <br>
       <div id="divvv">
