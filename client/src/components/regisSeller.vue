@@ -203,7 +203,6 @@ export default {
                 seller_province : this.seller_address.seller_province,
                 seller_zipcode : this.seller_address.seller_zipcode
             }
-            console.log(this.Seller.timstamp)
             db.push(newSeller).child('seller_address').set(newaddress)
 
         },
@@ -244,12 +243,11 @@ export default {
             }),
             (error) => {
                 console.log(error)
-            }
+            },
             () => {
                 uploadTask.snapshot.ref.getDownloadURL()
                                         .then((downloadURL) => {
-                                            this.ImgUrl = downloadURL;
-                                            // console.log('file avaliable at ',this.ImgUrl);
+                                            console.log(downloadURL)
                                         });
             }
         },
@@ -303,13 +301,6 @@ export default {
     font-weight: 900;
     /* font: 32px Arial, sans-serif; */
 } 
-#buttonUpload{
-    background: white;
-    border-radius: 5px;
-    border: 1px solid black;
-    padding : 2px;
-    margin-top: 10px;
-}
 
 
 </style>
