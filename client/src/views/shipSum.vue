@@ -33,7 +33,7 @@ export default {
     },
     methods: {
         gotoUploadSlip(){
-            this.$router.replace('uploadSlip')
+            this.$router.replace('/productAll/infoProduct/summary/shippingType/shipSum/uploadSlip')
         }
     },
 }

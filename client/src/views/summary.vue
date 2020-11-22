@@ -29,19 +29,19 @@
       
 
         <h3 style="text-align:left; color:black; margin-left:100px; margin-bottom:50px; font-weight:1000">Select Your Receiving Types</h3>
-        
-            <img src="../assets/pickup.png" :width="100"  >
-            <img src="../assets/delivery.png" :width="100" style="margin-left:250px">
-            <br>
-       
+            <div style="margin-left:500px">
+               <img src="../assets/pickup.png" :width="100"  >
+                <img src="../assets/delivery.png" :width="100" style="margin-left:250px"> 
+                <br>
 
-        <input type="radio" id="yes" value="1" v-model="picked" style="margin-top:30px">
-        <label for="yes" style="margin-left:10px">Pick-up in store</label>
+                <input type="radio" id="yes" value="1" v-model="picked" style="margin-top:30px">
+                <label for="yes" style="margin-left:10px">Pick-up in store</label>
 
-        <input type="radio" id="no" value="2" v-model="picked" style="margin-left:250px; margin-top:30px">
-        <label for="no" style="margin-left:10px">Shipping</label>
+                <input type="radio" id="no" value="2" v-model="picked" style="margin-left:250px; margin-top:30px">
+                <label for="no" style="margin-left:10px">Shipping</label>
+            </div>
         </div>
-        <sui-button basic secondary style="margin-top:70px" @click="gotoreceiving">Place Order</sui-button>
+        <sui-button basic secondary style="margin-top:70px; margin-left:690px" @click="gotoreceiving">Place Order</sui-button>
         <p>{{picked}}</p>
     </div>
 </template>
@@ -62,10 +62,10 @@ export default {
     methods: {
         gotoreceiving(){
             if(this.picked == 1){
-                this.$router.replace('pickupType')
+                this.$router.replace('/productAll/infoProduct/summary/pickupType')
             }
             else if(this.picked == 2){
-                this.$router.replace('shippingType')
+                this.$router.replace('/productAll/infoProduct/summary/shippingType')
             }
             
         }

@@ -4,8 +4,8 @@
         <h1 id="wordOne">ONE LAST STEP!</h1>
         <h3 id="wordTwo">PAYMENT INFORMATION</h3>
         <p id="infoBank">The Siam Commericial Bank Public Company Limited (SCB) <br> Account Name : SHOPAHOLIC Co.,LTD <br>Acount Number: 111 111111 1</p>
-        <div style="margin-top:60px">
-            <input type="file">
+        <div style="margin-top:60px; margin-left:500px">
+            <input type="file" @change="uploadSlip">
         </div>
         <div id="formTransfer">
             <sui-form>
@@ -25,17 +25,51 @@
                     <label style="text-align:left">Amount of transfer</label>
                     <input placeholder="Amount of transfer" />
                 </sui-form-field>
-                <sui-button type="submit">Submit</sui-button>
+                <sui-button type="submit" style="margin-left:150px">Submit</sui-button>
             </sui-form>
         </div>
     </div>
 </template>
 <script>
 import navbar from "../components/navbar"
+import {storage} from "../firebase"
 export default {
+    data() {
+        return {
+            SlipImage : '',
+            name : ''
+        }
+    },
     components:{
         navbar
-    }
+    },
+    methods : {
+        uploadSlip(e){
+            let file = e.target.files[0]
+
+            console.log(file)
+
+            var storageRef = storage.ref('slip/' + file.name);
+
+            let uploadTask = storageRef.put(file)
+
+            uploadTask.on('state_changed', function(snapshot){
+                console.log(snapshot)
+            }),
+            (error) => {
+                console.log(error)
+            },
+            () => {
+                uploadTask.snapshot.ref.getDownloadURL()
+                                        .then((downloadURL) => {
+                                            this.SlipImage = downloadURL;
+                                            console.log('file avaliable at ',downloadURL);
+                                        });
+            }
+
+            
+        }
+    },
 }
 </script>
 <style scoped>
