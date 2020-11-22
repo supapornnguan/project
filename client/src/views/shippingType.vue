@@ -52,10 +52,10 @@ export default {
             this.add = 3
         },
         shipSum(){
-            this.$router.replace('shipSum')
+            this.$router.replace('/productAll/infoProduct/summary/shippingType/shipSum')
         },
         changeType(){
-            this.$router.replace('summary')
+            this.$router.replace('/productAll/infoProduct/summary')
         }
     },
 }
