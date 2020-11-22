@@ -1,32 +1,59 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <h1 style="font-weight:600">STORE  PICK-UP</h1>
+    <div id="menuAdmin">
+      <br>
+      <div id="divvv">
+        <!-- <img src="./assets/dashboard.png" id="iconimage"> -->
+        <router-link to="/" id="menu1">DURING SHIPMENT</router-link>
+      </div>
+
+      <div id="divvv">
+        <router-link to="/orderAtStore" id="menu1">ORDER AT STORE</router-link>
+      </div>
+      
+      <div id="divvv">
+        <router-link to="/OrderReturn" id="menu1">ORDER RETURN</router-link>
+      </div>
+      
+      <div id="divvv">
+        <router-link to="/finance" id="menu1">FINANCE</router-link>
+      </div>
+
     </div>
     <router-view/>
+
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style scoped>
+h1{
   text-align: center;
-  color: #2c3e50;
+  background-color: 	#DCDCDC;
+  padding: 20px;
+  margin-top: -9px;
+  margin-left: -9px;
+  margin-right: -9px;
 }
+#menuAdmin{
+  background-color: #D0D0D0;
+  width: 350px;
+  height: 1000px;
+  margin-top: -8px;
+  position: relative;
 
-#nav {
-  padding: 30px;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+#menu1{
+  margin-left: 45px;
+  color: black;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+#divvv{
+  padding-bottom: 35px;
+}
+#iconimage{
+  width: 30px;
+  position: relative;
+  left: 20px;
 }
 </style>
+

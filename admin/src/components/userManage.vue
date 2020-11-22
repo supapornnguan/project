@@ -8,7 +8,7 @@
            <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">userID</p>
         </div>
         <sui-segment id="UserSeg">
-            <docs-wireframe name="short-paragraph" />
+    
         </sui-segment>
 
     </div>

@@ -6,7 +6,7 @@
                 <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">Date Received</p>
             </div>
             <sui-segment id="orderAtStore" @click="clickDetailTrack('showDetail')">
-                <docs-wireframe name="short-paragraph" />
+           
             </sui-segment>
         </div>
 

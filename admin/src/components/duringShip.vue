@@ -5,7 +5,7 @@
                 <!-- <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px"></p> -->
             </div>
             <sui-segment id="duringShip">
-                <docs-wireframe name="short-paragraph" />
+           
             </sui-segment>
     </div>
 </template>
