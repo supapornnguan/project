@@ -4,15 +4,15 @@
     <sui-form>
         <sui-form-field required >
           <label id="labelRegisUser">EMAIL</label>
-          <input placeholder="EMAIL" type="text" v-model="Users.emailUser" />
+          <input placeholder="EMAIL" type="text" v-model="Users.customer_emial" />
         </sui-form-field>
         <!-- check email if invalid email will show error -->
-        <sui-message error visible v-if="Users.emailUser==''">
+        <sui-message error visible v-if="Users.customer_emial==''">
           <p>the email address is badly formatted</p>
         </sui-message>
         <sui-form-field required>
           <label id="labelRegisUser">PASSWORD</label>
-          <input placeholder="PASSWORD" type="password" v-model="Users.password" />
+          <input placeholder="PASSWORD" type="password" v-model="Users.customer_password" />
         </sui-form-field>
         <sui-form-field required>
           <label id="labelRegisUser">REPEAT PASSWORD</label>
@@ -20,31 +20,31 @@
         </sui-form-field>
         <sui-form-field required>
           <label id="labelRegisUser">FIRSTNAME</label>
-          <input placeholder="FIRSTNAME" type="text" v-model="Users.firstnameUser" />
+          <input placeholder="FIRSTNAME" type="text" v-model="Users.customer_firstname" />
         </sui-form-field>
         <sui-form-field required>
           <label id="labelRegisUser">LASTNAME</label>
-          <input placeholder="LASTNAME" type="text" v-model="Users.lastnameUser" />
+          <input placeholder="LASTNAME" type="text" v-model="Users.customer_lastname" />
         </sui-form-field>
         <sui-form-field required>
           <label id="labelRegisUser">PHONE</label>
-          <input placeholder="PHONE" type="text" v-model="Users.phoneUser" />
+          <input placeholder="PHONE" type="text" v-model="Users.customer_phonenumber" />
         </sui-form-field>
         <sui-form-field required>
           <label id="labelRegisUser">ADDRESS</label>
-          <input placeholder="ADDRESS" type="text" v-model="address.addressUser" />
+          <input placeholder="ADDRESS" type="text" v-model="address.customer_address" />
         </sui-form-field>
         <sui-form-field required>
           <label id="labelRegisUser">DISTRICT</label>
-          <input placeholder="DISTRICT" type="text" v-model="address.district" />
+          <input placeholder="DISTRICT" type="text" v-model="address.customer_district" />
         </sui-form-field>
         <sui-form-field required>
           <label id="labelRegisUser">PROVINCE</label>
-          <input placeholder="PROVINCE" type="text" v-model="address.province" />
+          <input placeholder="PROVINCE" type="text" v-model="address.customer_province" />
         </sui-form-field>
         <sui-form-field required>
           <label id="labelRegisUser">ZIP CODE</label>
-          <input placeholder="ZIP CODE" type="text" v-model="address.zipcode" />
+          <input placeholder="ZIP CODE" type="text" v-model="address.customer_zipcode" />
         </sui-form-field>        
         <div class="ui submit button" @click="addUser">Submit</div>
   </sui-form>
@@ -61,20 +61,20 @@ export default {
       user:{},
       Users : [
         {
-          emailUser : "",
-          password : "",
+          customer_emial : "",
+          customer_password : "",
           repeatPassword: "",
-          firstnameUser : "",
-          lastnameUser : "",
-          phoneUser : "",
+          customer_firstname : "",
+          customer_lastname : "",
+          customer_phonenumber : "",
         }
       ],
       address : [
         {
-          addressUser : "",
-          district : "",
-          province : "",
-          zipcode : ""
+          customer_address : "",
+          customer_district : "",
+          customer_province : "",
+          customer_zipcode : ""
         }
       ],
       checkmail : ''
@@ -85,25 +85,25 @@ export default {
         console.log(firebase)
         console.log("okokokokokok")
         let newUser = {
-          emailUser : this.Users.emailUser,
-          password : this.Users.password,
-          firstnameUser : this.Users.firstnameUser,
-          lastnameUser : this.Users.lastnameUser,
-          phoneUser : this.Users.phoneUser
+          customer_emial : this.Users.customer_emial,
+          customer_password : this.Users.customer_password,
+          customer_firstname : this.Users.customer_firstname,
+          customer_lastname : this.Users.customer_lastname,
+          customer_phonenumber : this.Users.customer_phonenumber
         }
         let newaddress = [{
-          addressUser : this.address.addressUser,
-          district : this.address.district,
-          province : this.address.province,
-          zipcode : this.address.zipcode
+          customer_address : this.address.customer_address,
+          customer_district : this.address.customer_district,
+          customer_province : this.address.customer_province,
+          customer_zipcode : this.address.customer_zipcode
         }]
         db.push(newUser).child('address').set(newaddress)
 
 //athenticate
-     await auth.createUserWithEmailAndPassword(newUser.emailUser, newUser.password)
+     await auth.createUserWithEmailAndPassword(newUser.customer_emial, newUser.customer_password)
                 .then(
                   user => {
-                    this.$router.replace('userlogin')
+                    this.$router.replace('/')
                     console.log(user)
                   }
                 )

@@ -2,10 +2,10 @@
     <div>
         <navbar/>
         <div v-if="add==1">
-            <h3 style="width:400px; color:black; font-weight:1000;">SHIPPING</h3>
-            <h5 style="width:800px; color:black; margin-top:60px">Choose your address</h5>
+            <h3 style="width:400px; color:black; font-weight:1000; margin-left:200px">SHIPPING</h3>
+            <h5 style="width:800px; color:black; margin-top:60px; margin-left:400px;">Choose your address</h5>
 
-            <input type="radio" id="yes" value="1" v-model="picked" style="margin-left:-400px;">
+            <input type="radio" id="yes" value="1" v-model="picked" style="margin-left:400px;">
             <label for="yes" style="margin-left:10px; margin-top:10px">
             <div id="infoaddress">
                 <p>123 MAIN STREET <br>WASHINGTONN ABDC 12345 <br>THAILANDDD</p>
@@ -20,9 +20,9 @@
         </div>
 
         <div id="buttonposition">
-           <button id="selectLocation" @click="shipSum">SELECT THIS LOCATION</button>
+           <button id="selectLocation" style="margin-left:630px" @click="shipSum">SELECT THIS LOCATION</button>
         <br>
-        <button id="selectLocation" @click="changeType">CHANGE YOUR RECEIVING TYPE</button> 
+        <button id="selectLocation"  style="margin-left:600px" @click="changeType">CHANGE YOUR RECEIVING TYPE</button> 
         </div>
         
 
