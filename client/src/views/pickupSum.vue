@@ -21,8 +21,8 @@
             </sui-table-body>
         </sui-table>
         <br>
-        <p>Pick up at Central Pinklao </p>
-        <p>Receive the product 3 days later from the date of purchase.Please pick up the product by April 18, 2020.</p>
+        <p style="text-align:center">Pick up at Central Pinklao </p>
+        <p style="text-align:center">Receive the product 3 days later from the date of purchase.Please pick up the product by April 18, 2020.</p>
         <button id="buttonBack" @click="gotoHome">BACK TO MAIN PAGE</button>
         
     </div>
@@ -47,6 +47,7 @@ export default {
     color: black;
     font-weight: 600;
     margin-top: 80px;
+    margin-left: 140px;
 }
 #buttonBack{
     background: none;
@@ -54,6 +55,7 @@ export default {
     border: 1px solid black;
     padding: 10px;
     margin-top: 30px;
+    margin-left: 630px;
 
 }
     
