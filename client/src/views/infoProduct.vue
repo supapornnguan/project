@@ -32,9 +32,9 @@
                         <p style="margin-left:50px; color:gray;">{{pice_avaliable}} pice available</p>
                     </div>
 
-                    <div>
-                        <sui-button basic secondary @click="gotoSummary">BUY NOW</sui-button>
-                        <sui-button basic secondary>ADD TO CART</sui-button>
+                    <div style="margin-left:50px">
+                        <sui-button basic secondary @click="gotoSummary" style="width:150px">BUY NOW</sui-button>
+                        <sui-button basic secondary style="width:150px; margin-left:20px">ADD TO CART</sui-button>
                     </div>
 
                     <p class="info" style="color:gray">{{customer_purchased}} customers purchased</p>
@@ -83,7 +83,7 @@ export default {
             return this.quantity--
         },
         gotoSummary(){
-            this.$router.replace('summary')
+            this.$router.replace('/productAll/infoProduct/summary')
         }
     },
 }

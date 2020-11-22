@@ -10,19 +10,13 @@
                 <label id="labelLogin">PASSWORD</label>
                 <input placeholder="PASSWORD" v-model="customer_password"/>
             </sui-form-field>
-         
-            <sui-button  @click="login">Login</sui-button>
         </sui-form>
-          <b-button variant="primary">
-    Notifications <b-badge variant="light">4</b-badge>
-  </b-button>
-
-  
+    <sui-button  @click="loginSuccess" style="margin-left:150px; margin-top:30px">Login</sui-button>
 </div>
 </template>
 
 <script>
-import firebase from "../firebase"
+import {auth} from  "../firebase";
 export default {
     data() {
         return {
@@ -30,23 +24,17 @@ export default {
             customer_password :''
         }
     },
-    methods: {
-        login(){
-            firebase
-            .auth()
-            .signInWithEmailAndPassword(this.customer_emial,this.customer_password)
-            .then(
-                user => {
-                    console.log(user);
-                    this.$router.replace('home');
-                }
-            )
-            .catch(
-                error => {
-                    alert(error)
-                    console.log(error)
-                }
-            )
+    methods: { 
+       async loginSuccess(){
+           await auth.signInWithEmailAndPassword(this.customer_emial,this.customer_password)
+                .then( user =>{
+                        console.log(user)
+                        this.$router.replace({ name: "home" });
+                    })
+                .catch( err => {
+                    console.log(err);
+                });
+
 
         }
     },
@@ -61,6 +49,7 @@ export default {
 }
 #login{
     margin-bottom: 50px;
+    text-align: center;
 }
 #labelLogin{
     text-align: left;
