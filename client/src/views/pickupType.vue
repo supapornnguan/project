@@ -1,9 +1,9 @@
 <template>
     <div>
         <navbar/>
-        <h3 style="width:400px; color:black; font-weight:1000;">STORE PICK-UP</h3>
+        <h3 style="width:400px; color:black; font-weight:1000; margin-left:200px; margin-top:30px">STORE PICK-UP</h3>
         <!-- <search/> -->
-        <h5 style="width:800px; color:black">Choose the branch</h5>
+        <h5 style="width:800px; color:black; margin-left:400px; margin-top:20px">Choose the store pick-up</h5>
         <br>
             <div id="branch">
                 <input type="radio" id="yes" value="1" v-model="picked">
@@ -57,10 +57,10 @@ export default {
     },
     methods: {
         chooseStore(){
-            this.$router.replace('pickupSum')
+            this.$router.replace('/productAll/infoProduct/summary/pickupType/pickupSum')
         },
         changeType(){
-            this.$router.replace('summary')
+            this.$router.replace('/productAll/infoProductsummary')
         }
     },
 }
@@ -72,6 +72,7 @@ export default {
     background-color: white;
     border: 1px solid black;
     padding: 7px;
+    margin-left: 600px;
 }
 #branch{
     width: 300px;

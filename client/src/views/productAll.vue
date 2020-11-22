@@ -118,10 +118,10 @@
 
 <script>
 // import firebase
-import firebase from "../firebase";
+// import firebase from "../firebase";
 
 // reference to the product collection
-const ProductAll = firebase.ref("product");
+// const ProductAll = firebase.ref("product");
 
 //import component search
 import search from "../components/search"
@@ -134,17 +134,11 @@ export default {
             product_id:""
         }
     },
-  name: 'productAll',
-  methods: {
+    methods: {
       infoProduct(){
-          this.$router.replace('infoProduct')
+        this.$router.replace('/productAll/infoProduct')
       }
-  },
-  mounted() {
-      ProductAll.on('value', (snapshot) => {
-      this.contacts = snapshot.val()
-    })
-  },
+    },
   components:{
       search,
       navbar
@@ -175,6 +169,7 @@ div.ui.card{
     border: solid black 1px;
     width: 170px;
     margin-top: 8px;
+    margin-left: 65px;
     padding: 5px;
 }
 #img1{
