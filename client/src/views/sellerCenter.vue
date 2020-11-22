@@ -1,6 +1,8 @@
 <template lang="html">
 <div>
- 
+  <br>
+  <h1 is="sui-header" id="positionCenter">SHOPAHOLIC SELLER CENTER</h1>
+  <br>
   <sui-grid>
     <sui-grid-column :width="3">
       <sui-menu fluid vertical tabular>
@@ -60,3 +62,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#positionCenter{
+    text-align: center;
+}  
+</style>
