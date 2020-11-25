@@ -1,5 +1,6 @@
 <template>
 <div>
+  <navbar/>
    <search/>
    <div v-if="show==1">
   <h2 id="leftReview">REVIEW THE PRODUCT</h2>
@@ -43,6 +44,7 @@
 <script>
 import search from "../components/search"
 import reviewSuccess from "../components/reviewSuccess"
+import navbar from "../components/navbar"
 export default {
   data () {
     return {
@@ -59,6 +61,7 @@ export default {
   components:{
       reviewSuccess,
       search,
+      navbar
   },
    methods: {
         gotoSuccess(){

@@ -1,5 +1,6 @@
 <template>
 <div>
+  <navbar/>
     <search/>
     
     <sui-grid :columns="2">
@@ -68,9 +69,11 @@
 
 <script>
 import search from "../components/search"
+import navbar from "../components/navbar"
 export default {
   components:{
       search,
+      navbar
   },
   methods: {
     review () {
