@@ -2,7 +2,7 @@
 <div>
   <sui-form>
     <sui-form-field inline>
-      <img src="../assets/cat.jpg" width="170px" height="170px" />
+      <img id="picturesave" src="../assets/cat.jpg" width="170px" height="170px" />
       <input type="file" placeholder="CHOOSE PICTURE"  />
     </sui-form-field>
     <sui-form-fields inline id="centertext">
@@ -82,6 +82,7 @@
 #centersave{
   width: 200px;
   margin-top: 50px;
+  margin-left: 400px;
 }
 
 #centertext{
@@ -94,5 +95,9 @@
 
 #textfit{
   width: 150px;
+}
+
+#picturesave{
+  margin-left: 100px;
 }
 </style>
