@@ -1,6 +1,5 @@
 <template>
   <div>
-  <h1>fdsfsdfsd</h1>
     <sui-step-group size="mini" step-number="five" attached="top" >
     <sui-step
       title="Ordered"
