@@ -1,5 +1,6 @@
 <template lang="html">
 <div>
+  <navbar/>
   <br>
   <h1 is="sui-header" id="positionCenter">SHOPAHOLIC SELLER CENTER</h1>
   <br>
@@ -38,7 +39,7 @@
 import dashBoard from "../components/dashBoard"
 import addProduct from "../components/addProduct"
 import myOrders from "../components/myOrders"
-
+import navbar from "../components/navbar"
 export default {
   data() {
     return {
@@ -57,7 +58,8 @@ export default {
   components:{
       dashBoard,
       addProduct,
-      myOrders
+      myOrders,
+      navbar
 
   }
 };
