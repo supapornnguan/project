@@ -4,7 +4,6 @@
     <div id="menuAdmin">
       <br>
       <div id="divvv">
-        <!-- <img src="./assets/dashboard.png" id="iconimage"> -->
         <router-link to="/" id="menu1">DURING SHIPMENT</router-link>
       </div>
 

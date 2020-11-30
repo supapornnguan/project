@@ -8,28 +8,15 @@
            <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">Store Name</p>
             <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">Derivery Date</p>
         </div>
-        <sui-segment id="SellerSeg">
-            <docs-wireframe name="short-paragraph" />
+        <sui-segment id="StoreSeg" @click="gotodetailTrack">
+          
         </sui-segment>
-
-<!-- overlay -->
-  <div>
-    
-    <overlay :opened="opened" :visible="visible" @closed="opened = visible = false">
-        <span>My popup</span>
-    </overlay>
-    
-    <button @click="opened = visible = true">Open Popup</button>
-    <p>{{opened}}</p>
- 
-  </div>
-
   </div>
 </template>
 
 <script>
 import search from "../components/search"
-import Overlay from 'vuejs-overlay';
+// import Overlay from 'vuejs-overlay';
 export default {
   data() {
     return {
@@ -39,9 +26,12 @@ export default {
   },
   components : {
     search,
-    Overlay
+
   },
     methods: {
+      gotodetailTrack(){
+        this.$router.replace('detailTrackDuring')
+      }
  
   },
 
@@ -53,7 +43,7 @@ export default {
     left: 400px;
     top: -990px;
 }
-#SellerSeg{
+#StoreSeg{
     width: 900px;
     height: 70px;
     margin-left: 40px;
