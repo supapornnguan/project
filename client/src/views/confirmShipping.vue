@@ -1,5 +1,6 @@
 <template>
 <div>
+  <navbar/>
     <search/>
     
     <sui-grid :columns="2">
@@ -41,8 +42,9 @@
 }
 
 #centerbutton{
-    width: 200px;
-    margin-top: 70px;
+    width: 400px;
+    margin-top: 50px;
+    margin-left: 500px;
 }
 
 #textleft{
@@ -50,7 +52,8 @@
   margin-left: 5px;
 }
 #headconfirmleft{
-  width: 700px;
+  margin-left: 200px;
+  width: 500px;
 }
 #desconfirmleft1{
   margin-top: 40px;
@@ -66,9 +69,11 @@
 
 <script>
 import search from "../components/search"
+import navbar from "../components/navbar"
 export default {
   components:{
       search,
+      navbar
   },
   methods: {
     review () {

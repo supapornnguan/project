@@ -5,14 +5,14 @@
       <img src="../assets/nikonAAAA-2.jpg" width="150px" height="150px" />
       <sui-item-content>
         <sui-item-header id="headleft">Did you receive the product?</sui-item-header>
-        <sui-item-meta id="metaleft">
+        <sui-item-meta id="desnotiright">
           <div>Today at 5:42PM</div>
         </sui-item-meta>
         <sui-item-description>
-          <p id="desnotileft1">
+          <p id="desnotileft">
             If received the product. 
           </p>
-          <p id="desnotileft2">
+          <p id="desnotileft">
             Would you confirm receiving the product?
           </p>
         </sui-item-description>
@@ -23,17 +23,17 @@
       <img src="../assets/nikonAAAA-2.jpg" width="150px" height="150px" />
       <sui-item-content>
         <sui-item-header id="headleft">Successful order</sui-item-header>
-        <sui-item-meta id="metaleft">
+        <sui-item-meta id="desnotiright">
           <div>Today at 5:42PM</div>
         </sui-item-meta>
         <sui-item-description>
-          <p id="dessucleft1">
+          <p id="desnotileft">
             You have successfully purchased a camera.
           </p>
-          <p id="dessucleft2">
+          <p id="desnotileft">
             Receive the product 3 days later from the date of purchase.
           </p>
-          <p id="dessucleft3">
+          <p id="desnotileft">
             Please pick up the product by May 18, 2020.
           </p>
         </sui-item-description>
@@ -50,30 +50,18 @@
 
 <style>
 #rightbox{
-  margin-left: 500px;
+  margin-left: 600px;
 }
-#metaright{
-  text-align: right;
-  width: 1000px;
+#desnotileft{
+  margin-left: 50px;
+  width: 500px;
 }
-#desnotileft1{
-  width: 290px;
-}
-#desnotileft2{
-  width: 400px;
-}
-#dessucleft1{
-  width: 420px;
-}
-#dessucleft2{
-  width: 520px;
-}
-#dessucleft3{
-  width: 430px;
+#desnotiright{
+  margin-left: 570px;
 }
 #rightbutton{
-  width: 200px;
-  margin-left: 500px;
+  width: 100px;
+  margin-left: 570px;
 }
 </style>
 

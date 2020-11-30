@@ -5,18 +5,18 @@
       <img src="../assets/nikonAAAA-2.jpg" width="150px" height="150px" />
       <sui-item-content>
         <sui-item-header id="headleft">Canon AAAAA Kit + Lens AF-P 1234455 VR</sui-item-header>
-        <sui-item-meta id="spanleft">
+        <sui-item-meta id="desleft">
           <span>x 1</span>
         </sui-item-meta>
         <sui-item-description>
-          <p id="desleft1">
+          <p id="desleft">
             Picked up at Central Pinklao
           </p>
-          <p id="desleft2">
+          <p id="desleft">
             Date: 10 April 2020 Time: 15:45
           </p>
         </sui-item-description>
-        <sui-item> 
+        <sui-item id="desright"> 
           Price: THB 19,999
         </sui-item>
       </sui-item-content>
@@ -25,18 +25,18 @@
       <img src="../assets/nikonAAAA-2.jpg" width="150px" height="150px" />
       <sui-item-content>
         <sui-item-header id="headleft">Canon AAAAA Kit + Lens AF-P 1234455 VR</sui-item-header>
-        <sui-item-meta id="spanleft">
+        <sui-item-meta id="desleft">
           <span>x 1</span>
         </sui-item-meta>
         <sui-item-description >
-          <p id="desleft1">
+          <p id="desleft">
             Picked up at Central Pinklao
           </p>
-          <p id="desleft2">
+          <p id="desleft" >
             Date: 10 April 2020 Time: 15:45
           </p>
         </sui-item-description>
-        <sui-item>
+        <sui-item id="desright">
           Price: THB 19,999
         </sui-item>
       </sui-item-content>
@@ -47,18 +47,19 @@
 
 <style>
 #headleft{
-  text-align: left;
+  margin-left: 50px;
   width: 800px;
 }
-#spanleft{
-  width: 180px;
+
+#desleft{
+  margin-left: 50px;
+  width: 500px;
 }
-#desleft1{
-  width: 330px;
+
+#desright{
+  margin-left: 570px;
 }
-#desleft2{
-  width: 350px;
-}
+
 </style>
 
 <script>

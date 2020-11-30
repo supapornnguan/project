@@ -1,5 +1,6 @@
 <template>
 <div>
+  <navbar/>
     <search/>
 
   <sui-grid>
@@ -58,6 +59,7 @@ import AccountCustomer from "../components/AccountCustomer"
 import myPurchaseCustomer from "../components/myPurchaseCustomer"
 import Notification from "../components/Notification"
 import myOrderCustomer from "../components/myOrderCustomer"
+import navbar from "../components/navbar"
 export default {
   data() {
     return {
@@ -71,8 +73,10 @@ export default {
       myPurchaseCustomer,
       Notification,
       myOrderCustomer,
+      navbar
   },
-  methods:{
+  
+   methods:{
     isActive(name) {
       return this.active === name;
     },
