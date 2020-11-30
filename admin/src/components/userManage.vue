@@ -7,7 +7,7 @@
            <p style="display:inline; font-weight:670; font-size:20px">No.</p>
            <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">userID</p>
         </div>
-        <sui-segment id="UserSeg">
+        <sui-segment id="UserSeg" @click="gotoInfoUser">
     
         </sui-segment>
 
@@ -18,7 +18,12 @@ import search from "../components/searchUser"
 export default {
     components:{
         search
-    }
+    },
+    methods: {
+        gotoInfoUser(){
+            this.$router.replace('InfoUser')
+        }
+    },
 }
 </script>
 <style scoped>

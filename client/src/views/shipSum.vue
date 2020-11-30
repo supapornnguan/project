@@ -1,7 +1,7 @@
 <template>
     <div>
         <navbar/>
-        <h1 id="successWord">SUCCESSFUL TRANSACTION</h1>
+        <h1 style=" margin-left:100px">SUCCESSFUL TRANSACTION</h1>
         <sui-table style="width:1200px; margin-left:140px; margin-top:50px">
             <sui-table-header>
                 <sui-table-row>
@@ -42,6 +42,7 @@ export default {
 #successWord1{
     font-size: 20px;
     margin-top: 70px;
+    text-align: center;
 }
 #buttonUplaod{
     background: none;
@@ -49,6 +50,7 @@ export default {
     border: 1px solid black;
     padding: 5px;
     margin-top: 60px;
+    margin-left: 650px;
 }
     
 </style>

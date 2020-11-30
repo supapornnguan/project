@@ -34,11 +34,6 @@ const routes = [
     name: 'sellerLogin',
     component: () => import('../views/sellerLogin.vue')
   },
-  // {
-  //   path: '/myAccountSeller',
-  //   name: 'myAccountSeller',
-  //   component: () => import('../views/myAccountSeller.vue')
-  // },
   {
     path: '/productAll',
     name: 'productAll',
@@ -99,6 +94,27 @@ const routes = [
     name: 'sellerCenter',
     component: () => import('../views/sellerCenter.vue')
   },
+  {
+    path: '/confirmShipping',
+    name: 'confirmShipping',
+    component: () => import('../views/confirmShipping.vue')
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: () => import('../views/error.vue')
+  },
+  {
+    path: '/myAccountCustomer',
+    name: 'myAccountCustomer',
+    component: () => import('../views/myAccountCustomer.vue')
+  },
+  {
+    path: '/review',
+    name: 'review',
+    component: () => import('../views/review.vue')
+  },
+
 ]
 
 const router = new VueRouter({

@@ -33,6 +33,11 @@ const routes = [
     component: () => import('../views/sellerManageHome.vue')
   },
   {
+    path: '/sellerManageInfo',
+    name: 'sellerManageInfo',
+    component: () => import('../views/sellerManageInfo.vue')
+  },
+  {
     path: '/userManageHome',
     name: 'userManageHome',
     component: () => import('../views/userManageHome.vue')
@@ -51,7 +56,18 @@ const routes = [
     path: '/detailStorePickup',
     name: 'detailStorePickup',
     component: () => import('../views/detailStorePickup.vue')
-  }
+  },
+  // {
+  //   path: '/infoSeller',
+  //   name: 'infoSeller',
+  //   component: () => import('../views/infoSeller.vue')
+  // },
+  {
+    path: '/infoUser',
+    name: 'infoUser',
+    component: () => import('../views/infoUser.vue')
+  },
+
 ]
 
 const router = new VueRouter({
