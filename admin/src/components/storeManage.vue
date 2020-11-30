@@ -1,26 +1,37 @@
 <template>
     <div>
+        <div v-if="showInfoStore==1">
         <br>
-        <search/>
-        <div style="margin-left:70px; margin-top:50px">
-           <p style="display:inline; font-weight:670; font-size:20px">No.</p>
-           <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">Store Pick-up name</p>
+            <search/>
+            <div style="margin-left:70px; margin-top:50px">
+                <p style="display:inline; font-weight:670; font-size:20px">No.</p>
+                <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">Store Pick-up name</p>
+            </div>
+            <sui-segment id="storeSeg" @click="gotoDetailStore">
+
+            </sui-segment>
         </div>
-        <sui-segment id="storeSeg" @click="gotoDetailStore">
-          
-        </sui-segment>
+
+        <infoStore v-if="showInfoStore==2"/>
 
     </div>
 </template>
 <script>
 import search from "../components/searchPickupStore"
+import infoStore from "../components/infoStore"
 export default {
+    data() {
+        return {
+            showInfoStore : 1
+        }
+    },
     components:{
-        search
+        search,
+        infoStore
     },
     methods: {
         gotoDetailStore(){
-            this.$router.replace('detailStorePickup')
+            this.showInfoStore = 2
         }
     },
 }
