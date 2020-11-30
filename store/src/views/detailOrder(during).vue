@@ -1,16 +1,18 @@
 <template>
     <div id="detailOrder">
-        <h2 style="margin-bottom:30px">Order ID</h2>
-        <p>CustomerName</p>
-        <p>Phone</p>
-        <p>Email</p>
+        <h2 style="margin-bottom:30px; font-weight:600">Order ID</h2>
+        <p style="font-size:20px">CustomerName</p>
+        <p style="font-size:20px">Phone</p>
+        <p style="font-size:20px">Email</p>
 
         <div id="shipFrom">
-          <h2>SHIPPED FORM</h2>  
+          <h2 style="font-weight:600">SHIPPED FORM</h2>  
         </div>
 
+        <div class="v1"></div>
+
         <div id="shipTo">
-            <h2>SHIPPED TO</h2>
+            <h2 style="font-weight:600">SHIPPED TO</h2>
         </div>
 
         <div id="tableOrder">
@@ -56,9 +58,26 @@ export default {
     border-radius: 5px;
     border: 1px solid black;
     padding: 10px;
-    margin-top: 30px;
-    margin-left: 400px;
+    position: absolute;
+    top: 700px;
+    left: 400px;
 }
+#shipFrom{
+    position:absolute;
+}
+#shipTo{
+    position:absolute;
+    left: 500px;
+}
+#tableOrder{
+    position: absolute;
+    top: 500px;
+}
+.v1 {
+  border-left: 3px solid black;
+  height: 300px;
+  margin-left: 450px;
+  position: absolute;
 
-    
+}  
 </style>
