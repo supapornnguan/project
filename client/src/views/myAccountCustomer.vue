@@ -1,15 +1,14 @@
 <template>
-<div>
+<div >
   <navbar/>
-    <search/>
 
-  <sui-grid>
+  <sui-grid style="margin-top:70px">
     <sui-grid-column :width="4">
       <sui-menu fluid vertical tabular>
-      <img class="imageIconAccount" src="../assets/user.png" width="50px" height="50px">
+      <!-- <img class="imageIconAccount" src="../assets/user.png" width="50px" height="50px">
       <img class="imageIconAccount" src="../assets/purchase-order.png" width="50px" height="50px">
       <img class="imageIconAccount" src="../assets/bell.png" width="50px" height="50px">
-      <img class="imageIconAccount" src="../assets/box.png" width="50px" height="50px">
+      <img class="imageIconAccount" src="../assets/box.png" width="50px" height="50px"> -->
         <a
           v-for="item in items"
           :key="item"
@@ -54,12 +53,13 @@
 </style>
 
 <script>
-import search from "../components/search"
 import AccountCustomer from "../components/AccountCustomer"
 import myPurchaseCustomer from "../components/myPurchaseCustomer"
 import Notification from "../components/Notification"
 import myOrderCustomer from "../components/myOrderCustomer"
 import navbar from "../components/navbar"
+import firebase from "../firebase"
+import {auth} from "../firebase"
 export default {
   data() {
     return {
@@ -68,7 +68,6 @@ export default {
     };
   },
   components:{
-      search,
       AccountCustomer,
       myPurchaseCustomer,
       Notification,
@@ -83,6 +82,11 @@ export default {
     select(name) {
       this.active = name;
     },
+  },
+  mounted() {
+    firebase.ref("user/" + auth.currentUser.uid).on("value", snapshot => {
+      console.log(snapshot.val())
+    })
   },
 };
 </script>

@@ -35,9 +35,25 @@
 <script>
 import navbar from "../components/navbar"
 export default {
+    data() {
+        return {
+            quantity : 0,
+            product_quantity : ""
+        }
+    },
     components : {
         navbar
-    }
+    },
+    methods: {
+        addQuantity(){
+            if(this.quantity<this.product_quantity)
+            return this.quantity++
+        },
+        miniQuantity(){
+            if(this.quantity!=0)
+            return this.quantity--
+        }
+    },
     
 }
 </script>

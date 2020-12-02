@@ -5,6 +5,7 @@
     <!-- ORDER -->
     <b-tab title="Order" active><p>
     <sui-table celled>
+      <h1>{{order_pickup}}</h1>
     <sui-table-header>
       <sui-table-row>
         <sui-table-header-cell>Order ID</sui-table-header-cell>
@@ -683,27 +684,28 @@
   </p></b-tab>
 
   </b-tabs>
-
-    <!-- <sui-table-footer>
-      <sui-table-row>
-        <sui-table-header-cell colspan="6">
-          <sui-menu v-sui-floated:right pagination>
-            <a is="sui-menu-item" icon>
-              <sui-icon name="left chevron" />
-            </a>
-            <a is="sui-menu-item">1</a>
-            <a is="sui-menu-item">2</a>
-            <a is="sui-menu-item">3</a>
-            <a is="sui-menu-item">4</a>
-            <a is="sui-menu-item" icon>
-              <sui-icon name="right chevron" />
-            </a>
-          </sui-menu>
-        </sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-footer> -->
   </div>
 </template>
+
+<script>
+import {mapGetters} from "vuex"
+export default {
+  data() {
+    return {
+      value : ""
+    }
+  },
+  computed: {
+    ...mapGetters({
+      order_pickup : "getOrderByPickup"
+    })
+  },
+  mounted() {
+    console.log(this.order_pickup)
+  },
+  
+}
+</script>
 
 <style>
 #positionLeft{

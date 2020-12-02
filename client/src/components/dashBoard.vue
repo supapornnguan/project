@@ -8,7 +8,7 @@
         <sui-grid-column>
           <sui-segment>
             <div class="single-example">
-              <sui-statistic>
+              <sui-statistic style="margin-left:80px">
                 <sui-statistic-label>TOTAL ORDERS</sui-statistic-label>
                 <sui-statistic-value>120</sui-statistic-value>
               </sui-statistic>
@@ -18,7 +18,7 @@
         <sui-grid-column>
           <sui-segment>
             <div class="single-example">
-              <sui-statistic>
+              <sui-statistic style="margin-left:80px">
                 <sui-statistic-label>PICKUP ORDERS</sui-statistic-label>
                 <sui-statistic-value>70</sui-statistic-value>
               </sui-statistic>
@@ -28,7 +28,7 @@
         <sui-grid-column>
           <sui-segment>
             <div class="single-example">
-              <sui-statistic>
+              <sui-statistic style="margin-left:80px">
                 <sui-statistic-label>SHIPPING ORDERS</sui-statistic-label>
                 <sui-statistic-value>50</sui-statistic-value>
               </sui-statistic>
@@ -45,7 +45,7 @@
         <sui-grid-column>
           <sui-segment>
             <div class="single-example">
-              <sui-statistic>
+              <sui-statistic style="margin-left:100px">
                 <sui-statistic-label>RATING</sui-statistic-label>
                 <sui-statistic-value>4.5</sui-statistic-value>
                 <sui-statistic-label>(+4%)</sui-statistic-label>
@@ -56,7 +56,7 @@
         <sui-grid-column>
           <sui-segment>
             <div class="single-example">
-              <sui-statistic>
+              <sui-statistic style="margin-left:80px">
                 <sui-statistic-label>ORDERS SUCCESSFUL</sui-statistic-label>
                 <sui-statistic-value>200</sui-statistic-value>
                 <sui-statistic-label>(+12%)</sui-statistic-label>
@@ -67,7 +67,7 @@
         <sui-grid-column>
           <sui-segment>
             <div class="single-example">
-              <sui-statistic>
+              <sui-statistic style="margin-left:30px">
                 <sui-statistic-label>TOTAL SALES</sui-statistic-label>
                 <sui-statistic-value>120,000฿</sui-statistic-value>
                 <sui-statistic-label>(+25%)</sui-statistic-label>

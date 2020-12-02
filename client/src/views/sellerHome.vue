@@ -2,18 +2,18 @@
   <div>
     <navbar/>
       <div id="homeSeller">
-    <h1 class="welcome" >WELCOME TO THE SELLER CENTER</h1>
+    <h1 class="welcome">WELCOME TO THE SELLER CENTER</h1>
     <div id="groupButton">
       <button class="ui secondary basic button" @click="regisSell">OPEN YOUR SHOP</button>
       <button class="ui secondary basic button" @click="loginSel">LOGIN</button>
     </div>
   </div>
   </div>
-
+  
 </template>
 
 <script>
-import navbar from "../components/navbar"
+import navbar from "../components/navbarSeller"
 export default {
   methods: {
     regisSell () {

@@ -1,22 +1,16 @@
-const product = {
+const typeProduct = {
     state : {
-        productType : null
+        productType : ""
     },
     getters : {
-
+        getProductType(state){
+            return state.productType
+        }
     },
     mutations : {
-        SET_PRODUCT_TYPE(state, value){
-            state.productType = value
+        SET_PRODUCT_TYPE(state, payload){
+            state.productType = payload.productType
         }
     },
-    actions : {
-
-        fetchProductType({ commit }, productType){
-            
-
-        }
-
-    }
 }
-export default product
+export default typeProduct

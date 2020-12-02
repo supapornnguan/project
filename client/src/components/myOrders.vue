@@ -34,6 +34,8 @@
 import myOrdersAll from "../components/myOrdersAll"
 import myOrdersPickup from "../components/myOrdersPickup"
 import myOrdersShipping from "../components/myOrdersShipping"
+import { mapGetters } from 'vuex'
+import firebase from "../firebase"
 
 export default {
   name: 'PointingMenuExample',
@@ -51,10 +53,20 @@ export default {
       this.active = name;
     },
   },
+    mounted() {
+    firebase.ref('pickup_order/').on('value', snapshot => {
+      console.log(snapshot.val())
+    })
+  },
   components:{
     myOrdersAll,
     myOrdersPickup,
     myOrdersShipping
-  }
+  },
+    computed: {
+    ...mapGetters({
+      infoProduct : "getOrderByPickup"
+    })
+  },
 };
 </script>

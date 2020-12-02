@@ -37,11 +37,11 @@
             Please pick up the product by May 18, 2020.
           </p>
         </sui-item-description>
-        <sui-dropdown
+        <!-- <sui-dropdown
             :options="order"
             v-model="current"
             id="rightbox"
-        />
+        /> -->
       </sui-item-content>
     </sui-item>
   </sui-item-group>
