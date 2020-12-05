@@ -1,6 +1,33 @@
 <template>
   <div id="app">
+
     <h1 style="font-weight:600">STORE  PICK-UP</h1>
+
+
+      <sui-grid>
+    <sui-grid-column :width="4">
+      <sui-menu fluid vertical tabular>
+        <a
+          v-for="item in items"
+          :key="item"
+          is="sui-menu-item"
+          :content="item"
+          :active="isActive(item)"
+          @click="select(item)"
+        />
+      </sui-menu>
+    </sui-grid-column>
+
+    <sui-grid-column stretched :width="12">
+      <sui-segment>
+        This is an stretched grid column. This segment will always match the tab
+        height
+      </sui-segment>
+    </sui-grid-column>
+  </sui-grid>
+
+  
+
     <div id="menuAdmin">
       <br>
       <div id="divvv">
@@ -37,10 +64,8 @@ h1{
 #menuAdmin{
   background-color: #D0D0D0;
   width: 350px;
-  height: 1000px;
   margin-top: -8px;
   position: relative;
-
 }
 #menu1{
   margin-left: 45px;

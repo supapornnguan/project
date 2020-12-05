@@ -4,7 +4,7 @@
         <sui-form>
             <sui-form-field>
                 <label id="labelLogin">EMAIL</label>
-                <input placeholder="EMAIL" v-model="customer_emial"/>
+                <input placeholder="EMAIL" v-model="customer_email"/>
             </sui-form-field>
             <sui-form-field>
                 <label id="labelLogin">PASSWORD</label>
@@ -17,25 +17,27 @@
 
 <script>
 import {auth} from  "../firebase";
+import VueRouter from 'vue-router'
+import router from "../router"
+const { isNavigationFailure, NavigationFailureType } = VueRouter
 export default {
     data() {
         return {
-            customer_emial :'',
-            customer_password :''
+            customer_email :'hellohalo@mail.com',
+            customer_password :'hellohalo555'
         }
     },
     methods: { 
        async loginSuccess(){
-           await auth.signInWithEmailAndPassword(this.customer_emial,this.customer_password)
-                .then( user =>{
-                        console.log(user)
-                        this.$router.replace({ name: "home" });
+           await auth.signInWithEmailAndPassword(this.customer_email,this.customer_password)
+                .then( () =>{
+                    router.push('/').catch(failure => {
+                        if (isNavigationFailure(failure, NavigationFailureType.redirected)) {
+                        // show a small notification to the user
+                        console.log('Login in order to access the admin panel')
+                        }
                     })
-                .catch( err => {
-                    console.log(err);
-                });
-
-
+                    })
         }
     },
 }

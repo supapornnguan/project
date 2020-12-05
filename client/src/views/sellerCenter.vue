@@ -2,7 +2,7 @@
 <div>
   <navbar/>
   <br>
-  <h1 is="sui-header" id="positionCenter">SHOPAHOLIC SELLER CENTER</h1>
+  <!-- <h1 is="sui-header" id="positionCenter">SHOPAHOLIC SELLER CENTER</h1> -->
   <br>
   <sui-grid>
     <sui-grid-column :width="3">
@@ -39,12 +39,23 @@
 import dashBoard from "../components/dashBoard"
 import addProduct from "../components/addProduct"
 import myOrders from "../components/myOrders"
-import navbar from "../components/navbar"
+import navbar from "../components/navbarSeller"
+import store from "../store"
 export default {
   data() {
     return {
       items: ['DASH BOARD', 'ADD PRODUCT', 'MY ORDERS', 'MY PERSONAL', 'MY SHOP', 'FINANCE'],
       active: 'DASH BOARD',
+      infoOrder : {},
+      keyOrder : [],
+      branch_selected : [],
+      date_time_to_order : [],
+      product_key : [],
+      sellerUid : [],
+      status : [],
+      total_amount : [],
+      userid : [],
+      quantity : []
     };
   },
   methods: {
@@ -52,7 +63,19 @@ export default {
       return this.active === name;
     },
     select(name) {
-      this.active = name;
+          this.active = name;
+          if(name == "MY ORDERS"){
+          store.commit("SET_ORDER_BY_PICKUP", {
+          branch_selected : this.branch_selected,
+          date_time_to_order : this.date_time_to_order,
+          product_key : this.product_key,
+          sellerUid : this.sellerUid,
+          status : this.status,
+          total_amount : this.total_amount,
+          userid : this.userid,
+          quantity : this.quantity
+        })
+      }
     },
   },
   components:{
@@ -60,8 +83,7 @@ export default {
       addProduct,
       myOrders,
       navbar
-
-  }
+  },
 };
 </script>
 

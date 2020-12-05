@@ -2,15 +2,15 @@
     <div id="veri">
         <p style="font-size:50px; margin-top:200px; margin-bottom:50px;">Register Successful!</p>
         <h1>Please wait for verify by SHOPAHOLIC.</h1>
-        <button id="gotoHomePage" style="margin-top:30px" @click="goHomePage">BACK TO MAIL PAGE</button>
+        <button id="gotoHomePage" style="margin-top:30px" @click="goHomePage1">BACK TO MAIL PAGE</button>
     </div>
 </template>
 
 <script>
 export default {
     methods: {
-        goHomePage(){
-            this.$router.replace('homepage')
+        goHomePage1(){
+            this.$router.replace('/')
         }
     },
 }

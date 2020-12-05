@@ -4,27 +4,44 @@
         <sui-form>
             <sui-form-field>
                 <label id="labelLogin">EMAIL</label>
-                <input placeholder="EMAIL" v-model="seller_emial"/>
+                <input placeholder="EMAIL" v-model="seller_email"/>
             </sui-form-field>
             <sui-form-field>
                 <label id="labelLogin">PASSWORD</label>
                 <input placeholder="PASSWORD" v-model="seller_password"/>
             </sui-form-field>
          
-            <sui-button  @click="login" style="margin-left:150px">Login</sui-button>
+           
         </sui-form>
+         <sui-button  @click="loginSellerSuccess" style="margin-left:150px; margin-top:20px">Login</sui-button>
     </div>
 </template>
 
 <script>
-// import firebase from "../firebase"
+import {auth} from  "../firebase";
+// import VueRouter from 'vue-router'
+// import router from "../router"
+// const { isNavigationFailure, NavigationFailureType } = VueRouter
 export default {
     data() {
         return {
-            seller_emial :'',
-            seller_password :''
+            seller_email :'test100@seller.com',
+            seller_password :'testtest123'
         }
     },
+    methods: { 
+       async loginSellerSuccess(){
+           await auth.signInWithEmailAndPassword(this.seller_email,this.seller_password)
+                .then(user =>{
+                    console.log(user)
+                    this.$router.replace('sellerCenter')
+                    })
+                .catch(error => {
+                    alert(error)
+                    console.log(error)
+                })
+        }
+    }
 }
 </script>
 

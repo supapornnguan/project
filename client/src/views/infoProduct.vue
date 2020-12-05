@@ -1,90 +1,138 @@
 <template>
     <div>
         <navbar/>
-        <search/>
-        <div class="container1">
+        <div class="container1" style="margin-top:90px">
         <sui-grid :columns="2">
             <sui-grid-row stretched>
                 <sui-grid-column>
-                        <img src="../assets/nikonAAAA-2.jpg" :width="300"/>
-                        <div id="came1">
+                        <img :src="product_image" :width="300"/>
+                        <!-- <div id="came1">
                             <img src="../assets/nikonAAAA-2.jpg" :width="90" :height="90" id="imgCamera"/>
                             <img src="../assets/nikonAAAA-3.jpg" :width="90" :height="90" id="imgCamera"/>
                             <img src="../assets/nikonAAAA-5.jpg" :width="90" :height="90" id="imgCamera"/>
                             <img src="../assets/nikonAAAA-6.jpg" :width="90" :height="90" id="imgCamera"/>
-                        </div>
+                        </div> -->
                 </sui-grid-column>
                 <sui-grid-column>
-                    <h3 class="info">D5600 DX-Format Digital SLR w/AF-P DX NIKKOR 18-55mm f/3.5-5.6G VR</h3>
-                    <router-link to="/acSeller" id="linkShop">shopshopeieieiei</router-link>
+               
+                    <h3 class="info">{{product_name}}</h3>
+                    <router-link to="/acSeller" id="linkShop">{{seller_name_shop}}</router-link>
                     <div id="rate">
                          <sui-rating :rating="value" :max-rating="5" id="ratting"/>
                     </div>
-                   
-                    <p class="info">brand</p>
-                    <p class="info">19,999 THB</p>
+                
+                    <p class="info">{{product_unit_price}} THB</p>
                     
                     <div id="addQTY">
                         <p class="info">Quantity</p>
                         <button id="buttonAdd" @click="miniQuantity">-</button>
                         <input type="text" id="inputQTY" v-model="quantity">
                         <button id="buttonAdd" @click="addQuantity">+</button>
-                        <p style="margin-left:50px; color:gray;">{{pice_avaliable}} pice available</p>
+                        <p style="margin-left:50px; color:gray;">{{product_quantity}} pice available</p>
                     </div>
 
                     <div style="margin-left:50px">
-                        <sui-button basic secondary @click="gotoSummary" style="width:150px">BUY NOW</sui-button>
+                        <sui-button basic secondary @click="gotoSummary" style="width:150px; margin-top:20px">BUY NOW</sui-button>
                         <sui-button basic secondary style="width:150px; margin-left:20px">ADD TO CART</sui-button>
                     </div>
 
-                    <p class="info" style="color:gray">{{customer_purchased}} customers purchased</p>
+                   
                 </sui-grid-column>
             </sui-grid-row>
         </sui-grid>
         </div>
-        <h2 class="H2">Reviews</h2>
-        <div >
-           <p>Overall: </p> 
-           <sui-rating :rating="value" :max-rating="5" id="ratting" /> 
+        <h2 class="H2" >Reviews</h2>
+        <div>
+           <p  style="display:inline; margin-left:20px">Overall: </p> 
+           <sui-rating :rating="value" :max-rating="5" id="ratting"  style="display:inline"/> 
         </div>
         
-        <b-progress :value="90" variant="danger" :striped="striped" class="mt-2" id="progressStar"></b-progress> 
-        <b-progress :value="40" variant="danger" :striped="striped" class="mt-2" id="progressStar"></b-progress>
-        <b-progress :value="30" variant="danger" :striped="striped" class="mt-2" id="progressStar"></b-progress>
-        <b-progress :value="20" variant="danger" :striped="striped" class="mt-2" id="progressStar"></b-progress>
-        <b-progress :value="10" variant="danger" :striped="striped" class="mt-2" id="progressStar"></b-progress>
+        <b-progress :value="90" variant="danger" class="mt-2" id="progressStar"></b-progress> 
+        <b-progress :value="40" variant="danger" class="mt-2" id="progressStar"></b-progress>
+        <b-progress :value="30" variant="danger" class="mt-2" id="progressStar"></b-progress>
+        <b-progress :value="20" variant="danger" class="mt-2" id="progressStar"></b-progress>
+        <b-progress :value="10" variant="danger" class="mt-2" id="progressStar"></b-progress>
         <h2 class="H2">Detail Product</h2>
-        <h2 class="H2">Customer Rating and reviews</h2>
+
+        <br>
+        <ul id="example-1">
+            <li v-for="item in product_detail" :key="item.message">
+                {{ item }}
+            </li>
+        </ul>
+            <h2 class="H2">Customer Rating and reviews</h2>
+ 
+        
     </div>
 </template>
 <script>
 import navbar from "../components/navbar"
-import search from "../components/search"
+import {mapGetters} from "vuex"
+import store from "../store"
+import firebase from "../firebase"
 export default {
     data() {
         return {
              value: 1,
-             pice_avaliable : 3,
-             customer_purchased : 12,
-             quantity : '0'
+             product_quantity : "",
+             quantity : '1',
+             product_name : "",
+             sellerUid : "",
+             seller_name_shop : "",
+             product_unit_price: "",
+             product_detail: "",
+             product_image : "",
+             timeToOrder : "",
         }
     },
     components : {
-        search,
         navbar
     },
     methods: {
         addQuantity(){
-            if(this.quantity<this.pice_avaliable)
+            if(this.quantity<this.product_quantity)
             return this.quantity++
         },
         miniQuantity(){
             if(this.quantity!=0)
             return this.quantity--
         },
-        gotoSummary(){
-            this.$router.replace('/productAll/infoProduct/summary')
+         gotoSummary(){
+            store.commit("SET_SUMMARY_PAGE",{
+                quantity : this.quantity,
+                product_name : this.product_name,
+                product_unit_price : this.product_unit_price,
+                product_image : this.product_image,
+                sellerUid : this.sellerUid
+            } )
+            this.$router.replace('/summary')
         }
+    },
+    computed: {
+        ...mapGetters({
+            key : "getProductId"
+        })
+    },
+    mounted() {
+        //query product collection
+        firebase.ref('product/'+this.key).on('value',(snapshot)=>{
+            console.log(snapshot.val());
+            this.product_name = snapshot.val().product_name
+            this.sellerUid = snapshot.val().sellerUid
+            this.product_unit_price = snapshot.val().product_unit_price
+            this.product_quantity = snapshot.val().product_quantity
+            this.product_detail = snapshot.val().product_detail.split(',')
+            this.product_image = snapshot.val().product_image
+            
+            console.log(this.sellerUid)
+            console.log(this.product_name);
+        })
+
+        //query seller collection
+        firebase.ref('seller/'+ this.sellerUid).on('value', (snapshot) =>{
+            console.log(snapshot.val())
+            this.seller_name_shop = snapshot.val().seller_name_shop
+        })
     },
 }
 </script>
@@ -105,7 +153,7 @@ export default {
     text-align: left;
     font-size: 20px;
     font-weight: 800;
-    margin-top: 20px;
+    margin-top: 60px;
     margin-left: 20px;
 }
 #linkShop{

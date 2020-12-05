@@ -5,80 +5,122 @@
        
         <h1 class="openshop" v-if="step!=4">OPEN SHOP</h1>
 
-    <!-- step -->
-
-   <!-- <div class="numberCircle"></div>
-   <div class="numberCircle"></div>
-   <div class="numberCircle"></div> -->
-
     <!-- form1-->
     <sui-form v-if="step==1">
-        <sui-form-field required>
-            <label id="labelRegisSeller">EMAIL</label>
-            <input type="email" id="inputRegisSeller" placeholder="EMAIL" v-model="Seller.seller_email"/>
+        <sui-form-field required >
+            <label class="labelRegisSeller" >EMAIL</label>
+            <input 
+                type="email" 
+                class="inputRegisSeller" 
+                placeholder="EMAIL" 
+                v-model="Seller.seller_email"/>
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">NAME STORE</label>
-            <input type="text" id="inputRegisSeller" placeholder="NAME STORE" v-model="Seller.seller_name_shop" />
+            <label class="labelRegisSeller">NAME STORE</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="NAME STORE" 
+                v-model="Seller.seller_name_shop" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">PASSWORD</label>
-            <input type="password" id="inputRegisSeller" placeholder="PASSWORD" v-model="Seller.seller_password" />
+            <label class="labelRegisSeller">PASSWORD</label>
+            <input 
+                type="password" 
+                id="inputRegisSeller" 
+                placeholder="PASSWORD" 
+                v-model="Seller.seller_password" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">REPEAT PASSWORD</label>
-            <input type="password" id="inputRegisSeller" placeholder="REPEAT PASSWORD" v-model="Seller.repassword" />
+            <label class="labelRegisSeller">REPEAT PASSWORD</label>
+            <input 
+                type="password" 
+                class="inputRegisSeller" 
+                placeholder="REPEAT PASSWORD" 
+                v-model="Seller.repassword" />
         </sui-form-field>
     </sui-form>
 
     <!-- form2 -->
      <sui-form v-if="step==2">
-        <sui-form-field required id="box1">
-            <label id="labelRegisSeller">FIRSTNAME</label>
-            <input type="text" id="inputRegisSeller" placeholder="FIRSTNAME" v-model="Seller.seller_firstname"/>
+        <sui-form-field required class="box1">
+            <label class="labelRegisSeller">FIRSTNAME</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="FIRSTNAME" 
+                v-model="Seller.seller_firstname"/>
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">LASTNAME</label>
-            <input type="text" id="inputRegisSeller" placeholder="LASTNAME" v-model="Seller.seller_lastname" />
+            <label class="labelRegisSeller">LASTNAME</label>
+            <input type="text" class="inputRegisSeller" placeholder="LASTNAME" v-model="Seller.seller_lastname" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">PHONE NUMBER</label>
-            <input type="number" id="inputRegisSeller" placeholder="PHONE NUMBER" v-model="Seller.seller_phonenumber" />
+            <label class="labelRegisSeller">PHONE NUMBER</label>
+            <input 
+                type="number" 
+                class="inputRegisSeller" 
+                placeholder="PHONE NUMBER" 
+                v-model="Seller.seller_phonenumber" />
         </sui-form-field>
 
          <sui-form-field required>
-            <label id="labelRegisSeller">ADDRESS</label>
-            <input type="text" id="inputRegisSeller" placeholder="ADDRESS" v-model="seller_address.address" />
+            <label class="labelRegisSeller">ADDRESS</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="ADDRESS" 
+                v-model="seller_address.address" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">STREET</label>
-            <input type="text" id="inputRegisSeller" placeholder="STREET" v-model="seller_address.seller_street" />
+            <label class="labelRegisSeller">STREET</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="STREET" 
+                v-model="seller_address.seller_street" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">DISTRICT</label>
-            <input type="text" id="inputRegisSeller" placeholder="DISTRICT" v-model="seller_address.seller_district" />
+            <label class="labelRegisSeller">DISTRICT</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="DISTRICT" 
+                v-model="seller_address.seller_district" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">SUB DISTRICT</label>
-            <input type="text" id="inputRegisSeller" placeholder="SUB DISTRICT" v-model="seller_address.seller_sub_district" />
+            <label class="labelRegisSeller">SUB DISTRICT</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="SUB DISTRICT" 
+                v-model="seller_address.seller_sub_district" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">PROVINCE</label>
-            <input type="text" id="inputRegisSeller" placeholder="PROVINCE" v-model="seller_address.seller_province" />
+            <label class="labelRegisSeller">PROVINCE</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="PROVINCE" 
+                v-model="seller_address.seller_province" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">ZIP CODE</label>
-            <input type="text" id="inputRegisSeller" placeholder="ZIP CODE" v-model="seller_address.seller_zipcode" />
+            <label class="labelRegisSeller">ZIP CODE</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="ZIP CODE" 
+                v-model="seller_address.seller_zipcode" />
         </sui-form-field>
 
 
@@ -88,41 +130,66 @@
     <!-- form3 -->
         <sui-form v-if="step==3">
         <sui-form-field required id="box1">
-            <label id="labelRegisSeller">ACCOUNT HOLDER NAME</label>
-            <input type="text" id="inputRegisSeller" placeholder="ACCOUNT HOLDER NAME" v-model="Seller.bank_account_name"/>
+            <label class="labelRegisSeller">ACCOUNT HOLDER NAME</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="ACCOUNT HOLDER NAME" 
+                v-model="Seller.bank_account_name"/>
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">ACCOUNT NUMBER</label>
-            <input type="text" id="inputRegisSeller" placeholder="ACCOUNT NUMBER" v-model="Seller.bank_account_number" />
+            <label class="labelRegisSeller">ACCOUNT NUMBER</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="ACCOUNT NUMBER" 
+                v-model="Seller.bank_account_number" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">BANK NAME</label>
-            <input type="text" id="inputRegisSeller" placeholder="BANK NAME" v-model="Seller.bank_name" />
+            <label class="labelRegisSeller">BANK NAME</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="BANK NAME" 
+                v-model="Seller.bank_name" />
         </sui-form-field>
 
         <sui-form-field required>
-            <label id="labelRegisSeller">BRANCH’S NAME</label>
-            <input type="text" id="inputRegisSeller" placeholder="BRANCH’S NAME" v-model="Seller.bank_branch_name" />
+            <label class="labelRegisSeller">BRANCH’S NAME</label>
+            <input 
+                type="text" 
+                class="inputRegisSeller" 
+                placeholder="BRANCH’S NAME" 
+                v-model="Seller.bank_branch_name" />
         </sui-form-field>
 
+        <div>
         <sui-form-field required>
-            <label id="labelRegisSeller">BOOKBANK PICTURE</label>
+            <label class="labelRegisSeller">BOOKBANK PICTURE</label>
             <input 
                 type="file" 
                 id="inputRegisSeller" 
                 placeholder="BOOKBANK PICTURE" 
                 accept ="image/*"
-                @change="previewImage"/>
+                ref="input1"
+                style="display:none"
+                @change="previewImage1"/>
         </sui-form-field>
+         </div>
+        <!-- <button 
+        @click="onUpload">upload</button> -->
     </sui-form>
+    <button @click="click1" v-if="step==3" id="buttonChoose">choose Image</button>
+    <button @click="create" v-if="step==3" id="buttonupload">upload</button>
 
     <!-- button -->
+ 
     <div class="ui button" id="buttonNext" v-on:click="next" v-if="step==1 || step==2">Next</div>
-    <div class="ui submit button" v-if="step==3" @click="addSeller(); onUpload();">Submit</div>
+    <div class="ui submit button" v-if="step==3" v-on:click="next" @click="addSeller();" style="margin-top:50px">Submit</div>
 
-    <!-- <waitVerify v-if="step==4" /> -->
+    <waitVerify v-if="step==4" />
     </div>
 </div>
 </template>
@@ -131,16 +198,20 @@
 import {dateToString} from '../utils/utils';
 import firebase from "../firebase";
 import {storage} from "../firebase"
-const db = firebase.ref("seller");
-// import waitVerify from "../components/waitingVerify"
+import {auth} from  "../firebase";
+// const { isNavigationFailure, NavigationFailureType } = VueRouter
+// import router from "../router/index"
+// import VueRouter from 'vue-router'
+
+import waitVerify from "../components/waitingVerify"
 // import axios from "axios";
-import navbar from "../components/navbar"
+import navbar from "../components/navbarSeller"
 export default {
     name : "regisSeller",
     data() {
         return {
             step: 1,
-            ImgUrl : "",
+            image:null,
             Seller :[{
                 seller_email : "",
                 seller_name_shop : "",
@@ -153,7 +224,9 @@ export default {
                 bank_name : "",
                 bank_branch_name : "",
                 bank_book_picture : "",
-                timstamp: ""
+                verify_seller : "",
+                timstamp: "",
+                seller_address1 : []
             }],
             seller_address :[{
                 address : "",
@@ -167,9 +240,34 @@ export default {
          },
          components:{
              navbar,
-            //  waitVerify
+             waitVerify
          },
-    methods: {
+    methods: {  
+        create() {
+             const bank_book_picture1 = this.Seller.bank_book_picture
+             console.log(bank_book_picture1)
+        },
+        click1(){
+            this.$refs.input1.click()
+        },
+        previewImage1(event){
+            this.image = event.target.files[0];
+            this.onUpload1()
+        },
+        onUpload1(){
+            const storageRef = storage.ref(`/bookbank/${this.image.name}`).put(this.image);
+            
+            storageRef.on(`state_changed`, snapshot =>{
+                console.log(snapshot)
+            },error => {
+                console.log(error.message)
+            }, () => {
+                storageRef.snapshot.ref.getDownloadURL().then((url)=>{
+                    this.Seller.bank_book_picture = url
+                    console.log(this.Seller.bank_book_picture)
+                })
+            })
+        },
         next() {
             this.step = this.step ===4 ? this.step=3 : this.step + 1
         },
@@ -178,9 +276,18 @@ export default {
             if(event.target.value.length != 0 && event.target.value.length < 6 )
             console.log("check password")
         },
-
-        addSeller(){
+        //structure of seller 
+        async addSeller(){
             this.Seller.timstamp = Date.now();
+            this.Seller.verify_seller = "false"
+             let newaddress = {
+                address : this.seller_address.address,
+                seller_street : this.seller_address.seller_street,
+                seller_district : this.seller_address.seller_district,
+                seller_sub_district : this.seller_address.seller_sub_district,
+                seller_province : this.seller_address.seller_province,
+                seller_zipcode : this.seller_address.seller_zipcode
+            }
             let newSeller = {
                 seller_email : this.Seller.seller_email,
                 seller_name_shop : this.Seller.seller_name_shop,
@@ -191,78 +298,43 @@ export default {
                 bank_account_name : this.Seller.bank_account_name,
                 bank_account_number : this.Seller.bank_account_number,
                 bank_name : this.Seller.bank_name,
+                bank_book_picture : this.Seller.bank_book_picture,
                 bank_branch_name : this.Seller.bank_branch_name,
-                timstamp : dateToString(this.Seller.timstamp)
+                verify_seller : this.Seller.verify_seller,
+                timstamp : dateToString(this.Seller.timstamp),
+                seller_address1 : newaddress
             }
 
-            let newaddress = {
-                address : this.seller_address.address,
-                seller_street : this.seller_address.seller_street,
-                seller_district : this.seller_address.seller_district,
-                seller_sub_district : this.seller_address.seller_sub_district,
-                seller_province : this.seller_address.seller_province,
-                seller_zipcode : this.seller_address.seller_zipcode
-            }
-            db.push(newSeller).child('seller_address').set(newaddress)
-
+           
+//auth seller
+            await auth.createUserWithEmailAndPassword(newSeller.seller_email, newSeller.seller_password)
+                .then(
+                  seller => {
+                    console.log('regis success!!!')
+                    console.log(seller)
+                    this.uidSeller = auth.currentUser.uid
+                    console.log("this is uid of seller " + this.uidSeller)
+                  }
+                )
+            await firebase.ref("seller/" + this.uidSeller).set(newSeller)
+            .then((data) => {
+                console.log(data)
+                this.$router.replace('sellerHome')
+            })
         },
-        // uploadBookbank(e){
-        //     let file = e.target.files[0]
-
-        //     console.log(file)
-
-        //     var storageRef = storage.ref('bookbank/' + file.name)
-
-        //     if(this.submit==1){
-        //         let uploadTask = storageRef.put(file)
-        //         uploadTask.on('state_changed', function(snapshot){
-        //         console.log(snapshot)
-        //     }),
-        //     (error) => {
-        //         console.log(error)
-        //     },
-        //     () => {
-        //         uploadTask.snapshot.ref.getDownloadURL()
-        //                                 .then((downloadURL) => {
-        //                                     this.Seller.bank_book_picture = downloadURL;
-        //                                     console.log('file avaliable at ',downloadURL);
-        //                                 });
-        //     }
-        //     }
-       
-        // },
-        previewImage ( event ) {
-            this.Seller.bank_book_picture = event.target.files[0];
-            console.log(this.Seller.bank_book_picture)
-        },
-        onUpload () {
-            const storageRef = storage.ref(`/bookbank/${this.Seller.bank_book_picture.name}`)
-            const uploadTask = storageRef.put(this.Seller.bank_book_picture);
-            uploadTask.on('state_changed', function(snapshort){
-                console.log(snapshort)
-            }),
-            (error) => {
-                console.log(error)
-            },
-            () => {
-                uploadTask.snapshot.ref.getDownloadURL()
-                                        .then((downloadURL) => {
-                                            console.log(downloadURL)
-                                        });
-            }
-        },
-        dateToString
-    }
+        //date
+        dateToString,
+    },
 };
 </script>
 
 <style>
 
-#inputRegisSeller{
+.inputRegisSeller{
     width: 400px;
     height: 40px;
 }
-#labelRegisSeller{
+.labelRegisSeller{
     text-align: left;
     padding-bottom: 10px;
 }
@@ -301,6 +373,19 @@ export default {
     font-weight: 900;
     /* font: 32px Arial, sans-serif; */
 } 
+#buttonChoose{
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 300px;
+    padding: 5px;
+}
+#buttonupload{
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    margin-left: 20px;
 
-
+}
 </style>

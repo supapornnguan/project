@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import SuiVue from 'semantic-ui-vue';
 import BootstrapVue from 'bootstrap-vue'
+import Vuelidate from 'vuelidate'
 import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -10,9 +11,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(SuiVue)
+Vue.use(Vuelidate)
 
-
-const routes = [
+const routes =[
   {
     path: '/',
     name: 'home',
@@ -40,37 +41,37 @@ const routes = [
     component: () => import('../views/productAll.vue')
   },
   {
-    path: '/productAll/infoProduct',
+    path: '/infoProduct',
     name: 'infoProduct',
     component: () => import('../views/infoProduct.vue')
   },
   {
-    path: '/productAll/infoProduct/summary',
+    path: '/summary',
     name: 'summary',
     component: () => import('../views/summary.vue')
   },
   {
-    path: '/productAll/infoProduct/summary/pickupType',
+    path: '/pickupType',
     name: 'pickupType',
     component: () => import('../views/pickupType.vue')
   }, 
    {
-    path: '/productAll/infoProduct/summary/pickupType/pickupSum',
+    path: '/pickupSum',
     name: 'pickupSum',
     component: () => import('../views/pickupSum.vue')
   }, 
   {
-    path: '/productAll/infoProduct/summary/shippingType',
+    path: '/shippingType',
     name: 'shippingType',
     component: () => import('../views/shippingType.vue')
   }, 
   {
-    path: '/productAll/infoProduct/summary/shippingType/shipSum',
+    path: '/shipSum',
     name: 'shipSum',
     component: () => import('../views/shipSum.vue')
   }, 
  {
-    path: '/productAll/infoProduct/summary/shippingType/shipSum/uploadSlip',
+    path: '/uploadSlip',
     name: 'uploadSlip',
     component: () => import('../views/uploadSlip.vue')
   },
@@ -107,15 +108,28 @@ const routes = [
   {
     path: '/myAccountCustomer',
     name: 'myAccountCustomer',
-    component: () => import('../views/myAccountCustomer.vue')
+    component: () => import('../views/myAccountCustomer.vue'),
+    meta : {requireAuth : true}
   },
   {
     path: '/review',
     name: 'review',
     component: () => import('../views/review.vue')
-  },
-
+  }
 ]
+// import {auth} from "../firebase"
+
+// router.beforeEach((to, from, next) => {
+//   let currentUser = auth.currentUser
+//   let requireAuth = to.matched.some(record => record.meta.requireAuth)
+//   if(requireAuth && ! currentUser){
+//     next('userlogin')
+//   }else if (!requireAuth && currentUser){
+//     next('regisUser')
+//   }else{
+//     next()
+//   }
+// })
 
 const router = new VueRouter({
   mode: 'history',

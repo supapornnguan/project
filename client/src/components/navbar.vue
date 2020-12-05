@@ -1,15 +1,15 @@
 <template>
-  <div class="ui secondary menu" id="nav">
-    <router-link to="/" class="ui item">HOME</router-link>
-    <router-link to="/sellerHome" class="ui item">SELLER CENTER</router-link>
-    <h1 id="logo" >SHOPAHOLIC</h1>
+  <div class="ui secondary menu" id="nav" style="background-color:#0F4C81; height:80px">
+    <router-link to="/" class="ui item" style="color:#FFFFFF">HOME</router-link>
+    <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF">SELLER CENTER</router-link>
+    <h1 id="logo" style="color:#FFFFFF" >SHOPAHOLIC</h1>
     <div class="right menu">
-    <router-link to="/userRegis"  class="ui item"  v-if="!user.loggedIn">REGISTER</router-link>
-    <router-link to="/userlogin" class="ui item" v-if="!user.loggedIn">LOGIN</router-link>
-    <p v-if="user.loggedIn" class="ui item"><a @click="logout" >LOGOUT</a></p>
+    <router-link to="/userRegis"  class="ui item"  v-if="!user.loggedIn" style="color:#FFFFFF">REGISTER</router-link>
+    <router-link to="/userlogin" class="ui item" v-if="!user.loggedIn" style="color:#FFFFFF">LOGIN</router-link>
+    <p v-if="user.loggedIn" class="ui item"><a @click="logout"  style="color:#FFFFFF">LOGOUT</a></p>
   </div>
-  <img src="../assets/mycart.png" id="cart" v-if="user.loggedIn" @click="myCart" >
-  <img src="../assets/user.png" id="Myaccount" v-if="user.loggedIn">
+  <img src="../assets/mycart.png" class="cart" v-if="user.loggedIn" @click="myCart" >
+  <img src="../assets/user.png" id="Myaccount" v-if="user.loggedIn" @click="myaccount">
 </div>
 </template>
 
@@ -32,6 +32,11 @@ export default {
     },
     myCart(){
       this.$router.replace('myCart')
+      console.log(this.user.loggedIn)
+    },
+    myaccount(){
+      this.$router.replace('MyAccountCustomer')
+      console.log(this.user.data)
     }
   },
 }
@@ -41,18 +46,19 @@ export default {
 #logo{
   position: relative;
   left: 400px;
+  top: 20px;
 } 
-#cart{
+.cart{
   position: relative;
-  left: -140px;
-  top: 55px;
+  left: -120px;
+  top: 90px;
   width: 40px;
   height: 40px;
 }
 #Myaccount{
   position: relative;
-  left: -110px;
-  top: 55px;
+  left: -100px;
+  top: 90px;
   width: 40px;
   height: 40px;
 }

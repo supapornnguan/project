@@ -1,15 +1,14 @@
 <template>
-<div>
+<div >
   <navbar/>
-    <search/>
 
-  <sui-grid>
-    <sui-grid-column :width="4">
+  <sui-grid style="margin-top:70px">
+    <sui-grid-column :width="3">
       <sui-menu fluid vertical tabular>
-      <img class="imageIconAccount" src="../assets/user.png" width="50px" height="50px">
+      <!-- <img class="imageIconAccount" src="../assets/user.png" width="50px" height="50px">
       <img class="imageIconAccount" src="../assets/purchase-order.png" width="50px" height="50px">
       <img class="imageIconAccount" src="../assets/bell.png" width="50px" height="50px">
-      <img class="imageIconAccount" src="../assets/box.png" width="50px" height="50px">
+      <img class="imageIconAccount" src="../assets/box.png" width="50px" height="50px"> -->
         <a
           v-for="item in items"
           :key="item"
@@ -17,6 +16,7 @@
           :content="item"
           :active="isActive(item)"
           @click="select(item)"
+          style="text-align:center"
         />
       </sui-menu>
     </sui-grid-column>
@@ -25,9 +25,6 @@
         <!--MY ACCOUNT -->
         <AccountCustomer v-if="active === 'MY ACCOUNT'">
         </AccountCustomer>
-        <!-- MY PURCHASES -->
-        <myPurchaseCustomer v-if="active === 'MY PURCHASES'">
-        </myPurchaseCustomer>
         <!-- NOTIFICATIONS -->
         <Notification v-if="active === 'NOTIFICATIONS'">
         </Notification>
@@ -54,23 +51,21 @@
 </style>
 
 <script>
-import search from "../components/search"
 import AccountCustomer from "../components/AccountCustomer"
-import myPurchaseCustomer from "../components/myPurchaseCustomer"
 import Notification from "../components/Notification"
 import myOrderCustomer from "../components/myOrderCustomer"
 import navbar from "../components/navbar"
+// import firebase from "../firebase"
+// import {auth} from "../firebase"
 export default {
   data() {
     return {
-      items: ['MY ACCOUNT', 'MY PURCHASES', 'NOTIFICATIONS', 'MY ORDER'],
+      items: ['MY ACCOUNT', 'NOTIFICATIONS', 'MY ORDER'],
       active: 'MY ACCOUNT',
     };
   },
   components:{
-      search,
       AccountCustomer,
-      myPurchaseCustomer,
       Notification,
       myOrderCustomer,
       navbar
@@ -82,6 +77,7 @@ export default {
     },
     select(name) {
       this.active = name;
+
     },
   },
 };
