@@ -28,6 +28,7 @@
 import pickupAllCustomer from "../components/pickupAllCustomer"
 import shippingAllCustomer from "../components/shippingAllCustomer"
 import allOrderCustomer from "../components/allOrderCustomer"
+// import myOrderPickupCus from "../components/myOrderPickupCus"
 export default {
   data () {
     return {
@@ -38,7 +39,8 @@ export default {
   components:{
       pickupAllCustomer,
       shippingAllCustomer,
-      allOrderCustomer
+      allOrderCustomer,
+      // myOrderPickupCus
   },
   methods: {
     isActive(name) {

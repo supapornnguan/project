@@ -1,10 +1,7 @@
 <template>
 <div>
   <sui-form>
-    <sui-form-field inline>
-      <img id="picturesave" src="../assets/cat.jpg" width="170px" height="170px" />
-      <input type="file" placeholder="CHOOSE PICTURE"  />
-    </sui-form-field>
+   
     <sui-form-fields inline id="centertext">
       <sui-form-field width="twelve">
         <label id="textfit">FIRSTNAME</label>
@@ -108,7 +105,7 @@ export default {
 
 #centersave{
   width: 200px;
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 400px;
 }
 

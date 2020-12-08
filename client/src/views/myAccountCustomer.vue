@@ -25,12 +25,9 @@
         <!--MY ACCOUNT -->
         <AccountCustomer v-if="active === 'MY ACCOUNT'">
         </AccountCustomer>
-        <!-- NOTIFICATIONS -->
-        <Notification v-if="active === 'NOTIFICATIONS'">
-        </Notification>
         <!-- MY ORDER -->
         <myOrderCustomer v-if="active === 'MY ORDER'">
-        </myOrderCustomer>
+        </myOrderCustomer> 
       </sui-segment>
     </sui-grid-column>
   </sui-grid>
@@ -52,7 +49,6 @@
 
 <script>
 import AccountCustomer from "../components/AccountCustomer"
-import Notification from "../components/Notification"
 import myOrderCustomer from "../components/myOrderCustomer"
 import navbar from "../components/navbar"
 // import firebase from "../firebase"
@@ -60,13 +56,12 @@ import navbar from "../components/navbar"
 export default {
   data() {
     return {
-      items: ['MY ACCOUNT', 'NOTIFICATIONS', 'MY ORDER'],
+      items: ['MY ACCOUNT', 'MY ORDER'],
       active: 'MY ACCOUNT',
     };
   },
   components:{
       AccountCustomer,
-      Notification,
       myOrderCustomer,
       navbar
   },

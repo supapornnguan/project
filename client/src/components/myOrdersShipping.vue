@@ -16,9 +16,9 @@
     </sui-table-header>
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyOrder" :key="index">
-        <sui-table-cell style="text-align:center">{{key}}</sui-table-cell>
+        <sui-table-cell style="text-align:center"><a href="#">{{key}}</a></sui-table-cell>
         <sui-table-cell style="text-align:center">{{date_time_to_order[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{total_amount[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
         <sui-table-cell style="text-align:center">{{quantity[index]}}</sui-table-cell>
         <sui-table-cell>
           <sui-button>Confirm</sui-button>
