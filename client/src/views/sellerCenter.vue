@@ -2,8 +2,7 @@
 <div>
   <navbar/>
   <br>
-  <!-- <h1 is="sui-header" id="positionCenter">SHOPAHOLIC SELLER CENTER</h1> -->
-  <br>
+
   <sui-grid>
     <sui-grid-column :width="3">
       <sui-menu fluid vertical tabular>
@@ -28,6 +27,10 @@
         <!-- MY ORDERS -->
         <myOrders v-if="active === 'MY ORDERS'">
         </myOrders>
+        <!-- MY SHOP-->
+        <myshop v-if="active === 'MY SHOP'">
+        </myshop>
+
         
       </sui-segment>
     </sui-grid-column>
@@ -40,11 +43,12 @@ import dashBoard from "../components/dashBoard"
 import addProduct from "../components/addProduct"
 import myOrders from "../components/myOrders"
 import navbar from "../components/navbarSeller"
+import myshop from "../components/myshop"
 import store from "../store"
 export default {
   data() {
     return {
-      items: ['DASH BOARD', 'ADD PRODUCT', 'MY ORDERS', 'MY PERSONAL', 'MY SHOP', 'FINANCE'],
+      items: ['DASH BOARD', 'ADD PRODUCT', 'MY ORDERS', 'MY SHOP', 'FINANCE'],
       active: 'DASH BOARD',
       infoOrder : {},
       keyOrder : [],
@@ -82,7 +86,8 @@ export default {
       dashBoard,
       addProduct,
       myOrders,
-      navbar
+      navbar,
+      myshop
   },
 };
 </script>

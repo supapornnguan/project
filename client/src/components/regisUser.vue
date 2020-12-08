@@ -2,7 +2,7 @@
   <div class="regisUser">
     
     <sui-form id="border1">
-      <h1 id="H1">SIGN IN</h1>
+      <h1 id="H1">REGISTER</h1>
         <sui-form-field required>
           <label id="labelRegisUser">EMAIL</label>
           <input 

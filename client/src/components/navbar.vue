@@ -1,8 +1,11 @@
 <template>
-  <div class="ui secondary menu" id="nav" style="background-color:#0F4C81; height:80px">
+  <div class="ui secondary menu" id="nav" style="background-color:#0F4C81; height:90px; ">
     <router-link to="/" class="ui item" style="color:#FFFFFF">HOME</router-link>
     <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF">SELLER CENTER</router-link>
-    <h1 id="logo" style="color:#FFFFFF" >SHOPAHOLIC</h1>
+    
+       <h1 id="logo" style="color:#FFFFFF; font-family: 'Chonburi', cursive; font-size:50px; margin-left:310px; margin-top:15px">SHOPAHOLIC</h1>
+
+   
     <div class="right menu">
     <router-link to="/userRegis"  class="ui item"  v-if="!user.loggedIn" style="color:#FFFFFF">REGISTER</router-link>
     <router-link to="/userlogin" class="ui item" v-if="!user.loggedIn" style="color:#FFFFFF">LOGIN</router-link>
@@ -43,11 +46,9 @@ export default {
 </script>
 
 <style scoped>
-#logo{
-  position: relative;
-  left: 400px;
-  top: 20px;
-} 
+/* #logo{
+  text-align: c;
+}  */
 .cart{
   position: relative;
   left: -120px;

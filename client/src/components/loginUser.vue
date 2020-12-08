@@ -8,7 +8,7 @@
             </sui-form-field>
             <sui-form-field>
                 <label id="labelLogin">PASSWORD</label>
-                <input placeholder="PASSWORD" v-model="customer_password"/>
+                <input type="password" placeholder="PASSWORD" v-model="customer_password"/>
             </sui-form-field>
         </sui-form>
     <sui-button  @click="loginSuccess" style="margin-left:150px; margin-top:30px">Login</sui-button>

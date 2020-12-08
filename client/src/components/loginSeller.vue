@@ -8,7 +8,7 @@
             </sui-form-field>
             <sui-form-field>
                 <label id="labelLogin">PASSWORD</label>
-                <input placeholder="PASSWORD" v-model="seller_password"/>
+                <input type="password" placeholder="PASSWORD" v-model="seller_password"/>
             </sui-form-field>
          
            
