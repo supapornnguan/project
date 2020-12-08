@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div style="background-color:#0F4C81; height:80px;">
-      <h1 align=center is="sui-header" style="color:#FFFFFF;" id="headerbar">STORE PICK-UP</h1>
+      <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Chonburi', cursive;" id="headerbar">STORE PICK-UP</h1>
     </div>
   <br>
   <sui-grid>
