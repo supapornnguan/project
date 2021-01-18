@@ -8,14 +8,13 @@
         <sui-table style="width:1200px; margin-left:140px">
             <sui-table-header>
                 <sui-table-row>
-                    <sui-table-header-cell>Select</sui-table-header-cell>
                     <sui-table-header-cell>Product</sui-table-header-cell>
                     <sui-table-header-cell>Description</sui-table-header-cell>
                 </sui-table-row>
             </sui-table-header>
             <sui-table-body>
                 <sui-table-row>
-                    <sui-table-cell><input type="checkbox"></sui-table-cell>
+
                     <sui-table-cell><img :src="infoSummary.product_image" :width="150" style="margin-left:30px"></sui-table-cell>
                     <sui-table-cell>
                         <h3 class="info">{{infoSummary.product_name}}</h3>

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h3 id="spaceLeftRight" is="sui-header" block>
+    <h3 id="spaceLeftRight" is="sui-header" align=center block>
     TO DO
     </h3>
     <sui-grid :columns="3">
       <sui-grid-row id="spaceLeftRight" stretched>
         <sui-grid-column>
           <sui-segment>
-            <div class="single-example">
-              <sui-statistic style="margin-left:80px">
+            <div class="single-example" align=center>
+              <sui-statistic>
                 <sui-statistic-label>TOTAL ORDERS</sui-statistic-label>
                 <sui-statistic-value>120</sui-statistic-value>
               </sui-statistic>
@@ -17,8 +17,8 @@
         </sui-grid-column>
         <sui-grid-column>
           <sui-segment>
-            <div class="single-example">
-              <sui-statistic style="margin-left:80px">
+            <div class="single-example" align=center>
+              <sui-statistic>
                 <sui-statistic-label>PICKUP ORDERS</sui-statistic-label>
                 <sui-statistic-value>70</sui-statistic-value>
               </sui-statistic>
@@ -27,8 +27,8 @@
         </sui-grid-column>
         <sui-grid-column>
           <sui-segment>
-            <div class="single-example">
-              <sui-statistic style="margin-left:80px">
+            <div class="single-example" align=center>
+              <sui-statistic>
                 <sui-statistic-label>SHIPPING ORDERS</sui-statistic-label>
                 <sui-statistic-value>50</sui-statistic-value>
               </sui-statistic>
@@ -37,15 +37,15 @@
         </sui-grid-column>
       </sui-grid-row>
     </sui-grid>
-    <h3 id="spaceLeftRight" is="sui-header" block>
+    <h3 id="spaceLeftRight" is="sui-header" align=center block>
     STATISTICS
     </h3>
     <sui-grid :columns="3">
       <sui-grid-row id="spaceLeftRight" stretched>
         <sui-grid-column>
           <sui-segment>
-            <div class="single-example">
-              <sui-statistic style="margin-left:100px">
+            <div class="single-example" align=center>
+              <sui-statistic>
                 <sui-statistic-label>RATING</sui-statistic-label>
                 <sui-statistic-value>4.5</sui-statistic-value>
                 <sui-statistic-label>(+4%)</sui-statistic-label>
@@ -55,8 +55,8 @@
         </sui-grid-column>
         <sui-grid-column>
           <sui-segment>
-            <div class="single-example">
-              <sui-statistic style="margin-left:80px">
+            <div class="single-example" align=center>
+              <sui-statistic>
                 <sui-statistic-label>ORDERS SUCCESSFUL</sui-statistic-label>
                 <sui-statistic-value>200</sui-statistic-value>
                 <sui-statistic-label>(+12%)</sui-statistic-label>
@@ -66,8 +66,8 @@
         </sui-grid-column>
         <sui-grid-column>
           <sui-segment>
-            <div class="single-example">
-              <sui-statistic style="margin-left:30px">
+            <div class="single-example" align=center>
+              <sui-statistic>
                 <sui-statistic-label>TOTAL SALES</sui-statistic-label>
                 <sui-statistic-value>120,000฿</sui-statistic-value>
                 <sui-statistic-label>(+25%)</sui-statistic-label>

@@ -4,11 +4,11 @@
         <sui-form>
             <sui-form-field>
                 <label id="labelLogin">EMAIL</label>
-                <input placeholder="EMAIL" v-model="customer_emial"/>
+                <input placeholder="EMAIL" v-model="customer_email"/>
             </sui-form-field>
             <sui-form-field>
                 <label id="labelLogin">PASSWORD</label>
-                <input placeholder="PASSWORD" v-model="customer_password"/>
+                <input type="password" placeholder="PASSWORD" v-model="customer_password"/>
             </sui-form-field>
         </sui-form>
     <sui-button  @click="loginSuccess" style="margin-left:150px; margin-top:30px">Login</sui-button>
@@ -23,13 +23,13 @@ const { isNavigationFailure, NavigationFailureType } = VueRouter
 export default {
     data() {
         return {
-            customer_emial :'hahahelo@mail.com',
+            customer_email :'hellohalo@mail.com',
             customer_password :'hellohalo555'
         }
     },
     methods: { 
        async loginSuccess(){
-           await auth.signInWithEmailAndPassword(this.customer_emial,this.customer_password)
+           await auth.signInWithEmailAndPassword(this.customer_email,this.customer_password)
                 .then( () =>{
                     router.push('/').catch(failure => {
                         if (isNavigationFailure(failure, NavigationFailureType.redirected)) {

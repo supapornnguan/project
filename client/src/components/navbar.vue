@@ -1,15 +1,20 @@
 <template>
-  <div class="ui secondary menu" id="nav" style="background-color:#0F4C81; height:80px">
+  <div class="ui secondary menu" style="background-color:#0F4C81; height:90px;" >
     <router-link to="/" class="ui item" style="color:#FFFFFF">HOME</router-link>
     <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF">SELLER CENTER</router-link>
-    <h1 id="logo" style="color:#FFFFFF" >SHOPAHOLIC</h1>
+    
+       <h1 id="logo" style="color:#FFFFFF; font-family: 'Chonburi', cursive; font-size:50px; margin-left:310px; margin-top:15px">SHOPAHOLIC</h1>
+
+   
     <div class="right menu">
     <router-link to="/userRegis"  class="ui item"  v-if="!user.loggedIn" style="color:#FFFFFF">REGISTER</router-link>
     <router-link to="/userlogin" class="ui item" v-if="!user.loggedIn" style="color:#FFFFFF">LOGIN</router-link>
-    <p v-if="user.loggedIn" class="ui item"><a @click="logout"  style="color:#FFFFFF">LOGOUT</a></p>
+    <button id="logout" v-if="user.loggedIn" @click="logout">LOGOUT</button>
+    <!-- <p v-if="user.loggedIn" class="ui item"><a @click="logout"  style="color:#FFFFFF;">LOGOUT</a></p> -->
+    <img src="../assets/cart_icon.svg" class="cart" v-if="user.loggedIn" @click="myCart" >
+    <img src="../assets/user_icon.svg" id="Myaccount" v-if="user.loggedIn" @click="myaccount">
   </div>
-  <img src="../assets/mycart.png" id="cart" v-if="user.loggedIn" @click="myCart" >
-  <img src="../assets/user.png" id="Myaccount" v-if="user.loggedIn" @click="myaccount">
+  
 </div>
 </template>
 
@@ -43,22 +48,20 @@ export default {
 </script>
 
 <style scoped>
-#logo{
+/* #logo{
+  text-align: c;
+}  */
+.cart{
   position: relative;
-  left: 400px;
-  top: 20px;
-} 
-#cart{
-  position: relative;
-  left: -120px;
-  top: 90px;
+  left: -180px;
+  top: 25px;
   width: 40px;
   height: 40px;
 }
 #Myaccount{
   position: relative;
-  left: -100px;
-  top: 90px;
+  left: -160px;
+  top: 25px;
   width: 40px;
   height: 40px;
 }
@@ -78,5 +81,18 @@ export default {
     text-align: center;
     font-weight: 900;
     /* font: 32px Arial, sans-serif; */
-}  
+}
+#logout{
+  background-color: white;
+  border-color: white;
+  color : #0F4C81;
+  font-weight: 600;
+  border : 1px solid black;
+  height: 30px;
+  border-radius: 10px;
+  position: relative;
+  left: 0px;
+  top: 30px;
+  font-size: 10px;
+}
 </style>

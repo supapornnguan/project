@@ -1,7 +1,7 @@
 <template>
     <div>
         <navbar/>
-        <h1 id="wordOne">ONE LAST STEP!</h1>
+     
         <h3 id="wordTwo">PAYMENT INFORMATION</h3>
         <p id="infoBank">The Siam Commericial Bank Public Company Limited (SCB) <br> Account Name : SHOPAHOLIC Co.,LTD <br>Acount Number: 111 111111 1</p>
         <div style="margin-top:60px; margin-left:500px">
@@ -93,6 +93,7 @@ export default {
                 userid : auth.currentUser.uid
             }
             await firebase.ref("slip/").push(newSlip)
+            this.$router.replace('/')
 
         }
     },

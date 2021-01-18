@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-
-    <h1 style="font-weight:600">STORE  PICK-UP</h1>
-
-
-      <sui-grid>
-    <sui-grid-column :width="4">
+    <div style="background-color:#0F4C81; height:80px;">
+      <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Chonburi', cursive;" id="headerbar">STORE PICK-UP</h1>
+    </div>
+  <br>
+  <sui-grid>
+    <sui-grid-column :width="3">
       <sui-menu fluid vertical tabular>
         <a
           v-for="item in items"
@@ -25,41 +25,32 @@
       </sui-segment>
     </sui-grid-column>
   </sui-grid>
-
-  
-
-    <div id="menuAdmin">
-      <br>
-      <div id="divvv">
-        <router-link to="/" id="menu1">DURING SHIPMENT</router-link>
-      </div>
-
-      <div id="divvv">
-        <router-link to="/orderAtStore" id="menu1">ORDER AT STORE</router-link>
-      </div>
-      
-      <div id="divvv">
-        <router-link to="/OrderReturn" id="menu1">ORDER RETURN</router-link>
-      </div>
-      
-      <div id="divvv">
-        <router-link to="/finance" id="menu1">FINANCE</router-link>
-      </div>
-
-    </div>
-    <router-view/>
-
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+  return {
+    items: ['DURING SHIPMENT', 'AT STORE', 'RETURN', 'FINANCE'],
+    active: 'DURING SHIPMENT',
+    };
+  },
+  methods: {
+    isActive(name) {
+      return this.active === name;
+    },
+    select(name) {
+      this.active = name;
+    },
+  },
+}
+</script>
+
 <style scoped>
-h1{
-  text-align: center;
-  background-color: 	#DCDCDC;
-  padding: 20px;
-  margin-top: -9px;
-  margin-left: -9px;
-  margin-right: -9px;
+#headerbar{
+  position: relative;
+  top: 20px;
 }
 #menuAdmin{
   background-color: #D0D0D0;

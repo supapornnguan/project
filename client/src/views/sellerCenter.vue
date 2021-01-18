@@ -2,8 +2,7 @@
 <div>
   <navbar/>
   <br>
-  <!-- <h1 is="sui-header" id="positionCenter">SHOPAHOLIC SELLER CENTER</h1> -->
-  <br>
+
   <sui-grid>
     <sui-grid-column :width="3">
       <sui-menu fluid vertical tabular>
@@ -28,6 +27,10 @@
         <!-- MY ORDERS -->
         <myOrders v-if="active === 'MY ORDERS'">
         </myOrders>
+        <!-- MY SHOP-->
+        <myshop v-if="active === 'MY SHOP'">
+        </myshop>
+
         
       </sui-segment>
     </sui-grid-column>
@@ -40,12 +43,12 @@ import dashBoard from "../components/dashBoard"
 import addProduct from "../components/addProduct"
 import myOrders from "../components/myOrders"
 import navbar from "../components/navbarSeller"
-import firebase from "../firebase"
+import myshop from "../components/myshop"
 import store from "../store"
 export default {
   data() {
     return {
-      items: ['DASH BOARD', 'ADD PRODUCT', 'MY ORDERS', 'MY PERSONAL', 'MY SHOP', 'FINANCE'],
+      items: ['DASH BOARD', 'ADD PRODUCT', 'MY ORDERS', 'MY SHOP', 'FINANCE'],
       active: 'DASH BOARD',
       infoOrder : {},
       keyOrder : [],
@@ -83,34 +86,8 @@ export default {
       dashBoard,
       addProduct,
       myOrders,
-      navbar
-  },
-   mounted() {
-    firebase.ref('pickup_order/').on('value', snapshot => {
-      this.infoOrder = snapshot.val()
-      this.keyOrder = Object.keys(snapshot.val())
-      console.log(this.keyOrder)
-      for(var i = 0 ; i<this.keyOrder.length ; i++){
-        var k = this.keyOrder[i];
-        var branch_selected = this.infoOrder[k].branch_selected;
-        var date_time_to_order = this.infoOrder[k].date_time_to_order;
-        var product_key = this.infoOrder[k].product_key;
-        var sellerUid = this.infoOrder[k].sellerUid;
-        var status = this.infoOrder[k].status;
-        var total_amount = this.infoOrder[k].total_amount;
-        var userid = this.infoOrder[k].userid;
-        var quantity = this.infoOrder[k].userid;
-
-        this.branch_selected[i] = branch_selected
-        this.date_time_to_order[i] = date_time_to_order
-        this.product_key[i] = product_key
-        this.sellerUid[i] = sellerUid
-        this.status[i] = status
-        this.total_amount[i] = total_amount
-        this.userid[i] = userid
-        this.quantity[i] = quantity
-      }
-    })
+      navbar,
+      myshop
   },
 };
 </script>

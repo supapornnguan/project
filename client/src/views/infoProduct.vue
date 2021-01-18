@@ -75,7 +75,7 @@ export default {
         return {
              value: 1,
              product_quantity : "",
-             quantity : '0',
+             quantity : '1',
              product_name : "",
              sellerUid : "",
              seller_name_shop : "",

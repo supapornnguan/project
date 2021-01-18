@@ -18,8 +18,6 @@
         </sui-card-content>
       </sui-card>
     </sui-card-group>
-    
-
     </div>
   </div>
 </template>
@@ -52,13 +50,12 @@ export default {
         this.$router.replace('/infoProduct')
       },
       addToCart(key){
-        store.commit('SET_PRODUCT_ID', key)
         let newCart = {
           useruid : auth.currentUser.uid,
           keysProduct : key
         }
         firebase.ref("cart/").push(newCart)
-        alert("ADD PRODUCT TO CARD")
+        alert("ADD PRODUCT TO CART")
       }
     },
   components:{
@@ -93,7 +90,6 @@ export default {
         console.log(this.product_image[i] = product_image)
       }
     })
-    
   },
 };
 </script>

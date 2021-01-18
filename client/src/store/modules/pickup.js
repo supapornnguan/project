@@ -12,7 +12,11 @@ const pickup ={
         type : {
             type1 : "",
             total_amount : ""
-        }
+        },
+        mycart : {
+            keyProduct : "",
+            useruid : ""
+        }    
     },
     getters : {
         getProductId(state) {
@@ -26,7 +30,10 @@ const pickup ={
         },
         getBranch(state){
             return state.branch
-        }
+        },
+        // getMycart(state){
+        //     return state.mycart
+        // }
     },
     mutations : {
         SET_PRODUCT_ID (state,data){
@@ -45,7 +52,11 @@ const pickup ={
         },
         SET_BRANCH (state,payload){
             state.branch = payload.picked
-        }
+        },
+        // SET_MY_CART (state, payload) {
+        //     state.mycart.keyProduct = payload.keyProduct
+        //     state.mycart.useruid = payload.useruid
+        // }
     }
 }
 export default pickup

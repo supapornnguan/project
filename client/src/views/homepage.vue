@@ -5,7 +5,7 @@
       <div class="ui container three column grid medium" style="margin-top:10px">
     <div class="column" >
          <img class="ui rounded image centered" src="../assets/pet.jpeg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('PET')">PET</button>
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('PET')">PET'S ACCESSORIES</button>
      </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/mancloth.jpg" width="250px" height="400px">

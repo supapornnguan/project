@@ -2,17 +2,17 @@
   <div class="regisUser">
     
     <sui-form id="border1">
-      <h1 id="H1">SIGN IN</h1>
+      <h1 id="H1">REGISTER</h1>
         <sui-form-field required>
           <label id="labelRegisUser">EMAIL</label>
           <input 
             placeholder="EMAIL" 
             type="text" 
-            v-model="Users.customer_emial"
+            v-model="Users.customer_email"
           />
         </sui-form-field>
         <!-- check email if invalid email will show error -->
-        <sui-message error visible v-if="Users.customer_emial==''" id="message" >
+        <sui-message error visible v-if="Users.customer_email==''" id="message" >
           <p style="font-weight:600; text-align:center">the email address is required</p>
         </sui-message>
 
@@ -118,7 +118,7 @@ export default {
       useruid : "",
       Users : [
         {
-          customer_emial : "",
+          customer_email : "",
           customer_password : "",
           repeatPassword: "",
           customer_firstname : "",
@@ -148,7 +148,7 @@ export default {
           customer_zipcode : this.address.customer_zipcode
         }]
         let newUser = {
-          customer_emial : this.Users.customer_emial,
+          customer_email : this.Users.customer_email,
           customer_password : this.Users.customer_password,
           customer_firstname : this.Users.customer_firstname,
           customer_lastname : this.Users.customer_lastname,
@@ -159,7 +159,7 @@ export default {
         
 
 //athenticate
-     await auth.createUserWithEmailAndPassword(newUser.customer_emial, newUser.customer_password)
+     await auth.createUserWithEmailAndPassword(newUser.customer_email, newUser.customer_password)
           .then(
             user => {
               console.log("regis userrrr")

@@ -3,7 +3,7 @@
   <navbar/>
 
   <sui-grid style="margin-top:70px">
-    <sui-grid-column :width="4">
+    <sui-grid-column :width="3">
       <sui-menu fluid vertical tabular>
       <!-- <img class="imageIconAccount" src="../assets/user.png" width="50px" height="50px">
       <img class="imageIconAccount" src="../assets/purchase-order.png" width="50px" height="50px">
@@ -16,6 +16,7 @@
           :content="item"
           :active="isActive(item)"
           @click="select(item)"
+          style="text-align:center"
         />
       </sui-menu>
     </sui-grid-column>
@@ -24,15 +25,9 @@
         <!--MY ACCOUNT -->
         <AccountCustomer v-if="active === 'MY ACCOUNT'">
         </AccountCustomer>
-        <!-- MY PURCHASES -->
-        <myPurchaseCustomer v-if="active === 'MY PURCHASES'">
-        </myPurchaseCustomer>
-        <!-- NOTIFICATIONS -->
-        <Notification v-if="active === 'NOTIFICATIONS'">
-        </Notification>
         <!-- MY ORDER -->
         <myOrderCustomer v-if="active === 'MY ORDER'">
-        </myOrderCustomer>
+        </myOrderCustomer> 
       </sui-segment>
     </sui-grid-column>
   </sui-grid>
@@ -54,23 +49,19 @@
 
 <script>
 import AccountCustomer from "../components/AccountCustomer"
-import myPurchaseCustomer from "../components/myPurchaseCustomer"
-import Notification from "../components/Notification"
 import myOrderCustomer from "../components/myOrderCustomer"
 import navbar from "../components/navbar"
-import firebase from "../firebase"
-import {auth} from "../firebase"
+// import firebase from "../firebase"
+// import {auth} from "../firebase"
 export default {
   data() {
     return {
-      items: ['MY ACCOUNT', 'MY PURCHASES', 'NOTIFICATIONS', 'MY ORDER'],
+      items: ['MY ACCOUNT', 'MY ORDER'],
       active: 'MY ACCOUNT',
     };
   },
   components:{
       AccountCustomer,
-      myPurchaseCustomer,
-      Notification,
       myOrderCustomer,
       navbar
   },
@@ -81,6 +72,7 @@ export default {
     },
     select(name) {
       this.active = name;
+
     },
   },
   mounted() {

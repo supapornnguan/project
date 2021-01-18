@@ -10,30 +10,37 @@
       @click="select(item)"
     />
     </sui-menu>
-    <sui-segment>
+
         <!--Pick-up -->
         <pickupAllCustomer v-if="active === 'Pick-up'">
         </pickupAllCustomer>
         <!-- Shipping -->
         <shippingAllCustomer v-if="active === 'Shipping'">
         </shippingAllCustomer>
-      </sui-segment>
+        <!-- all -->
+        <allOrderCustomer v-if="active === 'All'"/>
+
+
   </div>
 </template>
 
 <script>
 import pickupAllCustomer from "../components/pickupAllCustomer"
 import shippingAllCustomer from "../components/shippingAllCustomer"
+import allOrderCustomer from "../components/allOrderCustomer"
+// import myOrderPickupCus from "../components/myOrderPickupCus"
 export default {
   data () {
     return {
-      items: ['Pick-up', 'Shipping'],
-      active: 'Pick-up',
+      items: ['All','Pick-up', 'Shipping'],
+      active: 'All',
     }
   },
   components:{
       pickupAllCustomer,
       shippingAllCustomer,
+      allOrderCustomer,
+      // myOrderPickupCus
   },
   methods: {
     isActive(name) {

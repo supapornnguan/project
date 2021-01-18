@@ -26,7 +26,7 @@
         <p style="font-weight:600; margin-left:150px">Address :</p>
         <p style="margin-left:150px">{{address}}</p>
         <p style="font-weight:600; margin-left:150px">Hours :</p>
-        <p style="margin-left:150px">{{hours}}</p>
+        <p style="margin-left:150px" v-for="item in hours" :key="item.message">{{item}}</p>
         <br>
         <br>
         <p style="text-align:center">Receive the product 3 days later from the date of purchase.Please pick up the product by April 18, 2020.</p>
@@ -66,7 +66,7 @@ export default {
         firebase.ref('Store/' + this.branch).on('value', snapshot => {
             this.name_store_pickup = snapshot.val().name_store_pickup
             this.address = snapshot.val().address
-            this.hours = snapshot.val().pick_up_hours
+            this.hours = snapshot.val().pick_up_hours.split(',')
             console.log(snapshot.val())
         })
     },

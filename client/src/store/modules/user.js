@@ -4,7 +4,7 @@ const user = {
             loggedIn : false,
             data : "",
             infoCustomer : {
-                customer_emial : "",
+                customer_email : "",
                 customer_password : "",
                 customer_firstname : "",
                 customer_lastname : "",
@@ -32,7 +32,7 @@ const user = {
             state.users.data = data
         },
         SET_INFO_CUSTOMER( state , payload) {
-            state.infoCustomer.customer_emial = payload.customer_emial
+            state.infoCustomer.customer_email = payload.customer_email
             state.infoCustomer.customer_password = payload.customer_password
             state.infoCustomer.customer_firstname = payload.customer_firstname
             state.infoCustomer.customer_lastname = payload.customer_lastname
