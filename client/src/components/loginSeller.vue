@@ -25,8 +25,8 @@ import {auth} from  "../firebase";
 export default {
     data() {
         return {
-            seller_email :'',
-            seller_password :''
+            seller_email :'test100@seller.com',
+            seller_password :'testtest123'
         }
     },
     methods: { 
