@@ -22,17 +22,6 @@
       />
     </sui-form-field>
     <p>{{products.product_category}}</p>
-    <!-- Type -->
-    <sui-form-field v-if="products.product_category != null" required>
-      <label id="positionLeft">Type</label>
-      <sui-dropdown
-        placeholder="type"
-        selection
-        :options="Type"
-        v-model="products.product_type"
-      />
-    </sui-form-field>
-    <p>{{products.product_type}}</p>
     <!-- Price(THB) -->
     <sui-form-field required>
       <label id="positionLeft">Price(THB)</label>
@@ -44,36 +33,16 @@
       <input type="number" placeholder="Number of Product" v-model="products.product_quantity"/>
     </sui-form-field>
     <!-- Size -->
-    <sui-form-field required>
+    <sui-form-field>
       <label id="positionLeft">Size</label>
       <input type="text" placeholder="Size" v-model="products.product_size" />
     </sui-form-field>
-    
-    <!-- <sui-form-field>
-      <label id="positionLeft">Size</label>
-      <b-form-tags
-          input-id="tags-separators"
-          v-model="products.product_size"
-          separator=" "
-          placeholder="Type a size and press enter or space"
-        ></b-form-tags>
-    </sui-form-field> -->
 
     <!-- Color -->
-    <sui-form-field required>
+    <sui-form-field>
       <label id="positionLeft">Color</label>
       <input type="text" placeholder="Color" v-model="products.product_color" />
     </sui-form-field>
-
-    <!-- <sui-form-field>
-      <label id="positionLeft">Color</label>
-      <b-form-tags
-          input-id="tags-separators"
-          v-model="products.product_color"
-          separator=" "
-          placeholder="Type a color and press enter or space"
-        ></b-form-tags>
-    </sui-form-field> -->
 
     <!-- Product Picture -->
     <sui-form-field required>
@@ -149,23 +118,54 @@ export default {
 
       Category: [
         {
-          text: 'Camera',
-          value: 'Camera',
+          text: "PET'S ACCESSORIES",
+          value: "PET'S ACCESSORIES",
         },
         {
-          text: 'Bag',
-          value: 'Bag',
-        },
-      ],
-      Type: [
-        {
-          text: 'Digital',
-          value: 'Digital',
+          text: "MEN'S FASHION",
+          value: "MEN'S FASHION",
         },
         {
-          text: 'Polaroid',
-          value: 'Polaroid',
+          text: "WOMEN'S FASHION",
+          value: "WOMEN'S FASHION",
         },
+        {
+          text: "KID",
+          value: "KID",
+        },
+        {
+          text: "ACCESSORIES",
+          value: "ACCESSORIES",
+        },
+        {
+          text: "SPORT",
+          value: "SPORT",
+        },
+        {
+          text: "HOME & LIFESTYLE",
+          value: "HOME & LIFESTYLE",
+        },
+        {
+          text: "CAMERA",
+          value: "CAMERA",
+        },
+        {
+          text: "COMPUTERS",
+          value: "COMPUTERS",
+        },
+        {
+          text: "HEALTH & BEAUTY",
+          value: "HEALTH & BEAUTY",
+        },
+        {
+          text: "ELECTRONIC",
+          value: "ELECTRONIC",
+        },
+        {
+          text: "MOBILE & TABLET",
+          value: "MOBILE & TABLET",
+        },
+
       ],
       image:"",
       uidcurrentSeller : ""

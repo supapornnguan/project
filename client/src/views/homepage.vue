@@ -34,7 +34,7 @@
 <div class="ui container three column grid medium" style="margin-top:30px">
     <div class="column">
          <img class="ui rounded image centered" src="../assets/kitchen1.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('KITCHEN')">HOME & LIFESTYLE</button>
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('HOME & LIFESTYLE')">HOME & LIFESTYLE</button>
      </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/camera1.jpg" width="250px" height="400px">
@@ -42,13 +42,13 @@
     </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/computer.jpeg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('BAG')">COMPUTERS</button>
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('COMPUTERS')">COMPUTERS</button>
     </div>
 </div>
 <div class="ui container three column grid medium" style="margin-top:30px">
     <div class="column">
          <img class="ui rounded image centered" src="../assets/beauty1.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('BEAUTY')">HEALTH & BEAUTY</button>
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('HEALTH & BEAUTY')">HEALTH & BEAUTY</button>
      </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/electronic.jpg" width="250px" height="400px">
@@ -56,7 +56,7 @@
     </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/mobile.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('SHOES')">MOBILE & TABLET</button>
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('MOBILE & TABLET')">MOBILE & TABLET</button>
     </div>
 </div>
   </div>
