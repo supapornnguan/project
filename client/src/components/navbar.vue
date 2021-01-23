@@ -32,7 +32,7 @@ export default {
     logout(){
       auth.signOut()
           .then(()=>{
-            this.$router.replace('/')
+            this.$router.replace('/').catch(()=>{});
           })
     },
     myCart(){

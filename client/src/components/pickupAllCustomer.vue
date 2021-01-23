@@ -12,19 +12,15 @@
         <sui-table-header-cell style="text-align:center">Total Price</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Quantity</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Store</sui-table-header-cell>
-        <sui-table-header-cell style="text-align:center"></sui-table-header-cell>
       </sui-table-row>
     </sui-table-header>
-    <sui-table-body >
+    <sui-table-body>
       <sui-table-row v-for="(key,index) in keyOrder" :key="index">
-        <sui-table-cell style="text-align:center"></sui-table-cell>
-        <sui-table-cell style="text-align:center"></sui-table-cell>
-        <sui-table-cell style="text-align:center"></sui-table-cell>
-        <sui-table-cell style="text-align:center"></sui-table-cell>
-        <sui-table-cell style="text-align:center"></sui-table-cell>
-        <sui-table-cell>
-          <sui-button>Confirm</sui-button>
-        </sui-table-cell>
+        <sui-table-cell style="text-align:center"><a href="#">{{key}}</a></sui-table-cell>
+        <sui-table-cell style="text-align:center">{{date_time_to_order[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{quantity[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>

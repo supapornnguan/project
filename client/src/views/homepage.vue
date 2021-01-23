@@ -9,11 +9,11 @@
      </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/mancloth.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('MEN')">MEN'S CLOTHING</button>
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('MEN')">MEN'S FASHION</button>
     </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/womencloth.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('WOMEN')">WOMEN'S CLOTHING</button>
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('WOMEN')">WOMEN'S FASHION</button>
     </div>
 </div>
 <div class="ui container three column grid medium" style="margin-top:30px">
@@ -22,8 +22,8 @@
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('KID')">KID</button>
      </div>
     <div class="column">
-         <img class="ui rounded image centered" src="../assets/watches.jpeg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('WATCHES')">WATCHES</button>
+         <img class="ui rounded image centered" src="../assets/accessories.jpg" width="250px" height="400px">
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('ACCESSORIES')">ACCESSORIES</button>
     </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/sport.jpg" width="250px" height="400px">
@@ -34,29 +34,29 @@
 <div class="ui container three column grid medium" style="margin-top:30px">
     <div class="column">
          <img class="ui rounded image centered" src="../assets/kitchen1.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('KITCHEN')">KITCHEN</button>
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('KITCHEN')">HOME & LIFESTYLE</button>
      </div>
     <div class="column">
          <img class="ui rounded image centered" src="../assets/camera1.jpg" width="250px" height="400px">
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('CAMERA')">CAMERA</button>
     </div>
     <div class="column">
-         <img class="ui rounded image centered" src="../assets/bag.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('BAG')">BAG</button>
+         <img class="ui rounded image centered" src="../assets/computer.jpeg" width="250px" height="400px">
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('BAG')">COMPUTERS</button>
     </div>
 </div>
 <div class="ui container three column grid medium" style="margin-top:30px">
     <div class="column">
-         <img class="ui rounded image centered" src="../assets/beauty.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('BEAUTY')">BEAUTY</button>
+         <img class="ui rounded image centered" src="../assets/beauty1.jpg" width="250px" height="400px">
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('BEAUTY')">HEALTH & BEAUTY</button>
      </div>
     <div class="column">
-         <img class="ui rounded image centered" src="../assets/electronic.jpeg" width="250px" height="400px">
+         <img class="ui rounded image centered" src="../assets/electronic.jpg" width="250px" height="400px">
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('ELECTRONIC')">ELECTRONIC</button>
     </div>
     <div class="column">
-         <img class="ui rounded image centered" src="../assets/shoes.jpg" width="250px" height="400px">
-         <button class="ui secondary basic button" id="but" @click="gotoProductAll('SHOES')">SHOES</button>
+         <img class="ui rounded image centered" src="../assets/mobile.jpg" width="250px" height="400px">
+         <button class="ui secondary basic button" id="but" @click="gotoProductAll('SHOES')">MOBILE & TABLET</button>
     </div>
 </div>
   </div>
