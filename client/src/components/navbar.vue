@@ -3,7 +3,7 @@
     <router-link to="/" class="ui item" style="color:#FFFFFF">HOME</router-link>
     <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF">SELLER CENTER</router-link>
     
-       <h1 id="logo" style="color:#FFFFFF; font-family: 'Chonburi', cursive; font-size:50px; margin-left:310px; margin-top:15px">SHOPAHOLIC</h1>
+       <h1 id="logo" style="color:#FFFFFF; font-family: 'Michroma', cursive; font-size:40px; margin-left:310px; margin-top:15px">SHOPAHOLIC</h1>
 
    
     <div class="right menu">
