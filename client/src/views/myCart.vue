@@ -26,7 +26,8 @@
                 </sui-table-row>
             </sui-table-body>
         </sui-table>
-        <p>{{info}}</p>
+        <p>{{getInfocart}}</p>
+        <emptyCart/>
 
 
     </div>
@@ -36,6 +37,8 @@
 import navbar from "../components/navbar"
 import firebase from "../firebase"
 import {auth} from "../firebase"
+import emptyCart from "../components/emptyCart"
+import {mapGetters} from "vuex"
 export default {
     data() {
         return {
@@ -53,7 +56,13 @@ export default {
         }
     },
     components : {
-        navbar
+        navbar,
+        emptyCart
+    },
+    computed : {
+        ...mapGetters({
+            getInfocart : "getInfocart"
+        })
     },
     methods: {
       
@@ -62,6 +71,7 @@ export default {
         firebase.ref('cart').orderByChild('useruid').equalTo(auth.currentUser.uid).on('value', (snapshot) => {
             console.log(snapshot.val())
             this.product = snapshot.val()
+            console.log("created!!!!!!")
             console.log("mdskls"+this.product)
             this.keyCart = Object.keys(snapshot.val())
             console.log(this.keyCart)
@@ -82,6 +92,7 @@ export default {
         })
     },
     mounted() {
+        console.log("mounted!!!!")
          for(var j = 0; j<this.Keyunique.length ; j++){
             console.log("hahahahha55555")
             console.log(this.Keyunique[j])

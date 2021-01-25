@@ -30,15 +30,17 @@
         <h1 style="margin-bottom:40px; margin-top:40px">MY PRODUCT</h1>
 
         <sui-card-group :items-per-row="3" >
-            <sui-card v-for="(key,index) in keysProduct" :key="index">
-                <sui-card-content>
-                    <img :src="product_image[index]" id="img1">
+            <sui-card v-for="(key,index) in keysProduct" :key="index" style="height:440px">
+                <sui-card-content >
+                    <img :src="product_image[index]" id="img1" :width="280" :height="230">
                     <p style="position:absolute; top:270px">{{product_name[index]}}</p>
-                    <p style="position:absolute; top:300px">{{product_unit_price[index]}}  THB</p>
-                <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:330px; left:10px"/>
+                    <p style="position:absolute; top:315px">{{product_unit_price[index]}}  THB</p>
+                <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:350px; left:10px" />
+                <button class= "buttonEdit" style="position:absolute; top:390px; ">EDIT</button>
                 </sui-card-content>
             </sui-card>
         </sui-card-group>
+       
     </div>
 </template>
 
@@ -54,6 +56,7 @@ export default {
             seller_name_shop: "",
             seller_password: "",
             seller_phonenumber: "",
+            value: 1,
 
             products : {},
             keysProduct : [],
@@ -108,5 +111,15 @@ export default {
 #img1{
   border: none;
   width: 250px;
+}
+.buttonEdit{
+    background-color: white;
+    border-radius: 10px;
+    border: solid black 1px;
+    width: 170px;
+    padding: 5px;
+    position: absolute;
+    top: 350px;
+    left: 70px;
 }
 </style>
