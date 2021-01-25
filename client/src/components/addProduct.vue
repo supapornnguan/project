@@ -81,6 +81,8 @@
   </sui-form>
   <button @click="click2" id="chooseImage">Choose Product Image1</button>
   <button @click="create2" id="upload">upload</button>
+  <p>{{image.name}}</p>
+  <b-progress :value="uploadvalue" variant="primary" max="100" style="width:300px"></b-progress>
   <br>
 
   <!-- <button @click="click2">Choose Product Image2</button>
@@ -112,22 +114,21 @@ export default {
       product_quantity : '',
       sellerUid : '',
       product_category : '',
-      product_type : '',
       product_image : ""
       }],
 
       Category: [
         {
           text: "PET'S ACCESSORIES",
-          value: "PET'S ACCESSORIES",
+          value: "PET",
         },
         {
           text: "MEN'S FASHION",
-          value: "MEN'S FASHION",
+          value: "MEN",
         },
         {
           text: "WOMEN'S FASHION",
-          value: "WOMEN'S FASHION",
+          value: "WOMEN",
         },
         {
           text: "KID",
@@ -168,7 +169,8 @@ export default {
 
       ],
       image:"",
-      uidcurrentSeller : ""
+      uidcurrentSeller : "",
+      uploadvalue : 0
     };
   },
   methods: {
@@ -183,6 +185,7 @@ export default {
     },
     //listen event when product add
     previewImage2( event ){
+      this.uploadvalue = 0
       this.image = event.target.files[0]
       console.log(this.image )
       this.onUpload2()
@@ -193,10 +196,12 @@ export default {
       const storageRef = storage.ref(`/product/camera/${this.image.name}`).put(this.image);
 
       storageRef.on(`state_changed`, snapshot =>{
+        this.uploadvalue = (snapshot.bytesTransferred.snapshot.totalBytes)*100;
         console.log(snapshot)
       },error => {
         console.log(error.message)
       }, () => {
+        this.uploadvalue = 100;
         storageRef.snapshot.ref.getDownloadURL().then((url) => {
           this.products.product_image  = url
           console.log(this.products.product_image)
@@ -213,7 +218,6 @@ export default {
         product_unit_price : this.products.product_unit_price,
         product_quantity : this.products.product_quantity,
         product_category : this.products.product_category,
-        product_type : this.products.product_type,
         product_image : this.products.product_image,
         sellerUid : auth.currentUser.uid
       }
@@ -224,6 +228,10 @@ export default {
       },error => {
         console.log(error.message)
       })
+
+      location.reload();
+
+      
 
     },
   },

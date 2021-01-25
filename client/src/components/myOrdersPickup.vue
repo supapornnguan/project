@@ -12,21 +12,31 @@
         <sui-table-header-cell style="text-align:center">Total Price</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Quantity</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Store</sui-table-header-cell>
-        <sui-table-header-cell style="text-align:center"></sui-table-header-cell>
+        <!-- <sui-table-header-cell style="text-align:center"></sui-table-header-cell> -->
       </sui-table-row>
     </sui-table-header>
-    <sui-table-body >
+    <sui-table-body>
       <sui-table-row v-for="(key,index) in keyOrder" :key="index">
-        <sui-table-cell style="text-align:center"><a href="#">{{key}}</a></sui-table-cell>
-        <sui-table-cell style="text-align:center">{{date_time_to_order[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{quantity[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
-        <sui-table-cell>
-          <sui-button>Confirm</sui-button>
-        </sui-table-cell>
+          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center"><a v-b-modal.modal-scrollable href="#">{{key}}</a></sui-table-cell>
+          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{date_time_to_order[index]}}</sui-table-cell>
+          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
+          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{quantity[index]}}</sui-table-cell>
+          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
+
+    <div>
+      <b-modal id="modal-scrollable" scrollable title="Order Detail" hide-footer>
+        <!-- <p class="my-4" v-for="i in 20" :key="i">
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p> -->
+        <p>{{infoOrder1.branch_selected}}</p>
+        <b-button variant="outline-dark" @click="confirmOrder()">Confirm</b-button>
+        
+      </b-modal>
+    </div>
+
   </sui-table>
   </b-tab>
 
@@ -55,25 +65,7 @@
         <sui-table-cell>
           <sui-checkbox v-model="value" />
         </sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>
-          <sui-checkbox v-model="value" />
-        </sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>
-          <sui-checkbox v-model="value" />
-        </sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
+        <sui-table-cell>jiji</sui-table-cell>
         <sui-table-cell>Cell</sui-table-cell>
         <sui-table-cell>Cell</sui-table-cell>
         <sui-table-cell>Cell</sui-table-cell>
@@ -669,6 +661,8 @@
 <script>
 import firebase from "../firebase"
 import {auth} from "../firebase"
+import store from "../store"
+import {mapGetters} from "vuex"
 export default {
   data() {
     return {
@@ -682,12 +676,34 @@ export default {
       total_amount : [],
       userid : [],
       quantity :[],
-      value:""
+      value:"",
+      open: false
 
     }
   },
+  methods: {
+    confirmOrder(key){
+      console.log(key)
+      store.commit('SET_ORDER_BY_PICKUP',{
+        branch_selected : this.branch_selected,
+        date_time_to_order : this.date_time_to_order,
+        product_key : this.product_key,
+        sellerUid : this.sellerUid,
+        status : "packing",
+        total_amount : this.total_amount,
+        userid : this.userid,
+        quantity : this.quantity
+      })
+    },
+  },
+  computed:{
+    ...mapGetters({
+      infoOrder1 : "getOrderByPickup"
+    })
+
+  },
      mounted() {
-    firebase.ref('pickup_order/').orderByChild('sellerUid').equalTo(auth.currentUser.uid).on('value', snapshot => {
+      firebase.ref('pickup_order/').orderByChild('sellerUid').equalTo(auth.currentUser.uid).on('value', snapshot => {
       this.infoOrder = snapshot.val()
       this.keyOrder = Object.keys(snapshot.val())
       console.log(this.keyOrder)

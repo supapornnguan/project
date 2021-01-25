@@ -13,12 +13,12 @@
     </sui-table-header>
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyPickupOrder" :key="index">
-        <sui-table-cell><a href="#">{{key}}</a></sui-table-cell>
-        <sui-table-cell>{{orderDate_pickup[index]}}</sui-table-cell>
-        <sui-table-cell>{{totalPrice_pickup[index]}}</sui-table-cell>
-        <sui-table-cell>{{numberOfProduct_pickup[index]}}</sui-table-cell>
-        <sui-table-cell>{{type_pickup}}</sui-table-cell>
-        <sui-table-cell>{{status[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center"><a href="#">{{key}}</a></sui-table-cell>
+        <sui-table-cell style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{totalPrice_pickup[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{numberOfProduct_pickup[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{type_pickup}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{status[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>

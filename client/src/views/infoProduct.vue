@@ -5,7 +5,7 @@
         <sui-grid :columns="2">
             <sui-grid-row stretched>
                 <sui-grid-column>
-                        <img :src="product_image" :width="300"/>
+                        <img :src="product_image" :width="300" :height="400"/>
                         <!-- <div id="came1">
                             <img src="../assets/nikonAAAA-2.jpg" :width="90" :height="90" id="imgCamera"/>
                             <img src="../assets/nikonAAAA-3.jpg" :width="90" :height="90" id="imgCamera"/>

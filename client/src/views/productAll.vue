@@ -7,14 +7,13 @@
     <div class="con">
 
     <sui-card-group :items-per-row="3" >
-      <sui-card v-for="(key,index) in keysProduct" :key="index">
+      <sui-card v-for="(key,index) in keysProduct" :key="index" style="height:440px">
         <sui-card-content>
-          <img :src="product_image[index]" id="img1" @click="gotoInfoproduct(key)">
+          <img :src="product_image[index]" id="img1" @click="gotoInfoproduct(key)" :width="280" :height="230">
           <p style="position:absolute; top:270px">{{product_name[index]}}</p>
-          <p style="position:absolute; top:300px">{{product_unit_price[index]}}  THB</p>
-          <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:330px; left:10px"/>
-          <br>
-        <button class= "buttonCart" @click="addToCart(key)">ADD TO CART</button>
+          <p style="position:absolute; top:315px">{{product_unit_price[index]}}  THB</p>
+          <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:350px; left:10px"/>
+        <button class= "buttonCart" @click="addToCart(key,product_image[index],product_name[index],product_unit_price[index])" style="position:absolute; top:390px; ">ADD TO CART</button>
         </sui-card-content>
       </sui-card>
     </sui-card-group>
@@ -27,7 +26,7 @@ import search from "../components/search"
 import navbar from "../components/navbar"
 import firebase from "../firebase"
 import store from "../store"
-import {auth} from "../firebase"
+// import {auth} from "../firebase"
 import {mapGetters} from "vuex"
 export default {
     data() {
@@ -41,7 +40,8 @@ export default {
             product_quantity : [],
             product_unit_price: [],
             useruid : "",
-            numcart : 0
+            numcart : 0,
+           
         }
     },
     methods: {
@@ -49,13 +49,26 @@ export default {
         store.commit('SET_PRODUCT_ID',key)
         this.$router.replace('/infoProduct')
       },
-      addToCart(key){
-        let newCart = {
-          useruid : auth.currentUser.uid,
-          keysProduct : key
-        }
-        firebase.ref("cart/").push(newCart)
-        alert("ADD PRODUCT TO CART")
+      addToCart(key,product_image,product_name,product_unit_price){
+        store.commit('SET_INFO_CART',{
+          product_image : product_image,
+          product_name : product_name,
+          product_unit_price : product_unit_price
+        })
+        console.log(key)
+        console.log(product_name)
+        
+        // let keyProduct1 = [{
+        //   key
+        // }]
+        // let newCart = [{
+        //   useruid : auth.currentUser.uid,
+        //   keysProduct : keyProduct1
+        // }]
+        // console.log(newCart)
+        // let test = firebase.ref("cart/").child('useruid').equalTo(auth.currentUser.uid).update(newCart)
+        // console.log(test)
+        // alert(key)
       }
     },
   components:{
