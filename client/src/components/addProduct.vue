@@ -32,17 +32,6 @@
       <label id="positionLeft">Number of Product</label>
       <input type="number" placeholder="Number of Product" v-model="products.product_quantity"/>
     </sui-form-field>
-    <!-- Size -->
-    <sui-form-field>
-      <label id="positionLeft">Size</label>
-      <input type="text" placeholder="Size" v-model="products.product_size" />
-    </sui-form-field>
-
-    <!-- Color -->
-    <sui-form-field>
-      <label id="positionLeft">Color</label>
-      <input type="text" placeholder="Color" v-model="products.product_color" />
-    </sui-form-field>
 
     <!-- Product Picture -->
     <sui-form-field required>
@@ -213,8 +202,6 @@ export default {
       let newProduct = {
         product_name : this.products.product_name,
         product_detail : this.products.product_detail,
-        product_size : this.products.product_size,
-        product_color : this.products.product_color,
         product_unit_price : this.products.product_unit_price,
         product_quantity : this.products.product_quantity,
         product_category : this.products.product_category,
