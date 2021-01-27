@@ -8,28 +8,36 @@
          
                     <sui-table-header-cell>Product</sui-table-header-cell>
                     <sui-table-header-cell>Description</sui-table-header-cell>
+                    <sui-table-header-cell>Quantity</sui-table-header-cell>
                     <sui-table-header-cell>Unit Price</sui-table-header-cell>
-                    <sui-table-header-cell>products available</sui-table-header-cell>
+                    <sui-table-header-cell></sui-table-header-cell>
             
                 </sui-table-row>
             </sui-table-header>
             
             <sui-table-body>
-                <sui-table-row style="height:100px" v-for="(key,index) in this.info" :key="index">
-                    <sui-table-cell style="width:190px"><img :src="product_image[index]" :width="150" style="margin-left:30px; margin-right:50px"></sui-table-cell>
+                <sui-table-row style="height:100px" v-for="(key,index) in cartItemList" :key="index">
+                    <sui-table-cell style="width:190px"><img :src="cartItemList[index].product_image" :width="150" style="margin-left:30px; margin-right:50px"></sui-table-cell>
                     <sui-table-cell style="width:400px">
-                        <p class="info">{{key.product_name}}</p>
+                        <p class="info" style="font-weight:800">{{cartItemList[index].product_name}}</p>
+                        <p>{{cartItemList[index].product_detail | shortDescription}}</p>
                     </sui-table-cell>
-                    <sui-table-cell><p style="font-size:15px;">{{key.product_unit_price}} .00 THB</p></sui-table-cell>
-                    <sui-table-cell><p style="font-size:15px; margin-left:50px">{{key.product_quantity}}</p></sui-table-cell>
-               
+                    <sui-table-cell>
+                        <input type="number" 
+                                id="inputQTY" 
+                                :value="cartItemList[index].quantity"
+                                @input="updateQuantity(index)"
+                                min="0" >
+                    </sui-table-cell>
+                    <sui-table-cell><p style="font-size:15px;">{{cartItemList[index].product_unit_price}} .00 THB</p></sui-table-cell>
+                    <sui-table-cell><img src="../assets/delete.png" 
+                                        :width="30" 
+                                        @click="removeItem(
+                                            cartItemList[index].product_name,
+                                        )"></sui-table-cell>
                 </sui-table-row>
             </sui-table-body>
         </sui-table>
-        <p>{{getInfocart}}</p>
-        <emptyCart/>
-
-
     </div>
 </template>
 
@@ -37,8 +45,8 @@
 import navbar from "../components/navbar"
 import firebase from "../firebase"
 import {auth} from "../firebase"
-import emptyCart from "../components/emptyCart"
-import {mapGetters} from "vuex"
+// import emptyCart from "../components/emptyCart"
+import { mapGetters , mapActions} from "vuex";
 export default {
     data() {
         return {
@@ -46,7 +54,7 @@ export default {
             product_quantity : [],
             product : "",
             keyCart : [],
-            keyProduct : [],
+            keysProduct : [],
             Keyunique : [],
             infoProduct : {},
             info:[],
@@ -57,34 +65,67 @@ export default {
     },
     components : {
         navbar,
-        emptyCart
+        // emptyCart
     },
     computed : {
-        ...mapGetters({
-            getInfocart : "getInfocart"
-        })
+        ...mapGetters([
+            'cartItemList'
+        ])
     },
     methods: {
-      
+        addQuantity(addQuantity){
+            console.log(addQuantity)
+            if(addQuantity < this.product_quantity)
+            return addQuantity = addQuantity + 1
+            console.log("add")
+        },
+        miniQuantity(){
+            if(this.quantity!=0)
+            return this.cartItemList.quantity--
+        },
+        ...mapActions(['updateCart','removeItemInCart']),
+		removeItem() {
+			console.log("click remove item")
+        },
+		updateQuantity(event,index) {
+			this.updateCart({
+				keysProduct : this.cartItemList[index].keysProduct,
+                product_name : this.cartItemList[index].product_name,
+                product_image : this.cartItemList[index].product_image,
+                product_unit_price : this.cartItemList[index].product_unit_price,
+                product_detail : this.cartItemList[index].product_detail,
+				quantity: parseInt(event.target.value),
+				isAdd: false
+			});
+		}
     },
+    filters : {
+    shortDescription(value) {
+      if(value && value.length > 100){
+        return value.substring(0, 100) + '...';
+      }
+      else{
+        return value;
+      }
+    }
+  },
      created() {
         firebase.ref('cart').orderByChild('useruid').equalTo(auth.currentUser.uid).on('value', (snapshot) => {
             console.log(snapshot.val())
             this.product = snapshot.val()
             console.log("created!!!!!!")
-            console.log("mdskls"+this.product)
             this.keyCart = Object.keys(snapshot.val())
             console.log(this.keyCart)
 
             for(var i=0 ;i<this.keyCart.length ; i++){
                 var k = this.keyCart[i];
-                var keyProduct = snapshot.val()[k].keysProduct
-                this.keyProduct[i] = keyProduct
-                console.log("this is key product"+this.keyProduct[i])
+                var keysProduct = snapshot.val()[k].keysProduct
+                this.keysProduct[i] = keysProduct
+                console.log("this is key product"+this.keysProduct[i])
 
             }
             
-            let uniqueArray = this.keyProduct.filter((item, index, array) => {
+            let uniqueArray = this.keysProduct.filter((item, index, array) => {
                 return array.indexOf(item) === index
             })
             this.Keyunique = uniqueArray
