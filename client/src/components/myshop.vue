@@ -30,13 +30,14 @@
         <h1 style="margin-bottom:40px; margin-top:40px">MY PRODUCT</h1>
 
         <sui-card-group :items-per-row="3" >
-            <sui-card v-for="(key,index) in keysProduct" :key="index" style="height:440px">
+            <sui-card v-for="(key,index) in keysProduct" :key="index" style="height:490px">
                 <sui-card-content >
                     <img :src="product_image[index]" id="img1" :width="280" :height="230">
                     <p style="position:absolute; top:270px">{{product_name[index]}}</p>
-                    <p style="position:absolute; top:315px">{{product_unit_price[index]}}  THB</p>
-                <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:350px; left:10px" />
-                <button class= "buttonEdit" style="position:absolute; top:390px; ">EDIT</button>
+                    <p style="position:absolute; top:315px">{{product_detail[index] | shortDescription}}</p>
+                    <p style="position:absolute; top:380px">{{product_unit_price[index]}}  THB</p>
+                <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:410px; left:10px" />
+                <button class= "buttonEdit" style="position:absolute; top:440px; ">EDIT</button>
                 </sui-card-content>
             </sui-card>
         </sui-card-group>
@@ -63,9 +64,20 @@ export default {
             product_name : [],
             product_image : [],
             product_quantity : [],
-            product_unit_price: []
+            product_unit_price: [],
+            product_detail : []
         }
     },
+    filters : {
+    shortDescription(value) {
+      if(value && value.length > 100){
+        return value.substring(0, 100) + '...';
+      }
+      else{
+        return value;
+      }
+    }
+  },
 
     mounted() {
         firebase.ref("seller/" + auth.currentUser.uid).on('value', snapshot => {
@@ -96,11 +108,13 @@ export default {
                 var product_quantity = this.products[k].product_quantity
                 var product_image = this.products[k].product_image
                 var product_unit_price = this.products[k].product_unit_price
+                var product_detail = this.products[k].product_detail
 
                 this.product_name[i] = product_name
                 this.product_quantity[i] = product_quantity
                 this.product_image[i] = product_image
                 this.product_unit_price[i] = product_unit_price
+                this.product_detail[i] = product_detail
             }
         })
     },

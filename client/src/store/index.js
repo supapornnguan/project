@@ -7,9 +7,13 @@ import shipping from "./modules/shipping"
 import orderPickup from "./modules/order_pickup(seller)"
 import typeProduct from "./modules/typeProduct"
 import orderPickupUser from "./modules/order_pickup(user)"
+import cart from "./modules/cart"
+import * as actions from './actions';
+import message from './modules/message';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  actions,
   modules: {
     user,
     seller,
@@ -17,6 +21,8 @@ export default new Vuex.Store({
     shipping,
     orderPickup,
     typeProduct,
-    orderPickupUser
+    orderPickupUser,
+    cart,
+    message
   }
 })
