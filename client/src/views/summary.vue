@@ -42,6 +42,7 @@
             </div>
         </div>
         <sui-button basic secondary style="margin-top:70px; margin-left:690px" @click="gotoreceiving">Place Order</sui-button>
+        <p>{{infoSummary}}</p>
     </div>
 </template>
 
