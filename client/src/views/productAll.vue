@@ -55,17 +55,18 @@ export default {
             product_unit_price: [],
             product_detail : [],
             useruid : "",
-            numcart : 0,
            
         }
     },
     methods: {
+      //go to infomation of product when click on image
       gotoInfoproduct(key){
         store.commit('SET_PRODUCT_ID',key)
         this.$router.replace('/infoProduct')
       },
 
       ...mapActions(['updateCart']),
+      //add product to the cart when click ADD TO CART button
       addItem(index) {
       const order = {
         keysProduct : this.keysProduct[index],
@@ -76,8 +77,8 @@ export default {
         quantity: 1,
         isAdd: true
       };
+      console.log(order.quantity)
       this.updateCart(order);
-      console.log(order);
     }
       
       // ...mapActions(["addItemToCart", "getProducts"]),
@@ -107,11 +108,13 @@ export default {
       search,
       navbar
   },
+  //getting type of product
   computed: {
     ...mapGetters({
       getProductType : "getProductType",
     }),
   },
+  //Filtering description of product
   filters : {
     shortDescription(value) {
       if(value && value.length > 100){
@@ -124,6 +127,7 @@ export default {
   },
   mounted() {
     // this.getProducts();
+    //geting all product from database
     firebase.ref('product/').orderByChild('product_category').equalTo(this.getProductType).on('value', (snapshot) => {
       this.products = snapshot.val()
       this.keysProduct = Object.keys(snapshot.val())

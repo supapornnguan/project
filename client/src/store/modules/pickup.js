@@ -2,13 +2,22 @@ const pickup ={
     state : {
         productKey : "",
         branch : "",
-        summary : {
-            quantity : "",
-            product_name : "",
-            product_unit_price : "",
-            product_image : "",
-            sellerUid : ""
-        },
+        // summary : {
+        //     quantity : "",
+        //     product_name : "",
+        //     product_unit_price : "",
+        //     product_image : "",
+        //     sellerUid : ""
+        // },
+        summary : [
+            {
+                quantity : "",
+                product_name : "",
+                product_unit_price : "",
+                product_image : "",
+                sellerUid : ""
+            }
+        ],
         type : {
             type1 : "",
             total_amount : ""
@@ -46,6 +55,7 @@ const pickup ={
             state.summary.product_image = payload.product_image
             state.summary.sellerUid = payload.sellerUid
         },
+       
         SET_RECEIVING_TYPE (state, payload) {
             state.type.type1 = payload.type1
             state.type.total_amount = payload.total_amount

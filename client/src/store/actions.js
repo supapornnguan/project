@@ -21,10 +21,18 @@ export const updateCart = ({commit},{
     }
 }
 
+export const addQuantityStore = ({commit},{keysProduct}) => {
+    commit('ADD_QUANTITY', {keysProduct});
+}
+
+export const miniQuantityStore = ({commit},{keysProduct}) =>{
+    commit('MINI_QUANTITY',{keysProduct});
+}
+
 export const removeItemInCart = ({commit}, {
-                                            product_name,
+    keysProduct,
                                             }) => {
 	commit('REMOVE_CART_ITEM', {
-                                product_name,
+        keysProduct,
                                 });
 }

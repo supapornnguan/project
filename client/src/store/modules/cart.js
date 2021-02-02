@@ -7,8 +7,9 @@ const mutations = {
                             product_image,
                             product_unit_price,
                             product_detail,
-                            quantity, isAdd}) {
-		const record = state.cartItemList.find(element => element.product_name == product_name);
+							quantity, 
+							isAdd}) {
+		const record = state.cartItemList.find(element => element.keysProduct === keysProduct);
 		if (record) {
 			if (isAdd) {
 				record.quantity += quantity;
@@ -25,16 +26,29 @@ const mutations = {
 				quantity
 			});
 		}
-    },	
+	},	
+	'ADD_QUANTITY' (state,{keysProduct}){
+		const record = state.cartItemList.find(element => element.keysProduct === keysProduct);
+		if(record){
+			record.quantity++
+		}
+	},
+	'MINI_QUANTITY' (state,{keysProduct}){
+		const record = state.cartItemList.find(element => element.keysProduct === keysProduct);
+		if(record){
+			record.quantity--
+		}
+	},
+
     'SET_CART' (state, productList) {
 		if (productList) {
 			state.cartItemList = productList;
 		}
 	},
 	'REMOVE_CART_ITEM' (state, {
-                                product_name,
+                                keysProduct,
                                 }) {
-		const record = state.cartItemList.find(element => element.product_name == product_name);
+		const record = state.cartItemList.find(element => element.keysProduct == keysProduct);
 		state.cartItemList.splice(state.cartItemList.indexOf(record), 1);
 	}
 }
