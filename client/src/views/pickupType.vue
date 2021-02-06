@@ -42,25 +42,47 @@ export default {
         navbar,
     },
     methods: {
+        
         async chooseStore(){
             this.date_time_to_order = Date.now();
             store.commit("SET_BRANCH", {
                 picked : this.picked
             })
-            let newOrder = {
+            if(this.checkPage.check == false){
+                let description = [{
+                    keysProduct : this.key,
+                    sellerUid : this.summary.sellerUid,
+                    status : this.status,
+                    product_image : this.summary.product_image,
+                    product_name : this.summary.product_name,
+                    product_unit_price : this.summary.product_unit_price,
+                    quantity : this.summary.quantity,
+                    product_detail : this.summary.product_detail
+                }]
+                let newOrder = {
                 userid : auth.currentUser.uid,
                 date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
-                product_key : this.key,
+                product_description : description,
                 total_amount : this.type.total_amount,
-                sellerUid : this.summary.sellerUid,
-                status : this.status,
-                quantity : this.summary.quantity
-            }
-        
+                quantity_total : this.summary.quantity
+                }
+
             await firebase.ref("pickup_order/").push(newOrder)
             this.$router.replace('pickupSum')
 
+            }else{
+                let newOrder = {
+                userid : auth.currentUser.uid,
+                date_time_to_order : dateToString(this.date_time_to_order),
+                branch_selected : this.picked,
+                product_description : this.cartList,
+                total_amount : this.cartValue,
+                quantity_total : this.cartList.length
+                }
+            await firebase.ref("pickup_order/").push(newOrder)
+            this.$router.replace('pickupSum')
+            }
             await firebase.ref("product/" + this.key).on('value', snapshot => {
                 this.quantity_product = snapshot.val().product_quantity
             })
@@ -77,7 +99,10 @@ export default {
         ...mapGetters({
             summary : "getSummaryPage",
             type : "getReceivingType",
-            key : "getProductId"
+            key : "getProductId",
+            checkPage : "getStateIscart",
+            cartValue : "cartValue",
+            cartList : "cartItemList"
         })
     },
     mounted() {

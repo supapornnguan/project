@@ -21,7 +21,7 @@
                     <sui-table-cell style="width:190px"><img :src="cartItemList[index].product_image" :width="150" style="margin-left:30px; margin-right:50px"></sui-table-cell>
                     <sui-table-cell style="width:400px">
                         <p class="info" style="font-weight:800">{{cartItemList[index].product_name}}</p>
-                        <p>{{cartItemList[index].product_detail | shortDescription}}</p>
+                        <p>{{cartItemList[index].product_description | shortDescription}}</p>
                     </sui-table-cell>
                     <sui-table-cell>
                         <button id="buttonAdd" @click="miniQuantity(index, cartItemList[index].keysProduct)">-</button>
@@ -39,7 +39,7 @@
             </sui-table-body>
         </sui-table>
         <h5 style="margin-left:1100px; font-weight:700">Total: {{cartValue}}.00 THB</h5>
-        <button class="checkout" @click="checkout()">CHECKOUT</button>
+        <button class="checkout" @click="checkout">CHECKOUT</button>
     </div>
 </template>
 
@@ -49,6 +49,7 @@ import navbar from "../components/navbar"
 // import {auth} from "../firebase"
 // import emptyCart from "../components/emptyCart"
 import { mapGetters , mapActions} from "vuex";
+import store from "../store"
 export default {
     data() {
         return {
@@ -63,7 +64,9 @@ export default {
             product_image  : [],
             product_name : [],
             product_detail : [],
-            product_unit_price : []
+            product_unit_price : [],
+            check : false,
+            // emptycart : false
         }
     },
     components : {
@@ -80,8 +83,12 @@ export default {
     },
     methods: {
         checkout(){
-            
-
+            //check is user logged in   
+            this.check = true
+            store.commit("SET_CHECK_STATE",{
+                check : this.check
+            })
+            this.$router.replace('/summary')
         },
         subtotal(index) {
 				return this.cartItemList[index].quantity * this.cartItemList[index].product_unit_price;

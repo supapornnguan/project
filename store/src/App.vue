@@ -4,8 +4,8 @@
       <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Chonburi', cursive;" id="headerbar">STORE PICK-UP</h1>
     </div>
   <br>
-  <sui-grid>
-    <sui-grid-column :width="3">
+<sui-grid>
+    <sui-grid-column :width="4">
       <sui-menu fluid vertical tabular>
         <a
           v-for="item in items"
@@ -44,7 +44,7 @@ export default {
       this.active = name;
     },
   },
-}
+};
 </script>
 
 <style scoped>

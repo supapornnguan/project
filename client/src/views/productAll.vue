@@ -55,7 +55,9 @@ export default {
             product_unit_price: [],
             product_detail : [],
             useruid : "",
-           
+            sellerUid : [],
+            status : "ordered"
+
         }
     },
     methods: {
@@ -74,6 +76,8 @@ export default {
         product_image : this.product_image[index],
         product_unit_price : this.product_unit_price[index],
         product_detail : this.product_detail[index],
+        sellerUid : this.sellerUid[index],
+        status : this.status,
         quantity: 1,
         isAdd: true
       };
@@ -140,12 +144,14 @@ export default {
         var product_image = this.products[k].product_image
         var product_unit_price = this.products[k].product_unit_price
         var product_detail = this.products[k].product_detail
+        var sellerUid = this.products[k].sellerUid
 
         this.product_name[i] = product_name
         this.product_quantity[i] = product_quantity
         this.product_image[i] = product_image
         this.product_unit_price[i] = product_unit_price
         this.product_detail[i] = product_detail
+        this.sellerUid[i] = sellerUid
 
         console.log(this.product_name[i] = product_name)
         console.log(this.product_image[i] = product_image)

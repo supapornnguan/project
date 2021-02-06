@@ -35,13 +35,25 @@
                     <sui-table-header-cell>Description</sui-table-header-cell>
                 </sui-table-row>
             </sui-table-header>
-            <sui-table-body>
+            <sui-table-body v-if="checkPage.check==false ">
                 <sui-table-row>
                     <sui-table-cell><img :src="summary.product_image" :width="150" style="margin-left:30px"></sui-table-cell>
                     <sui-table-cell>
                         <h3 class="info">{{summary.product_name}}</h3>
                         <p style="font-size:15px; margin-top:20px;">Price: {{type.total_amount}}.00 THB</p>
                         <p style="font-size:15px">Quantity : {{summary.quantity}}</p>
+                    </sui-table-cell>
+                </sui-table-row>
+            </sui-table-body>
+
+            <!-- summary of cart -->
+            <sui-table-body style="width:1200px; margin-left:140px; margin-top:30px" v-if="checkPage.check==true ">
+                <sui-table-row v-for="(key,index) in cartList" :key="index">
+                    <sui-table-cell><img :src="cartList[index].product_image" :width="150" style="margin-left:30px"></sui-table-cell>
+                    <sui-table-cell>
+                        <h3 class="info">{{cartList[index].product_name}}</h3>
+                        <p style="font-size:15px; margin-top:20px;">Price: {{cartList[index].product_unit_price}}.00 THB</p>
+                        <p style="font-size:15px">Quantity : {{cartList[index].quantity}}</p>
                     </sui-table-cell>
                 </sui-table-row>
             </sui-table-body>
@@ -76,7 +88,9 @@ export default {
         ...mapGetters({
             infoShipping : "getInfoShipping",
             summary : "getSummaryPage",
-            type : "getReceivingType"
+            type : "getReceivingType",
+            checkPage : "getStateIscart",
+            cartList : "cartItemList"
         })
 
     },

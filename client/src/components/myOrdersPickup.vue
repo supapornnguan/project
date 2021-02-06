@@ -17,13 +17,13 @@
       </sui-table-row>
     </sui-table-header>
     <sui-table-body>
-      <sui-table-row v-for="(key,index) in keyOrder" :key="index">
+      <!-- <sui-table-row v-for="(key,index) in keyOrder" :key="index">
           <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center"><a v-b-modal.modal-scrollable href="#">{{key}}</a></sui-table-cell>
           <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{date_time_to_order[index]}}</sui-table-cell>
           <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
           <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{quantity[index]}}</sui-table-cell>
           <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
-      </sui-table-row>
+      </sui-table-row> -->
     </sui-table-body>
 
     <div>
@@ -660,10 +660,10 @@
 </template>
 
 <script>
-import firebase from "../firebase"
-import {auth} from "../firebase"
-import store from "../store"
-import {mapGetters} from "vuex"
+// import firebase from "../firebase"
+// import {auth} from "../firebase"
+// import store from "../store"
+// import {mapGetters} from "vuex"
 export default {
   data() {
     return {
@@ -685,51 +685,51 @@ export default {
   methods: {
     confirmOrder(key){
       console.log(key)
-      store.commit('SET_ORDER_BY_PICKUP',{
-        branch_selected : this.branch_selected,
-        date_time_to_order : this.date_time_to_order,
-        product_key : this.product_key,
-        sellerUid : this.sellerUid,
-        status : "packing",
-        total_amount : this.total_amount,
-        userid : this.userid,
-        quantity : this.quantity
-      })
+      // store.commit('SET_ORDER_BY_PICKUP',{
+      //   branch_selected : this.branch_selected,
+      //   date_time_to_order : this.date_time_to_order,
+      //   product_key : this.product_key,
+      //   sellerUid : this.sellerUid,
+      //   status : "packing",
+      //   total_amount : this.total_amount,
+      //   userid : this.userid,
+      //   quantity : this.quantity
+      // })
     },
   },
-  computed:{
-    ...mapGetters({
-      infoOrder1 : "getOrderByPickup"
-    })
+  // computed:{
+  //   ...mapGetters({
+  //     infoOrder1 : "getOrderByPickup"
+  //   })
 
-  },
-     mounted() {
-      firebase.ref('pickup_order/').orderByChild('sellerUid').equalTo(auth.currentUser.uid).on('value', snapshot => {
-      this.infoOrder = snapshot.val()
-      this.keyOrder = Object.keys(snapshot.val())
-      console.log(this.keyOrder)
-      for(var i = 0 ; i<this.keyOrder.length ; i++){
-        var k = this.keyOrder[i];
-        var branch_selected = this.infoOrder[k].branch_selected;
-        var date_time_to_order = this.infoOrder[k].date_time_to_order;
-        var product_key = this.infoOrder[k].product_key;
-        var sellerUid = this.infoOrder[k].sellerUid;
-        var status = this.infoOrder[k].status;
-        var total_amount = this.infoOrder[k].total_amount;
-        var userid = this.infoOrder[k].userid;
-        var quantity = this.infoOrder[k].quantity;
+  // },
+  //    mounted() {
+  //     firebase.ref('pickup_order/').orderByChild('sellerUid').equalTo(auth.currentUser.uid).on('value', snapshot => {
+  //     this.infoOrder = snapshot.val()
+  //     this.keyOrder = Object.keys(snapshot.val())
+  //     console.log(this.keyOrder)
+  //     for(var i = 0 ; i<this.keyOrder.length ; i++){
+  //       var k = this.keyOrder[i];
+  //       var branch_selected = this.infoOrder[k].branch_selected;
+  //       var date_time_to_order = this.infoOrder[k].date_time_to_order;
+  //       var product_key = this.infoOrder[k].product_key;
+  //       var sellerUid = this.infoOrder[k].sellerUid;
+  //       var status = this.infoOrder[k].status;
+  //       var total_amount = this.infoOrder[k].total_amount;
+  //       var userid = this.infoOrder[k].userid;
+  //       var quantity = this.infoOrder[k].quantity;
 
-        this.branch_selected[i] = branch_selected
-        this.date_time_to_order[i] = date_time_to_order
-        this.product_key[i] = product_key
-        this.sellerUid[i] = sellerUid
-        this.status[i] = status
-        this.total_amount[i] = total_amount
-        this.userid[i] = userid
-        this.quantity[i] = quantity
-      }
-    })
-  },
+  //       this.branch_selected[i] = branch_selected
+  //       this.date_time_to_order[i] = date_time_to_order
+  //       this.product_key[i] = product_key
+  //       this.sellerUid[i] = sellerUid
+  //       this.status[i] = status
+  //       this.total_amount[i] = total_amount
+  //       this.userid[i] = userid
+  //       this.quantity[i] = quantity
+  //     }
+  //   })
+  // },
 
   
 }

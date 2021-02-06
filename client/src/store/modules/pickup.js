@@ -2,30 +2,20 @@ const pickup ={
     state : {
         productKey : "",
         branch : "",
-        // summary : {
-        //     quantity : "",
-        //     product_name : "",
-        //     product_unit_price : "",
-        //     product_image : "",
-        //     sellerUid : ""
-        // },
-        summary : [
+        summary : 
             {
                 quantity : "",
                 product_name : "",
                 product_unit_price : "",
                 product_image : "",
-                sellerUid : ""
+                sellerUid : "",
+                product_detail : ""
             }
-        ],
+        ,
         type : {
             type1 : "",
             total_amount : ""
-        },
-        mycart : {
-            keyProduct : "",
-            useruid : ""
-        }    
+        }   
     },
     getters : {
         getProductId(state) {
@@ -39,14 +29,11 @@ const pickup ={
         },
         getBranch(state){
             return state.branch
-        },
-        // getMycart(state){
-        //     return state.mycart
-        // }
+        }
     },
     mutations : {
         SET_PRODUCT_ID (state,data){
-            state.productKey = data
+            state.productKey=data
         },
         SET_SUMMARY_PAGE (state, payload) {
             state.summary.quantity = payload.quantity
@@ -54,6 +41,7 @@ const pickup ={
             state.summary.product_unit_price = payload.product_unit_price
             state.summary.product_image = payload.product_image
             state.summary.sellerUid = payload.sellerUid
+            state.summary.product_detail = payload.product_detail
         },
        
         SET_RECEIVING_TYPE (state, payload) {
@@ -62,11 +50,7 @@ const pickup ={
         },
         SET_BRANCH (state,payload){
             state.branch = payload.picked
-        },
-        // SET_MY_CART (state, payload) {
-        //     state.mycart.keyProduct = payload.keyProduct
-        //     state.mycart.useruid = payload.useruid
-        // }
+        }
     }
 }
 export default pickup

@@ -4,8 +4,8 @@
         <div>
         <h3 style="text-align:left; color:black; margin-left:100px; font-weight:1000">My Order</h3>
       
-
-        <sui-table style="width:1200px; margin-left:140px">
+<!-- form infoProduct page -->
+        <sui-table style="width:1200px; margin-left:140px" v-if="checkPage.check == false">
             <sui-table-header>
                 <sui-table-row>
                     <sui-table-header-cell>Product</sui-table-header-cell>
@@ -25,8 +25,32 @@
                 </sui-table-row>
             </sui-table-body>
         </sui-table>
-        <p style="text-align:left; margin-left:1000px; margin-top:30px; font-size:20px">Total: {{parseInt(infoSummary.product_unit_price) * parseInt(infoSummary.quantity)}}.00 THB</p>
-      
+
+<!-- form cart page -->
+        <sui-table style="width:1200px; margin-left:140px"  v-else>
+            <sui-table-header>
+                <sui-table-row >
+                    <sui-table-header-cell>Product</sui-table-header-cell>
+                    <sui-table-header-cell>Description</sui-table-header-cell>
+                </sui-table-row>
+            </sui-table-header>
+            <sui-table-body>
+                <sui-table-row v-for="(key,index) in cartList" :key="index">
+                    <sui-table-cell><img :src="cartList[index].product_image" :width="150" style="margin-left:30px"></sui-table-cell>
+                    <sui-table-cell>
+                        <h3 class="info">{{cartList[index].product_name}}</h3>
+                        <p style="font-size:15px; margin-top:20px;">Price: {{cartList[index].product_unit_price}}.00 THB</p>
+                        <p style="font-size:15px">Quantity : {{cartList[index].quantity}}</p>
+                      
+                    </sui-table-cell>
+                </sui-table-row>
+            </sui-table-body>
+        </sui-table>
+
+
+        <p style="text-align:left; margin-left:1000px; margin-top:30px; font-size:20px" v-if="checkPage.check == false">Total: {{parseInt(infoSummary.product_unit_price) * parseInt(infoSummary.quantity)}}.00 THB</p>
+        <p style="text-align:left; margin-left:1000px; margin-top:30px; font-size:20px" v-else>Total: {{cartValue}}.00 THB</p>
+
 
         <h3 style="text-align:left; color:black; margin-left:100px; margin-bottom:50px; font-weight:1000">Select Your Receiving Types</h3>
             <div style="margin-left:500px">
@@ -42,7 +66,7 @@
             </div>
         </div>
         <sui-button basic secondary style="margin-top:70px; margin-left:690px" @click="gotoreceiving">Place Order</sui-button>
-        <p>{{infoSummary}}</p>
+        <p>{{checkPage}}</p>
     </div>
 </template>
 
@@ -50,6 +74,7 @@
 import navbar from "../components/navbar"
 import {mapGetters} from "vuex"
 import store from "../store"
+// import firebase from "../firebase"
 export default {
     data() {
         return {
@@ -58,7 +83,7 @@ export default {
     },
     components:{
         navbar,
-  
+
     },
     methods: {
         gotoreceiving(){
@@ -80,12 +105,18 @@ export default {
     },
     computed: {
         ...mapGetters({
-            infoSummary : "getSummaryPage"
+            infoSummary : "getSummaryPage",
+            checkPage : "getStateIscart",
+            cartList : "cartItemList",
+            cartValue : "cartValue"
         })
+    },
+    mounted() {
+       
+     
     },
 
 
-    
 }
 </script>
 <style>

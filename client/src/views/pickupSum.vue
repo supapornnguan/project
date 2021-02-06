@@ -9,7 +9,7 @@
                     <sui-table-header-cell>Description</sui-table-header-cell>
                 </sui-table-row>
             </sui-table-header>
-            <sui-table-body>
+            <sui-table-body v-if="checkPage.check==false ">
                 <sui-table-row>
                     <sui-table-cell><img :src="summary.product_image" :width="150" style="margin-left:90px"></sui-table-cell>
                     <sui-table-cell>
@@ -19,6 +19,18 @@
                     </sui-table-cell>
                 </sui-table-row>
             </sui-table-body>
+<!-- summary of cart -->
+            <sui-table-body v-if="checkPage.check==true ">
+                <sui-table-row v-for="(key,index) in cartList" :key="index">
+                    <sui-table-cell><img :src="cartList[index].product_image" :width="150" style="margin-left:90px"></sui-table-cell>
+                    <sui-table-cell>
+                        <h3 class="info">{{cartList[index].product_name}}</h3>
+                        <p style="font-size:15px; margin-top:20px;">Price: {{cartList[index].product_unit_price}}.00 THB</p>
+                        <p style="font-size:15px">Quantity : {{cartList[index].quantity}}</p>
+                    </sui-table-cell>
+                </sui-table-row>
+            </sui-table-body>
+
         </sui-table>
         <br>
         <p style="font-weight:600; margin-left:150px;">Pick up at :</p>
@@ -36,7 +48,7 @@
 </template>
 <script>
 import navbar from "../components/navbar"
-import {mapGetters} from "vuex"
+import {mapGetters ,mapActions} from "vuex"
 import firebase from "../firebase"
 export default {
     data() {
@@ -51,15 +63,19 @@ export default {
         navbar
     },
     methods: {
+        ...mapActions(['clearCart']),
         gotoHome(){
             this.$router.replace('/')
+            this.clearCart()
         }
     },
     computed: {
         ...mapGetters({
             summary : "getSummaryPage",
             type : "getReceivingType",
-            branch : "getBranch"
+            branch : "getBranch",
+            checkPage : "getStateIscart",
+            cartList : "cartItemList"
         })
     },
     mounted() {
