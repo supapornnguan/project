@@ -6,12 +6,6 @@
             <sui-grid-row stretched>
                 <sui-grid-column>
                         <img :src="product_image" :width="300" :height="400"/>
-                        <!-- <div id="came1">
-                            <img src="../assets/nikonAAAA-2.jpg" :width="90" :height="90" id="imgCamera"/>
-                            <img src="../assets/nikonAAAA-3.jpg" :width="90" :height="90" id="imgCamera"/>
-                            <img src="../assets/nikonAAAA-5.jpg" :width="90" :height="90" id="imgCamera"/>
-                            <img src="../assets/nikonAAAA-6.jpg" :width="90" :height="90" id="imgCamera"/>
-                        </div> -->
                 </sui-grid-column>
                 <sui-grid-column>
                
@@ -67,7 +61,7 @@
 </template>
 <script>
 import navbar from "../components/navbar"
-import {mapGetters} from "vuex"
+import {mapGetters, mapActions} from "vuex"
 import store from "../store"
 import firebase from "../firebase"
 export default {
@@ -81,14 +75,30 @@ export default {
              seller_name_shop : "",
              product_unit_price: "",
              product_detail: "",
+             product_detail_non_split : "",
              product_image : "",
              timeToOrder : "",
+             check : false
         }
     },
     components : {
         navbar
     },
     methods: {
+        ...mapActions(['updateCart']),
+        addItem(index) {
+            const order = {
+                keysProduct : this.keysProduct[index],
+                product_name : this.product_name[index],
+                product_image : this.product_image[index],
+                product_unit_price : this.product_unit_price[index],
+                product_detail : this.product_detail[index],
+                quantity: 1,
+                isAdd: true
+            };
+        console.log(order.quantity)
+        this.updateCart(order);
+    },
         addQuantity(){
             if(this.quantity<this.product_quantity)
             return this.quantity++
@@ -98,13 +108,18 @@ export default {
             return this.quantity--
         },
          gotoSummary(){
+            this.check = false
             store.commit("SET_SUMMARY_PAGE",{
                 quantity : this.quantity,
                 product_name : this.product_name,
                 product_unit_price : this.product_unit_price,
                 product_image : this.product_image,
-                sellerUid : this.sellerUid
+                sellerUid : this.sellerUid,
+                product_detail : this.product_detail_non_split
             } )
+            store.commit("SET_CHECK_STATE",{
+                check : this.check
+            })
             this.$router.replace('/summary')
         }
     },
@@ -115,18 +130,22 @@ export default {
     },
     mounted() {
         //query product collection
-        firebase.ref('product/'+this.key).on('value',(snapshot)=>{
+      
+            firebase.ref('product/'+this.key).on('value',(snapshot)=>{
             console.log(snapshot.val());
             this.product_name = snapshot.val().product_name
             this.sellerUid = snapshot.val().sellerUid
             this.product_unit_price = snapshot.val().product_unit_price
             this.product_quantity = snapshot.val().product_quantity
+            this.product_detail_non_split = snapshot.val().product_detail
             this.product_detail = snapshot.val().product_detail.split(',')
             this.product_image = snapshot.val().product_image
             
             console.log(this.sellerUid)
             console.log(this.product_name);
-        })
+        }) 
+        
+       
 
         //query seller collection
         firebase.ref('seller/'+ this.sellerUid).on('value', (snapshot) =>{

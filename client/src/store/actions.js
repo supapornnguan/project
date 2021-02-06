@@ -4,12 +4,16 @@ export const updateCart = ({commit},{
                                     product_image,
                                     product_unit_price,
                                     product_detail,
-                                     quantity, isAdd}) => {
+                                    sellerUid,
+                                    status,
+                                    quantity, isAdd}) => {
     commit('UPDATE_CART', {keysProduct,
                             product_name,
                             product_image,
                             product_unit_price,
                             product_detail,
+                            sellerUid,
+                            status,
                             quantity, isAdd});
     if(isAdd) {
         let message_obj = {

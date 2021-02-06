@@ -77,20 +77,40 @@ export default {
         },
         async shipSum(){
             this.date_time_to_order = Date.now();
-           
-            let newOrder = {
-                userid : auth.currentUser.uid,
-                date_time_to_order : dateToString(this.date_time_to_order),
-                customer_address : this.picked,
-                status : this.status,
-                paymentType : this.paymentType,
-                product_key : this.key,
-                total_amount : this.type.total_amount,
-                sellerUid : this.summary.sellerUid,
-                quantity : this.summary.quantity
+            if(this.checkPage.check == false){
+                let description = [{
+                    keysProduct : this.key,
+                    sellerUid : this.summary.sellerUid,
+                    status : this.status,
+                    product_image : this.summary.product_image,
+                    product_name : this.summary.product_name,
+                    product_unit_price : this.summary.product_unit_price,
+                    quantity : this.summary.quantity,
+                    product_detail : this.summary.product_detail
+                }]
+                let newOrder = {
+                    userid : auth.currentUser.uid,
+                    date_time_to_order : dateToString(this.date_time_to_order),
+                    customer_address : this.picked,
+                    paymentType : this.paymentType,
+                    product_description : description,
+                    total_amount : this.type.total_amount,
+                    quantity_total : this.summary.quantity
             }
             //add order to shipping_order
             await firebase.ref("shipping_order").push(newOrder)
+            }else{
+                let newOrder = {
+                    userid : auth.currentUser.uid,
+                    date_time_to_order : dateToString(this.date_time_to_order),
+                    customer_address : this.picked,
+                    paymentType : this.paymentType,
+                    product_description : this.cartList,
+                    total_amount : this.cartValue,
+                    quantity_total : this.cartList.length
+                }
+            await firebase.ref("shipping_order/").push(newOrder)
+            }
 
             //get product_quantity from product collection
             await firebase.ref("product/" + this.key).on('value', snapshot => {
@@ -112,6 +132,7 @@ export default {
             })
         
             this.$router.replace('/shipSum')
+            
 
         },
         changeType(){
@@ -122,7 +143,10 @@ export default {
         ...mapGetters({
             key : "getProductId",
             summary : "getSummaryPage",
-            type : "getReceivingType"
+            type : "getReceivingType",
+            checkPage : "getStateIscart",
+            cartValue : "cartValue",
+            cartList : "cartItemList"
         })
     },
     mounted() {

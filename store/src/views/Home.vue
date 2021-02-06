@@ -7,15 +7,15 @@
            <p style="display:inline; font-weight:670; font-size:20px">Tracking No.</p>
            <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">Store Name</p>
             <p style="display:inline; margin-left:150px; font-weight:670; font-size:20px">Derivery Date</p>
-        </div>
-        <sui-segment id="StoreSeg" @click="gotodetailTrack">
+    </div>
+        <!-- <sui-segment id="StoreSeg" @click="gotodetailTrack">
           
-        </sui-segment>
+        </sui-segment> -->
   </div>
 </template>
 
 <script>
-import search from "../components/search"
+// import search from "../components/search"
 // import Overlay from 'vuejs-overlay';
 export default {
   data() {
@@ -25,7 +25,7 @@ export default {
     }
   },
   components : {
-    search,
+    // search,
 
   },
     methods: {

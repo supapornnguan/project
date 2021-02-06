@@ -68,7 +68,7 @@ export default {
 }
 #todo1{
   border-radius: 10px;
-  background-color: 	#C8C8C8;
+  background-color: 	#151B54;
   width: 1000px;
 }
 #img1{

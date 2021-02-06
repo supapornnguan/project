@@ -12,7 +12,9 @@
     <button id="logout" v-if="user.loggedIn" @click="logout">LOGOUT</button>
     <!-- <p v-if="user.loggedIn" class="ui item"><a @click="logout"  style="color:#FFFFFF;">LOGOUT</a></p> -->
     <img src="../assets/cart_icon.svg" class="cart" v-if="user.loggedIn" @click="myCart" >
+    <div class="circle" v-if="cartList.length!=0 & user.loggedIn">{{cartList.length}}</div>
     <img src="../assets/user_icon.svg" id="Myaccount" v-if="user.loggedIn" @click="myaccount">
+    
   </div>
   
 </div>
@@ -25,7 +27,8 @@ export default {
   name : "navigation",
   computed: {
     ...mapGetters({
-      user : "users"
+      user : "users",
+      cartList : "cartItemList"
     })
   },
   methods: {
@@ -65,22 +68,18 @@ export default {
   width: 40px;
   height: 40px;
 }
-.numberCircle {
-    position: relative;
-    left: -200px;
+.circle {
+    position: absolute;
+    right: 210px;
+    top: 15px;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    padding: 10px;
-    margin-top: 20px;
-    margin-bottom: 100px;
-    /* display: inline; */
-    background: red;
-    border: 2px solid red;
-    color: white;
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    background: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
     text-align: center;
-    font-weight: 900;
-    /* font: 32px Arial, sans-serif; */
+    font: 15px Arial, sans-serif;
 }
 #logout{
   background-color: white;

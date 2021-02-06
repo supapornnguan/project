@@ -4,12 +4,11 @@ import user from './modules/user'
 import seller from './modules/seller'
 import pickup from "./modules/pickup"
 import shipping from "./modules/shipping"
-import orderPickup from "./modules/order_pickup(seller)"
 import typeProduct from "./modules/typeProduct"
-import orderPickupUser from "./modules/order_pickup(user)"
 import cart from "./modules/cart"
 import * as actions from './actions';
 import message from './modules/message';
+import checkPage from "./modules/checkPage"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -19,10 +18,9 @@ export default new Vuex.Store({
     seller,
     pickup,
     shipping,
-    orderPickup,
     typeProduct,
-    orderPickupUser,
     cart,
-    message
+    message,
+    checkPage
   }
 })
