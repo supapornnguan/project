@@ -2,16 +2,9 @@
   <div id="app">
     <h1 style="font-weight:600">ADMIN SHOPAHOLIC</h1>
     <div>
-  <b-card no-body>
-    <b-tabs pills card vertical>
-      <b-tab title="Tab 1" active ><b-card-text>Tab contents 1</b-card-text></b-tab>
-      <b-tab title="Tab 2"><b-card-text>Tab contents 2</b-card-text></b-tab>
-      <b-tab title="Tab 3"><b-card-text>Tab contents 3</b-card-text></b-tab>
-    </b-tabs>
-  </b-card>
+
 </div>
     <div id="menuAdmin">
-      <br>
       <div id="divvv">
         <!-- <img src="./assets/dashboard.png" id="iconimage"> -->
         <router-link to="/" id="menu1">DASHBOARD</router-link>
