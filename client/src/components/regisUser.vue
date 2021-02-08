@@ -108,6 +108,7 @@
 <script>
 import firebase from "../firebase";
 import {auth} from  "../firebase";
+import {dateToString} from '../utils/utils';
 export default {
   name: 'regisUser',
   data() {
@@ -124,6 +125,7 @@ export default {
           customer_firstname : "",
           customer_lastname : "",
           customer_phonenumber : "",
+          timestamp: "",
           address1 : []
         }
       ],
@@ -139,6 +141,7 @@ export default {
   },
   methods: {
      async addUser(){
+       this.Users.timestamp = Date.now();
         console.log(firebase)
         console.log("okokokokokok")
         let newaddress = [{
@@ -153,6 +156,7 @@ export default {
           customer_firstname : this.Users.customer_firstname,
           customer_lastname : this.Users.customer_lastname,
           customer_phonenumber : this.Users.customer_phonenumber,
+          timestamp : dateToString(this.Users.timestamp),
           address :  newaddress
         }
         
