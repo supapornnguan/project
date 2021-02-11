@@ -695,7 +695,7 @@ export default {
             this.show = 1
         },
     detailPickup(key,type){
-            store.commit("SET_KEY_PRODUCT",{
+            store.commit("SET_KEY_ORDER_DETAIL",{
               keysOrder : key,
               type : type,
             })
