@@ -1,43 +1,32 @@
 <template>
   <div>
+      <div v-if="show==2">
+        <a href="#" @click="back">Back</a>
+    </div>
+    <div v-if="show==1">
     <b-tabs content-class="mt-3" fill>
 
     <!-- ORDER -->
-    <b-tab title="Order" active>
+    <b-tab title="Order" active >
     <sui-table celled>
     <sui-table-header>
       <sui-table-row>
         <sui-table-header-cell style="text-align:center">Order ID</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Order Date</sui-table-header-cell>
-        <sui-table-header-cell style="text-align:center">Total Price</sui-table-header-cell>
-        <sui-table-header-cell style="text-align:center">Quantity</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Store</sui-table-header-cell>
         <!-- <sui-table-header-cell style="text-align:center"></sui-table-header-cell> -->
       </sui-table-row>
     </sui-table-header>
     <sui-table-body>
-      <!-- <sui-table-row v-for="(key,index) in keyOrder" :key="index">
-          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center"><a v-b-modal.modal-scrollable href="#">{{key}}</a></sui-table-cell>
-          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{date_time_to_order[index]}}</sui-table-cell>
-          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
-          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{quantity[index]}}</sui-table-cell>
-          <sui-table-cell v-if="status[index] == 'ordered'" style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
-      </sui-table-row> -->
+      <sui-table-row v-for="(key,index) in keyPickupOrder" :key="index">
+          <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center"><a  href="#"  @click="detailPickup(key,type_pickup)">{{key}}</a></sui-table-cell>
+          <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
+          <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
+      </sui-table-row>
     </sui-table-body>
 
-    <div>
-      <b-modal id="modal-scrollable" scrollable title="Order Detail" hide-footer>
-        <!-- <p class="my-4" v-for="i in 20" :key="i">
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-        </p> -->
-        <p>{{infoOrder1.branch_selected}}</p>
-        <b-button variant="outline-dark" @click="confirmOrder()">Confirm</b-button>
-        
-      </b-modal>
-    </div>
-
   </sui-table>
+  
   </b-tab>
 
   <!-- PACKING -->
@@ -656,32 +645,63 @@
 
   </b-tabs>
   </div>
+    <orderDetailSeller v-if="show==2"/>
+
+  </div>
 </template>
 
 <script>
-// import firebase from "../firebase"
-// import {auth} from "../firebase"
-// import store from "../store"
+import firebase from "../firebase"
+import {auth} from "../firebase"
+import orderDetailSeller from "../components/orderDetailSeller"
+import store from "../store"
 // import {mapGetters} from "vuex"
 export default {
   data() {
     return {
-      infoOrder : {},
-      keyOrder : [],
+      // infoOrder : {},
+      // keyOrder : [],
       branch_selected :[],
-      date_time_to_order : [],
-      product_key : [],
-      sellerUid : [],
+      // date_time_to_order : [],
+      // product_key : [],
+      // sellerUid : [],
+      // status : [],
+      // total_amount : [],
+      // userid : [],
+      // quantity :[],
+
+       //info pickup
+      infoPickup : {},
+      keyPickupOrder : [],
+      orderDate_pickup : [],
+      totalPrice_pickup : [],
+      numberOfProduct_pickup : [],
+      type_pickup : "PICK-UP",
       status : [],
-      total_amount : [],
-      userid : [],
-      quantity :[],
+      infoDescript : [], 
       value:"",
-      open: false
+      open: false,
+      show : 1
 
     }
   },
+  components : {
+    orderDetailSeller
+  },
   methods: {
+
+        back(){
+            this.show = ''
+            this.show = 1
+        },
+    detailPickup(key,type){
+            store.commit("SET_KEY_PRODUCT",{
+              keysOrder : key,
+              type : type,
+            })
+            this.show = ''
+            this.show = 2
+        },
     confirmOrder(key){
       console.log(key)
       // store.commit('SET_ORDER_BY_PICKUP',{
@@ -695,6 +715,37 @@ export default {
       //   quantity : this.quantity
       // })
     },
+  },
+  mounted() {
+        firebase.ref("seller/" + auth.currentUser.uid + "/pickup_order_seller").on('value',snapshot => {
+        console.log(snapshot.val())
+        this.infoPickup = snapshot.val()
+        this.keyPickupOrder = Object.keys(this.infoPickup)
+        console.log(this.keyPickupOrder)
+        for(var i=0; i < this.keyPickupOrder.length ; i++){
+          var k = this.keyPickupOrder[i]
+
+          var date_time_to_order = this.infoPickup[k].date_time_to_order
+          var descript = this.infoPickup[k].product_description
+          var branch_selected = this.infoPickup[k].branch_selected
+          var status = this.infoPickup[k].status
+          
+          this.orderDate_pickup[i] = date_time_to_order
+          this.branch_selected[i] = branch_selected
+          this.status[i] = status
+          // this.infoDescript = Object.keys(descript)
+
+          console.log("hahah")
+          console.log(descript)
+
+          for(var j=0; j < descript.length ; j++){
+            console.log(descript[j])
+            this.infoDescript[j] = descript[j]
+          }
+          console.log("hello des")
+          console.log(this.infoDescript)    
+        }
+      })
   },
   // computed:{
   //   ...mapGetters({

@@ -23,8 +23,8 @@ const { isNavigationFailure, NavigationFailureType } = VueRouter
 export default {
     data() {
         return {
-            customer_email :'hellohalo@mail.com',
-            customer_password :'hellohalo555'
+            customer_email :'momomama@hotmail.com',
+            customer_password :'momo1234'
         }
     },
     methods: { 

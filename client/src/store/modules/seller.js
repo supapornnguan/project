@@ -2,12 +2,27 @@ const seller = {
     state : {
         sellers : {
             loggedInSeller : false,
-            data : ""
+            data : "",
+        },
+        orderDetail : {
+            keysOrder : "",
+            // product_detail_pickup : "",
+            // product_image_pickup : "",
+            // product_name_pickup : "",
+            // product_unit_price_pickup : "",
+            // quantity_pickup : "",
+            // sellerUid_pickup : "",
+            // seller_name_shop_pickup : "",
+            // status_pickup : "",
+            type : ""
         }
     },
     getters : {
         sellers(state){
             return state.sellers
+        },
+        keyProductDetail(state){
+            return state.orderDetail
         }
     },
     mutations : {
@@ -16,6 +31,10 @@ const seller = {
         },
         SET_USER(state, data){
             state.sellers.data = data
+        },
+        SET_KEY_ORDER_DETAIL(state,payload){
+            state.orderDetail.keysOrder = payload.keysOrder
+            state.orderDetail.type = payload.type
         }
     },
     actions : {

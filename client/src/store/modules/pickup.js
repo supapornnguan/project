@@ -9,13 +9,15 @@ const pickup ={
                 product_unit_price : "",
                 product_image : "",
                 sellerUid : "",
-                product_detail : ""
+                product_detail : "",
+                seller_name_shop : ""
             }
         ,
         type : {
             type1 : "",
             total_amount : ""
-        }   
+        },
+        summaryCart : []   
     },
     getters : {
         getProductId(state) {
@@ -29,6 +31,16 @@ const pickup ={
         },
         getBranch(state){
             return state.branch
+        },
+        getSummaryCart(state){
+            return state.summaryCart
+        },
+        getSummaryCartValue(state){
+            let res = 0;
+            state.summaryCart.map(item => {
+                res += item.product_unit_price * item.quantity
+            });
+            return res
         }
     },
     mutations : {
@@ -42,8 +54,11 @@ const pickup ={
             state.summary.product_image = payload.product_image
             state.summary.sellerUid = payload.sellerUid
             state.summary.product_detail = payload.product_detail
+            state.summary.seller_name_shop = payload.seller_name_shop
         },
-       
+        SET_SUMMARY_PAGE_FROM_CART (state, payload) {
+            state.summaryCart.push(payload)
+        },
         SET_RECEIVING_TYPE (state, payload) {
             state.type.type1 = payload.type1
             state.type.total_amount = payload.total_amount

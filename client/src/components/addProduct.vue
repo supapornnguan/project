@@ -103,7 +103,8 @@ export default {
       product_quantity : '',
       sellerUid : '',
       product_category : '',
-      product_image : ""
+      product_image : "",
+      seller_name_shop : ""
       }],
 
       Category: [
@@ -206,7 +207,8 @@ export default {
         product_quantity : this.products.product_quantity,
         product_category : this.products.product_category,
         product_image : this.products.product_image,
-        sellerUid : auth.currentUser.uid
+        sellerUid : auth.currentUser.uid,
+        seller_name_shop : this.products.seller_name_shop
       }
 
       productRef.push(newProduct)
@@ -221,6 +223,13 @@ export default {
       
 
     },
+  },
+  mounted() {
+    firebase.ref('seller/'+auth.currentUser.uid).on('value', snapshot =>{
+      console.log(snapshot.val())
+      this.products.seller_name_shop = snapshot.val().seller_name_shop
+      console.log(this.products.seller_name_shop)
+    })
   },
 
 };

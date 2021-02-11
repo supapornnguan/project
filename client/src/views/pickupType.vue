@@ -36,6 +36,9 @@ export default {
             name_store_pickup : [],
             status : "ordered",
             quantity_product : "",
+            sellerUid_uni : [],
+            order_group_by_sellerUid : [],
+
         }
     },
     components:{
@@ -52,35 +55,46 @@ export default {
                 let description = [{
                     keysProduct : this.key,
                     sellerUid : this.summary.sellerUid,
-                    status : this.status,
+                    
                     product_image : this.summary.product_image,
                     product_name : this.summary.product_name,
                     product_unit_price : this.summary.product_unit_price,
                     quantity : this.summary.quantity,
-                    product_detail : this.summary.product_detail
+                    product_detail : this.summary.product_detail,
+                    seller_name_shop : this.summary.seller_name_shop
                 }]
                 let newOrder = {
                 userid : auth.currentUser.uid,
                 date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
+                status : this.status,
                 product_description : description,
-                total_amount : this.type.total_amount,
-                quantity_total : this.summary.quantity
                 }
 
-            await firebase.ref("pickup_order/").push(newOrder)
+            await firebase.ref("seller/"+ this.summary.sellerUid + "/pickup_order_seller").push(newOrder)
             this.$router.replace('pickupSum')
 
             }else{
+
+            for(var a = 0 ; a < this.sellerUid_uni.length ; a ++ ){
+                for(var b = 0; b < this.summaryCart.length ; b++){
+                    if(this.sellerUid_uni[a] == this.summaryCart[b].sellerUid){
+                        this.order_group_by_sellerUid[b] = this.summaryCart[b]
+                    }
+                } 
                 let newOrder = {
                 userid : auth.currentUser.uid,
                 date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
-                product_description : this.cartList,
-                total_amount : this.cartValue,
-                quantity_total : this.cartList.length
+                status : this.status,
+                product_description : this.order_group_by_sellerUid.filter(val => (val!==undefined) && val!==null),
                 }
-            await firebase.ref("pickup_order/").push(newOrder)
+                console.log(this.order_group_by_sellerUid)
+                firebase.ref("seller/" + this.sellerUid_uni[a] + "/pickup_order_seller").push(newOrder)
+                this.order_group_by_sellerUid = []
+            }   
+            
+            // await firebase.ref("pickup_order/").push(newOrder)
             this.$router.replace('pickupSum')
             }
             await firebase.ref("product/" + this.key).on('value', snapshot => {
@@ -102,7 +116,9 @@ export default {
             key : "getProductId",
             checkPage : "getStateIscart",
             cartValue : "cartValue",
-            cartList : "cartItemList"
+            cartList : "cartItemList",
+            summaryCart : "getSummaryCart",
+            summaryCartValue : "getSummaryCartValue"
         })
     },
     mounted() {
@@ -120,6 +136,32 @@ export default {
                console.log(this.keyStore)
            }
         })
+
+        for(var j=0 ; j<this.summaryCart.length;j++){
+            this.sellerUid_uni[j] = this.summaryCart[j].sellerUid
+        }
+        this.sellerUid_uni = [...new Set(this.sellerUid_uni)]
+        console.log(this.sellerUid_uni)
+
+        for(var z = 0; z < this.sellerUid_uni.length ; z++){
+            for(var q = 0 ;q< this.summaryCart.length ; q++){
+                if(this.sellerUid_uni[z] == this.summaryCart[q].sellerUid){
+                    console.log(this.sellerUid_uni[z])
+                    console.log(this.summaryCart[q].sellerUid)
+                    this.order_group_by_sellerUid.push()
+                    console.log("match")
+                }else{
+                    console.log(this.sellerUid_uni[z])
+                    console.log(this.summaryCart[q].sellerUid)
+                    console.log("not match")
+                }
+            }
+        }
+
+
+
+      
+    
     },
 }
 </script>
