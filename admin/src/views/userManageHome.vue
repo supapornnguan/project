@@ -1,16 +1,59 @@
 <template>
     <div id="userManagePosition">
         <h3 style="font-weight:600">USER MANAGEMENT</h3>
-        <userManage/>
+        <sui-table celled style="width:1000px">
+        <sui-table-header>
+          <sui-table-row>
+            <sui-table-header-cell style="text-align:center">No.</sui-table-header-cell>
+            <sui-table-header-cell>Customer Email</sui-table-header-cell>
+            <sui-table-header-cell>Time</sui-table-header-cell>
+          </sui-table-row>
+        </sui-table-header>
+        <sui-table-body>
+          <sui-table-row v-for="(key,index) in keys" :key="index">
+            <sui-table-cell style="text-align:center"><a href="#">{{index+1+"."}}</a></sui-table-cell>
+            <sui-table-cell>{{customer_email[index]}}</sui-table-cell>
+            <sui-table-cell>{{timestamp[index]}}</sui-table-cell>
+          
+        </sui-table-row>
+      </sui-table-body>
+      </sui-table>
+        <!-- <userManage/> -->
     </div>
 </template>
 
 <script>
-import userManage from "../components/userManage"
+import firebase from "../firebase"
+// import userManage from "../components/userManage"
+const db = firebase.ref("/user");
 export default {
-    components : {
-        userManage
-    }
+    // components : {
+    //     userManage
+    // },
+    data() {
+        return {
+            User : {},
+            keys : [],
+            customer_email : [],
+            timestamp : [],
+        } 
+    },
+    mounted () {
+      db.on('value', (snapshot) => {
+      this.User = snapshot.val()
+      this.keys = Object.keys(snapshot.val())
+      console.log(this.User) //return object
+      console.log(this.keys) //return array
+      for (var i=0 ; i< this.keys.length ; i++){
+            var k = this.keys[i];
+            var customer_email = this.User[k].customer_email;
+            var timestamp = this.User[k].timestamp;
+       
+            this.customer_email[i] = customer_email
+            this.timestamp[i] = timestamp
+      }
+    })
+  },
 }
 </script>
 
