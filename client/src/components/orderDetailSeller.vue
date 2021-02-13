@@ -121,7 +121,7 @@
 <script>
 import {mapGetters} from "vuex"
 import firebase from "../firebase"
-import {auth} from "../firebase"
+// import {auth} from "../firebase"
 export default {
     data() {
         return {
@@ -151,20 +151,15 @@ export default {
                 customer_district : "",
                 customer_province : "",
                 customer_zipcode : ""
-                
-
-            
-        
-
         }
     },
     mounted() {
 
         if(this.orderDetail.type == "PICK-UP"){
-            firebase.ref("seller/" + auth.currentUser.uid + "/pickup_order_seller/" + this.orderDetail.keysOrder).on('value' , snapshot=>{
+            firebase.ref("pickup_order/" + this.orderDetail.keysOrder).on('value' , snapshot=>{
                 this.infoDetail = snapshot.val()
                 // console.log(snapshot.val())
-                this.date_time_to_order = this.infoDetail.date_time_to_order
+                this.date_time_to_order = this.infoDetail.status.ordered.date_time_to_order
             })
 
             firebase.ref("Store/"+ this.infoDetail.branch_selected).on("value" , snapshot => {
@@ -191,10 +186,10 @@ export default {
         }
         else if(this.orderDetail.type == "SHIPPING")
         {
-            firebase.ref("seller/" + auth.currentUser.uid + "/shipping_order_seller/" + this.orderDetail.keysOrder).on('value' , snapshot => {
+            firebase.ref("shipping_order/" + this.orderDetail.keysOrder).on('value' , snapshot => {
                 console.log(snapshot.val())
                 this.infoDetail = snapshot.val()
-                this.date_time_to_order = this.infoDetail.date_time_to_order
+                this.date_time_to_order = this.infoDetail.status.ordered.date_time_to_order
                 this.customer_address = this.infoDetail.customer_address
                 
             })

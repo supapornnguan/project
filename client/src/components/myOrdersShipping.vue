@@ -14,8 +14,8 @@
     </sui-table-header>
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyShippingOrder" :key="index">
-        <sui-table-cell style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key}}</a></sui-table-cell>
-        <sui-table-cell style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
+        <sui-table-cell v-if="status[index]== true " style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell v-if="status[index]== true " style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
@@ -170,7 +170,8 @@ export default {
       numberOfProduct_shipping : [],
       type_shipping : "SHIPPING",
       infoDescript_ship : [],
-      show : 1
+      show : 1,
+      status : []
     }
   },
   components : {
@@ -202,7 +203,8 @@ export default {
     //   }
     // })
 
-     firebase.ref("seller/" + auth.currentUser.uid + "/shipping_order_seller").on('value',snapshot => {
+     firebase.ref("shipping_order/").orderByChild("sellerUid")
+                                    .equalTo(auth.currentUser.uid).on('value',snapshot => {
         console.log(snapshot.val())
         this.infoShipping = snapshot.val()
         this.keyShippingOrder = Object.keys(this.infoShipping)
@@ -210,10 +212,12 @@ export default {
         for(var i=0; i < this.keyShippingOrder.length ; i++){
           var k = this.keyShippingOrder[i]
 
-          var date_time_to_order = this.infoShipping[k].date_time_to_order
+          var date_time_to_order = this.infoShipping[k].status.ordered.date_time_to_order
           var descript = this.infoShipping[k].product_description
+          var status = this.infoShipping[k].status.ordered.check_status
           
           this.orderDate_shipping[i] = date_time_to_order
+          this.status[i] = status
           // this.infoDescript = Object.keys(descript)
 
           console.log("hahah")

@@ -91,16 +91,24 @@ export default {
                     product_detail : this.summary.product_detail,
                     seller_name_shop : this.summary.seller_name_shop
                 }]
+                let time_check = {
+                    date_time_to_order : dateToString(this.date_time_to_order),
+                    check_status : true
+                }
+                let status_check = {
+                    ordered : time_check
+                }
                 let newOrder = {
                     userid : auth.currentUser.uid,
-                    date_time_to_order : dateToString(this.date_time_to_order),
+                    sellerUid : this.summary.sellerUid,
+                    // date_time_to_order : dateToString(this.date_time_to_order),
                     customer_address : this.picked,
                     paymentType : this.paymentType,
-                    status : this.status,
+                    status : status_check,
                     product_description : description,
             }
             //add order to shipping_order
-            firebase.ref("seller/"+ this.summary.sellerUid + "/shipping_order_seller").push(newOrder)
+            firebase.ref("shipping_order").push(newOrder)
             // await firebase.ref("shipping_order").push(newOrder)
             }else{
 
@@ -123,16 +131,24 @@ export default {
                         this.order_group_by_sellerUid[b] = this.summaryCart[b]
                         }
                     }
+                    let time_check = {
+                    date_time_to_order : dateToString(this.date_time_to_order),
+                    check_status : true
+                }
+                let status_check = {
+                    ordered : time_check
+                }
                     let newOrder = {
                     userid : auth.currentUser.uid,
-                    date_time_to_order : dateToString(this.date_time_to_order),
+                    sellerUid : this.sellerUid_uni[a],
+                    // date_time_to_order : dateToString(this.date_time_to_order),
                     customer_address : this.picked,
                     paymentType : this.paymentType,
-                    status : this.status,
+                    status : status_check,
                     product_description : this.order_group_by_sellerUid.filter(val => (val!==undefined) && val!==null),
                 }
 
-                await firebase.ref("seller/" + this.sellerUid_uni[a] + "/shipping_order_seller").push(newOrder)
+                await firebase.ref("shipping_order").push(newOrder)
                 this.order_group_by_sellerUid = []
                 }
             // await firebase.ref("shipping_order/").push(newOrder)

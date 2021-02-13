@@ -10,7 +10,17 @@
                 <label for="yes" style="margin-left:10px" >{{name_store_pickup[index]}}</label>
                 <hr style="width:600px">
             </div>
-        <button id="buttonChoose1" @click="chooseStore">CHOOSE THIS STORE</button>
+        <button style=" margin-top: 20px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 7px;
+    margin-left: 630px;" @click="chooseStore" >CHOOSE THIS STORE</button>
+
+  <!-- <b-modal id="modal-1" title="Store Pick-up">
+    <p class="my-4">Hello from modal!</p>
+  </b-modal> -->
+
         <br>
         <button id="buttonChoose" @click="changeType">CHANGE YOUR RECEIVING TYPE</button>
     </div>
@@ -63,15 +73,23 @@ export default {
                     product_detail : this.summary.product_detail,
                     seller_name_shop : this.summary.seller_name_shop
                 }]
+                let time_check = {
+                    date_time_to_order : dateToString(this.date_time_to_order),
+                    check_status : true
+                }
+                let status_check = {
+                    ordered : time_check
+                }
                 let newOrder = {
                 userid : auth.currentUser.uid,
-                date_time_to_order : dateToString(this.date_time_to_order),
+                sellerUid : this.summary.sellerUid,
+                // date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
-                status : this.status,
+                status : status_check,
                 product_description : description,
                 }
 
-            await firebase.ref("seller/"+ this.summary.sellerUid + "/pickup_order_seller").push(newOrder)
+            await firebase.ref("pickup_order").push(newOrder)
             this.$router.replace('pickupSum')
 
             }else{
@@ -82,15 +100,23 @@ export default {
                         this.order_group_by_sellerUid[b] = this.summaryCart[b]
                     }
                 } 
+                let time_check = {
+                    date_time_to_order : dateToString(this.date_time_to_order),
+                    check_status : true
+                }
+                let status_check = {
+                    ordered : time_check
+                }
                 let newOrder = {
                 userid : auth.currentUser.uid,
-                date_time_to_order : dateToString(this.date_time_to_order),
+                sellerUid : this.sellerUid_uni[a],
+                // date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
-                status : this.status,
+                status : status_check,
                 product_description : this.order_group_by_sellerUid.filter(val => (val!==undefined) && val!==null),
                 }
                 console.log(this.order_group_by_sellerUid)
-                firebase.ref("seller/" + this.sellerUid_uni[a] + "/pickup_order_seller").push(newOrder)
+                firebase.ref("pickup_order").push(newOrder)
                 this.order_group_by_sellerUid = []
             }   
             

@@ -11,18 +11,18 @@
     </sui-table-header>
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyPickupOrder" :key="index">
-        <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center"><a href="#" @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
-        <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
-        <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center">{{type_pickup}}</sui-table-cell>
+        <sui-table-cell v-if="status[index] == true" style="text-align:center"><a href="#" @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell v-if="status[index] == true" style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
+        <sui-table-cell v-if="status[index] == true" style="text-align:center">{{type_pickup}}</sui-table-cell>
       
       </sui-table-row>
     </sui-table-body>
 
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyShippingOrder" :key="index">
-        <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100 )}}</a></sui-table-cell>
-        <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
-        <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center">{{type_shipping}}</sui-table-cell>
+        <sui-table-cell v-if="status[index] == true" style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100 )}}</a></sui-table-cell>
+        <sui-table-cell v-if="status[index] == true" style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
+        <sui-table-cell v-if="status[index] == true" style="text-align:center">{{type_shipping}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
@@ -71,7 +71,8 @@ export default {
       numberOfProduct_shipping : [],
       type_shipping : "SHIPPING",
       infoDescript_ship : [],
-       show : 1
+       show : 1,
+       status_ship : []
     }
   },
   components : {
@@ -94,8 +95,11 @@ export default {
   },
 
   mounted() {
+
+
       //pick-up
-      firebase.ref("seller/" + auth.currentUser.uid + "/pickup_order_seller").on('value',snapshot => {
+      firebase.ref("pickup_order/").orderByChild("sellerUid")
+                                    .equalTo(auth.currentUser.uid).on('value',snapshot => {
         console.log(snapshot.val())
         this.infoPickup = snapshot.val()
         this.keyPickupOrder = Object.keys(this.infoPickup)
@@ -103,9 +107,9 @@ export default {
         for(var i=0; i < this.keyPickupOrder.length ; i++){
           var k = this.keyPickupOrder[i]
 
-          var date_time_to_order = this.infoPickup[k].date_time_to_order
+          var date_time_to_order = this.infoPickup[k].status.ordered.date_time_to_order
           var descript = this.infoPickup[k].product_description
-          var status = this.infoPickup[k].status
+          var status = this.infoPickup[k].status.ordered.check_status
           
           this.orderDate_pickup[i] = date_time_to_order
           this.status[i] = status
@@ -135,7 +139,8 @@ export default {
 
       
       //shipping
-        firebase.ref("seller/" + auth.currentUser.uid + "/shipping_order_seller").on('value',snapshot => {
+        firebase.ref("shipping_order/").orderByChild("sellerUid")
+                                    .equalTo(auth.currentUser.uid).on('value',snapshot => {
         console.log(snapshot.val())
         this.infoShipping = snapshot.val()
         this.keyShippingOrder = Object.keys(this.infoShipping)
@@ -143,10 +148,12 @@ export default {
         for(var i=0; i < this.keyShippingOrder.length ; i++){
           var k = this.keyShippingOrder[i]
 
-          var date_time_to_order = this.infoShipping[k].date_time_to_order
+          var date_time_to_order = this.infoShipping[k].status.ordered.date_time_to_order
           var descript = this.infoShipping[k].product_description
+          var status = this.infoShipping[k].status.ordered.check_status
           
           this.orderDate_shipping[i] = date_time_to_order
+          this.status_ship = status
           // this.infoDescript = Object.keys(descript)
 
           console.log("hahah")

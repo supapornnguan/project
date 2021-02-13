@@ -96,14 +96,16 @@ export default {
 
  
   mounted() {
-    firebase.ref("seller/" + auth.currentUser.uid + "/pickup_order_seller").on("value", snapshot => {
+    firebase.ref("pickup_order/").orderByChild("sellerUid")
+                                    .equalTo(auth.currentUser.uid).on("value", snapshot => {
       console.log(snapshot.val())
       this.infoProduct_pickup = snapshot.val()
       this.numInfo_pickup = Object.keys(this.infoProduct_pickup)
       console.log(this.numInfo_pickup)
     })
 
-    firebase.ref("seller/" + auth.currentUser.uid + "/shipping_order_seller").on("value", snapshot =>{
+    firebase.ref("shipping_order/").orderByChild("sellerUid")
+                                    .equalTo(auth.currentUser.uid).on("value", snapshot =>{
       this.infoProduct_shipping = snapshot.val()
       this.numInfo_shipping = Object.keys(this.infoProduct_shipping)
     })

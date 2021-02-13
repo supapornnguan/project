@@ -19,15 +19,17 @@
     </sui-table-header>
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyPickupOrder" :key="index">
-          <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center"><a  href="#"  @click="detailPickup(key,type_pickup)">{{key}}</a></sui-table-cell>
-          <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
-          <sui-table-cell v-if="status[index] == 'ordered' " style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
+          <sui-table-cell v-if="status[index] == true " style="text-align:center"><a  href="#"  @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
+          <sui-table-cell v-if="status[index] == true " style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
+          <sui-table-cell v-if="status[index] == true " style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
 
   </sui-table>
+
   
   </b-tab>
+
 
   <!-- PACKING -->
   <b-tab title="Packing">
@@ -681,7 +683,8 @@ export default {
       infoDescript : [], 
       value:"",
       open: false,
-      show : 1
+      show : 1,
+      date_time_to_order1 : []
 
     }
   },
@@ -717,7 +720,8 @@ export default {
     },
   },
   mounted() {
-        firebase.ref("seller/" + auth.currentUser.uid + "/pickup_order_seller").on('value',snapshot => {
+        firebase.ref("pickup_order/").orderByChild("sellerUid")
+                                    .equalTo(auth.currentUser.uid).on('value',snapshot => {
         console.log(snapshot.val())
         this.infoPickup = snapshot.val()
         this.keyPickupOrder = Object.keys(this.infoPickup)
@@ -725,18 +729,20 @@ export default {
         for(var i=0; i < this.keyPickupOrder.length ; i++){
           var k = this.keyPickupOrder[i]
 
-          var date_time_to_order = this.infoPickup[k].date_time_to_order
+          var date_time_to_order = this.infoPickup[k].status.ordered.date_time_to_order
           var descript = this.infoPickup[k].product_description
           var branch_selected = this.infoPickup[k].branch_selected
-          var status = this.infoPickup[k].status
+          var status = this.infoPickup[k].status.ordered.check_status
+        
           
           this.orderDate_pickup[i] = date_time_to_order
           this.branch_selected[i] = branch_selected
           this.status[i] = status
+   
           // this.infoDescript = Object.keys(descript)
 
           console.log("hahah")
-          console.log(descript)
+          console.log(status)
 
           for(var j=0; j < descript.length ; j++){
             console.log(descript[j])
