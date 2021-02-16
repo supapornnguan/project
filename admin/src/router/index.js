@@ -43,6 +43,11 @@ const routes = [
     component: () => import('../views/userManageHome.vue')
   },
   {
+    path: '/userManageInfo',
+    name: 'userManageInfo',
+    component: () => import('../views/userManageInfo.vue')
+  },
+  {
     path: '/storeManageHome',
     name: 'storeManageHome',
     component: () => import('../views/storeManageHome.vue')

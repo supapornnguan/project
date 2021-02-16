@@ -13,7 +13,11 @@ const user = {
                 customer_district : "",
                 customer_province : "",
                 customer_zipcode : ""
-            }
+            },
+        },
+        orderDetailUser : {
+            keysOrder : "",
+            type : ""
         }
     },
     getters : {
@@ -22,6 +26,9 @@ const user = {
         },
         inforCustomer( state ){
             return state.infoCustomer
+        },
+        getOrderDetail (state){
+            return state.orderDetailUser
         }
     },
     mutations : {
@@ -41,7 +48,12 @@ const user = {
             state.infoCustomer.customer_district = payload.customer_district
             state.infoCustomer.customer_province = payload.customer_province
             state.infoCustomer.customer_zipcode = payload.customer_zipcode
+        },
+        SET_KEY_ORDER_DETAIL_USER(state, payload){
+            state.orderDetailUser.keysOrder = payload.keysOrder
+            state.orderDetailUser.type = payload.type
         }
+
     },
     actions : {
         fetchUser({ commit }, users) {

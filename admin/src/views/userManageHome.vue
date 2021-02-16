@@ -1,12 +1,24 @@
 <template>
     <div id="userManagePosition">
         <h3 style="font-weight:600">USER MANAGEMENT</h3>
+        <br>
+        <!-- search -->
+        <b-input-group style="width:1000px" size="lg" :aria-hidden="busy ? 'true' : null">
+        <b-form-input placeholder="Enter user email" v-model="value" :disabled="busy"></b-form-input>
+        <b-input-group-append>
+          <b-button ref="button" :disabled="busy" variant="primary"  @click="onClick">
+            Find
+          </b-button>
+        </b-input-group-append>
+        </b-input-group>
+        <!-- table -->
         <sui-table celled style="width:1000px">
         <sui-table-header>
           <sui-table-row>
             <sui-table-header-cell style="text-align:center">No.</sui-table-header-cell>
-            <sui-table-header-cell>Customer Email</sui-table-header-cell>
-            <sui-table-header-cell>Time</sui-table-header-cell>
+            <sui-table-header-cell style="text-align:center">Customer Email</sui-table-header-cell>
+            <sui-table-header-cell style="text-align:center">Time</sui-table-header-cell>
+            <sui-table-header-cell style="text-align:center"></sui-table-header-cell>
           </sui-table-row>
         </sui-table-header>
         <sui-table-body>
@@ -14,7 +26,7 @@
             <sui-table-cell style="text-align:center"><a href="#">{{index+1+"."}}</a></sui-table-cell>
             <sui-table-cell>{{customer_email[index]}}</sui-table-cell>
             <sui-table-cell>{{timestamp[index]}}</sui-table-cell>
-          
+            <sui-table-cell style="text-align:center" @click="gotoUserInfo"><b-button variant="outline-primary">More</b-button></sui-table-cell>
         </sui-table-row>
       </sui-table-body>
       </sui-table>
@@ -24,6 +36,7 @@
 
 <script>
 import firebase from "../firebase"
+import store from '../store'
 // import userManage from "../components/userManage"
 const db = firebase.ref("/user");
 export default {
@@ -37,6 +50,12 @@ export default {
             customer_email : [],
             timestamp : [],
         } 
+    },
+    methods: {
+        gotoUserInfo(key){
+            store.commit('SET_INFO_USER',key)
+            this.$router.replace('userManageInfo')
+            },
     },
     mounted () {
       db.on('value', (snapshot) => {

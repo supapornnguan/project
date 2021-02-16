@@ -10,7 +10,17 @@
                 <label for="yes" style="margin-left:10px" >{{name_store_pickup[index]}}</label>
                 <hr style="width:600px">
             </div>
-        <button id="buttonChoose1" @click="chooseStore">CHOOSE THIS STORE</button>
+        <button style=" margin-top: 20px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 7px;
+    margin-left: 630px;" @click="chooseStore" >CHOOSE THIS STORE</button>
+
+  <!-- <b-modal id="modal-1" title="Store Pick-up">
+    <p class="my-4">Hello from modal!</p>
+  </b-modal> -->
+
         <br>
         <button id="buttonChoose" @click="changeType">CHANGE YOUR RECEIVING TYPE</button>
     </div>
@@ -36,6 +46,9 @@ export default {
             name_store_pickup : [],
             status : "ordered",
             quantity_product : "",
+            sellerUid_uni : [],
+            order_group_by_sellerUid : [],
+
         }
     },
     components:{
@@ -52,35 +65,62 @@ export default {
                 let description = [{
                     keysProduct : this.key,
                     sellerUid : this.summary.sellerUid,
-                    status : this.status,
+                    
                     product_image : this.summary.product_image,
                     product_name : this.summary.product_name,
                     product_unit_price : this.summary.product_unit_price,
                     quantity : this.summary.quantity,
-                    product_detail : this.summary.product_detail
+                    product_detail : this.summary.product_detail,
+                    seller_name_shop : this.summary.seller_name_shop
                 }]
+                let time_check = {
+                    date_time_to_order : dateToString(this.date_time_to_order),
+                    check_status : true
+                }
+                let status_check = {
+                    ordered : time_check
+                }
                 let newOrder = {
                 userid : auth.currentUser.uid,
-                date_time_to_order : dateToString(this.date_time_to_order),
+                sellerUid : this.summary.sellerUid,
+                // date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
+                status : status_check,
                 product_description : description,
-                total_amount : this.type.total_amount,
-                quantity_total : this.summary.quantity
                 }
 
-            await firebase.ref("pickup_order/").push(newOrder)
+            await firebase.ref("pickup_order").push(newOrder)
             this.$router.replace('pickupSum')
 
             }else{
+
+            for(var a = 0 ; a < this.sellerUid_uni.length ; a ++ ){
+                for(var b = 0; b < this.summaryCart.length ; b++){
+                    if(this.sellerUid_uni[a] == this.summaryCart[b].sellerUid){
+                        this.order_group_by_sellerUid[b] = this.summaryCart[b]
+                    }
+                } 
+                let time_check = {
+                    date_time_to_order : dateToString(this.date_time_to_order),
+                    check_status : true
+                }
+                let status_check = {
+                    ordered : time_check
+                }
                 let newOrder = {
                 userid : auth.currentUser.uid,
-                date_time_to_order : dateToString(this.date_time_to_order),
+                sellerUid : this.sellerUid_uni[a],
+                // date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
-                product_description : this.cartList,
-                total_amount : this.cartValue,
-                quantity_total : this.cartList.length
+                status : status_check,
+                product_description : this.order_group_by_sellerUid.filter(val => (val!==undefined) && val!==null),
                 }
-            await firebase.ref("pickup_order/").push(newOrder)
+                console.log(this.order_group_by_sellerUid)
+                firebase.ref("pickup_order").push(newOrder)
+                this.order_group_by_sellerUid = []
+            }   
+            
+            // await firebase.ref("pickup_order/").push(newOrder)
             this.$router.replace('pickupSum')
             }
             await firebase.ref("product/" + this.key).on('value', snapshot => {
@@ -102,7 +142,9 @@ export default {
             key : "getProductId",
             checkPage : "getStateIscart",
             cartValue : "cartValue",
-            cartList : "cartItemList"
+            cartList : "cartItemList",
+            summaryCart : "getSummaryCart",
+            summaryCartValue : "getSummaryCartValue"
         })
     },
     mounted() {
@@ -120,6 +162,32 @@ export default {
                console.log(this.keyStore)
            }
         })
+
+        for(var j=0 ; j<this.summaryCart.length;j++){
+            this.sellerUid_uni[j] = this.summaryCart[j].sellerUid
+        }
+        this.sellerUid_uni = [...new Set(this.sellerUid_uni)]
+        console.log(this.sellerUid_uni)
+
+        for(var z = 0; z < this.sellerUid_uni.length ; z++){
+            for(var q = 0 ;q< this.summaryCart.length ; q++){
+                if(this.sellerUid_uni[z] == this.summaryCart[q].sellerUid){
+                    console.log(this.sellerUid_uni[z])
+                    console.log(this.summaryCart[q].sellerUid)
+                    this.order_group_by_sellerUid.push()
+                    console.log("match")
+                }else{
+                    console.log(this.sellerUid_uni[z])
+                    console.log(this.summaryCart[q].sellerUid)
+                    console.log("not match")
+                }
+            }
+        }
+
+
+
+      
+    
     },
 }
 </script>

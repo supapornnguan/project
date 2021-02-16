@@ -21,12 +21,12 @@
             </sui-table-body>
 <!-- summary of cart -->
             <sui-table-body v-if="checkPage.check==true ">
-                <sui-table-row v-for="(key,index) in cartList" :key="index">
-                    <sui-table-cell><img :src="cartList[index].product_image" :width="150" style="margin-left:90px"></sui-table-cell>
+                <sui-table-row v-for="(key,index) in summaryCart" :key="index">
+                    <sui-table-cell><img :src="summaryCart[index].product_image" :width="150" style="margin-left:90px"></sui-table-cell>
                     <sui-table-cell>
-                        <h3 class="info">{{cartList[index].product_name}}</h3>
-                        <p style="font-size:15px; margin-top:20px;">Price: {{cartList[index].product_unit_price}}.00 THB</p>
-                        <p style="font-size:15px">Quantity : {{cartList[index].quantity}}</p>
+                        <h3 class="info">{{summaryCart[index].product_name}}</h3>
+                        <p style="font-size:15px; margin-top:20px;">Price: {{summaryCart[index].product_unit_price}}.00 THB</p>
+                        <p style="font-size:15px">Quantity : {{summaryCart[index].quantity}}</p>
                     </sui-table-cell>
                 </sui-table-row>
             </sui-table-body>
@@ -75,7 +75,8 @@ export default {
             type : "getReceivingType",
             branch : "getBranch",
             checkPage : "getStateIscart",
-            cartList : "cartItemList"
+            cartList : "cartItemList",
+            summaryCart : "getSummaryCart",
         })
     },
     mounted() {

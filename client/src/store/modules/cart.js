@@ -9,6 +9,7 @@ const mutations = {
 							product_detail,
 							sellerUid,
 							status,
+							seller_name_shop,
 							quantity, 
 							isAdd}) {
 		const record = state.cartItemList.find(element => element.keysProduct === keysProduct);
@@ -27,6 +28,7 @@ const mutations = {
 				product_detail,
 				sellerUid,
 				status,
+				seller_name_shop,
 				quantity
 			});
 		}

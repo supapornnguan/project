@@ -115,7 +115,8 @@ export default {
                 product_unit_price : this.product_unit_price,
                 product_image : this.product_image,
                 sellerUid : this.sellerUid,
-                product_detail : this.product_detail_non_split
+                product_detail : this.product_detail_non_split,
+                seller_name_shop : this.seller_name_shop
             } )
             store.commit("SET_CHECK_STATE",{
                 check : this.check
@@ -145,7 +146,7 @@ export default {
             console.log(this.product_name);
         }) 
         
-       
+
 
         //query seller collection
         firebase.ref('seller/'+ this.sellerUid).on('value', (snapshot) =>{

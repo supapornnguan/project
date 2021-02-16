@@ -56,7 +56,8 @@ export default {
             product_detail : [],
             useruid : "",
             sellerUid : [],
-            status : "ordered"
+            status : "ordered",
+            seller_name_shop : []
 
         }
     },
@@ -78,6 +79,7 @@ export default {
         product_detail : this.product_detail[index],
         sellerUid : this.sellerUid[index],
         status : this.status,
+        seller_name_shop : this.seller_name_shop[index],
         quantity: 1,
         isAdd: true
       };
@@ -115,7 +117,7 @@ export default {
   //getting type of product
   computed: {
     ...mapGetters({
-      getProductType : "getProductType",
+      getProductType : "getProductType"
     }),
   },
   //Filtering description of product
@@ -135,7 +137,7 @@ export default {
     firebase.ref('product/').orderByChild('product_category').equalTo(this.getProductType).on('value', (snapshot) => {
       this.products = snapshot.val()
       this.keysProduct = Object.keys(snapshot.val())
-      console.log("this is keyProduct "+this.keysProduct)
+      // console.log("this is keyProduct "+this.keysProduct)
       
       for(var i=0 ; i< this.keysProduct.length ; i++){
         var k = this.keysProduct[i];
@@ -145,6 +147,7 @@ export default {
         var product_unit_price = this.products[k].product_unit_price
         var product_detail = this.products[k].product_detail
         var sellerUid = this.products[k].sellerUid
+        var seller_name_shop = this.products[k].seller_name_shop
 
         this.product_name[i] = product_name
         this.product_quantity[i] = product_quantity
@@ -152,10 +155,12 @@ export default {
         this.product_unit_price[i] = product_unit_price
         this.product_detail[i] = product_detail
         this.sellerUid[i] = sellerUid
+        this.seller_name_shop[i] = seller_name_shop
+        
 
-        console.log(this.product_name[i] = product_name)
-        console.log(this.product_image[i] = product_image)
-        console.log(this.product_detail[i] = product_detail)
+        // console.log(this.product_name[i] = product_name)
+        // console.log(this.product_image[i] = product_image)
+        // console.log(this.product_detail[i] = product_detail)
       }
     })
   },

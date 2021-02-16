@@ -44,7 +44,7 @@ import addProduct from "../components/addProduct"
 import myOrders from "../components/myOrders"
 import navbar from "../components/navbarSeller"
 import myshop from "../components/myshop"
-import store from "../store"
+// import store from "../store"
 export default {
   data() {
     return {
@@ -68,18 +68,18 @@ export default {
     },
     select(name) {
           this.active = name;
-          if(name == "MY ORDERS"){
-          store.commit("SET_ORDER_BY_PICKUP", {
-          branch_selected : this.branch_selected,
-          date_time_to_order : this.date_time_to_order,
-          product_key : this.product_key,
-          sellerUid : this.sellerUid,
-          status : this.status,
-          total_amount : this.total_amount,
-          userid : this.userid,
-          quantity : this.quantity
-        })
-      }
+      //     if(name == "MY ORDERS"){
+      //     store.commit("SET_ORDER_BY_PICKUP", {
+      //     branch_selected : this.branch_selected,
+      //     date_time_to_order : this.date_time_to_order,
+      //     product_key : this.product_key,
+      //     sellerUid : this.sellerUid,
+      //     status : this.status,
+      //     total_amount : this.total_amount,
+      //     userid : this.userid,
+      //     quantity : this.quantity
+      //   })
+      // }
     },
   },
   components:{

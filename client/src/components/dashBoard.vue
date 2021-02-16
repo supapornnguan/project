@@ -10,7 +10,7 @@
             <div class="single-example" align=center>
               <sui-statistic>
                 <sui-statistic-label>TOTAL ORDERS</sui-statistic-label>
-                <sui-statistic-value>120</sui-statistic-value>
+                <sui-statistic-value>{{numInfo_pickup.length + numInfo_shipping.length}}</sui-statistic-value>
               </sui-statistic>
             </div>
           </sui-segment>
@@ -20,7 +20,7 @@
             <div class="single-example" align=center>
               <sui-statistic>
                 <sui-statistic-label>PICKUP ORDERS</sui-statistic-label>
-                <sui-statistic-value>70</sui-statistic-value>
+                <sui-statistic-value>{{numInfo_pickup.length}}</sui-statistic-value>
               </sui-statistic>
             </div>
           </sui-segment>
@@ -30,7 +30,7 @@
             <div class="single-example" align=center>
               <sui-statistic>
                 <sui-statistic-label>SHIPPING ORDERS</sui-statistic-label>
-                <sui-statistic-value>50</sui-statistic-value>
+                <sui-statistic-value>{{numInfo_shipping.length}}</sui-statistic-value>
               </sui-statistic>
             </div>
           </sui-segment>
@@ -79,6 +79,43 @@
     </sui-grid>
   </div>
 </template>
+
+<script>
+import firebase from "../firebase"
+import {auth} from "../firebase"
+export default {
+  data() {
+    return {
+      infoProduct_pickup : {},
+      numInfo_pickup : [],
+      infoProduct_shipping : {},
+      numInfo_shipping : [],
+      total_order : 0
+    }
+  },
+
+ 
+  mounted() {
+    firebase.ref("pickup_order/").orderByChild("sellerUid")
+                                    .equalTo(auth.currentUser.uid).on("value", snapshot => {
+      console.log(snapshot.val())
+      this.infoProduct_pickup = snapshot.val()
+      this.numInfo_pickup = Object.keys(this.infoProduct_pickup)
+      console.log(this.numInfo_pickup)
+    })
+
+    firebase.ref("shipping_order/").orderByChild("sellerUid")
+                                    .equalTo(auth.currentUser.uid).on("value", snapshot =>{
+      this.infoProduct_shipping = snapshot.val()
+      this.numInfo_shipping = Object.keys(this.infoProduct_shipping)
+    })
+
+    // this.total_order = this.numInfo_pickup.length + this.infoProduct_shipping.length
+    
+  },
+  
+}
+</script>
 
 <style>
 #spaceLeftRight{
