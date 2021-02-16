@@ -35,12 +35,12 @@
                 </sui-table-row>
             </sui-table-header>
             <sui-table-body>
-                <sui-table-row v-for="(key,index) in cartList" :key="index">
-                    <sui-table-cell><img :src="cartList[index].product_image" :width="150" style="margin-left:30px"></sui-table-cell>
+                <sui-table-row v-for="(key,index) in summaryCart" :key="index">
+                    <sui-table-cell><img :src="summaryCart[index].product_image" :width="150" style="margin-left:30px"></sui-table-cell>
                     <sui-table-cell>
-                        <h3 class="info">{{cartList[index].product_name}}</h3>
-                        <p style="font-size:15px; margin-top:20px;">Price: {{cartList[index].product_unit_price}}.00 THB</p>
-                        <p style="font-size:15px">Quantity : {{cartList[index].quantity}}</p>
+                        <h3 class="info">{{summaryCart[index].product_name}}</h3>
+                        <p style="font-size:15px; margin-top:20px;">Price: {{summaryCart[index].product_unit_price}}.00 THB</p>
+                        <p style="font-size:15px">Quantity : {{summaryCart[index].quantity}}</p>
                       
                     </sui-table-cell>
                 </sui-table-row>
@@ -107,7 +107,7 @@ export default {
         ...mapGetters({
             infoSummary : "getSummaryPage",
             checkPage : "getStateIscart",
-            cartList : "cartItemList",
+            summaryCart : "getSummaryCart",
             cartValue : "cartValue"
         })
     },

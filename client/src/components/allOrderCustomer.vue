@@ -9,7 +9,7 @@
         <p style="display:inline; font-weight:670; font-size:20px; margin-left:80px">Status</p>
 
     </div>
-        <!-- <sui-segment id="allOrder" v-for="(key,index) in key_pickup " :key="index" > 
+        <sui-segment id="allOrder" v-for="(key,index) in key_pickup " :key="index" > 
             <a href="#" @click="detailPickup(key)" style="position:absolute; top:25px; display:inline">{{key}}</a>
             <p style="position:absolute; top:25px; left:290px; display:inline;">{{quantity[index]}}</p>
             <p style="position:absolute; top:25px; left:400px; display:inline; margin-left:20px">{{total_amount[index]}}.00 THB</p>
@@ -17,13 +17,13 @@
             <p style="position:absolute; top:25px; left:380px; display:inline; margin-left:465px">{{status_pickup[index]}}</p>
         </sui-segment> -->
 
-        <!-- <sui-segment id="allOrder" v-for="(key,index) in key_shipping" :key="'A'+ index"> 
+        <sui-segment id="allOrder" v-for="(key,index) in key_shipping" :key="'A'+ index"> 
             <a href="#" @click="detailShipping" style="position:absolute; top:25px; display:inline">{{key}}</a>
             <p style="position:absolute; top:25px; left:290px; display:inline;">{{quantity_ship[index]}}</p>
             <p style="position:absolute; top:25px; left:400px; display:inline; margin-left:20px">{{total_amount_ship[index]}}.00 THB</p>
             <p style="position:absolute; top:25px; left:380px; display:inline; margin-left:270px">{{receiving_type_ship[index]}}</p>
             <p style="position:absolute; top:25px; left:380px; display:inline; margin-left:465px">{{status_ship[index]}}</p>
-        </sui-segment> -->
+        </sui-segment>
     </div>
 
     <div v-if="show==2">
