@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div v-if="this.edit == '1' ">
         <h1 style="margin-bottom:40px">MY PERSONAL</h1>
 
        <div style="margin-bottom:10px">
@@ -37,17 +38,22 @@
                     <p style="position:absolute; top:315px">{{product_detail[index] | shortDescription}}</p>
                     <p style="position:absolute; top:380px">{{product_unit_price[index]}}  THB</p>
                 <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:410px; left:10px" />
-                <button class= "buttonEdit" style="position:absolute; top:440px; ">EDIT</button>
+                <button class= "buttonEdit" style="position:absolute; top:440px;" @click="gotoeditInfoproduct">EDIT</button>
                 </sui-card-content>
             </sui-card>
         </sui-card-group>
-       
+        </div>
+        <div v-if="this.edit!='1' ">
+            <infoEditProduct>
+            </infoEditProduct>
+        </div>
     </div>
 </template>
 
 <script>
 import {auth} from "../firebase"
 import firebase from "../firebase"
+import infoEditProduct from "../components/infoEditProduct"
 export default {
     data() {
         return {
@@ -65,8 +71,13 @@ export default {
             product_image : [],
             product_quantity : [],
             product_unit_price: [],
-            product_detail : []
+            product_detail : [],
+
+            edit : "1"
         }
+    },
+    components:{
+        infoEditProduct
     },
     filters : {
     shortDescription(value) {
@@ -78,7 +89,11 @@ export default {
       }
     }
   },
-
+ methods: {
+     gotoeditInfoproduct(){
+         this.edit++
+     }
+ },
     mounted() {
         firebase.ref("seller/" + auth.currentUser.uid).on('value', snapshot => {
             console.log(snapshot.val())
