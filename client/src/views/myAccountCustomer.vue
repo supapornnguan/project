@@ -51,8 +51,8 @@
 import AccountCustomer from "../components/AccountCustomer"
 import myOrderCustomer from "../components/myOrderCustomer"
 import navbar from "../components/navbar"
-// import firebase from "../firebase"
-// import {auth} from "../firebase"
+import firebase from "../firebase"
+import {auth} from "../firebase"
 export default {
   data() {
     return {

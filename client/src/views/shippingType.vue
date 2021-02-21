@@ -166,7 +166,7 @@ export default {
                     tracking_no : {check_track : false},
                     // date_time_to_order : dateToString(this.date_time_to_order),
                     customer_address : this.picked,
-                    paymentType : this.paymentType,
+                    // paymentType : this.paymentType,
                     status : status_check,
                     product_description : this.order_group_by_sellerUid.filter(val => (val!==undefined) && val!==null),
                 }

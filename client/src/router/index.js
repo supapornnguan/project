@@ -35,7 +35,7 @@ const routes =[
     component: () => import('../views/sellerLogin.vue')
   },
   {
-    path: '/productAll',
+    path: '/productAll',   
     name: 'productAll',
     component: () => import('../views/productAll.vue'),
   },
