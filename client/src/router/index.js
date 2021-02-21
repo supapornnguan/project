@@ -6,7 +6,7 @@ import Vuelidate from 'vuelidate'
 import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+// import orderDetailSeller from "../components/orderDetailSeller.vue"
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
@@ -17,9 +17,8 @@ const routes =[
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/homepage.vue')
-  }
-  ,
+    component: () => import('../views/homepage.vue'),
+  },
   {
     path: '/sellerRegis',
     name: 'sellerRegis',
@@ -38,7 +37,7 @@ const routes =[
   {
     path: '/productAll',
     name: 'productAll',
-    component: () => import('../views/productAll.vue')
+    component: () => import('../views/productAll.vue'),
   },
   {
     path: '/infoProduct',
@@ -93,7 +92,7 @@ const routes =[
   {
     path: '/sellerCenter',
     name: 'sellerCenter',
-    component: () => import('../views/sellerCenter.vue')
+    component: () => import('../views/sellerCenter.vue'),
   },
   {
     path: '/confirmShipping',
@@ -115,7 +114,47 @@ const routes =[
     path: '/review',
     name: 'review',
     component: () => import('../views/review.vue')
+  },
+  {
+    path: '/homeStore/:idStore',
+    name : 'homeStore',
+    component: () => import('../views/homeStore.vue'),
+  },
+  {
+    path: '/homeStore/',
+    name : 'homeStore1',
+    component: () => import('../components/homeStore1.vue'),
+  },
+  {
+    name : 'detaildeliStore',
+    path: '/detaildeliStore/:idStoreDeli',
+    component: () => import('../views/detaildeliStore.vue'),
+  },
+  {
+    name : 'detailTrackStore',
+    path: '/detailTrackStore/:idTrack',
+    component: () => import('../views/detailTrackStore.vue'),
+  },
+  {
+    path: '/atstore',
+    name : 'atstore',
+    component: () => import('../views/atstoreStore.vue'),
+  },
+  {
+    path: '/returnStore',
+    name : 'returnStore',
+    component: () => import('../views/returnStore.vue'),
+  },
+  {
+    path: '/detailOrderStore/:idOrder',
+    name : 'detailOrderStore',
+    component : () => import('../views/detailOrderStore.vue')
   }
+  // {
+  //   path: '/homeStore',
+  //   name : 'homeStore',
+  //   component: () => import('../views/homeStore.vue'),
+  // },
 ]
 // import {auth} from "../firebase"
 

@@ -15,17 +15,30 @@
     background-color: white;
     border: 1px solid black;
     padding: 7px;
-    margin-left: 630px;" @click="chooseStore" >CHOOSE THIS STORE</button>
+    margin-left: 630px;" @click="showModal(picked)" >CHOOSE THIS STORE</button>
 
   <!-- <b-modal id="modal-1" title="Store Pick-up">
     <p class="my-4">Hello from modal!</p>
   </b-modal> -->
 
         <br>
+        
         <button id="buttonChoose" @click="changeType">CHANGE YOUR RECEIVING TYPE</button>
+
+         <b-modal ref="my-modal" hide-footer title="CONFIRMATION">
+      <div class="d-block text-center" style="margin-bottom:20px">
+        <h3 style="margin-bottom:20px">Store Pick-up : {{branch_confirm}}</h3>
+        <h5>Once you submit, you will no longer be able to change your store pick-up.</h5>
+      </div>
+      <b-button class="mt-3" variant="secondary" style="margin-left:290px;" @click="hideModal">CANCLE</b-button>
+      <b-button class="mt-3" variant="secondary" style="margin-left:10px;" @click="chooseStore">CONFIRM</b-button>
+    </b-modal>
+
+
     </div>
 </template>
 <script>
+
 import navbar from "../components/navbar"
 import store from "../store"
 import firebase from "../firebase"
@@ -39,7 +52,7 @@ export default {
             date_time_to_order : "",
             userid : "",
             product_key : "",
-            total_amount : "",
+            total_amount : 0,
             sellerUid : "",
             branch : {},
             keyStore : [],
@@ -48,20 +61,47 @@ export default {
             quantity_product : "",
             sellerUid_uni : [],
             order_group_by_sellerUid : [],
+            showStoreInModal : "",
+            number_of_product : 0,
+            branch_confirm : ""
+         
 
         }
     },
     components:{
         navbar,
+
     },
     methods: {
+        showModal(selected) {
+        this.$refs['my-modal'].show()
+        if(selected == "PU01"){
+            this.branch_confirm = "CENTRAL PLAZA PINKLAO"
+        }else if(selected == "PU02"){
+            this.branch_confirm = "SIAM PARAGON"
+        }else if(selected == "PU03"){
+            this.branch_confirm = "CENTRAL RAMA3"
+        }else if(selected == "PU04"){
+            this.branch_confirm = "CENTRAL LARDPRAO"
+        }else if(selected == "PU05"){
+            this.branch_confirm = "EMQUARTIER"
+        }
+      },
+      hideModal() {
+        this.$refs['my-modal'].hide()
+      },
+ 
         
         async chooseStore(){
+            this.$refs['my-modal'].hide()
+            this.showModal = false
             this.date_time_to_order = Date.now();
             store.commit("SET_BRANCH", {
                 picked : this.picked
             })
             if(this.checkPage.check == false){
+                this.total_amount = this.summary.quantity * this.summary.product_unit_price
+                this.number_of_product = this.summary.quantity
                 let description = [{
                     keysProduct : this.key,
                     sellerUid : this.summary.sellerUid,
@@ -78,11 +118,19 @@ export default {
                     check_status : true
                 }
                 let status_check = {
-                    ordered : time_check
+                    ordered : time_check,
+                    packing : {check_status : false},
+                    delivery : {check_status : false},
+                    atstore : {check_status : false},
+                    complete : {check_status : false},
+                    return : {check_status : false}
                 }
                 let newOrder = {
                 userid : auth.currentUser.uid,
                 sellerUid : this.summary.sellerUid,
+                total_amount : this.total_amount,
+                number_of_product : this.number_of_product,
+                tracking_no : {check_track : false},
                 // date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
                 status : status_check,
@@ -96,6 +144,8 @@ export default {
 
             for(var a = 0 ; a < this.sellerUid_uni.length ; a ++ ){
                 for(var b = 0; b < this.summaryCart.length ; b++){
+                    this.number_of_product += this.summaryCart[b].quantity
+                    this.total_amount += (this.summaryCart[b].quantity * parseInt(this.summaryCart[b].product_unit_price))
                     if(this.sellerUid_uni[a] == this.summaryCart[b].sellerUid){
                         this.order_group_by_sellerUid[b] = this.summaryCart[b]
                     }
@@ -105,11 +155,19 @@ export default {
                     check_status : true
                 }
                 let status_check = {
-                    ordered : time_check
+                    ordered : time_check,
+                    packing : {check_status : false},
+                    delivery : {check_status : false},
+                    atstore : {check_status : false},
+                    complete : {check_status : false},
+                    return : {check_status : false}
                 }
                 let newOrder = {
                 userid : auth.currentUser.uid,
                 sellerUid : this.sellerUid_uni[a],
+                total_amount : this.total_amount,
+                number_of_product : this.number_of_product,
+                tracking_no : {check_track : false},
                 // date_time_to_order : dateToString(this.date_time_to_order),
                 branch_selected : this.picked,
                 status : status_check,

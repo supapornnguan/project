@@ -1,49 +1,61 @@
 <template>
   <div id="app">
+     
     <div style="background-color:#0F4C81; height:80px;">
       <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Chonburi', cursive;" id="headerbar">STORE PICK-UP</h1>
     </div>
   <br>
-<sui-grid>
-    <sui-grid-column :width="4">
-      <sui-menu fluid vertical tabular>
-        <a
-          v-for="item in items"
-          :key="item"
-          is="sui-menu-item"
-          :content="item"
-          :active="isActive(item)"
-          @click="select(item)"
-        />
-      </sui-menu>
-    </sui-grid-column>
-
-    <sui-grid-column stretched :width="12">
-      <sui-segment>
-        This is an stretched grid column. This segment will always match the tab
-        height
-      </sui-segment>
-    </sui-grid-column>
-  </sui-grid>
+  <div style="margin-left:100px;">
+     <sui-dropdown
+    placeholder="Store"
+    selection
+    :options="options"
+    v-model="current"
+    @click="checkName(current)"
+  />
   </div>
+  <p>{{current}}</p>
+    <router-view/>
+  </div>
+
 </template>
 
 <script>
+import store from "./store"
 export default {
   data() {
   return {
-    items: ['DURING SHIPMENT', 'AT STORE', 'RETURN', 'FINANCE'],
-    active: 'DURING SHIPMENT',
+          current : 'PU01',
+          options: [
+        {
+          text: 'CENTRAL PLAZA PINKLAO',
+          value: 'PU01',
+        },
+        {
+          text: 'SIAM PARAGON',
+          value: 'PU02',
+        },
+        {
+          text: 'CENTRAL RAMA3',
+          value: 'PU03',
+        },
+        {
+          text: 'CENTRAL LARDPRAO',
+          value: 'PU04',
+        },
+        {
+          text: 'EMQUARTIER',
+          value: 'PU05',
+        },
+      ],
     };
   },
   methods: {
-    isActive(name) {
-      return this.active === name;
-    },
-    select(name) {
-      this.active = name;
-    },
+    checkName(name){
+      store.commit("SET_NAME_STORE" , name)
+    }
   },
+
 };
 </script>
 

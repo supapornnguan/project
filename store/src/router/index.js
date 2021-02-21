@@ -7,10 +7,8 @@ import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-import Home from '../views/Home.vue'
-import detailOrder from "../views/detailOrder(during).vue"
-import detailTrackDuring from "../views/detailTrack(during).vue"
-import orderAtStore from "../views/orderAtStore.vue"
+
+
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
@@ -21,25 +19,14 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('../views/Home.vue')
   },
   {
-    path: '/detailOrder',
-    name: 'detailOrder',
-    component: detailOrder    
-  }
-  ,
-  {
-    path: '/detailTrackDuring',
-    name: 'detailTrackDuring',
-    component: detailTrackDuring
-  }
-  ,
-  {
-    path: '/orderAtStore',
-    name: 'orderAtStore',
-    component: orderAtStore
-  }
+    path: '/branch',
+    name: 'branch',
+    component: () => import('../views/branch.vue')
+  },
+
 ]
 
 const router = new VueRouter({

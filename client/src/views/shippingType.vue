@@ -54,7 +54,7 @@ export default {
             picked : "",
             userid : "",
             status : "ordered",
-            paymentType: "Bank Transfer",
+            // paymentType: "Bank Transfer",
             quantity_product : "",
             date_time_to_order : "",
             address_customer : [],
@@ -64,6 +64,8 @@ export default {
             customer_zipcode : "",
             sellerUid_uni : [],
             order_group_by_sellerUid : [],
+            number_of_product : 0,
+            total_amount : 0
         }
     },
     components:{
@@ -80,6 +82,8 @@ export default {
         async shipSum(){
             this.date_time_to_order = Date.now();
             if(this.checkPage.check == false){
+                this.total_amount = this.summary.quantity * this.summary.product_unit_price
+                this.number_of_product = this.summary.quantity
                 let description = [{
                     keysProduct : this.key,
                     sellerUid : this.summary.sellerUid,
@@ -96,14 +100,23 @@ export default {
                     check_status : true
                 }
                 let status_check = {
-                    ordered : time_check
+                    ordered : time_check,
+                    payment : {check_status : false},
+                    slip_verified : {check_status : false},
+                    packing : {check_status : false},
+                    delivery : {check_status : false},
+                    complete : {check_status : false},
+                    return : {check_status : false}
                 }
                 let newOrder = {
                     userid : auth.currentUser.uid,
                     sellerUid : this.summary.sellerUid,
+                    total_amount : this.total_amount,
+                    number_of_product : this.number_of_product,
+                    tracking_no : {check_track : false},
                     // date_time_to_order : dateToString(this.date_time_to_order),
                     customer_address : this.picked,
-                    paymentType : this.paymentType,
+                    // paymentType : this.paymentType,
                     status : status_check,
                     product_description : description,
             }
@@ -127,6 +140,8 @@ export default {
                 // }
                 for(var a = 0; a < this.sellerUid_uni.length ; a ++ ){
                     for(var b = 0 ;b < this.summaryCart.length ; b++){
+                    this.number_of_product += this.summaryCart[b].quantity
+                    this.total_amount += (this.summaryCart[b].quantity * parseInt(this.summaryCart[b].product_unit_price))
                         if(this.sellerUid_uni[a] == this.summaryCart[b].sellerUid){
                         this.order_group_by_sellerUid[b] = this.summaryCart[b]
                         }
@@ -136,11 +151,19 @@ export default {
                     check_status : true
                 }
                 let status_check = {
-                    ordered : time_check
+                    ordered : time_check,
+                    packing : {check_status : false},
+                    delivery : {check_status : false},
+                    atstore : {check_status : false},
+                    complete : {check_status : false},
+                    return : {check_status : false}
                 }
                     let newOrder = {
                     userid : auth.currentUser.uid,
                     sellerUid : this.sellerUid_uni[a],
+                    total_amount : this.total_amount,
+                    number_of_product : this.number_of_product,
+                    tracking_no : {check_track : false},
                     // date_time_to_order : dateToString(this.date_time_to_order),
                     customer_address : this.picked,
                     paymentType : this.paymentType,

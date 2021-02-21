@@ -9,6 +9,8 @@ import cart from "./modules/cart"
 import * as actions from './actions';
 import message from './modules/message';
 import checkPage from "./modules/checkPage"
+import storePickup from "./modules/storePickup"
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -21,6 +23,7 @@ export default new Vuex.Store({
     typeProduct,
     cart,
     message,
-    checkPage
+    checkPage,
+    storePickup
   }
 })

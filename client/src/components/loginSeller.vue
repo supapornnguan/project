@@ -40,7 +40,11 @@ export default {
                     alert(error)
                     console.log(error)
                 })
+
+
+
         }
+
     }
 }
 </script>

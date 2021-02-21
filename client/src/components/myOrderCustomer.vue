@@ -2,13 +2,19 @@
   <div>
     <h1 style="margin-bottom:40px; font-weight:670;">MY ORDER</h1>
 
-    <button id="button_pickup">PICK-UP</button>
-    <button id="button_shipping">SHIPPING</button>
+    <button @click="gotoPickup" 
+            v-bind:class="[isActive ? 'backgroundgray' : 'backgroundWhite']" 
+            >PICK-UP</button>
+    <button @click="gotoShipping" 
+            v-bind:class="[isActive ? 'backgroundWhite' : 'backgroundgray']"
+           >SHIPPING</button>
     <div v-if="pickup_show==2" style="margin-top:20px">
         <a href="#" @click="back">Back</a>
         </div>
 
-     <div v-if="pickup_show==1">
+
+<!-- pick up -->
+     <div v-if="pickup_show==1" >
          <div style="margin-left:70px; margin-top:50px">
            <p style="display:inline; font-weight:670; font-size:20px">Order ID</p>
            <p style="display:inline; margin-left:190px; font-weight:670; font-size:20px">Date</p>
@@ -20,12 +26,27 @@
                <p style="display:inline; position:absolute; left:35px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
                <p style="display:inline; position:absolute; left:260px; top:20px;">{{date_time_to_order[index]}}</p>
                <p style="display:inline; position:absolute; left:590px; top:20px;">{{store_pickup[index]}}</p>
-               <p style="display:inline; position:absolute; left:800px; top:20px;">{{status}}</p>
+               <p style="display:inline; position:absolute; left:800px; top:20px;">{{status[index]}}</p>
         </sui-segment>
         </div>
 
         <div v-if="pickup_show==2">
-<pickupAllCustomer/>
+          <pickupAllCustomer/>
+        </div>
+
+        <!-- shipping -->
+        <div v-if="pickup_show==3" >
+         <div style="margin-left:70px; margin-top:50px">
+           <p style="display:inline; margin-left:40px; font-weight:670; font-size:20px">Order ID</p>
+           <p style="display:inline; margin-left:290px; font-weight:670; font-size:20px">Date</p>
+           <p style="display:inline; margin-left:210px; font-weight:670; font-size:20px">Status</p>
+        </div>
+
+        <sui-segment v-for="(key,index) in  orderShip" :key="index" id="orderSeg" @click="gotoOrderDetail(key,shipping_type)">
+               <p style="display:inline; position:absolute; left:35px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
+               <p style="display:inline; position:absolute; left:380px; top:20px;">{{date_time_to_order_ship[index]}}</p>
+               <p style="display:inline; position:absolute; left:710px; top:20px;">{{status_ship}}</p>
+        </sui-segment>
         </div>
   </div>
 </template>
@@ -45,16 +66,29 @@ export default {
         infoOrder : {},
             order : [],
             date_time_to_order : [],
-            status : "ordered",
+            status : [],
             store_pickup : [],
             pickup_type : "PICK-UP",
+            shipping_type : "SHIPPING",
+            isActive: true,
+   
         
 
             //store address
             address : [],
             name_store_pickup : [],
             phone : [],
-            pick_up_hours : []
+            pick_up_hours : [],
+          
+        //shipping
+        infoShipping : {},
+        orderShip : [],
+        date_time_to_order_ship : [],
+        status_ship : "ordered"
+
+
+
+        
     }
   },
   components:{
@@ -76,38 +110,68 @@ export default {
          back(){
             this.pickup_show = ''
             this.pickup_show = 1
+        },
+        gotoShipping(key,type){
+          this.isActive = false
+          store.commit("SET_KEY_ORDER_DETAIL_USER",{
+                keysOrder : key,
+                type : type
+            })
+          this.pickup_show = ''
+          this.pickup_show = 3
+        },
+        gotoPickup(){
+          this.isActive= true,
+          this.pickup_show = ''
+          this.pickup_show = 1
         }
   },
   
       mounted() {
         firebase.ref("pickup_order/").orderByChild("userid").equalTo(auth.currentUser.uid).on("value", snapshot => {
-            console.log(snapshot.val())
+            // console.log(snapshot.val())
             this.infoOrder = snapshot.val()
             this.order = Object.keys(this.infoOrder)
-            console.log(this.order)
+            // console.log(this.order)
 
             for(var i=0;i<this.order.length;i++){
                 var k = this.order[i]
 
                 var date_time_to_order = this.infoOrder[k].status.ordered.date_time_to_order
                 var store_pickup = this.infoOrder[k].branch_selected
+                var status 
+
+                if(this.infoOrder[k].status.packing.check_status == false ){
+                  status = "ordered"
+                }else if(this.infoOrder[k].status.delivery.check_status == false ){
+                  status = "packing"
+                }else if(this.infoOrder[k].status.atstore.check_status == false ){
+                  status = "delivery"
+                }else if(this.infoOrder[k].status.complete.check_status == false ){
+                  status = "atstore"
+                }else if(this.infoOrder[k].status.return.check_status == false ){
+                  status = "complete"
+                }
          
-            
+            this.status[i] = status
                 this.date_time_to_order[i] = date_time_to_order
                 this.store_pickup[i] = store_pickup
            
             }
-            // console.log(this.store_pickup)
-            // for(var j=0; j<this.store_pickup.length; j++){
-            //     firebase.ref("Store/" + this.store_pickup[j]).on("value", snapshot => {
-            //         console.log(snapshot.val())
-            //         this.address[j] = snapshot.val().address
-            //         this.name_store_pickup[j] = snapshot.val().name_store_pickup
-            //         this.phone[j] = snapshot.val().phone
-            //         this.pick_up_hours[j] = snapshot.val().pick_up_hours
-            //     })
-            // }
-      
+        }),
+        firebase.ref("shipping_order/").orderByChild("userid").equalTo(auth.currentUser.uid).on("value",snapshot => {
+          console.log(snapshot.val())
+          this.infoShipping = snapshot.val()
+          this.orderShip = Object.keys(this.infoShipping)
+
+          for(var j=0;j<this.orderShip.length;j++){
+            var m = this.orderShip[j]
+
+            var date_time_to_order_ship = this.infoShipping[m].status.ordered.date_time_to_order
+
+            this.date_time_to_order_ship[j] = date_time_to_order_ship
+          }
+
         })
     },
 }
@@ -118,14 +182,14 @@ export default {
 
 #button_pickup{
   background-color: white;
-  border: 2px solid black;
+  border: 2px solid 	#A0A0A0;
   width: 100px;
   height: 40px;
   margin-left: -2px;
 }
 #button_shipping{
-  background-color: white;
-  border: 2px solid black;
+
+  border: 2px solid 	#A0A0A0;
   width: 100px;
   height: 40px;
   margin-left: -2px;
@@ -141,5 +205,18 @@ export default {
   height: 250px;
   border-radius: 15px;
 }
-  
+.backgroundgray{
+  background-color: #B8B8B8;
+   border: 2px solid 	#A0A0A0;
+  width: 100px;
+  height: 40px;
+  margin-left: -2px;
+}
+.backgroundWhite{
+
+   border: 2px solid 	#A0A0A0;
+  width: 100px;
+  height: 40px;
+  margin-left: -2px;
+}
 </style>

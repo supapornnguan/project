@@ -86,7 +86,7 @@
             </sui-table-body>
             </sui-table>
 
-              <h4 style="margin-left:700px; font-weight:600" >Total Amount:  {{total_amount}}.00 THB</h4>
+            <h4 style="margin-left:700px; font-weight:600" >Total Amount:  {{total_amount}}.00 THB</h4>
             <h2>Customer Infomation</h2>
             <div style="margin-bottom:10px">
                 <p style="display:inline; color:#808080">Name : </p> 
@@ -113,7 +113,19 @@
                 <p style="display:inline">{{date_time_to_order}}</p>
             </div>            
         </div>
-        <button id="confirmButton" style="margin-left:400px">CONFIRM ALL ORDER</button>
+        <b-button id="show-btn" variant="secondary" style="margin-left:400px" :disabled="status_order"  @click="showModal">CONFIRM ALL ORDER</b-button>
+        <!-- <button id="confirmButton" style="margin-left:400px"  @click="confirmOrder(orderDetail.keysOrder,orderDetail.type)">CONFIRM ALL ORDER</button> -->
+        <p>{{orderDetail.type}}</p>
+
+        <b-modal ref="my-modal" hide-footer title="CONFIRMATION">
+      <div class="d-block text-center">
+        <h3>Confirm Order?</h3>
+      </div>
+     
+      <b-button  variant="secondary" style="margin-left:300px; margin-top:40px" @click="hideModal">Cancle</b-button>
+      <b-button  variant="secondary" style="margin-left:10px; margin-top:40px" @click="confirmOrder(orderDetail.keysOrder,orderDetail.type)">Confirm</b-button>
+
+    </b-modal>
 
     </div>
 
@@ -121,6 +133,7 @@
 <script>
 import {mapGetters} from "vuex"
 import firebase from "../firebase"
+import {dateToString} from '../utils/utils';
 // import {auth} from "../firebase"
 export default {
     data() {
@@ -134,6 +147,7 @@ export default {
             product_image : [],
             total_amount: 0,
             date_time_to_order : [],
+            status_order : true,
 
             //store info
             address_store : "",
@@ -150,16 +164,46 @@ export default {
                 address : "",
                 customer_district : "",
                 customer_province : "",
-                customer_zipcode : ""
+                customer_zipcode : "",
+
+
         }
+    },
+    methods: {
+        async confirmOrder(key,type) {
+            if(type == "PICK-UP"){
+                
+                await firebase.ref("pickup_order/"+ key +"/status"+ "/packing").update({
+                    check_status : true,
+                    date_time_to_order : dateToString(Date.now())
+                })
+                // await firebase.ref("pickup_order/"+ key + "/status" + "/packing").set(newStatus)
+            }else if(type == "SHIPPING"){
+                
+                await firebase.ref("shipping_order/"+ key + "/status" + "/packing").update({
+                    check_status : true,
+                    date_time_to_order : dateToString(Date.now())
+                })
+            }
+            this.$refs['my-modal'].hide()
+   
+        },
+        showModal() {
+        this.$refs['my-modal'].show()
+      },
+           hideModal() {
+        this.$refs['my-modal'].hide()
+      },
     },
     mounted() {
 
         if(this.orderDetail.type == "PICK-UP"){
             firebase.ref("pickup_order/" + this.orderDetail.keysOrder).on('value' , snapshot=>{
                 this.infoDetail = snapshot.val()
-                // console.log(snapshot.val())
+                console.log(snapshot.val())
                 this.date_time_to_order = this.infoDetail.status.ordered.date_time_to_order
+                this.status_order = this.infoDetail.status.packing.check_status
+
             })
 
             firebase.ref("Store/"+ this.infoDetail.branch_selected).on("value" , snapshot => {
@@ -216,7 +260,7 @@ export default {
         }
         }
         firebase.ref("user/" + this.infoDetail.userid).on("value", snapshot => {
-                // console.log(snapshot.val())
+                console.log(snapshot.val())
                 this.customer_email = snapshot.val().customer_email
                 this.customer_firstname = snapshot.val().customer_firstname
                 this.customer_lastname = snapshot.val().customer_lastname

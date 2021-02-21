@@ -29,6 +29,9 @@ const user = {
         },
         getOrderDetail (state){
             return state.orderDetailUser
+        },
+        getUserloggedIn ( state ){
+            return state.loggedIn
         }
     },
     mutations : {

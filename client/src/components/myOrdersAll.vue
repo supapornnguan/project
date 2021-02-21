@@ -7,22 +7,29 @@
         <sui-table-header-cell>Order ID</sui-table-header-cell>
         <sui-table-header-cell>Order Date</sui-table-header-cell>
         <sui-table-header-cell>Type</sui-table-header-cell>
+        <sui-table-header-cell>Status</sui-table-header-cell>
+
+
       </sui-table-row>
     </sui-table-header>
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyPickupOrder" :key="index">
-        <sui-table-cell v-if="status[index] == true" style="text-align:center"><a href="#" @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
-        <sui-table-cell v-if="status[index] == true" style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
-        <sui-table-cell v-if="status[index] == true" style="text-align:center">{{type_pickup}}</sui-table-cell>
+        <sui-table-cell  style="text-align:center"><a href="#" @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{type_pickup}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{status[index]}}</sui-table-cell>
+
       
       </sui-table-row>
     </sui-table-body>
 
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyShippingOrder" :key="index">
-        <sui-table-cell v-if="status[index] == true" style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100 )}}</a></sui-table-cell>
-        <sui-table-cell v-if="status[index] == true" style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
-        <sui-table-cell v-if="status[index] == true" style="text-align:center">{{type_shipping}}</sui-table-cell>
+        <sui-table-cell style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100 )}}</a></sui-table-cell>
+        <sui-table-cell style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{type_shipping}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{status_ship[index]}}</sui-table-cell>
+
       </sui-table-row>
     </sui-table-body>
   </sui-table>
@@ -32,6 +39,7 @@
         <a href="#" @click="back">Back</a>
     </div>
  <orderDetailSeller v-if="show==2"/>
+ 
 
   </div>
 </template>
@@ -100,24 +108,34 @@ export default {
       //pick-up
       firebase.ref("pickup_order/").orderByChild("sellerUid")
                                     .equalTo(auth.currentUser.uid).on('value',snapshot => {
-        console.log(snapshot.val())
+        // console.log(snapshot.val())
         this.infoPickup = snapshot.val()
         this.keyPickupOrder = Object.keys(this.infoPickup)
-        console.log(this.keyPickupOrder)
+        // console.log(this.keyPickupOrder)
         for(var i=0; i < this.keyPickupOrder.length ; i++){
           var k = this.keyPickupOrder[i]
 
           var date_time_to_order = this.infoPickup[k].status.ordered.date_time_to_order
           var descript = this.infoPickup[k].product_description
-          var status = this.infoPickup[k].status.ordered.check_status
-          
+          var status
+          if(this.infoPickup[k].status.packing.check_status == false ){
+            status = "ordered"
+          }else if(this.infoPickup[k].status.delivery.check_status == false ){
+            status = "packing"
+          }else if(this.infoPickup[k].status.atstore.check_status == false ){
+            status = "delivery"
+          }else if(this.infoPickup[k].status.complete.check_status == false ){
+            status = "atstore"
+          }else if(this.infoPickup[k].status.return.check_status == false ){
+            status = "complete"
+          }
           this.orderDate_pickup[i] = date_time_to_order
           this.status[i] = status
         }
-        console.log(this.status)
+        // console.log(this.status)
 
          for(var j=0; j < descript.length ; j++){
-            console.log(descript[j])
+            // console.log(descript[j])
             this.infoDescript[j] = descript[j]
           }
           for(var z=0;z <this.infoDescript.length ; z++){
@@ -131,9 +149,9 @@ export default {
             this.seller_name_shop_pickup[z] = this.infoDescript[z].seller_name_shop
           
 
-            console.log("hello keyy")
+            // console.log("hello keyy")
 
-            console.log(this.product_detail_pickup[z])
+            // console.log(this.product_detail_pickup[z])
           }
       })
 
@@ -150,10 +168,23 @@ export default {
 
           var date_time_to_order = this.infoShipping[k].status.ordered.date_time_to_order
           var descript = this.infoShipping[k].product_description
-          var status = this.infoShipping[k].status.ordered.check_status
+          var status_ship
+
+ 
+          if(this.infoShipping[k].status.packing.check_status == false ){
+            status_ship = "ordered"
+          }else if(this.infoShipping[k].status.delivery.check_status == false ){
+            status_ship = "packing"
+          }else if(this.infoShipping[k].status.atstore.check_status == false ){
+            status_ship = "delivery"
+          }else if(this.infoShipping[k].status.complete.check_status == false ){
+            status_ship = "atstore"
+          }else if(this.infoShipping[k].status.return.check_status == false ){
+            status_ship = "complete"
+          }
           
           this.orderDate_shipping[i] = date_time_to_order
-          this.status_ship = status
+          this.status_ship[i] = status_ship
           // this.infoDescript = Object.keys(descript)
 
           console.log("hahah")

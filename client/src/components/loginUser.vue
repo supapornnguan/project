@@ -11,6 +11,7 @@
                 <input type="password" placeholder="PASSWORD" v-model="customer_password"/>
             </sui-form-field>
         </sui-form>
+        
     <sui-button  @click="loginSuccess" style="margin-left:150px; margin-top:30px">Login</sui-button>
 </div>
 </template>
@@ -23,8 +24,8 @@ const { isNavigationFailure, NavigationFailureType } = VueRouter
 export default {
     data() {
         return {
-            customer_email :'momomama@hotmail.com',
-            customer_password :'momo1234'
+            customer_email :'hellotest9999@mail.com',
+            customer_password :'helloqqq123'
         }
     },
     methods: { 
