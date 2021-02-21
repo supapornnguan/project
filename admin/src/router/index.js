@@ -43,7 +43,7 @@ const routes = [
     component: () => import('../views/userManageHome.vue')
   },
   {
-    path: '/userManageInfo',
+    path: '/userManageInfo/:userId',
     name: 'userManageInfo',
     component: () => import('../views/userManageInfo.vue')
   },
@@ -51,6 +51,11 @@ const routes = [
     path: '/storeManageHome',
     name: 'storeManageHome',
     component: () => import('../views/storeManageHome.vue')
+  },
+  {
+    path: '/storeManageInfo/:storeId',
+    name: 'storeManageInfo',
+    component: () => import('../views/storeManageInfo.vue')
   },
   {
     path: '/detailVerifySlip',

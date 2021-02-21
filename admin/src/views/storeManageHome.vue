@@ -19,7 +19,7 @@
             <sui-table-cell style="text-align:center">{{key}}</sui-table-cell>
             <sui-table-cell>{{name_store_pickup[index]}}</sui-table-cell>
             <sui-table-cell>{{phone[index]}}</sui-table-cell>
-            <sui-table-cell style="text-align:center"><b-button variant="outline-primary">More</b-button></sui-table-cell>
+            <sui-table-cell style="text-align:center" @click="gotoStoreInfo(key)"><b-button variant="outline-primary">More</b-button></sui-table-cell>
         </sui-table-row>
       </sui-table-body>
       </sui-table>
@@ -42,6 +42,12 @@ export default {
             name_store_pickup : [],
             phone : [],
         } 
+    },
+    methods: {
+        gotoStoreInfo(key){
+          console.log(key)
+            this.$router.push({name : "storeManageInfo" , params : { storeId : key }})
+            },
     },
     mounted () {
       db.on('value', (snapshot) => {

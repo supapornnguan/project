@@ -1,19 +1,37 @@
 <template>
     <div id="userManageInfoPosition">
         <h3 style="font-weight:600">USER INFORMATION</h3>
-        <hr style="width:1000px; border: 3px solid #D0D0D0; margin-left:0px">
-
+        
+        <br>
         <div>
-            <p style="display:inline; font-size:20px">Email :</p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{customer_email}}</p>
+            <p style="display:inline; font-size:15px">Email :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{customer_email}}</p>
         </div>
         <br>
-        
+        <div>
+            <p style="display:inline; font-size:15px">First Name :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{customer_firstname}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Last Name :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{customer_lastname}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Phone Number :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{customer_phonenumber}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Date Time Register :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{timestamp}}</p>
+        </div>
     </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+// import {mapGetters} from "vuex"
 import firebase from "../firebase"
 
 export default {
@@ -26,17 +44,15 @@ export default {
             timestamp : "",
         }
     },
-     computed: {
-    ...mapGetters({
-      key : "getInfoUser"
-    })
-  },
-  mounted() {
-    firebase.ref('user/' + this.key).on('value',(snapshot)=>{
+
+    mounted() {
+
+    firebase.ref('user/' + this.$route.params.userId).on('value',(snapshot)=>{
     console.log(snapshot.val());
     this.customer_email = snapshot.val().customer_email
     this.customer_firstname = snapshot.val().customer_firstname
     this.customer_lastname = snapshot.val().customer_lastname
+    this.customer_phonenumber = snapshot.val().customer_phonenumber
     this.timestamp = snapshot.val().timestamp
 })
   },
