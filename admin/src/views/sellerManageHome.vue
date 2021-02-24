@@ -3,14 +3,9 @@
         <h3 style="font-weight:600;">SELLER MANAGEMENT</h3>
         <br>
         <!-- search -->
-        <!-- <b-input-group style="width:1000px" size="lg" :aria-hidden="busy ? 'true' : null">
-        <b-form-input placeholder="Enter seller email" v-model="value" :disabled="busy"></b-form-input>
-        <b-input-group-append>
-          <b-button ref="button" :disabled="busy" variant="primary"  @click="onClick">
-            Find
-          </b-button>
-        </b-input-group-append>
-        </b-input-group> -->
+        <div style="width:1000px">
+          <input type="text" v-model="search" placeholder="Enter seller email" class="form-control" />
+        </div>
         <!-- table -->
         <sui-table celled style="width:1000px">
         <sui-table-header>
@@ -28,7 +23,8 @@
             <sui-table-cell>{{seller_name_shop[index]}}</sui-table-cell>
             <sui-table-cell>{{seller_email[index]}}</sui-table-cell>
             <sui-table-cell>{{timstamp[index]}}</sui-table-cell>
-            <sui-table-cell style="text-align:center"><b-button variant="outline-primary">More</b-button></sui-table-cell>
+            <sui-table-cell style="text-align:center">{{verify_seller[index]}}</sui-table-cell>
+            <sui-table-cell style="text-align:center" @click="gotoSellerInfo(key)"><b-button variant="outline-primary">More</b-button></sui-table-cell>
         </sui-table-row>
       </sui-table-body>
       </sui-table>
@@ -52,7 +48,14 @@ export default {
             seller_name_shop : [],
             seller_email : [],
             timstamp : [],
+            verify_seller : [],
         } 
+    },
+    methods: {
+        gotoSellerInfo(key){
+          console.log(key)
+            this.$router.push({name : "sellerManageInfo" , params : { sellerId : key }})
+            },
     },
     mounted () {
       db.on('value', (snapshot) => {
@@ -66,10 +69,12 @@ export default {
             var seller_name_shop = this.Seller[k].seller_name_shop;
             var seller_email = this.Seller[k].seller_email;
             var timestamp = this.Seller[k].timstamp;
+            var verify_seller = this.Seller[k].verify_seller;
        
             this.seller_name_shop[i] = seller_name_shop
             this.seller_email[i] = seller_email
             this.timstamp[i] = timestamp
+            this.verify_seller[i] = verify_seller
       }
     })
   },

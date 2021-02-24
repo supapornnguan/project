@@ -2,6 +2,10 @@
     <div id="storeManagePosition">
         <h3 style="font-weight:600">STORE MANAGEMENT</h3>
         <br>
+        <!-- search -->
+        <div style="width:1000px">
+          <input type="text" v-model="search" placeholder="Enter store name" class="form-control" />
+        </div>
         <!-- table -->
         <sui-table celled style="width:1000px">
         <sui-table-header>

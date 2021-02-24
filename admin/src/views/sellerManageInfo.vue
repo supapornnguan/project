@@ -1,66 +1,91 @@
 <template>
     <div id="sellerManageInfoPosition">
-        <h3 style="font-weight:600">INFORMATION FOR VERIFY THE SELLER</h3>
-        <hr style="width:600px; border: 3px solid #D0D0D0; margin-left:0px">
+        <h3 style="font-weight:600">SELLER INFORMATION</h3>
 
+        <br>
         <div>
-            <p style="display:inline; font-size:20px">Email :</p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{seller_email}}</p>
+            <p style="display:inline; font-size:15px">Email :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{seller_email}}</p>
         </div>
         <br>
         <div>
-            <p style="display:inline; font-size:20px">Name Store : </p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{seller_name_shop}}</p>
+            <p style="display:inline; font-size:15px">Name Store : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{seller_name_shop}}</p>
         </div>
         <br>
         <div>
-            <p style="display:inline; font-size:20px">Firstname : </p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{seller_firstname}}</p>
-        </div> 
-        <br>
-        <div>
-            <p style="display:inline; font-size:20px">Lastname : </p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{seller_lastname}}</p>
+            <p style="display:inline; font-size:15px">First Name : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{seller_firstname}}</p>
         </div>
         <br>
         <div>
-            <p style="display:inline; font-size:20px">Phone Number :</p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{seller_phonenumber}}</p>
+            <p style="display:inline; font-size:15px">Last Name : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{seller_lastname}}</p>
         </div>
         <br>
         <div>
-            <p style="display:inline; font-size:20px">Warehouse Address :</p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">jfdksoa</p>
+            <p style="display:inline; font-size:15px">Address : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{address}}, {{seller_district}}, {{seller_sub_district}}, {{seller_province}} {{seller_zipcode}}</p>
         </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Phone Number : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{seller_phonenumber}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Date Time Register : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{timstamp}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Verify Status : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{verify_seller}}</p>
+        </div>
+        
+        <br>
+        <br>
+        <br>
+        <h3 style="font-weight:600">SELLER BANK ACCOUNT</h3>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Account Name : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{bank_account_name}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Account Number : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{bank_account_number}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Bank Name : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{bank_name}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Bank Branch Name : </p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{bank_branch_name}}</p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div v-if="verify_seller === 'false'">
+            <b-button id="show-btn" @click="showModal">VERIFY SELLER</b-button>
 
-        <h3 style="font-weight:600; margin-top:80px">BANK ACCOUNT</h3>
-        <hr style="width:600px; border: 3px solid #D0D0D0; margin-left:0px">
-
-        <div>
-            <p style="display:inline; font-size:20px">Name Account :</p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{bank_account_name}}</p>
+            <b-modal ref="my-modal" hide-footer title="VERIFY SELLER">
+                
+                Are you sure to vertify {{seller_name_shop}} ?
+            
+                <b-button id="bottonConfirm" class="float-right" variant="primary" @click="verifySuccess">Confirm</b-button>
+                <b-button id="bottonCancel" class="float-right" variant="secondary" @click="hideModal">Cancle</b-button>
+            </b-modal>
         </div>
-        <br>
-         <div>
-            <p style="display:inline; font-size:20px">Account number :</p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{bank_account_number}}</p>
-        </div>
-        <br>
-         <div>
-            <p style="display:inline; font-size:20px">Bank Name :</p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{bank_name}}</p>
-        </div>
-        <br>
-        <div>
-            <p style="display:inline; font-size:20px">Branch’s name :</p>
-            <p style="display:inline; position:absolute; left:250px; font-size:20px">{{bank_branch_name}}</p>
-        </div>
-        <button class="buttonVerify" @click="verifySuccess">VERIFY STORE</button>
     </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+// import {mapGetters} from "vuex"
 import firebase from "../firebase"
 
 export default {
@@ -71,38 +96,62 @@ export default {
             seller_lastname : "",
             seller_name_shop : "",
             seller_phonenumber : "",
-            seller_timestamp : "",
+            seller_address1 : "",
+            timstamp : "",
             bank_name : "",
             bank_branch_name : "",
             bank_account_number : "",
             bank_account_name : "",
-            verify_seller : ""
+            verify_seller : "",
+
+            address : "",
+            seller_sub_district : "",
+            seller_district : "",
+            seller_province : "",
+            seller_zipcode : "",
         }
     },
     methods: {
         verifySuccess(){
-            firebase.ref('seller/' + this.key).update({
-                verify_seller : "true"
+            console.log("click verify")
+            firebase.ref("seller/" + this.$route.params.sellerId).update({
+                    verify_seller : true
             })
-            console.log("successss")
-        }
+            this.$refs['my-modal'].hide()
+        },
+        showModal() {
+        this.$refs['my-modal'].show()
+        },
+        hideModal() {
+        this.$refs['my-modal'].hide()
+        },
     },
-     computed: {
-    ...mapGetters({
-      key : "getInfoSeller"
-    })
-  },
-  mounted() {
-    firebase.ref('seller/'+ this.key).on('value',(snapshot)=>{
+    
+    mounted() {
+
+    firebase.ref('seller/'+ this.$route.params.sellerId).on('value',(snapshot)=>{
     console.log(snapshot.val());
     this.seller_email = snapshot.val().seller_email
     this.seller_firstname = snapshot.val().seller_firstname
     this.seller_lastname = snapshot.val().seller_lastname
     this.seller_name_shop = snapshot.val().seller_name_shop
     this.seller_phonenumber = snapshot.val().seller_phonenumber
+    this.seller_address1 = snapshot.val().seller_address1
+    this.address = snapshot.val().seller_address1.address
+    this.seller_sub_district = snapshot.val().seller_address1.seller_sub_district
+    this.seller_district = snapshot.val().seller_address1.seller_district
+    this.seller_province = snapshot.val().seller_address1.seller_province
+    this.seller_zipcode = snapshot.val().seller_address1.seller_zipcode
+    this.timstamp = snapshot.val().timstamp
+    this.verify_seller = snapshot.val().verify_seller
     this.bank_name = snapshot.val().bank_name
     this.bank_branch_name = snapshot.val().bank_branch_name
     this.bank_account_number = snapshot.val().bank_account_number
+    this.bank_account_name = snapshot.val().bank_account_name
+
+    console.log(this.seller_address1)
+    console.log(this.address)
+     
 })
   },
 }
@@ -111,16 +160,13 @@ export default {
 #sellerManageInfoPosition{
     position: relative;
     left: 400px;
-    top: -950px;
+    top: -990px;
 }
-.buttonVerify{
-    background: white;
-    border-radius: 5px;
-    border: 1px solid black;
-    font-size: 15px;
-    padding: 7px;
-    margin-left: 400px;
-    margin-top: 70px;
-
+#bottonConfirm{
+    margin-left: 10px;
+    margin-top: 50px;
+}
+#bottonCancel{
+    margin-top: 50px;
 }
 </style>

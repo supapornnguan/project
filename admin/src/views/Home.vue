@@ -1,28 +1,50 @@
 <template>
   <div id="dashboardAdmin">
-    <h3 style="font-weight:600">TODO</h3>
+    <h3 style="font-weight:600">TO-DO-LIST</h3>
+    <br>
     <div id="todo1">
       <sui-grid :columns="3" id="todo">
         <sui-grid-row stretched>
           <sui-grid-column>
             <sui-segment @click="gotoVerifyStore">
-              <img src="../assets/verifyStore.png" :width="60" id="img1">
-              <h2 style="text-align:center; margin-top:15px">{{numVerifyStore}}</h2>
-              <h3 style="text-align:center; margin-top:20px">Verify Store</h3>
+              <div align=center>
+              <img src="../assets/check.png" :width="50">
+              <br>
+              <br>
+                <sui-statistic>
+                  <sui-statistic-value>{{numVerifyStore}}</sui-statistic-value>
+                  <br>
+                  <sui-statistic-label>Verify Seller</sui-statistic-label>
+                </sui-statistic>
+              </div>
             </sui-segment>
           </sui-grid-column>
           <sui-grid-column>
             <sui-segment @click="gotoVerifySlip">
-              <img src="../assets/verifySlip.png" :width="60" id="img1">
-              <h2 style="text-align:center; margin-top:15px">{{numVerifySlip}}</h2>
-              <h3 style="text-align:center; margin-top:20px">Verify Slip</h3>
+              <div align=center>
+              <img src="../assets/slip.png" :width="50">
+              <br>
+              <br>
+                <sui-statistic>
+                  <sui-statistic-value>{{numVerifySlip}}</sui-statistic-value>
+                  <br>
+                  <sui-statistic-label>Verify Slip</sui-statistic-label>
+                </sui-statistic>
+              </div>
             </sui-segment>
           </sui-grid-column>
           <sui-grid-column>
             <sui-segment>
-              <img src="../assets/banking.png" :width="60" id="img1">
-              <h2 style="text-align:center; margin-top:15px">{{numBankTran}}</h2>
-              <h3 style="text-align:center; margin-top:20px">Bank Transfer</h3>
+              <div align=center>
+              <img src="../assets/bank.png" :width="50">
+              <br>
+              <br>
+                <sui-statistic>
+                  <sui-statistic-value>{{numBankTran}}</sui-statistic-value>
+                  <br>
+                  <sui-statistic-label>Bank Transfer</sui-statistic-label>
+                </sui-statistic>
+              </div>
             </sui-segment>
           </sui-grid-column>
         </sui-grid-row>
@@ -68,11 +90,7 @@ export default {
 }
 #todo1{
   border-radius: 10px;
-  background-color: 	#151B54;
+    background-color: 	#F4F6F6;
   width: 1000px;
 }
-#img1{
-  margin-left: 100px;
-}
 </style>
-
