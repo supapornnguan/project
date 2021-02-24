@@ -33,7 +33,7 @@ const routes = [
     component: () => import('../views/sellerManageHome.vue')
   },
   {
-    path: '/sellerManageInfo',
+    path: '/sellerManageInfo/:sellerId',
     name: 'sellerManageInfo',
     component: () => import('../views/sellerManageInfo.vue')
   },
@@ -61,6 +61,11 @@ const routes = [
     path: '/detailVerifySlip',
     name: 'detailVerifySlip',
     component: () => import('../views/detailVerifySlip.vue')
+  },
+  {
+    path: '/finance/',
+    name: 'finance',
+    component: () => import('../views/finance.vue')
   },
   {
     path: '/detailStorePickup',

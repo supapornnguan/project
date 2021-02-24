@@ -175,7 +175,7 @@ export default {
     await firebase.ref("user/" + this.useruid).set(newUser)
     .then((data) => {
       console.log(data)
-      this.$router.replace('userlogin')
+      this.$router.push({name: "home"})
     })
       },
       checkPhone(){
