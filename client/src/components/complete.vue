@@ -4,7 +4,7 @@
   <sui-accordion is="sui-menu" vertical exclusive styled style="width:1000px">
       <sui-accordion-title id="positionLeft" is="sui-menu-header">
         <sui-icon  name="dropdown" />
-        CENTRAL PLAZA PINKLAO 
+        CENTRAL PLAZA PINKLAO
       </sui-accordion-title>
       <sui-accordion-content >
     <sui-table celled>
@@ -86,7 +86,7 @@
 
       <sui-accordion-title id="positionLeft" is="sui-menu-header">
         <sui-icon name="dropdown" />
-        CENTRAL LARDPRAO 
+        CENTRAL LARDPRAO
       </sui-accordion-title>
       <sui-accordion-content>
     <sui-table celled>
@@ -188,12 +188,12 @@ export default {
             for(var j =0 ; j<this.order.length ;j++){
                 var k = this.order[j]
                 var branch_selected = this.infoOrder[k].branch_selected
-                var status = this.infoOrder[k].status.atstore.check_status
-                var status1 = this.infoOrder[k].status.complete.check_status
+                var status = this.infoOrder[k].status.complete.check_status
+                var status1 = this.infoOrder[k].status.return.check_status
                 if(this.infoOrder[k].tracking_no.check_track == true){
                     var tracking_number = this.infoOrder[k].tracking_no.tracking_no
                 }
-                var date_time_to_order = this.infoOrder[k].status.atstore.date_time_to_order
+                var date_time_to_order = this.infoOrder[k].status.complete.date_time_to_order
                 var total_amount = this.infoOrder[k].total_amount
                 var number_of_product = this.infoOrder[k].number_of_product
                 this.branch_selected[j] = branch_selected

@@ -19,7 +19,7 @@
 <script>
 import {auth} from  "../firebase";
 import VueRouter from 'vue-router'
-import router from "../router"
+// import router from "../router"
 const { isNavigationFailure, NavigationFailureType } = VueRouter
 export default {
     data() {
@@ -32,7 +32,7 @@ export default {
        async loginSuccess(){
            await auth.signInWithEmailAndPassword(this.customer_email,this.customer_password)
                 .then( () =>{
-                    router.push('/').catch(failure => {
+                    this.$router.replace({ name: "home" , params : {userid : auth.currentUser.uid}}).catch(failure => {
                         if (isNavigationFailure(failure, NavigationFailureType.redirected)) {
                         // show a small notification to the user
                         console.log('Login in order to access the admin panel')

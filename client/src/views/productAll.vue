@@ -1,8 +1,13 @@
 <template lang="html">
   <div>
+     <loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        :is-full-page="true">
+        </loading>
+
     <navbar/>
       <search/>
-      <h1 style="margin-left:100px; left:100px; font-weight:600">{{getProductType}}</h1>
+      <h1 style="margin-left:100px; left:100px; font-weight:600">{{this.$route.params.category}}</h1>
       <h4 style="position:absolute; left:100px; top:300px">FILTER BY</h4>
     <div class="con">
     
@@ -11,24 +16,13 @@
         v-for="(key,index) in keysProduct" 
         :key="index" 
         style="height:490px">
-
-        <sui-card-content v-if="getProductType == 'WOMEN' ">
-          <img :src="product_image[index]" id="img1" @click="gotoInfoproduct(key)" :width="280" :height="290">
-          <p style="position:absolute; top:270px">{{product_name[index]}}</p>
-          <p style="position:absolute; top:315px">{{product_detail[index] | shortDescription}}</p>
-          <p style="position:absolute; top:315px">{{product_unit_price[index]}}  THB</p>
-          <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:350px; left:10px"/>
-        <button class= "buttonCart" @click="addItemToCart(key)" style="position:absolute; top:390px; ">ADD TO CART</button>
-        </sui-card-content>
-
-        <sui-card-content v-if="getProductType != 'WOMEN' ">
+        
           <img :src="product_image[index]" id="img1" @click="gotoInfoproduct(key)" :width="280" :height="230">
           <p style="position:absolute; top:270px; font-weight:800">{{product_name[index]}}</p>
           <p style="position:absolute; top:315px">{{product_detail[index] | shortDescription}}</p>
           <p style="position:absolute; top:380px">{{product_unit_price[index]}}  THB</p>
           <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:410px; left:10px"/>
         <button class= "buttonCart" @click="addItem(index)" style="position:absolute; top:440px; ">ADD TO CART</button>
-        </sui-card-content>
       </sui-card>
     </sui-card-group>
     </div>
@@ -36,12 +30,16 @@
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
 import search from "../components/search"
 import navbar from "../components/navbar"
 import firebase from "../firebase"
-import store from "../store"
+
+// import store from "../store"
 // import {auth} from "../firebase"
- import {mapGetters, mapActions} from "vuex"
+ import { mapActions} from "vuex"
 export default {
     data() {
         return {
@@ -57,15 +55,18 @@ export default {
             useruid : "",
             sellerUid : [],
             status : "ordered",
-            seller_name_shop : []
+            seller_name_shop : [],
+            getkey : "",
+            isLoading : true
 
         }
     },
     methods: {
       //go to infomation of product when click on image
       gotoInfoproduct(key){
-        store.commit('SET_PRODUCT_ID',key)
-        this.$router.replace('/infoProduct')
+        // store.commit('SET_PRODUCT_ID',key)
+        // this.$router.replace('/infoProduct')
+        this.$router.push({name : "infoProduct" , params : {productId : key}})
       },
 
       ...mapActions(['updateCart']),
@@ -112,13 +113,14 @@ export default {
     },
   components:{
       search,
-      navbar
+      navbar,
+      Loading
   },
   //getting type of product
   computed: {
-    ...mapGetters({
-      getProductType : "getProductType"
-    }),
+    // ...mapGetters({
+    //   getProductType : "getProductType"
+    // }),
   },
   //Filtering description of product
   filters : {
@@ -131,10 +133,18 @@ export default {
       }
     }
   },
+  created() {
+    console.log(this.$route.params.category)
+    this.getkey = this.$route.params.category
+    console.log(this.getkey)
+    
+  },
   mounted() {
     // this.getProducts();
+   
     //geting all product from database
-    firebase.ref('product/').orderByChild('product_category').equalTo(this.getProductType).on('value', (snapshot) => {
+    this.isLoading = true
+    firebase.ref('product/').orderByChild('product_category').equalTo(this.$route.params.category).on('value', (snapshot) => {
       this.products = snapshot.val()
       this.keysProduct = Object.keys(snapshot.val())
       // console.log("this is keyProduct "+this.keysProduct)
@@ -163,6 +173,7 @@ export default {
         // console.log(this.product_detail[i] = product_detail)
       }
     })
+     this.isLoading = false
   },
 };
 </script>

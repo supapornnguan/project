@@ -100,7 +100,7 @@ export default {
                     check_status : true
                 }
                 let status_check = {
-                    ordered : time_check,
+                    unpaid : time_check,
                     payment : {check_status : false},
                     slip_verified : {check_status : false},
                     packing : {check_status : false},
@@ -122,6 +122,7 @@ export default {
             }
             //add order to shipping_order
             firebase.ref("shipping_order").push(newOrder)
+            
             // await firebase.ref("shipping_order").push(newOrder)
             }else{
 
@@ -151,10 +152,11 @@ export default {
                     check_status : true
                 }
                 let status_check = {
-                    ordered : time_check,
+                    unpaid : time_check,
+                    payment : {check_status : false},
+                    slip_verified : {check_status : false},
                     packing : {check_status : false},
                     delivery : {check_status : false},
-                    atstore : {check_status : false},
                     complete : {check_status : false},
                     return : {check_status : false}
                 }

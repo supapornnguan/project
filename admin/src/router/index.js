@@ -58,7 +58,7 @@ const routes = [
     component: () => import('../views/storeManageInfo.vue')
   },
   {
-    path: '/detailVerifySlip',
+    path: '/detailVerifySlip/:idSlip',
     name: 'detailVerifySlip',
     component: () => import('../views/detailVerifySlip.vue')
   },
@@ -82,6 +82,17 @@ const routes = [
     name: 'infoUser',
     component: () => import('../views/infoUser.vue')
   },
+  {
+    path: '/test1',
+    name: 'test1',
+    component: () => import('../views/test1.vue')
+  },
+  {
+    path: '/test3',
+    name: 'test3',
+    component: () => import('../views/test3.vue')
+  },
+
 
 ]
 

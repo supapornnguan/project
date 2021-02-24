@@ -166,13 +166,13 @@ export default {
         for(var i=0; i < this.keyShippingOrder.length ; i++){
           var k = this.keyShippingOrder[i]
 
-          var date_time_to_order = this.infoShipping[k].status.ordered.date_time_to_order
+          var date_time_to_order = this.infoShipping[k].status.unpaid.date_time_to_order
           var descript = this.infoShipping[k].product_description
           var status_ship
 
  
-          if(this.infoShipping[k].status.packing.check_status == false ){
-            status_ship = "ordered"
+          if(this.infoShipping[k].status.payment.check_status == false ){
+            status_ship = "unpaid"
           }else if(this.infoShipping[k].status.delivery.check_status == false ){
             status_ship = "packing"
           }else if(this.infoShipping[k].status.atstore.check_status == false ){

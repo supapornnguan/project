@@ -9,7 +9,7 @@
     <!-- ORDER -->
     <b-tab title="Order" active >
     <sui-table celled>
-      <h1>{{order_pickup}}</h1>
+      <!-- <h1>{{order_pickup}}</h1> -->
     <sui-table-header>
       <sui-table-row>
         <sui-table-header-cell style="text-align:center">Order ID</sui-table-header-cell>
@@ -49,234 +49,12 @@
 
   <!-- COMPLETE -->
   <b-tab title="Complete">
-  <sui-accordion is="sui-menu" vertical exclusive styled style="width:1000px">
-      <sui-accordion-title id="positionLeft" is="sui-menu-header">
-        <sui-icon  name="dropdown" />
-        Central Pinklao
-      </sui-accordion-title>
-      <sui-accordion-content >
-    <sui-table celled>
-    <sui-table-header>
-      <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Total Price</sui-table-header-cell>
-        <sui-table-header-cell>Number of Product</sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-header>
-    <sui-table-body>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-    </sui-table-body>
-  </sui-table>
-      </sui-accordion-content>
-      
-      <sui-accordion-title id="positionLeft" is="sui-menu-header">
-        <sui-icon name="dropdown" />
-        Central Ladprao
-      </sui-accordion-title>
-      <sui-accordion-content>
-    <sui-table celled>
-    <sui-table-header>
-      <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Total Price</sui-table-header-cell>
-        <sui-table-header-cell>Number of Product</sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-header>
-    <sui-table-body>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-    </sui-table-body>
-  </sui-table>
-      </sui-accordion-content>
-
-      <sui-accordion-title id="positionLeft" is="sui-menu-header">
-        <sui-icon name="dropdown" />
-        Central Salaya
-      </sui-accordion-title>
-      <sui-accordion-content>
-    <sui-table celled>
-    <sui-table-header>
-      <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Total Price</sui-table-header-cell>
-        <sui-table-header-cell>Number of Product</sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-header>
-    <sui-table-body>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-    </sui-table-body>
-  </sui-table>
-      </sui-accordion-content>
-    </sui-accordion>
+  <complete/>
   </b-tab>
 
   <!-- RETURN -->
   <b-tab title="Return">
-  <sui-accordion is="sui-menu" vertical exclusive styled style="width:1000px">
-      <sui-accordion-title id="positionLeft" is="sui-menu-header">
-        <sui-icon  name="dropdown" />
-        Central Pinklao
-      </sui-accordion-title>
-      <sui-accordion-content >
-    <sui-table celled>
-    <sui-table-header>
-      <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Total Price</sui-table-header-cell>
-        <sui-table-header-cell>Number of Product</sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-header>
-    <sui-table-body>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-    </sui-table-body>
-  </sui-table>
-      </sui-accordion-content>
-      
-      <sui-accordion-title id="positionLeft" is="sui-menu-header">
-        <sui-icon name="dropdown" />
-        Central Ladprao
-      </sui-accordion-title>
-      <sui-accordion-content>
-    <sui-table celled>
-    <sui-table-header>
-      <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Total Price</sui-table-header-cell>
-        <sui-table-header-cell>Number of Product</sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-header>
-    <sui-table-body>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-    </sui-table-body>
-  </sui-table>
-      </sui-accordion-content>
-
-      <sui-accordion-title id="positionLeft" is="sui-menu-header">
-        <sui-icon name="dropdown" />
-        Central Salaya
-      </sui-accordion-title>
-      <sui-accordion-content>
-    <sui-table celled>
-    <sui-table-header>
-      <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Total Price</sui-table-header-cell>
-        <sui-table-header-cell>Number of Product</sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-header>
-    <sui-table-body>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-    </sui-table-body>
-  </sui-table>
-      </sui-accordion-content>
-    </sui-accordion>
+  <returnOrder/>
 </b-tab>
 
   </b-tabs>
@@ -293,7 +71,10 @@ import orderDetailSeller from "../components/orderDetailSeller"
 import packing from "../components/packing"
 import delivery from "../components/delivery"
 import atstore from "../components/atstore"
+import complete from "../components/complete"
+import returnOrder from "../components/return"
 import store from "../store"
+
 // import {mapGetters} from "vuex"
 export default {
   data() {
@@ -329,7 +110,9 @@ export default {
     orderDetailSeller,
     packing,
     delivery,
-    atstore
+    atstore,
+    complete,
+    returnOrder
   },
   methods: {
 

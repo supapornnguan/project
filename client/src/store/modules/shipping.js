@@ -7,11 +7,16 @@ const shipping = {
             customer_district : "",
             customer_province : "",
             customer_zipcode : ""
-        }
+        },
+        orderId : ""
     },
+
     getters : {
         getInfoShipping(state) {
             return state.infoShipping
+        },
+        getOrderId (state) { 
+            return state.orderId
         }
     },
     mutations : {
@@ -22,6 +27,10 @@ const shipping = {
             state.infoShipping.customer_district  = payload.customer_district
             state.infoShipping.customer_province = payload.customer_province
             state.infoShipping.customer_zipcode =  payload.customer_zipcode
+        },
+        SET_ORDER_ID (state, payload) {
+            state.orderId = payload.orderId
+
         }
     }
 }

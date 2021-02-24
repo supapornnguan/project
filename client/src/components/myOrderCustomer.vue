@@ -45,7 +45,7 @@
         <sui-segment v-for="(key,index) in  orderShip" :key="index" id="orderSeg" @click="gotoOrderDetail(key,shipping_type)">
                <p style="display:inline; position:absolute; left:35px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
                <p style="display:inline; position:absolute; left:380px; top:20px;">{{date_time_to_order_ship[index]}}</p>
-               <p style="display:inline; position:absolute; left:710px; top:20px;">{{status_ship}}</p>
+               <p style="display:inline; position:absolute; left:710px; top:20px;">{{status_ship[index]}}</p>
         </sui-segment>
         </div>
   </div>
@@ -84,7 +84,7 @@ export default {
         infoShipping : {},
         orderShip : [],
         date_time_to_order_ship : [],
-        status_ship : "ordered"
+        status_ship : []
 
 
 
@@ -159,6 +159,8 @@ export default {
            
             }
         }),
+
+        //shiping
         firebase.ref("shipping_order/").orderByChild("userid").equalTo(auth.currentUser.uid).on("value",snapshot => {
           console.log(snapshot.val())
           this.infoShipping = snapshot.val()
@@ -167,9 +169,25 @@ export default {
           for(var j=0;j<this.orderShip.length;j++){
             var m = this.orderShip[j]
 
-            var date_time_to_order_ship = this.infoShipping[m].status.ordered.date_time_to_order
+            var date_time_to_order_ship = this.infoShipping[m].status.unpaid.date_time_to_order
 
             this.date_time_to_order_ship[j] = date_time_to_order_ship
+            
+            var status 
+              if(this.infoShipping[m].status.payment.check_status == false ){
+                status = "unpaid"
+              }else if(this.infoShipping[m].status.slip_verified.check_status == false ){
+                status = "payment"
+              }else if(this.infoShipping[m].status.packing.check_status == false ){
+                status = "verifySlip"
+              }else if(this.infoShipping[m].status.delivery.check_status == false ){
+                status = "packing"
+              }else if(this.infoShipping[m].status.complete.check_status == false ){
+                status = "delivery"
+              }else if(this.infoShipping[m].status.return.check_status == false ){
+                status = "complete"
+              }
+            this.status_ship[j] = status
           }
 
         })

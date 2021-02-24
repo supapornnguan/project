@@ -32,6 +32,19 @@ export default {
       this.$router.push({name:'homeStore',params:{idStore:id}})
     }
     },
+    beforeCreate() {
+      console.log("before Create")
+    },
+    created() {
+      console.log("create")
+    },
+    mounted() {
+      console.log("mounted")
+    },
+    beforeRouteEnter(to, from, next) {  
+    console.log(`I'm called before entering the route!`)  
+    next(); 
+    }
     
 }
 </script>

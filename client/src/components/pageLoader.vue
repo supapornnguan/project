@@ -1,22 +1,25 @@
 <template>
-  <div  v-if="!isloaded">
+
+  <div  v-if="isloaded">
 <b-spinner label="Loading..."></b-spinner>
   </div> 
 </template>
-
 <script>
   export default {
     data: () => {
       return {
-        isloaded: false
+        isloaded: true
+      }
+    },
+    methods: {
+      showload(){
+        setTimeout(()=> {
+          this.isloaded =false
+        },10000)
       }
     },
     mounted() {
-      document.onreadystatechange = () => {
-        if (document.readyState == "complete") { 
-          this.isloaded = true;
-        } 
-      }
+     this.showload()
     },
   }
 </script>

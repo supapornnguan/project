@@ -4,7 +4,7 @@
   <sui-accordion is="sui-menu" vertical exclusive styled style="width:1000px">
       <sui-accordion-title id="positionLeft" is="sui-menu-header">
         <sui-icon  name="dropdown" />
-        CENTRAL PLAZA PINKLAO 
+        CENTRAL PLAZA PINKLAO
       </sui-accordion-title>
       <sui-accordion-content >
     <sui-table celled>
@@ -18,7 +18,7 @@
       </sui-table-row>
     </sui-table-header>
     <sui-table-body v-for="(key,index) in order" :key="index">
-      <sui-table-row v-if="branch_selected[index] == 'PU01' && status[index] == true && status1[index] == false">
+      <sui-table-row v-if="branch_selected[index] == 'PU01' &&  status1[index] == true">
         <sui-table-cell>{{tracking_number[index]}}</sui-table-cell>
         <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell>
@@ -45,7 +45,7 @@
       </sui-table-row>
     </sui-table-header>
     <sui-table-body v-for="(key,index) in order" :key="index">
-      <sui-table-row v-if="branch_selected[index] == 'PU02' && status[index] == true && status1[index] == false">
+      <sui-table-row v-if="branch_selected[index] == 'PU02' &&  status1[index] == true">
         <sui-table-cell>{{tracking_number[index]}}</sui-table-cell>
         <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell>
@@ -72,7 +72,7 @@
       </sui-table-row>
     </sui-table-header>
     <sui-table-body v-for="(key,index) in order" :key="index">
-      <sui-table-row v-if="branch_selected[index] == 'PU03' && status[index] == true && status1[index] == false">
+      <sui-table-row v-if="branch_selected[index] == 'PU03' &&  status1[index] == true">
         <sui-table-cell>{{tracking_number[index]}}</sui-table-cell>
         <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell>
@@ -86,7 +86,7 @@
 
       <sui-accordion-title id="positionLeft" is="sui-menu-header">
         <sui-icon name="dropdown" />
-        CENTRAL LARDPRAO 
+        CENTRAL LARDPRAO
       </sui-accordion-title>
       <sui-accordion-content>
     <sui-table celled>
@@ -100,7 +100,7 @@
       </sui-table-row>
     </sui-table-header>
     <sui-table-body v-for="(key,index) in order" :key="index">
-      <sui-table-row v-if="branch_selected[index] == 'PU04' && status[index] == true && status1[index] == false">
+      <sui-table-row v-if="branch_selected[index] == 'PU04' && status1[index] == true">
         <sui-table-cell>{{tracking_number[index]}}</sui-table-cell>
         <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell>
@@ -128,7 +128,7 @@
       </sui-table-row>
     </sui-table-header>
     <sui-table-body v-for="(key,index) in order" :key="index">
-      <sui-table-row v-if="branch_selected[index] == 'PU05' && status[index] == true && status1[index] == false">
+      <sui-table-row v-if="branch_selected[index] == 'PU05' && status1[index] == true">
         <sui-table-cell>{{tracking_number[index]}}</sui-table-cell>
         <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell>
@@ -188,16 +188,16 @@ export default {
             for(var j =0 ; j<this.order.length ;j++){
                 var k = this.order[j]
                 var branch_selected = this.infoOrder[k].branch_selected
-                var status = this.infoOrder[k].status.atstore.check_status
-                var status1 = this.infoOrder[k].status.complete.check_status
+                // var status = this.infoOrder[k].status.complete.check_status
+                var status1 = this.infoOrder[k].status.return.check_status
                 if(this.infoOrder[k].tracking_no.check_track == true){
                     var tracking_number = this.infoOrder[k].tracking_no.tracking_no
                 }
-                var date_time_to_order = this.infoOrder[k].status.atstore.date_time_to_order
+                var date_time_to_order = this.infoOrder[k].status.return.date_time_to_order
                 var total_amount = this.infoOrder[k].total_amount
                 var number_of_product = this.infoOrder[k].number_of_product
                 this.branch_selected[j] = branch_selected
-                this.status[j] = status
+                // this.status[j] = status
                 this.status1[j] = status1
                 this.date_time_to_order[j] = date_time_to_order
                 this.total_amount[j] = total_amount

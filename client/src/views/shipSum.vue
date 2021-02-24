@@ -10,11 +10,6 @@
         </div>
 
         <div style="margin-bottom:15px">
-        <p style="color:gray; margin-left:140px; display:inline">Payment Type</p>
-        <p style="position:absolute; left:350px; display:inline">{{infoShipping.paymentType}}</p>
-        </div>
-
-        <div style="margin-bottom:15px">
         <p style="color:gray; margin-left:140px; display:inline">Customer Phone</p>
         <p style="position:absolute; left:350px; display:inline">{{customer_phonenumber}}</p>
         </div>

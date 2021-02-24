@@ -104,7 +104,7 @@ export default {
                 this.number_of_product = this.summary.quantity
                 let description = [{
                     keysProduct : this.key,
-                    sellerUid : this.summary.sellerUid,
+                    // sellerUid : this.summary.sellerUid,
                     
                     product_image : this.summary.product_image,
                     product_name : this.summary.product_name,
@@ -139,6 +139,8 @@ export default {
 
             await firebase.ref("pickup_order").push(newOrder)
             this.$router.replace('pickupSum')
+
+//order from cart
 
             }else{
 
@@ -206,6 +208,7 @@ export default {
         })
     },
     mounted() {
+        //get infomation store
         firebase.ref('Store/').on('value', snapshot => {
 
            this.branch = snapshot.val() 
@@ -241,11 +244,6 @@ export default {
                 }
             }
         }
-
-
-
-      
-    
     },
 }
 </script>

@@ -1,39 +1,49 @@
 <template>
-    <div >
+    <div class="vld-parent">
+        <loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        :is-full-page="true">
+        </loading>
 
     <div style="background-color:#0F4C81; height:80px;">
     <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
     </div>
 
-
+    
     <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">DURING SHIPMENT</p>
     <hr>
 
-      <p style="font-weight:600; font-size:20px; margin-top:20px; margin-left:30px">Tracking No. : {{tracking_no}}</p>
+      <p style="font-weight:600; font-size:20px; margin-top:20px; margin-left:30px" v-if="isLoading==false">Tracking No. : {{this.$route.params.idTrack}}</p>
 
   <sui-table celled style="width:1000px; margin-left:210px">
     <sui-table-header>
-      <sui-table-row>
+      <sui-table-row v-if="isLoading==false">
         <sui-table-header-cell><p style="font-size:20px; text-align:center; width:333px">Order Id</p></sui-table-header-cell>
         <sui-table-header-cell><p style="font-size:20px; text-align:center; width:333px">Customer Name</p></sui-table-header-cell>
         <sui-table-header-cell><p style="font-size:20px; text-align:center; width:333px">Status</p></sui-table-header-cell>
       </sui-table-row>
     </sui-table-header>
 
-    <sui-table-body>
-      <sui-table-row v-for="(key,index) in order_id" :key="index">
-        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailOrderStore' , params : {idOrder : key}}">{{order_id[index].substring(1,100)}}</router-link></sui-table-cell>
-        <sui-table-cell style="text-align:center"  >{{customer_firstname[index]}} {{customer_lastname[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center"></sui-table-cell>
+    <sui-table-body v-if="this.isLoading ==  false">
+      <sui-table-row v-for="(key,index) in key_pickup_order_list" :key="index" >
+        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailOrderStore' , params : {idOrder : key}}">{{key_pickup_order_list[index].substring(1,100)}} </router-link></sui-table-cell>
+        <sui-table-cell style="text-align:center"  >{{customer_firstname[index] }} {{customer_lastname[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{status1[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
+
+
     </div>
+
   
 </template>
 <script > 
 import firebase from "../firebase"
-
+    // Import component
+import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
     data() {
         return {
@@ -41,79 +51,56 @@ export default {
             order_id : [],
             status_order : [],
             userid : [],
+            infoSeller : {},
+            check_status_atstore : [],
+
+            isLoading: true,
+            fullPage: true,
+
+
+
+            key_pickup_order : {},
+            key_pickup_order_list : [],
+            userid1 : [],
             customer_firstname : [],
             customer_lastname : [],
-   
+            status1 : []
+
         }
     },
-    components : {
-
+    components: {
+      Loading
     },
-    // async beforeCreate() {
-    //     await this.getInfoTrack();
-    // },
-    // methods: {
-    //     getInfoTrack(){
-    //         return Promise((resolve) => {
-    //             firebase.ref("tracking_number/" + this.$route.params.idTrack).onSnapshot("value" , snapshot => {
-    //                 this.tracking_no = snapshot.val().tracking_no
-    //                 this.order_id = snapshot.val().order_id
-    //                 console.log(this.tracking_no)
-    //                 console.log(this.order_id)
-    //                 for(var i =0 ; i< this.order_id.length ; i++){
-    //                     firebase.ref("pickup_order/" + this.order_id[i]).on("value" , snapshot => {
-    //                         console.log(snapshot.val())
-    //                         this.status_order[i] = snapshot.val().status.delivery.check_status
-    //                         console.log(this.status_order[i])
-    //                         this.userid[i] = snapshot.val().userid
-    //                         console.log(this.userid[i])
-    //                         firebase.ref("user/" + this.userid[i]).on("value" , snapshot => {
-    //                             console.log("user")
-    //                             console.log(snapshot.val())
-    //                             this.customer_firstname[i] = snapshot.val().customer_firstname
-    //                             this.customer_lastname[i] = snapshot.val().customer_lastname
-    //                             console.log(this.customer_firstname[i])
-    //                             console.log(this.customer_lastname[i])
-    //                         })
-    //                     })
-    //                 }
-    //                 resolve();
-    //             })
-    //         })
-    //     }
-    // },
     beforeCreate (){
-        firebase.ref("tracking_number/" + this.$route.params.idTrack).on("value" , snapshot => {
-            console.log(snapshot.val())
-            this.tracking_no = snapshot.val().tracking_no
-            this.order_id = snapshot.val().order_id
-            console.log(this.tracking_no)
-            console.log(this.order_id)
-            for(var i =0 ; i< this.order_id.length ; i++){
-                firebase.ref("pickup_order/" + this.order_id[i]).on("value" , snapshot => {
-                    console.log(snapshot.val())
-                    this.status_order[i] = snapshot.val().status.delivery.check_status
-                    console.log(this.status_order[i])
-                    this.userid[i] = snapshot.val().userid
-                    console.log(this.userid[i])
-                    firebase.ref("user/" + this.userid[i]).on("value" , snapshot => {
-                        console.log("user")
-                        console.log(snapshot.val())
-                        this.customer_firstname[i] = snapshot.val().customer_firstname
-                        this.customer_lastname[i] = snapshot.val().customer_lastname
-                        console.log(this.customer_firstname[i])
-                        console.log(this.customer_lastname[i])
-                        
-                    })
-                })
-            }
-        }) 
-  
-    },
-    created() {
-      
-    },
-    
+      console.log(this.$route.params.idTrack)
+      firebase.ref("pickup_order").orderByChild("tracking_no/tracking_no").equalTo(this.$route.params.idTrack).on("value", snapshot => {
+        console.log(snapshot.val())
+        this.key_pickup_order = snapshot.val()
+        this.key_pickup_order_list = Object.keys(snapshot.val())
+        console.log(this.key_pickup_order_list)
+        for(var i =0 ; i< this.key_pickup_order_list.length ; i++){
+          var k = this.key_pickup_order_list[i]
+          var userid1 = this.key_pickup_order[k].userid
+          if(this.key_pickup_order[k].status.atstore.check_status==true){
+            this.status1.push("AT STORE")
+          }else{
+            this.status1.push("DELIVERY")
+          }
+          this.userid1[i] = userid1
+        }
+        console.log(this.userid1.length)
+        for(var j =0 ; j< this.userid1.length ;j ++){
+        firebase.ref("user/" + this.userid1[j]).on("value" , snapshot => {
+          console.log(snapshot.val())
+          this.customer_firstname.push(snapshot.val().customer_firstname)
+          this.customer_lastname.push(snapshot.val().customer_lastname)
+        })
+      }
+      console.log(this.customer_firstname)
+      console.log(this.customer_lastname)
+      this.isLoading =  false
+      })      
+    }, 
 }
 </script>
 <style scoped>

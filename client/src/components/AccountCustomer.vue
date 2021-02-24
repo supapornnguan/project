@@ -52,13 +52,14 @@
     </sui-form-fields>
   </sui-form>
       <sui-button basic color="black" id="centersave">SAVE</sui-button>
+    
 </div>
 </template>
 
 
 <script>
 import firebase from "../firebase"
-import {auth} from "../firebase"
+// import {auth} from "../firebase"
 export default {
   data() {
     return {
@@ -76,7 +77,7 @@ export default {
     }
   },
     mounted() {
-    firebase.ref("user/" + auth.currentUser.uid).on("value", snapshot => {
+    firebase.ref("user/" + this.$route.params.userid).on("value", snapshot => {
       console.log(snapshot.val())
       this.customer_email = snapshot.val().customer_email
       this.customer_firstname = snapshot.val().customer_firstname

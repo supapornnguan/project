@@ -11,10 +11,10 @@
     <router-link to="/userlogin" class="ui item" v-if="!user.loggedIn" style="color:#FFFFFF">LOGIN</router-link>
     <button id="logout" v-if="user.loggedIn" @click="logout">LOGOUT</button>
     <!-- <p v-if="user.loggedIn" class="ui item"><a @click="logout"  style="color:#FFFFFF;">LOGOUT</a></p> -->
-    <img src="../assets/cart_icon.svg" class="cart" v-if="user.loggedIn" @click="myCart" >
+    <router-link to="/myCart"><img src="../assets/cart_icon.svg" class="cart" v-if="user.loggedIn"></router-link>
     <div class="circle" v-if="cartList.length!=0 & user.loggedIn">{{cartList.length}}</div>
     <img src="../assets/user_icon.svg" id="Myaccount" v-if="user.loggedIn" @click="myaccount">
-    
+    <p>{{userid}}</p>
   </div>
   
 </div>
@@ -31,6 +31,14 @@ export default {
       cartList : "cartItemList"
     })
   },
+  data() {
+    return {
+      userid : ""
+    }
+  },
+  beforeCreate() {
+    this.userid = auth.currentUser.uid
+  },
   methods: {
     logout(){
       auth.signOut()
@@ -39,12 +47,13 @@ export default {
           })
     },
     myCart(){
-      this.$router.replace('myCart')
+      // this.$router.replace('myCart')
       console.log(this.user.loggedIn)
     },
     myaccount(){
-      this.$router.replace('MyAccountCustomer')
-      console.log(this.user.data)
+      this.$router.push({name: "myAccountCustomer" , params : {userid : auth.currentUser.uid}})
+      // this.$router.replace('MyAccountCustomer')
+      console.log(auth.currentUser.uid)
     }
   },
 }

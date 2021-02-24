@@ -3,33 +3,33 @@
         <!-- pickup -->
         <div  style="margin-top:40px" v-if="orderDetail.type=='PICK-UP' ">
             <sui-segment id="stepSegment">
-                <div class="circle" style="position:absolute"></div>
+                <div class="circle" style="position:absolute; margin-left:175px "></div>
                 <p style="position:absolute; top: 120px;left: 180px;">ordered</p>
 
                 <div style="position:absolute; top:160px;left: 160px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
-                <div class="rectangle" style="position:absolute"></div>
+                <div class="rectangle" style="position:absolute; margin-left:230px"></div>
 
-                <div class="circle" style="position:absolute; left:160px"></div>
-                <div class="rectangle" style="position:absolute; left:150px"></div>
+                <div class="circle" style="position:absolute; left:210px"></div>
+                <div class="rectangle" style="position:absolute; left:220px"></div>
                 <p style="position:absolute; top: 120px;left: 320px;">Packing</p>
 
                 <div style="position:absolute; top:160px;left: 300px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order1" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
-                <div class="circle" style="position:absolute; left:310px"></div>
-                <div class="rectangle" style="position:absolute; left:300px"></div>
+                <div class="circle" style="position:absolute; left:360px"></div>
+                <div class="rectangle" style="position:absolute; left:365px"></div>
                 <p style="position:absolute; top: 120px;left: 470px;">Shipped</p>
 
                  <div style="position:absolute; top:160px;left: 450px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order2" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
-                <div class="circle" style="position:absolute; left:460px"></div>
-                <div class="rectangle" style="position:absolute; left:450px"></div>
+                <div class="circle" style="position:absolute; left:510px"></div>
+                <div class="rectangle" style="position:absolute; left:510px"></div>
                 <p style="position:absolute; top: 120px;left: 590px;">Ready for pick-up</p>
 
                 <div style="position:absolute; top:160px;left: 600px; font-size:11px; color:#A9A9A9" >
@@ -37,7 +37,7 @@
                 </div>
 
 
-                <div class="circle" style="position:absolute; left:610px"></div>
+                <div class="circle" style="position:absolute; left:650px"></div>
                 <p style="position:absolute; top: 120px;left: 760px;">Complete</p>
             </sui-segment>
 
@@ -114,39 +114,47 @@
         </div>
 
 <!-- shipping -->
-        <div v-if="orderDetail.type=='SHIPPING' ">
+        <div v-if="orderDetail.type == 'SHIPPING'">
         <sui-segment id="stepSegment">
                 <div class="circle" style="position:absolute"></div>
-                <p style="position:absolute; top: 120px;left: 110px;">ordered</p>
+                <p style="position:absolute; top: 120px;left: 120px;">unpaid</p>
 
-                <div style="position:absolute; top:160px;left: 0px; font-size:11px; color:#A9A9A9" >
+                <div style="position:absolute; top:160px;left: 90px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
                 <div class="rectangle" style="position:absolute"></div>
+                
 
                 <div class="circle" style="position:absolute; left:150px"></div>
                 <div class="rectangle" style="position:absolute; left:150px"></div>
-                <p style="position:absolute; top: 120px;left: 320px;">Payment</p>
+                <p style="position:absolute; top: 120px;left: 250px;">Payment</p>
 
-                <div class="circle" style="position:absolute; left:150px"></div>
-                <div class="rectangle" style="position:absolute; left:150px"></div>
-                <p style="position:absolute; top: 120px;left: 320px;">Slip Verified</p>
+                <div style="position:absolute; top:160px;left: 230px; font-size:11px; color:#A9A9A9" >
+                    <p v-for="item in date_time_to_order1" :key="item" style="text-align:center">{{item}}</p>
+                </div>
 
-                <div class="circle" style="position:absolute; left:150px"></div>
-                <div class="rectangle" style="position:absolute; left:150px"></div>
-                <p style="position:absolute; top: 120px;left: 320px;">Seller Confirm</p>
+                
 
                 <div class="circle" style="position:absolute; left:300px"></div>
                 <div class="rectangle" style="position:absolute; left:300px"></div>
-                <p style="position:absolute; top: 120px;left: 470px;">Shipped</p>
+                <p style="position:absolute; top: 120px;left: 390px;">Slip Verified</p>
+
+                
 
                 <div class="circle" style="position:absolute; left:450px"></div>
                 <div class="rectangle" style="position:absolute; left:450px"></div>
-                <p style="position:absolute; top: 120px;left: 590px;">Ready for pick-up</p>
+                <p style="position:absolute; top: 120px;left: 540px;">Seller Confirm</p>
 
+                
                 <div class="circle" style="position:absolute; left:600px"></div>
-                <p style="position:absolute; top: 120px;left: 760px;">Complete</p>
+                <div class="rectangle" style="position:absolute; left:600px"></div>
+                <p style="position:absolute; top: 120px;left: 710px;">Shipped</p>
+
+
+                <div class="circle" style="position:absolute; left:750px"></div>
+                <p style="position:absolute; top: 120px;left: 850px;">Complete</p>
+                
             </sui-segment>
             <h4 style="font-weight:670; margin-bottom:30px">Address</h4>
 
@@ -195,9 +203,11 @@
 
         </div>
             <b-button variant="secondary" :disabled="check_shipped" style="margin-left:350px">Cancle Order</b-button>
-            <b-button variant="secondary" :disabled="check_complete" style="margin-left: 20px;">Confirm Order</b-button>
-            <p>{{check_shipped}}</p>
-            <p>{{check_complete}}</p>
+            <b-button variant="secondary" v-if="!check_complete" style="margin-left: 20px;">Confirm Order</b-button>
+            <b-button variant="secondary" style="margin-left: 30px;" v-if="orderDetail.type == 'SHIPPING' " :disabled="check_payment" @click="uploadSlip()">Upload Slip</b-button>
+            <!-- <p>{{check_shipped}}</p>
+            <p>{{check_complete}}</p> -->
+            
 
     </div>
 </template>
@@ -217,12 +227,14 @@ export default {
             date_time_to_order3 : "",
             date_time_to_order4 : "",
             date_time_to_order5 : "",
+            date_time_to_order6 : "",
             
             status : "ordered",
             store_pickup : [],
             show : 1,
             check_shipped : false,
             check_complete : true,
+            check_payment : false,
 
             branch_selected : "",
             product_description : [],
@@ -255,6 +267,11 @@ export default {
             customer_zipcode : []
         }
     },
+    methods: {
+        uploadSlip() {
+            this.$router.push({name: "uploadSlip" , params: {orderId : this.orderDetail.keysOrder}})
+        }
+    },
     computed : {
         ...mapGetters({
             orderDetail :"getOrderDetail"
@@ -267,6 +284,7 @@ export default {
             console.log(snapshot.val())
             this.branch_selected = snapshot.val().branch_selected
             this.product_description = snapshot.val().product_description
+
             if(snapshot.val().status.ordered.check_status == true){
                 this.date_time_to_order = snapshot.val().status.ordered.date_time_to_order.split(',')
             }
@@ -312,10 +330,35 @@ export default {
             firebase.ref("shipping_order/" + this.orderDetail.keysOrder).on("value",snapshot=>{
                 console.log(snapshot.val())
                 this.product_description = snapshot.val().product_description
-                this.date_time_to_order = snapshot.val().status.ordered.date_time_to_order.split(',')
+                this.date_time_to_order = snapshot.val().status.unpaid.date_time_to_order.split(',')
                 this.customer_address = snapshot.val().customer_address
                 this.sellerUid = snapshot.val().sellerUid
                 console.log(this.customer_address)
+                
+            if(snapshot.val().status.unpaid.check_status == true){
+                this.date_time_to_order = snapshot.val().status.unpaid.date_time_to_order.split(',')
+            }
+            if(snapshot.val().status.payment.check_status == true){
+                this.check_payment = snapshot.val().status.payment.check_status
+                this.date_time_to_order1 = snapshot.val().status.payment.date_time_to_order.split(',')
+            }
+            if(snapshot.val().status.slip_verified.check_status == true){
+                // this.check_shipped = snapshot.val().status.delivery.check_status
+                this.date_time_to_order2 = snapshot.val().status.slip_verified.date_time_to_order.split(',')
+            }
+            if(snapshot.val().status.packing.check_status == true){
+                this.date_time_to_order3 = snapshot.val().status.packing.date_time_to_order.split(',')
+            }
+            if(snapshot.val().status.delivery.check_status == true){
+                // this.check_complete = snapshot.val().status.complete.check_status
+                this.date_time_to_order4 = snapshot.val().status.delivery.date_time_to_order.split(',')
+            }
+            if(snapshot.val().status.complete.check_status == true){
+                this.date_time_to_order5 = snapshot.val().status.complete.date_time_to_order.split(',')
+            }
+            if(snapshot.val().status.return.check_status == true){
+                this.date_time_to_order6 = snapshot.val().status.return.date_time_to_order.split(',')
+            }
             })
         for(var z=0;z<this.product_description.length;z++){
             this.keysProduct[z] = this.product_description[z].keysProduct
@@ -363,13 +406,13 @@ export default {
   background-color:#A9A9A9;
   border-radius: 50%;
   margin-top: 50px;
-  margin-left: 170px;
+  margin-left: 120px;
 }
 .rectangle {
   height: 3px;
   width: 70px;
   background-color: #555;
   margin-top: 65px;
-  margin-left: 230px;
+  margin-left: 170px;
 }
 </style>

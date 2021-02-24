@@ -34,7 +34,7 @@ export default {
            await auth.signInWithEmailAndPassword(this.seller_email,this.seller_password)
                 .then(user =>{
                     console.log(user)
-                    this.$router.replace('sellerCenter')
+                    this.$router.push({name: "sellerCenter" , params : {sellerid : auth.currentUser.uid}})
                     })
                 .catch(error => {
                     alert(error)

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import SuiVue from 'semantic-ui-vue';
 import BootstrapVue from 'bootstrap-vue'
 import Vuelidate from 'vuelidate'
+// import {auth} from '../firebase'
 import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -35,14 +36,14 @@ const routes =[
     component: () => import('../views/sellerLogin.vue')
   },
   {
-    path: '/productAll',   
+    path: '/productAll/:category',   
     name: 'productAll',
-    component: () => import('../views/productAll.vue'),
+    component: () => import('../views/productAll.vue')
   },
   {
-    path: '/infoProduct',
+    path: '/infoProduct/:productId',
     name: 'infoProduct',
-    component: () => import('../views/infoProduct.vue')
+    component: () => import('../views/infoProduct.vue'),
   },
   {
     path: '/summary',
@@ -70,7 +71,7 @@ const routes =[
     component: () => import('../views/shipSum.vue')
   }, 
  {
-    path: '/uploadSlip',
+    path: '/uploadSlip/:orderId',
     name: 'uploadSlip',
     component: () => import('../views/uploadSlip.vue')
   },
@@ -87,10 +88,11 @@ const routes =[
   {
     path: '/myCart',
     name: 'myCart',
-    component: () => import('../views/myCart.vue')
+    component: () => import('../views/myCart.vue'),
+    // meta : {requireAuth : true}
   },
   {
-    path: '/sellerCenter',
+    path: '/sellerCenter/:sellerid',
     name: 'sellerCenter',
     component: () => import('../views/sellerCenter.vue'),
   },
@@ -105,9 +107,10 @@ const routes =[
     component: () => import('../views/error.vue')
   },
   {
-    path: '/myAccountCustomer',
+    path: '/myAccountCustomer/:userid',
     name: 'myAccountCustomer',
     component: () => import('../views/myAccountCustomer.vue'),
+ 
     meta : {requireAuth : true}
   },
   {
@@ -136,9 +139,19 @@ const routes =[
     component: () => import('../views/detailTrackStore.vue'),
   },
   {
-    path: '/atstore',
+    path: '/atstore/:idStore',
     name : 'atstore',
     component: () => import('../views/atstoreStore.vue'),
+  },
+  {
+    path: '/DetailOrderatstore/:idTrackAtstore',
+    name : 'DetailOrderatstore',
+    component: () => import('../views/DetailOrderatstore.vue'),
+  },
+  {
+    path: '/DetailEachOrderatstore/:idOrderAtstore',
+    name : 'DetailEachOrderatstore',
+    component: () => import('../views/DetailEachOrderatstore.vue'),
   },
   {
     path: '/returnStore',
@@ -148,15 +161,15 @@ const routes =[
   {
     path: '/detailOrderStore/:idOrder',
     name : 'detailOrderStore',
-    component : () => import('../views/detailOrderStore.vue')
-  }
+    component : () => import('../views/detailOrderStore.vue'),
+  },
   // {
   //   path: '/homeStore',
   //   name : 'homeStore',
   //   component: () => import('../views/homeStore.vue'),
   // },
 ]
-// import {auth} from "../firebase"
+
 
 // router.beforeEach((to, from, next) => {
 //   let currentUser = auth.currentUser

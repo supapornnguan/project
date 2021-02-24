@@ -64,7 +64,7 @@
 <script>
 import searchBar from "../components/search.vue"
 import navbar from "../components/navbar"
-import store from "../store"
+// import store from "../store"
 export default {
      components :{
           searchBar,
@@ -72,10 +72,11 @@ export default {
      },
      methods: {
           gotoProductAll(data){
-               store.commit("SET_PRODUCT_TYPE", {
-                    productType : data
-               })
+               // store.commit("SET_PRODUCT_TYPE", {
+               //      productType : data
+               // })
                this.$router.replace('productAll')
+               this.$router.push({name : "productAll" , params : {category : data}})
           }
      },
 }

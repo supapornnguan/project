@@ -1,52 +1,57 @@
 <template>
-    <div>
+    <div >
       <div style="background-color:#0F4C81; height:80px;">
       <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
       </div>
-        <h1>kokpo</h1>
+       <loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        :is-full-page="true">
+        </loading>
+  
+        <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">DURING SHIPMENT</p>
+        <hr>
+        <p style="display:inline; font-weight:670; font-size:20px; margin-left:100px; ">Order ID : {{this.$route.params.idOrder.substring(1,100)}}</p>
 
-        <p style="display:inline; font-weight:670; font-size:20px; ">Order ID : {{getKeyOrder.substring(1,100)}}</p>
-
-       <p style="font-weight:670; font-size:20px; margin-top:30px ">Customer Infomation</p>
-            <div style="margin-bottom:10px;">
+       <p style="font-weight:670; font-size:20px; margin-top:30px; margin-left:100px ">Customer Infomation</p>
+            <div style="margin-bottom:10px; margin-left:100px">
                 <p style="display:inline; color:#808080">Name : </p> 
                 <p style="display:inline">{{customer_firstname}} {{customer_lastname}}</p>
             </div>
 
-            <div style="margin-bottom:10px">
+            <div style="margin-bottom:10px; margin-left:100px">
             <p style="display:inline; color:#808080">Email : </p>
-            <p style="display:inline">{{customer_email}}</p>
+            <p style="display:inline;  ">{{customer_email}}</p>
             </div>
 
-            <div style="margin-bottom:10px">
+            <div style="margin-bottom:10px; margin-left:100px">
                 <p style="display:inline; color:#808080">Phone Number : </p>
                 <p style="display:inline">{{customer_phonenumber}}</p>
             </div>
 
             <hr>
-            <p style="font-weight:670; font-size:20px; margin-top:20px ">Shipped From</p>
+            <p style="font-weight:670; font-size:20px; margin-top:20px; margin-left:100px ">Shipped From</p>
 
-            <div style="margin-bottom:10px;">
+            <div style="margin-bottom:10px; margin-left:100px">
                 <p style="display:inline; color:#808080">Name Shop: </p> 
                 <p style="display:inline">{{seller_name_shop}}</p>
             </div>
 
-            <div style="margin-bottom:10px;">
+            <div style="margin-bottom:10px; margin-left:100px">
                 <p style="display:inline; color:#808080">Address: </p> 
                 <p style="display:inline">{{address}} {{seller_district}},<br> {{seller_province}},{{seller_street}}, {{seller_sub_district}}, {{seller_zipcode}}</p>
             </div>
 
-            <div style="margin-bottom:10px;">
+            <div style="margin-bottom:10px; margin-left:100px">
                 <p style="display:inline; color:#808080">Name : </p> 
                 <p style="display:inline">{{seller_firstname}} {{seller_lastname}}</p>
             </div>
 
-            <div style="margin-bottom:10px">
+            <div style="margin-bottom:10px; margin-left:100px">
             <p style="display:inline; color:#808080">Email : </p>
             <p style="display:inline">{{seller_email}}</p>
             </div>
 
-            <div style="margin-bottom:10px">
+            <div style="margin-bottom:10px; margin-left:100px">
                 <p style="display:inline; color:#808080">Phone Number : </p>
                 <p style="display:inline">{{seller_phonenumber}}</p>
             </div>
@@ -54,8 +59,8 @@
             <hr>
 
 
-            <p style="font-weight:670; font-size:20px; margin-top:20px ">Products</p>
-            <sui-accordion is="sui-menu" vertical exclusive styled style="width:1000px">
+            <p style="font-weight:670; font-size:20px; margin-top:20px; margin-left:100px ">Products</p>
+            <sui-accordion is="sui-menu" vertical exclusive styled style="width:1000px; margin-left:250px" >
                 <sui-accordion-content >
                     <sui-table celled >
                         <sui-table-header>
@@ -68,7 +73,7 @@
                         </sui-table-header>
                     <sui-table-body >
                             <sui-table-row v-for="(key,index) in product_description " :key="index">
-                                <sui-table-cell>{{keysProduct[index]}}</sui-table-cell>
+                                <sui-table-cell>{{keysProduct[index].substring(1,100)}}</sui-table-cell>
                                 <sui-table-cell>{{product_name[index]}}</sui-table-cell>
                                 <sui-table-cell>{{quantity[index]}}</sui-table-cell>
                                 <sui-table-cell>{{product_unit_price[index]}}</sui-table-cell>
@@ -77,18 +82,29 @@
                 </sui-table>
             </sui-accordion-content>
         </sui-accordion>
-        <b-button variant="secondary" style="margin-left:400px" @click="receieOrder(getKeyOrder)">Receive Order</b-button>
-        <p>{{sellerUid}}</p>
-        <p>{{getKeyOrder}}</p>
+        <b-button variant="secondary" style="margin-left:400px; margin-left:650px" @click="showModal">Receive Order</b-button>
+
+        <b-modal ref="my-modal" hide-footer title="CONFIRMATION">
+            <div class="d-block text-center" style="margin-bottom:50px">
+                <h3>Hello From My Modal!</h3>
+            </div>
+            <b-button variant="secondary" style="margin-left:290px"  @click="hideModal">Cancel</b-button>
+            <b-button variant="secondary" style="margin-left:10px" @click="receiveOrder(orderidParams)">confirm</b-button>
+        </b-modal>
     </div>
 </template>
 
 
 <script>
-import { mapGetters } from 'vuex'
 import firebase from "../firebase"
+    // Import component
+import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
+import { mapGetters } from 'vuex'
+
 import {dateToString} from '../utils/utils';
-import store from "../store"
+// import store from "../store"
 export default {
     data() {
         return {
@@ -124,9 +140,15 @@ export default {
 
             //keyOrder
             keyOrder : "",
-            check_load : false
+            check_load : false,
+            orderidParams : this.$route.params.idOrder,
+            isLoading: true,
+            fullPage: true,
 
         }
+    },
+    components : {
+        Loading
     },
     computed : {
         ...mapGetters([
@@ -134,27 +156,42 @@ export default {
         ])
     },
     methods: {
-        receieOrder(keyOrder){
+        receiveOrder(keyOrder){
             firebase.ref("pickup_order/" + keyOrder + "/status" + "/atstore").update({
                 check_status : true,
                 date_time_to_order : dateToString(Date.now())
             })
-            store.commit("SET_PAGE_RECEIVE_PRODUCT" , {show_detailOrder : false})
-        
+            console.log("update! pickup order")
+ 
 
-        }
+    
+            // store.commit("SET_PAGE_RECEIVE_PRODUCT" , {show_detailOrder : false})
+        },
+        showModal() {
+            this.$refs['my-modal'].show()
+        },
+        hideModal() {
+        this.$refs['my-modal'].hide()
+      }
+    },
+    beforeRouteEnter (to, from, next) {
+        console.log(to, 'Component exclusive guard beforeRouteEnter first argument');
+        next(vm => {
+      //Because the current hook either, component instance has not been created
+      //  vm is an example of the current component equivalent above this, so in the next method where you can put this to use as a vm.
+      console.log(vm);//Examples of the current component
+    });
     },
     beforeCreate(){
         this.keyOrder = this.getKeyOrder
 
-        firebase.ref("pickup_order/" + this.keyOrder).on( "value", snapshot => {
+        firebase.ref("pickup_order/" + this.$route.params.idOrder).on( "value", snapshot => {
             console.log(snapshot.val())
             this.userid = snapshot.val().userid
             this.sellerUid = snapshot.val().sellerUid
             this.branch_selected = snapshot.val().branch_selected
             this.product_description = snapshot.val().product_description
         })
-
     },
     created() { 
       for(var j= 0 ; j<this.product_description.length ; j++){
@@ -164,7 +201,7 @@ export default {
           this.quantity[j] = this.product_description[j].quantity
       }
       console.log(this.keysProduct)
-        firebase.ref("pickup_order/" + this.getKeyOrder).on("value" , snapshot => {
+        firebase.ref("pickup_order/" + this.$route.params.idOrder).on("value" , snapshot => {
             console.log(snapshot.val())
             this.userid = snapshot.val().userid
             this.sellerUid = snapshot.val().sellerUid
@@ -198,6 +235,7 @@ export default {
             this.seller_street = snapshot.val().seller_address1.seller_street
             this.seller_sub_district = snapshot.val().seller_address1.seller_sub_district
             this.seller_zipcode = snapshot.val().seller_address1.seller_zipcode
+            this.isLoading =false
         })
     },
 }

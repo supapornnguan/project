@@ -244,6 +244,7 @@ export default {
             firebase.ref("pickup_order/" + this.selected[j] +"/tracking_no").update({
                 check_track : true,
                 tracking_no : this.tracking_no,
+                
             })
         }
             

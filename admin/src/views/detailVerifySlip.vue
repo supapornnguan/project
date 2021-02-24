@@ -28,7 +28,26 @@
     </div>
 </template>
 <script>
+import firebase from "../firebase"
 export default {
+    data() {
+        return {
+            orderid : "",
+            date_time_submit : "",
+            fourdigits : "",
+            slip_image : "",
+            total_amount : "",
+            userid : ""
+
+        }
+    },
+    beforeCreate() {
+        firebase.ref("slip/" + this.$route.params.idSlip).on("value" , snapshot => {
+            console.log(snapshot.val())
+        })
+        
+        
+    },
 }
 </script>
 <style scoped>

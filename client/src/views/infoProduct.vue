@@ -61,7 +61,7 @@
 </template>
 <script>
 import navbar from "../components/navbar"
-import {mapGetters, mapActions} from "vuex"
+import {mapActions} from "vuex"
 import store from "../store"
 import firebase from "../firebase"
 export default {
@@ -78,7 +78,8 @@ export default {
              product_detail_non_split : "",
              product_image : "",
              timeToOrder : "",
-             check : false
+             check : false,
+             productKey : ""
         }
     },
     components : {
@@ -118,6 +119,7 @@ export default {
                 product_detail : this.product_detail_non_split,
                 seller_name_shop : this.seller_name_shop
             } )
+            
             store.commit("SET_CHECK_STATE",{
                 check : this.check
             })
@@ -125,14 +127,17 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({
-            key : "getProductId"
-        })
+        // ...mapGetters({
+        //     key : "getProductId"
+        // })
+    },
+    created() {
+        this.productKey = this.$route.params.productId
     },
     mounted() {
         //query product collection
       
-            firebase.ref('product/'+this.key).on('value',(snapshot)=>{
+            firebase.ref('product/'+this.productKey).on('value',(snapshot)=>{
             console.log(snapshot.val());
             this.product_name = snapshot.val().product_name
             this.sellerUid = snapshot.val().sellerUid
