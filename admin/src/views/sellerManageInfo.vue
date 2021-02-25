@@ -70,16 +70,19 @@
         <br>
         <br>
         <br>
-        <div v-if="verify_seller === 'false'">
+        <div v-if="verify_seller == false">
             <b-button id="show-btn" @click="showModal">VERIFY SELLER</b-button>
 
             <b-modal ref="my-modal" hide-footer title="VERIFY SELLER">
                 
-                Are you sure to vertify {{seller_name_shop}} ?
+                Are you sure to verify {{seller_name_shop}} ?
             
                 <b-button id="bottonConfirm" class="float-right" variant="primary" @click="verifySuccess">Confirm</b-button>
                 <b-button id="bottonCancel" class="float-right" variant="secondary" @click="hideModal">Cancle</b-button>
             </b-modal>
+        </div>
+        <div v-if="verify_seller == true">
+            <h3 style="font-weight:600">SELLER STATISTIC</h3>
         </div>
     </div>
 </template>

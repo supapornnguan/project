@@ -1,11 +1,13 @@
 <template>
     <div id="userManagePosition">
-        <h3 style="font-weight:600">USER MANAGEMENT</h3>
+        <h3 style="font-weight:600">CUSTOMER MANAGEMENT</h3>
         <br>
+        
         <!-- search -->
         <div style="width:1000px">
           <input type="text" v-model="search" placeholder="Enter user email" class="form-control" />
         </div>
+        
         <!-- table -->
         <sui-table celled style="width:1000px">
         <sui-table-header>

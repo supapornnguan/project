@@ -12,7 +12,7 @@
               <br>
               <br>
                 <sui-statistic>
-                  <sui-statistic-value>{{numVerifyStore}}</sui-statistic-value>
+                  <sui-statistic-value>{{numVerifySeller.length}}</sui-statistic-value>
                   <br>
                   <sui-statistic-label>Verify Seller</sui-statistic-label>
                 </sui-statistic>
@@ -26,7 +26,7 @@
               <br>
               <br>
                 <sui-statistic>
-                  <sui-statistic-value>{{numVerifySlip}}</sui-statistic-value>
+                  <sui-statistic-value>{{numVerifySlip.length}}</sui-statistic-value>
                   <br>
                   <sui-statistic-label>Verify Slip</sui-statistic-label>
                 </sui-statistic>
@@ -40,7 +40,7 @@
               <br>
               <br>
                 <sui-statistic>
-                  <sui-statistic-value>{{numBankTran}}</sui-statistic-value>
+                  <sui-statistic-value>{{numBankTran.length}}</sui-statistic-value>
                   <br>
                   <sui-statistic-label>Bank Transfer</sui-statistic-label>
                 </sui-statistic>
@@ -56,14 +56,14 @@
 </template>
 
 <script>
-
+import firebase from "../firebase"
 export default {
 
   data() {
     return {
-      numVerifyStore : '1',
-      numVerifySlip : '4',
-      numBankTran : '4'
+      numVerifySeller : [],
+      numVerifySlip : [],
+      numBankTran : [],
     }
   },
   methods: {
@@ -73,6 +73,14 @@ export default {
     gotoVerifySlip(){
       this.$router.replace('verifySlip')
     }
+  },
+  mounted () {
+      firebase.ref("seller/").orderByChild("verify_seller").equalTo(false).on("value", snapshot => {
+        console.log(snapshot.val())
+        this.Seller = snapshot.val()
+        this.numVerifySeller = Object.keys(snapshot.val())
+        console.log(this.numVerifySeller.length)
+      })
   },
 }
 </script>

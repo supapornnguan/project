@@ -2,10 +2,12 @@
     <div id="sellerManagePosition">
         <h3 style="font-weight:600;">SELLER MANAGEMENT</h3>
         <br>
+        
         <!-- search -->
         <div style="width:1000px">
           <input type="text" v-model="search" placeholder="Enter seller email" class="form-control" />
         </div>
+        
         <!-- table -->
         <sui-table celled style="width:1000px">
         <sui-table-header>
@@ -14,6 +16,7 @@
             <sui-table-header-cell style="text-align:center">Shop Name</sui-table-header-cell>
             <sui-table-header-cell style="text-align:center">Seller Email</sui-table-header-cell>
             <sui-table-header-cell style="text-align:center">Date Time</sui-table-header-cell>
+            <sui-table-header-cell style="text-align:center">Verify Status</sui-table-header-cell>
             <sui-table-header-cell style="text-align:center"></sui-table-header-cell>
           </sui-table-row>
         </sui-table-header>
