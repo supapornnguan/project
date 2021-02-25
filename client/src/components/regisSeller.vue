@@ -279,7 +279,7 @@ export default {
         //structure of seller 
         async addSeller(){
             this.Seller.timstamp = Date.now();
-            this.Seller.verify_seller = "false"
+            this.Seller.verify_seller = false
              let newaddress = {
                 address : this.seller_address.address,
                 seller_street : this.seller_address.seller_street,
@@ -319,7 +319,7 @@ export default {
             await firebase.ref("seller/" + this.uidSeller).set(newSeller)
             .then((data) => {
                 console.log(data)
-                this.$router.replace('sellerHome')
+                this.$router.push({name: "sellerCenter" , params : {sellerid : auth.currentUser.uid}})
             })
         },
         //date
