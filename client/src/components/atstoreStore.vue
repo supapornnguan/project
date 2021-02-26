@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <h1>jijijii</h1>
+       
         <sui-table celled >
             <sui-table-header>
                 <sui-table-row>

@@ -111,7 +111,10 @@ export default {
                         product_unit_price : this.cartItemList[j].product_unit_price,
                         sellerUid : this.cartItemList[j].sellerUid,
                         seller_name_shop : this.cartItemList[j].seller_name_shop,
-                        quantity : this.cartItemList[j].quantity
+                        quantity : this.cartItemList[j].quantity,
+                        status : { return_product : 
+                                    {  check_status : false }
+                                }
             })
                 }
             }

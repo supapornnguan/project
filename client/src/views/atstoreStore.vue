@@ -11,7 +11,7 @@
         </div>
     <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">ORDER AT STORE</p>
     <hr>
-
+<div v-if="isLoading == false">
   <sui-table celled style="width:1000px; margin-left:210px">
     <sui-table-header>
       <sui-table-row>
@@ -21,18 +21,15 @@
       </sui-table-row>
     </sui-table-header>
 
-    <sui-table-body v-if="isLoading == false">
-      <sui-table-row v-for="(key,index) in tracking_no" :key="index">
+    <sui-table-body v-for="(key,index) in tracking_no" :key="index">
+      <sui-table-row v-if="check_status[index] == false && check_status_return[index] ==false " >
         <sui-table-cell style="text-align:center"> <router-link :to="{name : 'DetailOrderatstore', params : {idTrackAtstore : tracking_no[index]} }">{{tracking_no[index]}}</router-link></sui-table-cell>
         <sui-table-cell style="text-align:center">{{date_received[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{seller_name_shop[index]}}</sui-table-cell>
-        
       </sui-table-row>
     </sui-table-body>
   </sui-table>
-    
-
-        
+  </div>
     </div>
 </template>
 <script>
@@ -41,6 +38,7 @@ import Loading from 'vue-loading-overlay';
     // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
 import firebase from "../firebase"
+import {mapGetters} from "vuex"
 export default {
   data() {
     return {
@@ -52,13 +50,21 @@ export default {
       tracking_no : [],
       sellerUid : [],
       seller_name_shop : [],
-      date_received : []
+      date_received : [],
+      check_status : [],
+      check_status_return : []
+      
       
     }
   },
   components : {
     Loading
   },
+      computed : {
+        ...mapGetters({
+            getAtstore : 'getAtstore'
+        })
+    },
   beforeCreate() {
     this.isLoading = true
     console.log(this.$route.params.idStore)
@@ -72,6 +78,11 @@ export default {
         var k = this.info_pickup_order_list[j]
         var status = this.info_pickup_order[k].status.atstore.check_status
         var branch_selected = this.info_pickup_order[k].branch_selected
+        var check_status = this.info_pickup_order[k].status.complete.check_status
+        var check_status_return = this.info_pickup_order[k].status.return.check_status
+        this.check_status.push(check_status)
+        this.check_status_return.push(check_status_return)
+        console.log(this.check_status[j])
         this.status.push(status)
         this.branch_selected.push(branch_selected)
         if(this.status[j] == true && this.branch_selected[j] == this.$route.params.idStore ){

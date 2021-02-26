@@ -17,7 +17,8 @@
         <sui-table-cell  style="text-align:center"><a href="#" @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{type_pickup}}</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{status[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center; color:green" v-if="status[index] = 'complete' ">{{status[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center; color:red" v-else>{{status[index]}}</sui-table-cell>
 
       
       </sui-table-row>
@@ -147,12 +148,8 @@ export default {
             this.quantity_pickup[z] = this.infoDescript[z].quantity
             this.sellerUid_pickup[z] = this.infoDescript[z].sellerUid
             this.seller_name_shop_pickup[z] = this.infoDescript[z].seller_name_shop
-          
-
-            // console.log("hello keyy")
-
-            // console.log(this.product_detail_pickup[z])
           }
+          // this.orderDate_pickup.reverse()
       })
 
       

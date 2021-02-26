@@ -3,14 +3,268 @@
         <div style="background-color:#0F4C81; height:80px;">
         <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
         </div>
-        <h1>return Store</h1>
+        <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">RETURN</p>
+        <hr>
+
+
+  <sui-table celled style="width:1000px; margin-left:210px">
+    <sui-table-header>
+      <sui-table-row>
+        <sui-table-header-cell><p style="font-size:20px; text-align:center">Order Id</p></sui-table-header-cell>
+        <sui-table-header-cell><p style="font-size:20px; text-align:center">Return Date</p></sui-table-header-cell>
+        <sui-table-header-cell><p style="font-size:20px; text-align:center">Total Price</p></sui-table-header-cell>
+        <sui-table-header-cell><p style="font-size:20px; text-align:center">Number Of Product</p></sui-table-header-cell>
+        <sui-table-header-cell><p style="font-size:20px; text-align:center">Seller Name</p></sui-table-header-cell>
+
+      </sui-table-row>
+    </sui-table-header>
+
+
+    <sui-table-body >
+      <sui-table-row v-for="(key,index) in key_order" :key="index">
+        <sui-table-cell style="text-align:center"> <a href="#" @click="detailProduct(info_pickup_list[index])">{{info_pickup_list[index].substring(1,100)}}</a> </sui-table-cell>
+        <sui-table-cell style="text-align:center">{{return_date[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{number_of_product[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{seller_firstname}}</sui-table-cell>
+
+      </sui-table-row>
+    </sui-table-body>
+  </sui-table>
+
+      <b-modal ref="my-modal" size="xl" hide-footer :title=" 'ORDER ID : '+ orderid_modal">
+      <div class="d-block text-center">
+
+      <sui-table celled >
+     <sui-table-header>
+      <sui-table-row>
+        <sui-table-header-cell></sui-table-header-cell>
+        <sui-table-header-cell>Product Name</sui-table-header-cell>
+        <sui-table-header-cell>Unit Price</sui-table-header-cell>
+        <sui-table-header-cell>Quantity</sui-table-header-cell>
+        <sui-table-header-cell>Name Shop</sui-table-header-cell>
+      </sui-table-row>
+    </sui-table-header>
+
+    <sui-table-body>
+      <sui-table-row v-for="(key,index) in product_name_modal" :key="index">
+        <sui-table-cell><img :src="product_image_modal[index]" :width="150"></sui-table-cell>
+        <sui-table-cell>{{product_name_modal[index]}}</sui-table-cell>
+        <sui-table-cell>{{product_unit_price_modal[index]}}</sui-table-cell>
+        <sui-table-cell>{{quantity_modal[index]}}</sui-table-cell>
+        <sui-table-cell>{{seller_name_shop_modal[index]}}</sui-table-cell>
+      </sui-table-row>
+    </sui-table-body>
+  </sui-table>   
+  <p style="color:red; font-size:20px; margin-left:20px" > Total Amount : {{total_amount_modal}}.00 THB</p>
+    </div>
+  </b-modal>
 
         
     </div>
 </template>
 <script>
+import firebase from "../firebase"
 export default {
-    
+    data() {
+      return {
+        info_pickup : {},
+        info_pickup_list : [],
+        
+        keysProduct : [],
+        product_name : [],
+        product_unit_price : [],
+        quantity : [],
+
+        seller_name_shop : [],
+        product_image : [],
+        branch_selected : [],
+
+        orderId : [],
+
+        total_amount : [],
+        return_date : [],
+        product_description : [],
+
+
+        info_pickup1 : {},
+        info_pickup_list1 : [],
+        product_description1 : [],
+        key_order : [],
+        product_des : [],
+        number_of_product : [],
+        sellerUid : [],
+
+        orderid_modal : "",
+        product_description_modal : [],
+        product_image_modal : [],
+        product_name_modal : [],
+        product_unit_price_modal : [],
+        quantity_modal : [],
+        seller_name_shop_modal : [],
+        total_amount_modal : "",
+        seller_email: "", 
+        seller_firstname: "",
+        seller_lastname: "",
+        seller_phonenumber : ""
+        
+
+        
+      }
+    },
+    methods: {
+      detailProduct(orderid){
+        this.product_image_modal = []
+        this.product_name_modal= []
+        this.product_unit_price_modal= []
+        this.quantity_modal= []
+        this.seller_name_shop_modal= []
+
+      this.orderid_modal = orderid
+      firebase.ref("pickup_order/" + orderid).on("value" , snapshot => {
+          console.log(snapshot.val())
+          this.product_description_modal = snapshot.val().product_description
+          var total = 0
+          for(var i = 0 ;i < this.product_description_modal.length ; i++){
+            console.log(this.product_description_modal[i])
+            var status = this.product_description_modal[i].status.return_product.check_status
+            if(status == true){
+              this.product_image_modal.push(this.product_description_modal[i].product_image) 
+              this.product_name_modal.push(this.product_description_modal[i].product_name) 
+              this.product_unit_price_modal.push(this.product_description_modal[i].product_unit_price) 
+              this.quantity_modal.push(this.product_description_modal[i].quantity) 
+              this.seller_name_shop_modal.push(this.product_description_modal[i].seller_name_shop) 
+            }
+          }
+  
+          for(var j = 0; j< this.product_unit_price_modal.length ; j++){
+            total += this.product_unit_price_modal[j] * this.quantity_modal[j]
+          }
+
+          console.log(total)
+          this.total_amount_modal = total
+          console.log(this.product_unit_price_modal)
+          
+
+        })
+        this.$refs['my-modal'].show()
+       
+      }
+      
+    },
+    created() {
+
+      firebase.ref("pickup_order/").on("value" , snapshot => {
+        console.log(snapshot.val())
+        this.info_pickup = snapshot.val()
+        this.info_pickup_list = Object.keys(snapshot.val())
+        for(var j =0 ; j< this.info_pickup_list.length ; j++){
+          var k = this.info_pickup_list[j]
+          var branch_selected = this.info_pickup[k].branch_selected
+          this.branch_selected[j] = branch_selected
+          if(this.branch_selected[j] == this.$route.params.idStore){
+            this.product_description.push(this.info_pickup[k].product_description)
+          }
+        }
+        for(var a = 0 ; a< this.product_description.length ; a++){
+          for(var b = 0 ; b < this.product_description[a].length ; b++){
+            console.log(this.product_description[a][b])
+            if(this.product_description[a][b].status.return_product.check_status == true){
+              console.log(this.product_description[a][b])
+              this.return_date.push(this.product_description[a][b].status.return_product.return_date)
+              this.key_order.push(this.info_pickup_list[a])
+              this.key_order = [ ...new Set(this.key_order) ] //filter duplicate key_order
+            }
+          }
+        }
+        for(var w = 0 ; w < this.info_pickup_list.length ; w++){
+          var e = this.info_pickup_list[w]
+          console.log(e)
+          for(var t = 0 ;t < this.key_order.length ; t++){
+            if(this.info_pickup_list[w] == this.key_order[t]){
+              console.log(this.info_pickup_list[w])
+              this.product_des[t] = this.info_pickup[e].product_description
+              var count = 0
+              var total = 0
+              for(var y = 0 ; y < this.product_des[t].length ; y++){
+                var status = this.product_des[t][y].status.return_product.check_status
+                
+                
+                
+                console.log(status)
+                if(status == true){
+                  // this.number_of_product.push(this.product_des[t][y].length)
+                  var price = this.product_des[t][y].product_unit_price
+                  var qty = this.product_des[t][y].quantity
+                  var sellerUid = this.product_des[t][y].sellerUid
+                  this.sellerUid.push(sellerUid)
+
+                  console.log(price)
+                  console.log(qty)
+                  console.log(this.sellerUid)
+                  console.log(this.product_des[t][y])
+                  count = count+1
+                  total += price * qty                  
+                }
+              }
+              console.log(count)
+              this.number_of_product.push(count)
+              this.total_amount.push(total)
+              console.log(this.product_des[t])
+            }
+          }
+        }
+        this.sellerUid = [ ...new Set(this.sellerUid)]
+        this.sellerUid = this.sellerUid.filter(val => (val!==undefined) && val!==null)
+        firebase.ref("seller/" + this.sellerUid[0]).on("value" , snapshot => {
+          this.seller_firstname = snapshot.val().seller_firstname
+          this.seller_lastname = snapshot.val().seller_lastname
+          this.seller_email = snapshot.val().seller_email
+          this.seller_phonenumber = snapshot.val().seller_phonenumber
+        })
+
+        console.log(this.sellerUid)
+        console.log(this.return_date)
+        console.log(this.key_order)
+      })
+      // firebase.ref("pickup_order/").orderByChild("status/" + "return/" + "check_status/").equalTo(true).on("value" , snapshot =>{
+      //   console.log(snapshot.val())
+      //   this.info_pickup = snapshot.val()
+      //   this.info_pickup_list = Object.keys(snapshot.val())
+      //   for(var j =0 ; j< this.info_pickup_list.length ; j++){
+      //     var k = this.info_pickup_list[j]
+
+      //     var branch_selected = this.info_pickup[k].branch_selected
+      //     this.branch_selected[j] = branch_selected
+      //     console.log(this.branch_selected)
+      //     if(this.branch_selected[j] == this.$route.params.idStore){
+         
+      //       this.orderId.push(this.info_pickup_list[j])
+      //       this.number_of_product.push(this.info_pickup[k].number_of_product)
+      //       this.total_amount.push(this.info_pickup[k].total_amount)
+      //       this.return_date.push(this.info_pickup[k].status.return.date_time_to_order)
+      //       this.product_description.push(this.info_pickup[k].product_description)
+      //     }
+      //   }
+      //   firebase.ref("pickup_order/").on("value", snapshot => {
+      //     console.log(snapshot.val())
+      //     this.info_pickup1 = snapshot.val()
+      //     this.info_pickup_list1 = Object.keys(snapshot.val())
+
+      //     for(var a = 0 ; a< this.info_pickup_list1.length ; a++){
+      //       var q = this.info_pickup_list1[a]
+
+      //       this.product_description1.push(this.info_pickup1[q].product_description)
+      //       for(var b =0 ;b < this.product_description1[a].length ; b++){
+      //         if(this.product_description1[a][b].status.return_product.check_status == true){
+      //           console.log(this.product_description1[a][b])
+                
+      //         }
+      //       }
+      //     }
+      //   })
+      // })
+    },
 }
 </script>
 <style scoped>

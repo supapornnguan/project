@@ -92,14 +92,20 @@ export default {
       },
  
         
-        async chooseStore(){
+     chooseStore(){
             this.$refs['my-modal'].hide()
             this.showModal = false
             this.date_time_to_order = Date.now();
             store.commit("SET_BRANCH", {
                 picked : this.picked
             })
+            //order by 1 product
             if(this.checkPage.check == false){
+                let return_product = {
+                    return_product : {
+                        check_status : false
+                    }
+                }
                 this.total_amount = this.summary.quantity * this.summary.product_unit_price
                 this.number_of_product = this.summary.quantity
                 let description = [{
@@ -111,7 +117,8 @@ export default {
                     product_unit_price : this.summary.product_unit_price,
                     quantity : this.summary.quantity,
                     product_detail : this.summary.product_detail,
-                    seller_name_shop : this.summary.seller_name_shop
+                    seller_name_shop : this.summary.seller_name_shop,
+                    status : return_product
                 }]
                 let time_check = {
                     date_time_to_order : dateToString(this.date_time_to_order),
@@ -137,7 +144,7 @@ export default {
                 product_description : description,
                 }
 
-            await firebase.ref("pickup_order").push(newOrder)
+             firebase.ref("pickup_order").push(newOrder)
             this.$router.replace('pickupSum')
 
 //order from cart
@@ -183,11 +190,11 @@ export default {
             // await firebase.ref("pickup_order/").push(newOrder)
             this.$router.replace('pickupSum')
             }
-            await firebase.ref("product/" + this.key).on('value', snapshot => {
+             firebase.ref("product/" + this.key).on('value', snapshot => {
                 this.quantity_product = snapshot.val().product_quantity
             })
 
-            await firebase.ref("product/" + this.key).update({ 
+             firebase.ref("product/" + this.key).update({ 
                 product_quantity : this.quantity_product = this.quantity_product-this.summary.quantity
                 })
         },
@@ -204,11 +211,13 @@ export default {
             cartValue : "cartValue",
             cartList : "cartItemList",
             summaryCart : "getSummaryCart",
-            summaryCartValue : "getSummaryCartValue"
+            summaryCartValue : "getSummaryCartValue",
+
         })
     },
     mounted() {
         //get infomation store
+        console.log(this.key)
         firebase.ref('Store/').on('value', snapshot => {
 
            this.branch = snapshot.val() 

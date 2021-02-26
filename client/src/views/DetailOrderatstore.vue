@@ -28,7 +28,7 @@
 
     <sui-table-body >
       <sui-table-row v-for="(key,index) in key_pickup_order_list1" :key="index">
-        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'DetailEachOrderatstore', params : {idOrderAtstore : key_pickup_order_list1[index]} }">{{key_pickup_order_list1[index].substring(1,100)}}</router-link></sui-table-cell>
+        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailOrderStore' , params : {idOrder : key} }">{{key_pickup_order_list1[index].substring(1,100)}}</router-link></sui-table-cell>
         <sui-table-cell style="text-align:center">{{date_received[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{customer_firstname[index]}} {{customer_lastname[index]}}</sui-table-cell>  
         <sui-table-cell style="text-align:center">{{seller_name_shop[index]}}</sui-table-cell>

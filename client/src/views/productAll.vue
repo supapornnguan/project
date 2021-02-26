@@ -1,11 +1,12 @@
 <template lang="html">
   <div>
+    
+
+    <navbar/>
      <loading :active.sync="isLoading" 
         :can-cancel="true" 
         :is-full-page="true">
         </loading>
-
-    <navbar/>
       <search/>
       <h1 style="margin-left:100px; left:100px; font-weight:600">{{this.$route.params.category}}</h1>
       <h4 style="position:absolute; left:100px; top:300px">FILTER BY</h4>
@@ -172,8 +173,10 @@ export default {
         // console.log(this.product_image[i] = product_image)
         // console.log(this.product_detail[i] = product_detail)
       }
+       this.isLoading = false
     })
-     this.isLoading = false
+   
+     
   },
 };
 </script>

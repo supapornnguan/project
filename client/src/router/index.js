@@ -154,7 +154,7 @@ const routes =[
     component: () => import('../views/DetailEachOrderatstore.vue'),
   },
   {
-    path: '/returnStore',
+    path: '/returnStore/:idStore',
     name : 'returnStore',
     component: () => import('../views/returnStore.vue'),
   },

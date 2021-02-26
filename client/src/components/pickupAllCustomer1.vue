@@ -2,7 +2,7 @@
     <div>
         <!-- pickup -->
         <div  style="margin-top:40px" v-if="orderDetail.type=='PICK-UP' ">
-            <sui-segment id="stepSegment">
+            <sui-segment id="stepSegment" raised>
                 <div class="circle" style="position:absolute; margin-left:175px "></div>
                 <p style="position:absolute; top: 120px;left: 180px;">ordered</p>
 
@@ -12,15 +12,19 @@
 
                 <div class="rectangle" style="position:absolute; margin-left:230px"></div>
 
-                <div class="circle" style="position:absolute; left:210px"></div>
-                <div class="rectangle" style="position:absolute; left:220px"></div>
+                <!-- circle1 = อ่อน  -->
+                
+                <div class="circle" style="position:absolute; left:210px" v-if="check_packing==true"></div>
+                <div class="circle1" style="position:absolute; left:210px"  v-if="check_packing==false"></div>
+                <div class="rectangle" style="position:absolute; left:220px" ></div>
                 <p style="position:absolute; top: 120px;left: 320px;">Packing</p>
 
                 <div style="position:absolute; top:160px;left: 300px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order1" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
-                <div class="circle" style="position:absolute; left:360px"></div>
+                <div class="circle" style="position:absolute; left:360px" v-if="check_shipped==true"></div>
+                <div class="circle1" style="position:absolute; left:360px" v-if="check_shipped==false"></div>
                 <div class="rectangle" style="position:absolute; left:365px"></div>
                 <p style="position:absolute; top: 120px;left: 470px;">Shipped</p>
 
@@ -28,7 +32,9 @@
                     <p v-for="item in date_time_to_order2" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
-                <div class="circle" style="position:absolute; left:510px"></div>
+                <div class="circle" style="position:absolute; left:510px" v-if="check_atstore==true"></div>
+                <div class="circle1" style="position:absolute; left:510px" v-if="check_atstore==false"></div>
+       
                 <div class="rectangle" style="position:absolute; left:510px"></div>
                 <p style="position:absolute; top: 120px;left: 590px;">Ready for pick-up</p>
 
@@ -37,11 +43,12 @@
                 </div>
 
 
-                <div class="circle" style="position:absolute; left:650px"></div>
+                <div class="circle" style="position:absolute; left:650px" v-if="check_complete==true"></div>
+                <div class="circle1" style="position:absolute; left:650px" v-if="check_complete==false"></div>
                 <p style="position:absolute; top: 120px;left: 760px;">Complete</p>
             </sui-segment>
 
-            <div style="position:absolute; top:160px;left: 800px; font-size:11px; color:#A9A9A9" >
+            <div style="position:absolute; top:375px;left: 760px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order4" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
@@ -98,6 +105,7 @@
                         <sui-table-header-cell style="text-align:center">Price (THB)</sui-table-header-cell>
                         <sui-table-header-cell style="text-align:center">Quantity</sui-table-header-cell>
                         <sui-table-header-cell style="text-align:center">Sub Total (THB)</sui-table-header-cell>
+                        <sui-table-header-cell style="text-align:center">Status</sui-table-header-cell>
                     </sui-table-row>
                 </sui-table-header>
             <sui-table-body>
@@ -107,6 +115,9 @@
                 <sui-table-cell style="text-align:center">{{product_unit_price[index]}}</sui-table-cell>
                 <sui-table-cell style="text-align:center">{{quantity[index]}}</sui-table-cell>
                 <sui-table-cell style="text-align:center">{{quantity[index] * product_unit_price[index]}}</sui-table-cell>
+                <sui-table-cell style="text-align:center; color:green" v-if="status_return_1[index]== 'RECEIVED' ">{{status_return_1[index]}}</sui-table-cell>
+                <sui-table-cell style="text-align:center; color:red" v-if="status_return_1[index]== 'RETURN' ">{{status_return_1[index]}}</sui-table-cell>
+
             </sui-table-row>
             </sui-table-body>
             </sui-table>
@@ -187,6 +198,8 @@
                         <sui-table-header-cell style="text-align:center">Price (THB)</sui-table-header-cell>
                         <sui-table-header-cell style="text-align:center">Quantity</sui-table-header-cell>
                         <sui-table-header-cell style="text-align:center">Sub Total (THB)</sui-table-header-cell>
+                        <sui-table-header-cell style="text-align:center">Status</sui-table-header-cell>
+
                     </sui-table-row>
                 </sui-table-header>
             <sui-table-body>
@@ -202,9 +215,9 @@
             <h4 style="margin-left:700px; font-weight:600; margin-top:30px; margin-bottom:30px" >Total Amount:  {{total_amount}}.00 THB</h4>
 
         </div>
-            <b-button variant="secondary" :disabled="check_shipped" style="margin-left:350px">Cancle Order</b-button>
+            <b-button variant="secondary" v-if="orderDetail.type=='PICK-UP' && check_complete==false " style="margin-left:450px">Cancle Order</b-button>
             <b-button variant="secondary" v-if="!check_complete" style="margin-left: 20px;">Confirm Order</b-button>
-            <b-button variant="secondary" style="margin-left: 30px;" v-if="orderDetail.type == 'SHIPPING' " :disabled="check_payment" @click="uploadSlip()">Upload Slip</b-button>
+            <b-button variant="secondary" style="margin-left: 450px;" v-if="orderDetail.type == 'SHIPPING' " :disabled="check_payment" @click="uploadSlip()">Upload Slip</b-button>
             <!-- <p>{{check_shipped}}</p>
             <p>{{check_complete}}</p> -->
             
@@ -235,6 +248,8 @@ export default {
             check_shipped : false,
             check_complete : true,
             check_payment : false,
+            check_packing : false,
+            check_atstore : false,
 
             branch_selected : "",
             product_description : [],
@@ -264,7 +279,10 @@ export default {
             customer_address1 : [],
             customer_district : [],
             customer_province : [],
-            customer_zipcode : []
+            customer_zipcode : [],
+
+            status_return : [],
+            status_return_1 : []
         }
     },
     methods: {
@@ -289,6 +307,7 @@ export default {
                 this.date_time_to_order = snapshot.val().status.ordered.date_time_to_order.split(',')
             }
             if(snapshot.val().status.packing.check_status == true){
+                this.check_packing = snapshot.val().status.packing.check_status
                 this.date_time_to_order1 = snapshot.val().status.packing.date_time_to_order.split(',')
             }
             if(snapshot.val().status.delivery.check_status == true){
@@ -296,6 +315,7 @@ export default {
                 this.date_time_to_order2 = snapshot.val().status.delivery.date_time_to_order.split(',')
             }
             if(snapshot.val().status.atstore.check_status == true){
+                this.check_atstore = snapshot.val().status.atstore.check_status
                 this.date_time_to_order3 = snapshot.val().status.atstore.date_time_to_order.split(',')
             }
             if(snapshot.val().status.complete.check_status == true){
@@ -313,10 +333,17 @@ export default {
             this.product_detail[i] = this.product_description[i].product_detail
             this.product_image[i] = this.product_description[i].product_image
             this.product_name[i] = this.product_description[i].product_name
-            this.product_unit_price[i] = this.product_description[i].product_unit_price
-            this.quantity[i] = this.product_description[i].quantity
-
-            this.total_amount += (this.quantity[i] * parseInt(this.product_unit_price[i]))
+            this.status_return[i] = this.product_description[i].status.return_product.check_status
+                if(this.status_return[i] == true ){
+                    this.status_return_1[i] = "RETURN"
+                    this.product_unit_price[i] = this.product_description[i].product_unit_price
+                    this.quantity[i] = this.product_description[i].quantity
+                }else if(this.status_return[i] == false){
+                    this.status_return_1[i] = "RECEIVED"
+                    this.product_unit_price[i] = this.product_description[i].product_unit_price
+                    this.quantity[i] = this.product_description[i].quantity
+                    this.total_amount += (this.quantity[i] * parseInt(this.product_unit_price[i]))
+                }
         }    
         firebase.ref("Store/" + this.branch_selected).on("value", snapshot => {
             console.log(snapshot.val())
@@ -367,6 +394,7 @@ export default {
             this.product_name[z] = this.product_description[z].product_name
             this.product_unit_price[z] = this.product_description[z].product_unit_price
             this.quantity[z] = this.product_description[z].quantity
+            
 
             this.total_amount += (this.quantity[z] * parseInt(this.product_unit_price[z]))
         } 
@@ -403,7 +431,15 @@ export default {
 .circle {
   height: 35px;
   width: 35px;
-  background-color:#A9A9A9;
+  background-color:	#989898;
+  border-radius: 50%;
+  margin-top: 50px;
+  margin-left: 120px;
+}
+.circle1 {
+  height: 35px;
+  width: 35px;
+  background-color:		#E8E8E8;
   border-radius: 50%;
   margin-top: 50px;
   margin-left: 120px;

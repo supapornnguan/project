@@ -1,6 +1,6 @@
 const pickup ={
     state : {
-        productKey : "",
+        keysProduct : "",
         branch : "",
         summary : 
             {
@@ -21,7 +21,7 @@ const pickup ={
     },
     getters : {
         getProductId(state) {
-            return state.productKey
+            return state.keysProduct
         },
         getSummaryPage(state){
             return state.summary
@@ -45,7 +45,7 @@ const pickup ={
     },
     mutations : {
         SET_PRODUCT_ID (state,data){
-            state.productKey=data
+            state.keysProduct=data.keysProduct
         },
         SET_SUMMARY_PAGE (state, payload) {
             state.summary.quantity = payload.quantity

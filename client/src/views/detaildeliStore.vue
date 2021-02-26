@@ -10,6 +10,8 @@
       </div>
       <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">DURING SHIPMENT</p>
       <hr>
+
+      <div v-if="isLoading==false">
   <sui-table celled style="width:1000px; margin-left:210px">
     <sui-table-header>
       <sui-table-row>
@@ -18,16 +20,20 @@
       </sui-table-row>
     </sui-table-header>
 
-    <sui-table-body v-if="isLoading==false">
-      <sui-table-row v-for="(key,index) in tracking_no1" :key="index">
+
+
+    
+    <sui-table-body v-for="(key,index) in tracking_no1" :key="index">
+      <sui-table-row v-if="check_status[index] == false">
         <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailTrackStore', params : {idTrack : tracking_no1[index]} }">{{tracking_no1[index]}}</router-link></sui-table-cell>
         <sui-table-cell style="text-align:center">{{delivery_date1[index]}}</sui-table-cell>
-        
       </sui-table-row>
     </sui-table-body>
   </sui-table>
+  </div>
 
 
+<!-- modal -->
     <b-modal ref="my-modal" size="lg" hide-footer title="Using Component Methods">
       <div class="d-block">
         <p style="margin-left:60px; font-weight:900; font-size:20px; display:inline">Order Id:</p>
@@ -43,6 +49,9 @@
         
       </div>
     </b-modal>
+    <h1>{{getAtstore}}</h1>
+
+    
 
 
   <router-view></router-view>
@@ -57,7 +66,7 @@ import {mapGetters} from "vuex"
 import Loading from 'vue-loading-overlay';
     // Import stylesheet
  import 'vue-loading-overlay/dist/vue-loading.css';
- 
+
 export default {
   data() {
     return {
@@ -88,13 +97,16 @@ export default {
       branch_selected : [],
       tracking_no1 : [],
       delivery_date1 :[],
+
+      check_status : []
       
 
     }
   },
   computed : {
     ...mapGetters({
-      getNameStore :'getNameStore'
+      getNameStore :'getNameStore',
+      getAtstore : 'getAtstore'
     })
   },
   created() {
@@ -119,7 +131,13 @@ export default {
 
           var branch_selected = this.info_pickup_order[k].branch_selected
           this.branch_selected[i] = branch_selected
+
+          var check_status = this.info_pickup_order[k].status.atstore.check_status
+          this.check_status[i] = check_status
+          console.log(this.check_status[i])
+
           if(this.branch_selected[i] === this.$route.params.idStoreDeli){
+            
             var tracking_no1 = this.info_pickup_order[k].tracking_no.tracking_no
             var delivery_date1 = this.info_pickup_order[k].status.delivery.date_time_to_order
             this.tracking_no1.push(tracking_no1) 

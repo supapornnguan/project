@@ -123,6 +123,9 @@ export default {
             store.commit("SET_CHECK_STATE",{
                 check : this.check
             })
+            store.commit("SET_PRODUCT_ID" , {
+                keysProduct : this.productKey
+            })
             this.$router.replace('/summary')
         }
     },

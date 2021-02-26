@@ -32,7 +32,7 @@ export default {
        async loginSuccess(){
            await auth.signInWithEmailAndPassword(this.customer_email,this.customer_password)
                 .then( () =>{
-                    this.$router.replace({ name: "home" , params : {userid : auth.currentUser.uid}}).catch(failure => {
+                    this.$router.replace({ name: "home" }).catch(failure => {
                         if (isNavigationFailure(failure, NavigationFailureType.redirected)) {
                         // show a small notification to the user
                         console.log('Login in order to access the admin panel')

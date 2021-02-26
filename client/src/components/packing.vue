@@ -160,7 +160,7 @@
       <b-button class="mt-2" variant="secondary" style="margin-left:10px; "  @click="hideModal">Cancle</b-button>
     </b-modal>
 
-    <b-modal ref="my-modal1" hide-footer title="Are you sure?">
+    <b-modal ref="my-modal1" hide-footer title="CONFIRMATION">
         <div class="d-block text-center" style="margin-bottom:30px">
         
         

@@ -3,6 +3,7 @@ const storePickup = {
         store_name_check : "",
         keyTrack : "",
         keyOrder : "",
+        check_atstore : ""
 
     },
     getters : {
@@ -15,6 +16,9 @@ const storePickup = {
         getKeyOrder (state) {
             return state.keyOrder
         },
+        getAtstore (state) {
+            return state.check_atstore
+        }
        
     },
     mutations : {
@@ -27,6 +31,9 @@ const storePickup = {
         SET_KEY_ORDER (state, data) {
             state.keyOrder = data
         },
+        CHECK_ATSTORE (state , data) {
+            state.check_atstore = data
+        }
     },
 }
 export default storePickup
