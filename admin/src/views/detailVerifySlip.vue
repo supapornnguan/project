@@ -1,30 +1,63 @@
 <template>
     <div id="DetailVerifySlip">
         <h3 style="font-weight:600">BANK RECEIPT</h3>
+        <br>
+        <img :src="slip_image" :width="300" :height="300">
 
-        <h3 style="font-weight:600">PRODUCT SUMMARY</h3>
-        <sui-table style="width:1000px;">
-            <sui-table-header>
-                <sui-table-row>
-                    <sui-table-header-cell>Order ID</sui-table-header-cell>
-                    <sui-table-header-cell>Order Date</sui-table-header-cell>
-                    <sui-table-header-cell>Submit Date</sui-table-header-cell>
-                    <sui-table-header-cell>Total Price</sui-table-header-cell>
-                    <sui-table-header-cell>Store Name</sui-table-header-cell>
-                </sui-table-row>
-            </sui-table-header>
-            <sui-table-body>
-                <sui-table-row>
-                    <sui-table-cell>123456789</sui-table-cell>
-                    <sui-table-cell>12-05-2030</sui-table-cell>
-                    <sui-table-cell>12-05-2030</sui-table-cell>
-                    <sui-table-cell>39,998.00</sui-table-cell>
-                    <sui-table-cell>shopshopshopshopeiei</sui-table-cell>
-                </sui-table-row>
-            </sui-table-body>
-        </sui-table>
+        <br>
+        <br>
+        <br>
 
-        <button id="buttonVerify">VERIFIED SUCCESSFUL</button>
+        <h3 style="font-weight:600">ORDER DETAILS</h3>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Order ID :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{orderid.substring(1,100)}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">User ID :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{userid}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Total Amount :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{total_amount_order}} THB</p>
+        </div>
+        <br>
+        <br>
+
+        <h3 style="font-weight:600">PAYMENT SUMMARY</h3>
+        <br>
+
+        <div>
+            <p style="display:inline; font-size:15px">Submission Date :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{date_time_submit}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Last Four Digits :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{fourdigits}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Amount Transfers :</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{total_amount}} THB</p>
+        </div>
+        <br>
+        <br>
+        <div>
+            <b-button id="show-btn" @click="showModal">VERIFY SLIP</b-button>
+
+            <b-modal ref="my-modal" hide-footer title="VERIFY SLIP">
+                
+                Are you sure to verify slip ?
+            
+                <b-button id="bottonConfirm" class="float-right" variant="primary" @click="verifySuccess">Confirm</b-button>
+                <b-button id="bottonCancel" class="float-right" variant="secondary" @click="hideModal">Cancle</b-button>
+            </b-modal>
+        </div>
+
     </div>
 </template>
 <script>
@@ -37,16 +70,44 @@ export default {
             fourdigits : "",
             slip_image : "",
             total_amount : "",
-            userid : ""
-
+            userid : "",
+            total_amount_order : "",
+            info_ship : {},
+            info_ship_list : []
         }
     },
-    beforeCreate() {
-        firebase.ref("slip/" + this.$route.params.idSlip).on("value" , snapshot => {
-            console.log(snapshot.val())
+    methods: {
+        verifySuccess(){
+            console.log("click verify")
+            firebase.ref("slip/" + this.$route.params.idSlip).update({
+                    verify_slip : true
+            })
+            this.$refs['my-modal'].hide()
+        },
+        showModal() {
+        this.$refs['my-modal'].show()
+        },
+        hideModal() {
+        this.$refs['my-modal'].hide()
+        },
+    },
+    mounted() {
+        firebase.ref('slip/'+ this.$route.params.idSlip).on('value',(snapshot)=>{
+        this.orderid = snapshot.val().orderid
+        this.date_time_submit = snapshot.val().date_time_submit
+        this.fourdigits = snapshot.val().fourdigits
+        this.total_amount = snapshot.val().total_amount
+        this.userid = snapshot.val().userid
+        this.slip_image = snapshot.val().slip_image
         })
+
+        console.log(this.orderid)
+        firebase.ref("shipping_order/" + this.orderid).on("value", snapshot => {
+            this.total_amount_order = snapshot.val().total_amount
+            console.log(this.total_amount_order)
         
-        
+
+        })
     },
 }
 </script>
@@ -63,6 +124,13 @@ export default {
     padding: 6px;
     margin-left: 370px;
     margin-top: 20px;
+}
+#bottonConfirm{
+    margin-left: 10px;
+    margin-top: 50px;
+}
+#bottonCancel{
+    margin-top: 50px;
 }
     
 </style>

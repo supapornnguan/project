@@ -26,8 +26,8 @@
             <sui-table-cell>{{seller_name_shop[index]}}</sui-table-cell>
             <sui-table-cell>{{seller_email[index]}}</sui-table-cell>
             <sui-table-cell>{{timstamp[index]}}</sui-table-cell>
-            <sui-table-cell  style="text-align:center; color:#EC7063" v-if="verify_seller[index] == false">{{verify_seller[index]}}</sui-table-cell>
-            <sui-table-cell  style="text-align:center; color:#58D68D"  v-if="verify_seller[index] == true">{{verify_seller[index]}}</sui-table-cell>
+            <sui-table-cell  style="text-align:center; color:#EC7063" v-if="verify_seller[index] == false">no</sui-table-cell>
+            <sui-table-cell  style="text-align:center; color:#2ECC71" v-if="verify_seller[index] == true">yes</sui-table-cell>
             <sui-table-cell style="text-align:center" @click="gotoSellerInfo(key)"><b-button variant="outline-primary">More</b-button></sui-table-cell>
         </sui-table-row>
       </sui-table-body>

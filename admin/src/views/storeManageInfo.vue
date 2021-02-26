@@ -1,6 +1,5 @@
 <template>
     <div id="storeManageInfoPosition">
-        <!-- <b-card style="width:1000px; font-weight:600; font-size:25px" header="STORE INFORMATION"> -->
         <h3 style="font-weight:600">STORE INFORMATION</h3>
         
         <br>
@@ -29,8 +28,6 @@
             <p style="display:inline; font-size:15px">Service Time :</p>
             <p style="display:inline; position:absolute; width:700px; left:200px; font-size:15px">{{pick_up_hours}}</p>
         </div>
-        
-        <!-- </b-card> -->
 
     </div>
 </template>

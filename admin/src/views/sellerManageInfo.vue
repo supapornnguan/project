@@ -40,7 +40,8 @@
         <br>
         <div>
             <p style="display:inline; font-size:15px">Verify Status : </p>
-            <p style="display:inline; position:absolute; left:200px; font-size:15px">{{verify_seller}}</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px" v-if="verify_seller == false">no</p>
+            <p style="display:inline; position:absolute; left:200px; font-size:15px" v-if="verify_seller == true">yes</p>
         </div>
         
         <br>
@@ -283,32 +284,32 @@ export default {
             this.info_order_ship = snapshot.val()
             this.info_order_list_ship = Object.keys(snapshot.val())
             console.log(this.info_order_list_ship)
-            for(var i = 0 ;i< this.info_order_list.length ;i++){
-                var k = this.info_order_list[i]
+            for(var i = 0 ;i< this.info_order_list_ship.length ;i++){
+                var k = this.info_order_list_ship[i]
 
-                var date_time_to_order_ship = this.info_order[k].status.ordered.date_time_to_order
+                var date_time_to_order_ship = this.info_order_ship[k].status.unpaid.date_time_to_order
                 this.date_time_to_order_ship[i] = date_time_to_order_ship
 
-                var number_of_product_ship = this.info_order[k].number_of_product
+                var number_of_product_ship = this.info_order_ship[k].number_of_product
                 this.number_of_product_ship[i] = number_of_product_ship
 
-                var total_amount_ship = this.info_order[k].total_amount
+                var total_amount_ship = this.info_order_ship[k].total_amount
                 this.total_amount_ship[i] = total_amount_ship
 
                 var status_ship
-                if(this.info_order[k].status.complete.check_status == true){
+                if(this.info_order_ship[k].status.complete.check_status == true){
                     status_ship = "complete"
                     this.status_ship[i] = status_ship
-                }else if(this.info_order[k].status.delivery.check_status == true){
+                }else if(this.info_order_ship[k].status.delivery.check_status == true){
                     status_ship = "delivery"
                     this.status_ship[i] = status_ship
-                }else if(this.info_order[k].status.packing.check_status == true){
+                }else if(this.info_order_ship[k].status.packing.check_status == true){
                     status_ship = "packing"
                     this.status_ship[i] = status_ship
-                }else if(this.info_order[k].status.payment.check_status == true){
+                }else if(this.info_order_ship[k].status.payment.check_status == true){
                     status_ship = "paid"
                     this.status_ship[i] = status_ship
-                }else if(this.info_order[k].status.unpaid.check_status == true){
+                }else if(this.info_order_ship[k].status.unpaid.check_status == true){
                     status_ship = "unpaid"
                     this.status_ship[i] = status_ship
                 }
