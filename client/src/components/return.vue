@@ -20,7 +20,7 @@
     <sui-table-body v-for="(key,index) in key_order" :key="index">
       <sui-table-row v-if="branch_selected[index] == 'PU01'">
         <!-- <sui-table-cell>{{tracking_number[index]}}</sui-table-cell> -->
-        <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell><a href="#" @click="ProductDetail(key)">{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_return[index]}}</sui-table-cell>
         <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
         <sui-table-cell>{{number_of_product[index]}}</sui-table-cell>
@@ -150,9 +150,37 @@
     </sui-table-body>
   </sui-table>
       </sui-accordion-content>
-
-
     </sui-accordion>
+
+             <b-modal ref="my-modal" size="xl" hide-footer :title=" 'ORDER ID : '+ orderid_modal">
+      <div class="d-block text-center">
+
+      <sui-table celled >
+     <sui-table-header>
+      <sui-table-row>
+        <sui-table-header-cell></sui-table-header-cell>
+        <sui-table-header-cell>Product Name</sui-table-header-cell>
+        <sui-table-header-cell>Unit Price</sui-table-header-cell>
+        <sui-table-header-cell>Quantity</sui-table-header-cell>
+        <sui-table-header-cell>Name Shop</sui-table-header-cell>
+      </sui-table-row>
+    </sui-table-header>
+
+    <sui-table-body>
+      <sui-table-row v-for="(key,index) in product_name_modal" :key="index">
+        <sui-table-cell><img :src="product_image_modal[index]" :width="150"></sui-table-cell>
+        <sui-table-cell>{{product_name_modal[index]}}</sui-table-cell>
+        <sui-table-cell>{{product_unit_price_modal[index]}}</sui-table-cell>
+        <sui-table-cell>{{quantity_modal[index]}}</sui-table-cell>
+        <sui-table-cell>{{seller_name_shop_modal[index]}}</sui-table-cell>
+      </sui-table-row>
+    </sui-table-body>
+  </sui-table>   
+  <p style="color:red; font-size:20px; margin-left:20px" > Total Amount : {{total_amount_modal}}.00 THB</p>
+    </div>
+  </b-modal>
+
+
 
 
     </div>
@@ -202,11 +230,58 @@ export default {
             info_pickup: {},
             product_description : [],
             date_time_return : [],
-            product_des : []
+            product_des : [],
 
-            
+            orderid_modal : "",
+            product_description_modal : [],
+            product_image_modal : [],
+            product_name_modal : [],
+            product_unit_price_modal : [],
+            quantity_modal : [],
+            seller_name_shop_modal : [],
+
+  
       
       }
+    },
+    methods: {
+         ProductDetail(orderid){
+        this.product_image_modal = []
+        this.product_name_modal= []
+        this.product_unit_price_modal= []
+        this.quantity_modal= []
+        this.seller_name_shop_modal= []
+
+        this.orderid_modal = orderid
+
+        firebase.ref("pickup_order/" + orderid).on("value" , snapshot => {
+          console.log(snapshot.val())
+          this.product_description_modal = snapshot.val().product_description
+          var total = 0
+          for(var i = 0 ;i < this.product_description_modal.length ; i++){
+            console.log(this.product_description_modal[i])
+            var status = this.product_description_modal[i].status.return_product.check_status
+            if(status == true){
+              this.product_image_modal.push(this.product_description_modal[i].product_image) 
+              this.product_name_modal.push(this.product_description_modal[i].product_name) 
+              this.product_unit_price_modal.push(this.product_description_modal[i].product_unit_price) 
+              this.quantity_modal.push(this.product_description_modal[i].quantity) 
+              this.seller_name_shop_modal.push(this.product_description_modal[i].seller_name_shop) 
+            }
+          }
+  
+          for(var j = 0; j< this.product_unit_price_modal.length ; j++){
+            total += this.product_unit_price_modal[j] * this.quantity_modal[j]
+          }
+
+          console.log(total)
+          this.total_amount_modal = total
+          console.log(this.product_unit_price_modal)
+        })
+
+        this.$refs['my-modal'].show()
+      }
+      
     },
     created() {
           firebase.ref("pickup_order/").orderByChild("sellerUid").equalTo(auth.currentUser.uid).on("value" , snapshot => {

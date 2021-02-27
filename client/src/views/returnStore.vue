@@ -144,9 +144,8 @@ export default {
           console.log(total)
           this.total_amount_modal = total
           console.log(this.product_unit_price_modal)
-          
-
         })
+        
         this.$refs['my-modal'].show()
        
       }
