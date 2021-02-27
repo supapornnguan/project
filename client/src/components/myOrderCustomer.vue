@@ -68,8 +68,11 @@
             <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'">
               unpaid
             </sui-label>
-            <sui-label horizontal v-if="status_ship[index] === 'payment'">
+            <sui-label color="purple" horizontal v-if="status_ship[index] === 'payment'">
               paid
+            </sui-label>
+            <sui-label horizontal v-if="status_ship[index] === 'verifyslip'">
+              verifyslip
             </sui-label>
             <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'">
               packing
@@ -214,7 +217,7 @@ export default {
               }else if(this.infoShipping[m].status.slip_verified.check_status == false ){
                 status = "payment"
               }else if(this.infoShipping[m].status.packing.check_status == false ){
-                status = "verifySlip"
+                status = "verifyslip"
               }else if(this.infoShipping[m].status.delivery.check_status == false ){
                 status = "packing"
               }else if(this.infoShipping[m].status.complete.check_status == false ){

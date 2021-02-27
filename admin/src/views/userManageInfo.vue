@@ -108,6 +108,9 @@
             <sui-label horizontal v-if="status_ship[index] === 'paid'">
               paid
             </sui-label>
+            <sui-label horizontal v-if="status_ship[index] === 'verifyslip'">
+              verifyslip
+            </sui-label>
             <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'">
               packing
             </sui-label>
@@ -241,6 +244,9 @@ export default {
                     this.status_ship[i] = status_ship
                 }else if(this.info_order_ship[k].status.packing.check_status == true){
                     status_ship = "packing"
+                    this.status_ship[i] = status_ship
+                }else if(this.info_order_ship[k].status.slip_verified.check_status == true){
+                    status_ship = "verifyslip"
                     this.status_ship[i] = status_ship
                 }else if(this.info_order_ship[k].status.payment.check_status == true){
                     status_ship = "paid"
