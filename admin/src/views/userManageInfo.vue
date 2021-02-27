@@ -105,7 +105,7 @@
             <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'">
               unpaid
             </sui-label>
-            <sui-label horizontal v-if="status_ship[index] === 'paid'">
+            <sui-label color="purple" horizontal v-if="status_ship[index] === 'paid'">
               paid
             </sui-label>
             <sui-label horizontal v-if="status_ship[index] === 'verifyslip'">
@@ -199,7 +199,10 @@ export default {
                 this.branch_selected[i] = branch_selected
               
                 var status
-                if(this.info_order[k].status.complete.check_status == true){
+                if(this.info_order[k].status.return.check_status == true){
+                    status = "return"
+                    this.status[i] = status
+                }else if(this.info_order[k].status.complete.check_status == true){
                     status = "complete"
                     this.status[i] = status
                 }else if(this.info_order[k].status.atstore.check_status == true){

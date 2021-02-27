@@ -189,6 +189,8 @@ export default {
                   status = "atstore"
                 }else if(this.infoOrder[k].status.return.check_status == false ){
                   status = "complete"
+                }else if(this.infoOrder[k].status.return.check_status == true ){
+                  status = "return"
                 }
          
             this.status[i] = status
@@ -211,21 +213,21 @@ export default {
 
             this.date_time_to_order_ship[j] = date_time_to_order_ship
             
-            var status 
+            var status_ship 
               if(this.infoShipping[m].status.payment.check_status == false ){
-                status = "unpaid"
+                status_ship = "unpaid"
               }else if(this.infoShipping[m].status.slip_verified.check_status == false ){
-                status = "payment"
+                status_ship = "paid"
               }else if(this.infoShipping[m].status.packing.check_status == false ){
-                status = "verifyslip"
+                status_ship = "verifyslip"
               }else if(this.infoShipping[m].status.delivery.check_status == false ){
-                status = "packing"
+                status_ship = "packing"
               }else if(this.infoShipping[m].status.complete.check_status == false ){
-                status = "delivery"
+                status_ship = "delivery"
               }else if(this.infoShipping[m].status.return.check_status == false ){
-                status = "complete"
+                status_ship = "complete"
               }
-            this.status_ship[j] = status
+            this.status_ship[j] = status_ship
           }
 
         })

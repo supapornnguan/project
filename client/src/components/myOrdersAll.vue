@@ -17,10 +17,26 @@
         <sui-table-cell style="text-align:center"><a href="#" @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{type_pickup}}</sui-table-cell>
-        <sui-table-cell style="text-align:center; color:green" v-if="status[index] = 'complete' ">{{status[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center; color:red" v-else>{{status[index]}}</sui-table-cell>
-
-      
+        <sui-table-cell style="text-align:center">
+            <sui-label horizontal v-if="status[index] === 'ordered'">
+              ordered
+            </sui-label>
+            <sui-label color="orange" horizontal v-if="status[index] === 'packing'">
+              packing
+            </sui-label>
+            <sui-label color="yellow" horizontal v-if="status[index] === 'delivery'">
+              delivery
+            </sui-label>
+            <sui-label color="blue" horizontal v-if="status[index] === 'atstore'">
+              atstore
+            </sui-label>
+            <sui-label color="green" horizontal v-if="status[index] === 'complete'">
+              complete
+            </sui-label>
+            <sui-label color="red" horizontal v-if="status[index] === 'return'">
+              return
+            </sui-label>
+        </sui-table-cell>
       </sui-table-row>
     </sui-table-body>
 
@@ -29,12 +45,26 @@
         <sui-table-cell style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100 )}}</a></sui-table-cell>
         <sui-table-cell style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{type_shipping}}</sui-table-cell>
-        <sui-table-cell style="text-align:center; color:#F03A2E" v-if="status_ship[index]==='unpaid' ">{{status_ship[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center; color:#F08C2E" v-if="status_ship[index]==='packing' ">{{status_ship[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center; color:#F170EB" v-if="status_ship[index]==='delivery' ">{{status_ship[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center; color:#1557CB" v-if="status_ship[index]==='atstore' ">{{status_ship[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center; color:#1EE55A" v-if="status_ship[index]==='complete' ">{{status_ship[index]}}</sui-table-cell>
-
+        <sui-table-cell style="text-align:center">
+          <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'">
+              unpaid
+            </sui-label>
+            <sui-label color="purple" horizontal v-if="status_ship[index] === 'paid'">
+              paid
+            </sui-label>
+            <sui-label horizontal v-if="status_ship[index] === 'verifyslip'">
+              verifyslip
+            </sui-label>
+            <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'">
+              packing
+            </sui-label>
+            <sui-label color="yellow" horizontal v-if="status_ship[index] === 'delivery'">
+              delivery
+            </sui-label>
+            <sui-label color="green" horizontal v-if="status_ship[index] === 'complete'">
+              complete
+            </sui-label>
+        </sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
@@ -133,6 +163,8 @@ export default {
             status = "atstore"
           }else if(this.infoPickup[k].status.return.check_status == false ){
             status = "complete"
+          }else if(this.infoPickup[k].status.return.check_status == true ){
+            status = "return"
           }
           this.orderDate_pickup[i] = date_time_to_order
           this.status[i] = status
@@ -174,12 +206,14 @@ export default {
  
           if(this.infoShipping[k].status.payment.check_status == false ){
             status_ship = "unpaid"
+          }else if(this.infoShipping[k].status.slip_verified.check_status == false ){
+            status_ship = "paid"
+          }else if(this.infoShipping[k].status.packing.check_status == false ){
+            status_ship = "verifyslip"
           }else if(this.infoShipping[k].status.delivery.check_status == false ){
             status_ship = "packing"
-          }else if(this.infoShipping[k].status.atstore.check_status == false ){
-            status_ship = "delivery"
           }else if(this.infoShipping[k].status.complete.check_status == false ){
-            status_ship = "atstore"
+            status_ship = "delivery"
           }else if(this.infoShipping[k].status.return.check_status == false ){
             status_ship = "complete"
           }
