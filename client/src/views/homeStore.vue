@@ -28,21 +28,21 @@
             <sui-segment raised>
               <!-- <img src="../assets/verifyStore.png" :width="60" id="img1"> -->
               <h3 style="text-align:center; margin-top:25px; font-weight:600">DURING SHIPMENT</h3>
-              <h2 style="text-align:center; margin-top:15px; margin-bottom:15px; font-size:70px">1</h2>
+              <h2 style="text-align:center; margin-top:15px; margin-bottom:15px; font-size:70px">{{delivery_no}}</h2>
             </sui-segment>
           </sui-grid-column>
           <sui-grid-column>
             <sui-segment raised>
               <!-- <img src="../assets/verifySlip.png" :width="60" id="img1"> -->
               <h3 style="text-align:center; margin-top:25px; font-weight:600">AT STORE</h3>
-              <h2 style="text-align:center; margin-top:15px margin-bottom:15px; font-size:70px">2</h2>
+              <h2 style="text-align:center; margin-top:15px margin-bottom:15px; font-size:70px">{{atstore_no}}</h2>
             </sui-segment>
           </sui-grid-column>
           <sui-grid-column>
             <sui-segment style="height:200px" raised>
               <!-- <img src="../assets/banking.png" :width="60" id="img1"> -->
               <h3 style="text-align:center; margin-top:25px; font-weight:600">RETURN</h3>
-              <h2 style="text-align:center; margin-top:15px; margin-bottom:15px; font-size:70px">3</h2>
+              <h2 style="text-align:center; margin-top:15px; margin-bottom:15px; font-size:70px">{{key_order.length}}</h2>
             </sui-segment>
           </sui-grid-column>
         </sui-grid-row>
@@ -56,12 +56,27 @@
 </template>
 <script>
 import store from "../store"
+import firebase from "../firebase"
+import {mapGetters} from "vuex"
 export default {
   data() {
     return {
+      infoPickup : {},
+      infoPickup_list : [],
+      delivery_no : 0,
+      atstore_no : 0,
+      return_no : 0,
+      branch_selected : [],
+      product_description : [],
+      key_order : []
       
     }
   },
+  computed : {
+    ...mapGetters([
+        'getNumReturn'
+      ])
+    },
   methods: {
     check_atstore(check){
       store.commit("CHECK_ATSTORE" , {
@@ -79,7 +94,48 @@ export default {
       console.log("before Create")
     },
     created() {
-      console.log("create")
+      firebase.ref("pickup_order/").orderByChild("branch_selected").equalTo(this.$route.params.idStore).on("value" , snapshot => {
+        console.log(snapshot.val())
+        this.infoPickup = snapshot.val()
+        this.infoPickup_list = Object.keys(snapshot.val())
+        var count = 0
+        var count1 = 0
+        for(var i =0 ; i< this.infoPickup_list.length ; i++){
+          var k = this.infoPickup_list[i]
+          var status = this.infoPickup[k].status.delivery.check_status
+          var status1 = this.infoPickup[k].status.atstore.check_status
+          if(status == true && status1 == false){
+            count = count + 1
+          }
+          if(status1 == true){
+            count1 = count1 + 1 
+          }
+        var branch_selected = this.infoPickup[k].branch_selected
+        this.branch_selected[i] = branch_selected
+        if(this.branch_selected[i] == this.$route.params.idStore){
+            this.product_description.push(this.infoPickup[k].product_description)
+        }
+        }
+        this.delivery_no = count
+        this.atstore_no = count1
+        for(var a = 0 ; a< this.product_description.length ; a++){
+          for(var b = 0 ; b < this.product_description[a].length ; b++){
+            console.log(this.product_description[a][b])
+            if(this.product_description[a][b].status.return_product.check_status == true){
+              console.log(this.product_description[a][b])
+              this.key_order.push(this.infoPickup_list[a])
+              this.key_order = [ ...new Set(this.key_order) ] //filter duplicate key_order
+            }
+          }
+        }
+
+        
+
+
+
+
+
+      })
     },
 
 

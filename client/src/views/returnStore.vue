@@ -113,6 +113,7 @@ export default {
       }
     },
     methods: {
+
       detailProduct(orderid){
         this.product_image_modal = []
         this.product_name_modal= []
@@ -187,9 +188,6 @@ export default {
               var total = 0
               for(var y = 0 ; y < this.product_des[t].length ; y++){
                 var status = this.product_des[t][y].status.return_product.check_status
-                
-                
-                
                 console.log(status)
                 if(status == true){
                   // this.number_of_product.push(this.product_des[t][y].length)
@@ -221,48 +219,11 @@ export default {
           this.seller_email = snapshot.val().seller_email
           this.seller_phonenumber = snapshot.val().seller_phonenumber
         })
-
         console.log(this.sellerUid)
         console.log(this.return_date)
         console.log(this.key_order)
+
       })
-      // firebase.ref("pickup_order/").orderByChild("status/" + "return/" + "check_status/").equalTo(true).on("value" , snapshot =>{
-      //   console.log(snapshot.val())
-      //   this.info_pickup = snapshot.val()
-      //   this.info_pickup_list = Object.keys(snapshot.val())
-      //   for(var j =0 ; j< this.info_pickup_list.length ; j++){
-      //     var k = this.info_pickup_list[j]
-
-      //     var branch_selected = this.info_pickup[k].branch_selected
-      //     this.branch_selected[j] = branch_selected
-      //     console.log(this.branch_selected)
-      //     if(this.branch_selected[j] == this.$route.params.idStore){
-         
-      //       this.orderId.push(this.info_pickup_list[j])
-      //       this.number_of_product.push(this.info_pickup[k].number_of_product)
-      //       this.total_amount.push(this.info_pickup[k].total_amount)
-      //       this.return_date.push(this.info_pickup[k].status.return.date_time_to_order)
-      //       this.product_description.push(this.info_pickup[k].product_description)
-      //     }
-      //   }
-      //   firebase.ref("pickup_order/").on("value", snapshot => {
-      //     console.log(snapshot.val())
-      //     this.info_pickup1 = snapshot.val()
-      //     this.info_pickup_list1 = Object.keys(snapshot.val())
-
-      //     for(var a = 0 ; a< this.info_pickup_list1.length ; a++){
-      //       var q = this.info_pickup_list1[a]
-
-      //       this.product_description1.push(this.info_pickup1[q].product_description)
-      //       for(var b =0 ;b < this.product_description1[a].length ; b++){
-      //         if(this.product_description1[a][b].status.return_product.check_status == true){
-      //           console.log(this.product_description1[a][b])
-                
-      //         }
-      //       }
-      //     }
-      //   })
-      // })
     },
 }
 </script>

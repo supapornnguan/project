@@ -3,7 +3,8 @@ const storePickup = {
         store_name_check : "",
         keyTrack : "",
         keyOrder : "",
-        check_atstore : ""
+        check_atstore : "",
+
 
     },
     getters : {
