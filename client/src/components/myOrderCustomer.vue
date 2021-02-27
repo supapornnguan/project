@@ -68,7 +68,7 @@
             <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'">
               unpaid
             </sui-label>
-            <sui-label color="purple" horizontal v-if="status_ship[index] === 'payment'">
+            <sui-label color="purple" horizontal v-if="status_ship[index] === 'paid'">
               paid
             </sui-label>
             <sui-label horizontal v-if="status_ship[index] === 'verifyslip'">
