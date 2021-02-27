@@ -27,10 +27,9 @@
 
                     <div style="margin-left:50px">
                         <sui-button basic secondary @click="gotoSummary" style="width:150px; margin-top:20px">BUY NOW</sui-button>
-                        <sui-button basic secondary style="width:150px; margin-left:20px">ADD TO CART</sui-button>
+                        <sui-button basic secondary @click="addItem" style="width:150px; margin-left:20px">ADD TO CART</sui-button>
                     </div>
-
-                   
+                 
                 </sui-grid-column>
             </sui-grid-row>
         </sui-grid>
@@ -69,37 +68,28 @@ export default {
         return {
              value: 1,
              product_quantity : "",
-             quantity : '1',
              product_name : "",
              sellerUid : "",
              seller_name_shop : "",
              product_unit_price: "",
-             product_detail: "",
+             product_detail : "",
              product_detail_non_split : "",
              product_image : "",
              timeToOrder : "",
              check : false,
-             productKey : ""
+             productKey : "",
+             keysProduct : "",
+             products:{},
+             useruid : "",
+             quantity: 1,
+             status : "ordered",
+             product_id: ""
         }
     },
     components : {
         navbar
     },
     methods: {
-        ...mapActions(['updateCart']),
-        addItem(index) {
-            const order = {
-                keysProduct : this.keysProduct[index],
-                product_name : this.product_name[index],
-                product_image : this.product_image[index],
-                product_unit_price : this.product_unit_price[index],
-                product_detail : this.product_detail[index],
-                quantity: 1,
-                isAdd: true
-            };
-        console.log(order.quantity)
-        this.updateCart(order);
-    },
         addQuantity(){
             if(this.quantity<this.product_quantity)
             return this.quantity++
@@ -127,7 +117,24 @@ export default {
                 keysProduct : this.productKey
             })
             this.$router.replace('/summary')
-        }
+        },
+      ...mapActions(['updateCart']),
+      addItem() {
+        const order = {
+        keysProduct : this.keysProduct,
+        product_name : this.product_name,
+        product_image : this.product_image,
+        product_unit_price : this.product_unit_price,
+        product_detail : this.product_detail,
+        sellerUid : this.sellerUid,
+        status : this.status,
+        seller_name_shop : this.seller_name_shop,
+        quantity: this.quantity,
+        isAdd: true
+      };
+      console.log(order.quantity)
+      this.updateCart(order);
+    }
     },
     computed: {
         // ...mapGetters({
@@ -136,6 +143,9 @@ export default {
     },
     created() {
         this.productKey = this.$route.params.productId
+        console.log(this.$route.params.category)
+        this.getkey = this.$route.params.category
+        console.log(this.getkey)
     },
     mounted() {
         //query product collection
@@ -152,15 +162,15 @@ export default {
             
             console.log(this.sellerUid)
             console.log(this.product_name);
-        }) 
-        
 
+        }) 
 
         //query seller collection
         firebase.ref('seller/'+ this.sellerUid).on('value', (snapshot) =>{
             console.log(snapshot.val())
             this.seller_name_shop = snapshot.val().seller_name_shop
         })
+
     },
 }
 </script>
