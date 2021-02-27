@@ -44,7 +44,7 @@
 
 
                 <div class="circle" style="position:absolute; left:650px" v-if="check_complete==true"></div>
-                <div class="circle1" style="position:absolute; left:650px" v-if="check_complete==false"></div>
+                <div class="circle1" style="position:absolute; left:650px" v-if="check_complete==true"></div>
                 <p style="position:absolute; top: 120px;left: 760px;">Complete</p>
             </sui-segment>
 
@@ -137,7 +137,8 @@
                 <div class="rectangle" style="position:absolute"></div>
                 
 
-                <div class="circle" style="position:absolute; left:150px"></div>
+                <div class="circle" style="position:absolute; left:150px" v-if="check_payment == true"></div>
+                <div class="circle1" style="position:absolute; left:150px" v-if="check_payment ==false "></div>
                 <div class="rectangle" style="position:absolute; left:150px"></div>
                 <p style="position:absolute; top: 120px;left: 250px;">Payment</p>
 
@@ -147,23 +148,36 @@
 
                 
 
-                <div class="circle" style="position:absolute; left:300px"></div>
+                <div class="circle" style="position:absolute; left:300px"  v-if="check_slip_verified ==true "></div>
+                <div class="circle1" style="position:absolute; left:300px" v-if="check_slip_verified ==false "></div>
                 <div class="rectangle" style="position:absolute; left:300px"></div>
                 <p style="position:absolute; top: 120px;left: 390px;">Slip Verified</p>
+                 <div style="position:absolute; top:160px;left: 375px; font-size:11px; color:#A9A9A9" >
+                    <p v-for="item in date_time_to_order2" :key="item" style="text-align:center">{{item}}</p>
+                </div>
 
                 
 
-                <div class="circle" style="position:absolute; left:450px"></div>
+                <div class="circle" style="position:absolute; left:450px" v-if="check_confirm == true"></div>
+                <div class="circle1" style="position:absolute; left:450px" v-if="check_confirm == false"></div>
                 <div class="rectangle" style="position:absolute; left:450px"></div>
                 <p style="position:absolute; top: 120px;left: 540px;">Seller Confirm</p>
+                <div style="position:absolute; top:160px;left: 535px; font-size:11px; color:#A9A9A9" >
+                    <p v-for="item in date_time_to_order3" :key="item" style="text-align:center">{{item}}</p>
+                </div>
 
                 
-                <div class="circle" style="position:absolute; left:600px"></div>
+                <div class="circle" style="position:absolute; left:600px" v-if="check_delivery == true"></div>
+                <div class="circle1" style="position:absolute; left:600px" v-if="check_delivery == false"></div>
                 <div class="rectangle" style="position:absolute; left:600px"></div>
                 <p style="position:absolute; top: 120px;left: 710px;">Shipped</p>
+                <div style="position:absolute; top:160px;left: 685px; font-size:11px; color:#A9A9A9" >
+                    <p v-for="item in date_time_to_order4" :key="item" style="text-align:center">{{item}}</p>
+                </div>
 
 
-                <div class="circle" style="position:absolute; left:750px"></div>
+                <div class="circle" style="position:absolute; left:750px" v-if="check_complete_ship == true"></div>
+                <div class="circle1" style="position:absolute; left:750px" v-if="check_complete_ship == false"></div>
                 <p style="position:absolute; top: 120px;left: 850px;">Complete</p>
                 
             </sui-segment>
@@ -250,6 +264,10 @@ export default {
             check_payment : false,
             check_packing : false,
             check_atstore : false,
+            check_slip_verified : false,
+            check_confirm : false,
+            check_delivery : false,
+            check_complete_ship : false,
 
             branch_selected : "",
             product_description : [],
@@ -370,17 +388,20 @@ export default {
                 this.date_time_to_order1 = snapshot.val().status.payment.date_time_to_order.split(',')
             }
             if(snapshot.val().status.slip_verified.check_status == true){
-                // this.check_shipped = snapshot.val().status.delivery.check_status
-                this.date_time_to_order2 = snapshot.val().status.slip_verified.date_time_to_order.split(',')
+                this.check_slip_verified = snapshot.val().status.slip_verified.check_status
+                this.date_time_to_order2 = snapshot.val().status.slip_verified.date_time.split(',')
             }
             if(snapshot.val().status.packing.check_status == true){
+                this.check_confirm = snapshot.val().status.packing.check_status
                 this.date_time_to_order3 = snapshot.val().status.packing.date_time_to_order.split(',')
             }
             if(snapshot.val().status.delivery.check_status == true){
                 // this.check_complete = snapshot.val().status.complete.check_status
+                this.check_delivery = snapshot.val().status.delivery.check_status
                 this.date_time_to_order4 = snapshot.val().status.delivery.date_time_to_order.split(',')
             }
             if(snapshot.val().status.complete.check_status == true){
+                this.check_complete_ship = snapshot.val().status.complete.check_status
                 this.date_time_to_order5 = snapshot.val().status.complete.date_time_to_order.split(',')
             }
             if(snapshot.val().status.return.check_status == true){
