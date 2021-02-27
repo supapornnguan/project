@@ -25,7 +25,7 @@
    
             <sui-table-body v-for="(key,index) in cartItemList" :key="index">
                 <sui-table-row style="height:100px" v-if="cartItemList[index].seller_name_shop == name_shop_list_uni[index1]" >
-                    <sui-table-cell><sui-checkbox v-model="selected" :value="cartItemList[index].keysProduct"/></sui-table-cell>
+                    <sui-table-cell><sui-checkbox v-model="selected"  :value="cartItemList[index].keysProduct"/></sui-table-cell>
                     <sui-table-cell style="width:190px"><img :src="cartItemList[index].product_image" :width="150" style="margin-left:30px; margin-right:50px"></sui-table-cell>
                     <sui-table-cell style="width:400px">
                         <p class="info" style="font-weight:800">{{cartItemList[index].product_name}}</p>
@@ -47,9 +47,10 @@
             </sui-table-body>
         </sui-table>
         </div>
-        <h5 style="margin-left:1100px; font-weight:700; margin-top:40px">Total: {{cartValue}}.00 THB</h5>
+        <h5 style="margin-left:1100px; font-weight:700; margin-top:40px">Total: {{this.total()}} .00 THB</h5>
         <button class="checkout" @click="checkout">CHECKOUT</button>
         <p>{{selected}}</p>
+        <p>{{this.total()}}</p>
     </div>
 </template>
 
@@ -77,7 +78,9 @@ export default {
             check : false,
             name_shop_list : [],
             name_shop_list_uni : [],
-            selected: []
+            selected: [],
+
+            sellected_product : []
         }
     },
     components : {
@@ -93,6 +96,27 @@ export default {
         ])
     },
     methods: {
+        total(){
+            var unit_price = 0
+            for(var j = 0; j < this.cartItemList.length ; j++){
+                for(var i = 0 ; i< this.selected.length ; i++){
+                    if(this.cartItemList[j].keysProduct == this.selected[i]){
+                       
+                        unit_price +=  this.cartItemList[j].product_unit_price  * this.cartItemList[j].quantity
+                    }
+                }
+              
+            }
+            store.commit("SET_CART_VALUE" , unit_price)
+            return unit_price 
+        },
+        totalOrder(){
+            for(var i = 0 ; i< this.selected.length ;i++){
+                console.log(this.selected[i])
+            }
+            return this.selected
+
+        },
         checkout(){
             //check is user logged in   
             this.check = true
@@ -164,32 +188,12 @@ export default {
       }
     }
   },
-    //  created() {
-    //     firebase.ref('cart').orderByChild('useruid').equalTo(auth.currentUser.uid).on('value', (snapshot) => {
-    //         console.log(snapshot.val())
-    //         this.product = snapshot.val()
-    //         console.log("created!!!!!!")
-    //         this.keyCart = Object.keys(snapshot.val())
-    //         console.log(this.keyCart)
 
-    //         for(var i=0 ;i<this.keyCart.length ; i++){
-    //             var k = this.keyCart[i];
-    //             var keysProduct = snapshot.val()[k].keysProduct
-    //             this.keysProduct[i] = keysProduct
-    //             console.log("this is key product"+this.keysProduct[i])
 
-    //         }
-            
-    //         let uniqueArray = this.keysProduct.filter((item, index, array) => {
-    //             return array.indexOf(item) === index
-    //         })
-    //         this.Keyunique = uniqueArray
-    //         console.log("unique key product"+this.Keyunique)
-    //     })
-    // },
 
    
     mounted() {
+        this.totalOrder()
          console.log("hello")
         console.log(this.cartItemList.length)
         for(var i =0;i<this.cartItemList.length;i++){
@@ -204,22 +208,6 @@ export default {
      
     },
 
-    // mounted() {
-    //     console.log("mounted!!!!")
-    //      for(var j = 0; j<this.Keyunique.length ; j++){
-    //         console.log("hahahahha55555")
-    //         console.log(this.Keyunique[j])
-    //         firebase.ref('product/'+ this.Keyunique[j]).on('value', (snapshot) => {
-    //             console.log(snapshot.val())
-                
-    //             var product_image = snapshot.val().product_image
-    //             this.product_image[j] = product_image
-    //             console.log(this.product_image)
-                
-    //             // this.info[j] = this.infoProduct
-    //         })
-    //     }
-    // },
     
 }
 </script>

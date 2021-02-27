@@ -1,5 +1,6 @@
 const state = {
-    cartItemList:[]
+    cartItemList:[],
+	cart_value : 0
 }
 const mutations = {
     'UPDATE_CART' (state, {keysProduct,
@@ -56,7 +57,11 @@ const mutations = {
                                 }) {
 		const record = state.cartItemList.find(element => element.keysProduct == keysProduct);
 		state.cartItemList.splice(state.cartItemList.indexOf(record), 1);
+	},
+	'SET_CART_VALUE' ( state , data){
+		state.cart_value = data
 	}
+
 }
 
 const actions = {
@@ -70,11 +75,7 @@ const getters = {
 		return state.cartItemList;
 	},
 	cartValue: (state) => {
-		let res = 0;
-		state.cartItemList.map(item => {
-			res += item.product_unit_price * item.quantity;
-		});
-		return res;
+		return state.cart_value;
 	}
 }
 
