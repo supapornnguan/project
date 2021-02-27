@@ -5,9 +5,9 @@
         <br>
         
         <!-- search -->
-        <div style="width:1000px">
+        <!-- <div style="width:1000px">
           <input type="text" v-model="search" placeholder="Enter seller email" class="form-control" />
-        </div>
+        </div> -->
 
         <!-- table -->
         <sui-table celled style="width:1000px">

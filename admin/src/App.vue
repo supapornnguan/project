@@ -21,9 +21,9 @@
         <router-link to="/storeManageHome" id="menu1">STORE MANAGEMENT</router-link>
       </div>
       
-      <div id="divvv">
+      <!-- <div id="divvv">
         <router-link to="/finance" id="menu1">FINANCE</router-link>
-      </div>
+      </div> -->
     </div>
 
     <router-view/>
