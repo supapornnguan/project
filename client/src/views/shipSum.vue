@@ -54,7 +54,7 @@
             </sui-table-body>
         </sui-table>
         <p id="successWord1">Plase transfer money within 7 days. <br> If overdue,your order will be cancled.</p>
-        <button id="buttonUplaod" @click="gotoUploadSlip">PAY AND UPLOAD SLIP</button>
+        <button id="buttonUplaod" @click="gotoUploadSlip">BACK TO MAIN PAGE</button>
         
     </div>
 </template>
@@ -76,7 +76,7 @@ export default {
     },
     methods: {
         gotoUploadSlip(){
-            this.$router.replace('/uploadSlip')
+            this.$router.replace('/')
         }
     },
     computed: {

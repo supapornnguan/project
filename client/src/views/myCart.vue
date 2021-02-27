@@ -2,8 +2,15 @@
     <div>
        
         <navbar/>
+
+
         <h1 style="margin-left:100px; font-weight:600">MY CART</h1>
+        <div v-if="cartItemList == null">
+            <p>null</p>
+
+        </div>
       
+      <div  v-if="cartItemList.lenght != 0">
     <div v-for="(key,index1) in this.name_shop_list_uni" :key="index1">
        
         
@@ -49,8 +56,19 @@
         </div>
         <h5 style="margin-left:1100px; font-weight:700; margin-top:40px">Total: {{this.total()}} .00 THB</h5>
         <button class="checkout" @click="checkout">CHECKOUT</button>
-        <p>{{selected}}</p>
-        <p>{{this.total()}}</p>
+        </div>
+
+
+    <b-modal ref="my-modal" hide-footer title="Using Component Methods">
+      <div class="d-block text-center">
+        <h3>Hello From My Modal!</h3>
+      </div>
+      <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-button>
+      <b-button class="mt-2" variant="outline-warning" block @click="toggleModal">Toggle Me</b-button>
+    </b-modal>
+
+
+
     </div>
 </template>
 
@@ -111,6 +129,7 @@ export default {
             return unit_price 
         },
         totalOrder(){
+
             for(var i = 0 ; i< this.selected.length ;i++){
                 console.log(this.selected[i])
             }
@@ -143,7 +162,12 @@ export default {
                 }
             }
             console.log(this.getSummaryCart)
-            this.$router.replace('/summary')
+            if(this.selected == []){
+                this.$refs['my-modal'].show()                
+            }else{
+                this.$router.replace('/summary') 
+            }
+           
             
 
 
