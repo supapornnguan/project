@@ -62,6 +62,7 @@
 </template>
 <script>
 import firebase from "../firebase"
+import {dateToString} from "../util/utils"
 export default {
     data() {
         return {
@@ -81,6 +82,10 @@ export default {
             console.log("click verify")
             firebase.ref("slip/" + this.$route.params.idSlip).update({
                     verify_slip : true
+            })
+            firebase.ref("shipping_order/" +this.orderid + "/status" +"/slip_verified/").update({
+                check_status : true,
+                date_time :  dateToString(Date.now())
             })
             this.$refs['my-modal'].hide()
         },

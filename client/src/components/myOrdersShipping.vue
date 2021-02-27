@@ -4,99 +4,39 @@
   <b-tabs content-class="mt-3" fill>
   
   <!-- ORDER -->
-  <b-tab title="Order" active><p>
+  <b-tab title="Order" active>
     <sui-table celled>
     <sui-table-header>
       <sui-table-row>
         <sui-table-header-cell style="text-align:center">Order ID</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Order Date</sui-table-header-cell>
+        <sui-table-header-cell style="text-align:center">Status</sui-table-header-cell>
       </sui-table-row>
     </sui-table-header>
-    <sui-table-body>
-      <sui-table-row v-for="(key,index) in keyShippingOrder" :key="index">
-        <sui-table-cell v-if="status[index]== true " style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100)}}</a></sui-table-cell>
-        <sui-table-cell v-if="status[index]== true " style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
+    <sui-table-body v-for="(key,index) in key_filter" :key="index" >
+      <sui-table-row >
+        <sui-table-cell  style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell  style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
+         <sui-table-cell style="text-align:center; color:red" v-if="status[index]== 'VERIFIED' ">{{status[index]}}</sui-table-cell>
+         <sui-table-cell style="text-align:center; color:#F08C2E" v-if="status[index]== 'PACKING' ">{{status[index]}}</sui-table-cell>
+         <sui-table-cell style="text-align:center; color:#F170EB" v-if="status[index]== 'DELIVERY' ">{{status[index]}}</sui-table-cell>
+         <sui-table-cell style="text-align:center; color:#1EE55A" v-if="status[index]== 'COMPLETE' ">{{status[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
-  </p></b-tab>
+
+
+
+  </b-tab>
 
   <!-- PACKING -->
   <b-tab title="Packing"><p>
-    <sui-table celled>
-    <sui-table-header>
-      <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Total Price</sui-table-header-cell>
-        <sui-table-header-cell>Number of Product</sui-table-header-cell>
-        <sui-table-header-cell></sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-header>
-    <sui-table-body>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>
-          <sui-button>Ship</sui-button>
-        </sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>
-          <sui-button>Ship</sui-button>
-        </sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>
-          <sui-button>Ship</sui-button>
-        </sui-table-cell>
-      </sui-table-row>
-    </sui-table-body>
-  </sui-table>
+   <packingShip/>
   </p></b-tab>
 
   <!-- DELIVERY -->
   <b-tab title="Delivery" ><p>
-    <sui-table celled>
-    <sui-table-header>
-      <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Total Price</sui-table-header-cell>
-        <sui-table-header-cell>Number of Product</sui-table-header-cell>
-      </sui-table-row>
-    </sui-table-header>
-    <sui-table-body>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-      <sui-table-row>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-        <sui-table-cell>Cell</sui-table-cell>
-      </sui-table-row>
-    </sui-table-body>
-  </sui-table>
+    <deliveryShip/>
   </p></b-tab>
 
   <!-- COMPLETE -->
@@ -149,6 +89,8 @@ import firebase from "../firebase"
 import {auth} from "../firebase"
 import store from "../store"
 import orderDetailSeller from "../components/orderDetailSeller" 
+import packingShip from "../components/packingShip"
+import deliveryShip from "../components/deliveryShip"
 export default {
   data() {
     return {
@@ -171,11 +113,52 @@ export default {
       type_shipping : "SHIPPING",
       infoDescript_ship : [],
       show : 1,
-      status : []
+      status : [],
+      check_verify : [],
+      key_filter : []
     }
   },
   components : {
-    orderDetailSeller
+    orderDetailSeller,
+    packingShip,
+    deliveryShip
+  },
+  created() {
+    firebase.ref("shipping_order/").orderByChild("sellerUid").equalTo(auth.currentUser.uid).on("value" , snapshot => {
+      console.log(snapshot.val())
+      this.infoShipping = snapshot.val()
+      this.keyShippingOrder = Object.keys(snapshot.val())
+
+      for(var i =0 ; i< this.keyShippingOrder.length ; i++){
+        var k = this.keyShippingOrder[i]
+
+        this.check_verify[i] = this.infoShipping[k].status.slip_verified.check_status
+        // this.orderDate_shipping[i] = this.infoShipping[k].status.unpaid.date_time_to_order
+
+        if(this.check_verify[i] == true){
+          this.key_filter.push(k)
+          this.orderDate_shipping.push(this.infoShipping[k].status.unpaid.date_time_to_order) 
+          var status
+          if(this.infoShipping[k].status.packing.check_status == false){
+            status = "VERIFIED"
+          }else if(this.infoShipping[k].status.delivery.check_status == false){
+            status = "PACKING"
+          }else if(this.infoShipping[k].status.complete.check_status == false){
+            status = "DELIVERY"
+          }else if(this.infoShipping[k].status.return.check_status == false){
+            status = "COMPLETE"
+          }
+          this.status.push(status)
+          
+
+
+
+        }
+      }
+    })
+    console.log(this.check_verify)
+    console.log(this.orderDate_shipping)
+    console.log(this.key_filter)
   },
   mounted() {
     
@@ -203,34 +186,34 @@ export default {
     //   }
     // })
 
-     firebase.ref("shipping_order/").orderByChild("sellerUid")
-                                    .equalTo(auth.currentUser.uid).on('value',snapshot => {
-        console.log(snapshot.val())
-        this.infoShipping = snapshot.val()
-        this.keyShippingOrder = Object.keys(this.infoShipping)
-        console.log(this.keyShippingOrder)
-        for(var i=0; i < this.keyShippingOrder.length ; i++){
-          var k = this.keyShippingOrder[i]
+    //  firebase.ref("shipping_order/").orderByChild("sellerUid")
+    //                                 .equalTo(auth.currentUser.uid).on('value',snapshot => {
+    //     console.log(snapshot.val())
+    //     this.infoShipping = snapshot.val()
+    //     this.keyShippingOrder = Object.keys(this.infoShipping)
+    //     console.log(this.keyShippingOrder)
+    //     for(var i=0; i < this.keyShippingOrder.length ; i++){
+    //       var k = this.keyShippingOrder[i]
 
-          var date_time_to_order = this.infoShipping[k].status.ordered.date_time_to_order
-          var descript = this.infoShipping[k].product_description
-          var status = this.infoShipping[k].status.ordered.check_status
+    //       var date_time_to_order = this.infoShipping[k].status.ordered.date_time_to_order
+    //       var descript = this.infoShipping[k].product_description
+    //       var status = this.infoShipping[k].status.ordered.check_status
           
-          this.orderDate_shipping[i] = date_time_to_order
-          this.status[i] = status
-          // this.infoDescript = Object.keys(descript)
+    //       this.orderDate_shipping[i] = date_time_to_order
+    //       this.status[i] = status
+    //       // this.infoDescript = Object.keys(descript)
 
-          console.log("hahah")
-          console.log(descript)
+    //       console.log("hahah")
+    //       console.log(descript)
 
-          for(var j=0; j < descript.length ; j++){
-            console.log(descript[j])
-            this.infoDescript_ship[j] = descript[j]
-          }
-          console.log("hello des")
-          console.log(this.infoDescript_ship)    
-        }
-      })
+    //       for(var j=0; j < descript.length ; j++){
+    //         console.log(descript[j])
+    //         this.infoDescript_ship[j] = descript[j]
+    //       }
+    //       console.log("hello des")
+    //       console.log(this.infoDescript_ship)    
+    //     }
+    //   })
   },
   methods: {
         back(){

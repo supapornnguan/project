@@ -233,8 +233,9 @@ export default {
             firebase.ref("shipping_order/" + this.orderDetail.keysOrder).on('value' , snapshot => {
                 console.log(snapshot.val())
                 this.infoDetail = snapshot.val()
-                this.date_time_to_order = this.infoDetail.status.ordered.date_time_to_order
+                this.date_time_to_order = this.infoDetail.status.unpaid.date_time_to_order
                 this.customer_address = this.infoDetail.customer_address
+                this.status_order = this.infoDetail.status.packing.check_status
                 
             })
 

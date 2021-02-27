@@ -205,6 +205,7 @@ export default {
             product_unit_price_modal : [],
             quantity_modal : [],
             seller_name_shop_modal : [],
+            total_amount_modal : []
         }
     },
     methods: {
