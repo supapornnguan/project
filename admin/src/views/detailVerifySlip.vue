@@ -46,6 +46,7 @@
         </div>
         <br>
         <br>
+        <br>
         <div>
             <b-button id="show-btn" @click="showModal">VERIFY SLIP</b-button>
 
