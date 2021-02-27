@@ -108,7 +108,8 @@ export default {
                 fourdigits :this.fourdigits,
                 total_amount : this.total_amount,
                 userid : auth.currentUser.uid, 
-                orderid : this.$route.params.orderId
+                orderid : this.$route.params.orderId,
+                verify_slip : false
             }
             await firebase.ref("slip/").push(newSlip)
             this.$router.replace('/')
