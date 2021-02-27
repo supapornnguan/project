@@ -83,11 +83,11 @@
             </b-modal>
         </div>
         <div v-if="verify_seller == true">
-            <h3 style="font-weight:600">SELLER STATISTIC</h3>
+            <!-- <h3 style="font-weight:600">SELLER STATISTIC</h3>
             <br>
 
             <br>
-            <br>
+            <br> -->
             <h3 style="font-weight:600">SELLER ORDER</h3>
             <br>
     <div style="width:1000px">

@@ -42,7 +42,7 @@ export default {
         }
     },
     created() {
-        firebase.ref("slip/").on("value", snapshot => {
+        firebase.ref("slip/").orderByChild("verify_slip").equalTo(false).on("value", snapshot => {
             console.log(snapshot.val())
             this.infoSlip = snapshot.val()
             this.infoSlip_list = Object.keys(snapshot.val())

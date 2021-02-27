@@ -77,9 +77,13 @@ export default {
   mounted () {
       firebase.ref("seller/").orderByChild("verify_seller").equalTo(false).on("value", snapshot => {
         console.log(snapshot.val())
-        this.Seller = snapshot.val()
         this.numVerifySeller = Object.keys(snapshot.val())
         console.log(this.numVerifySeller.length)
+      })
+      firebase.ref("slip/").orderByChild("verify_slip").equalTo(false).on("value", snapshot => {
+        console.log(snapshot.val())
+        this.numVerifySlip = Object.keys(snapshot.val())
+        console.log(this.numVerifySlip.length)
       })
   },
 }
