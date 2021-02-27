@@ -13,7 +13,11 @@
                 type="email" 
                 class="inputRegisSeller" 
                 placeholder="EMAIL" 
-                v-model="Seller.seller_email"/>
+                v-model="Seller.seller_email"
+                @change="checkEmailAddress" />
+                <!-- check email if invalid email will show error -->
+                <span is="sui-label" basic color="red" pointing v-if="Seller.seller_email==''">Enter email</span>
+                <span is="sui-label" basic color="red" pointing v-else-if="checkEmail">Invalid email</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -23,6 +27,8 @@
                 class="inputRegisSeller" 
                 placeholder="NAME STORE" 
                 v-model="Seller.seller_name_shop" />
+                <!-- check name store -->
+                <span is="sui-label" basic color="red" pointing v-if="Seller.seller_name_shop==''">Enter name shop</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -31,7 +37,11 @@
                 type="password" 
                 id="inputRegisSeller" 
                 placeholder="PASSWORD" 
-                v-model="Seller.seller_password" />
+                v-model="Seller.seller_password" 
+                @change="checkPasswordseller" /> 
+                <!-- check password -->
+            <span is="sui-label" basic color="red" pointing v-if="Seller.seller_password==''">Enter password</span>
+            <span is="sui-label" basic color="red" pointing v-else-if="checkPasswordnum">Password must be have 8 characters</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -41,6 +51,8 @@
                 class="inputRegisSeller" 
                 placeholder="REPEAT PASSWORD" 
                 v-model="Seller.repassword" />
+                <!-- check repeatpassword -->
+                <span is="sui-label" basic color="red" pointing v-if="Seller.seller_password != Seller.repassword">Password mismatch</span>
         </sui-form-field>
     </sui-form>
 
@@ -53,11 +65,13 @@
                 class="inputRegisSeller" 
                 placeholder="FIRSTNAME" 
                 v-model="Seller.seller_firstname"/>
+                <span is="sui-label" basic color="red" pointing v-if="Seller.seller_firstname==''">Enter firstname</span>
         </sui-form-field>
 
         <sui-form-field required>
             <label class="labelRegisSeller">LASTNAME</label>
             <input type="text" class="inputRegisSeller" placeholder="LASTNAME" v-model="Seller.seller_lastname" />
+            <span is="sui-label" basic color="red" pointing v-if="Seller.seller_lastname==''">Enter lastname</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -66,7 +80,10 @@
                 type="number" 
                 class="inputRegisSeller" 
                 placeholder="PHONE NUMBER" 
-                v-model="Seller.seller_phonenumber" />
+                v-model="Seller.seller_phonenumber" 
+                @change="checkPhone"/>
+                <span is="sui-label" basic color="red" pointing v-if="Seller.seller_phonenumber==''">Enter phone number</span>
+            <span is="sui-label" basic color="red" pointing v-else-if="checkPhonenum">Phone number is bad formated</span>
         </sui-form-field>
 
          <sui-form-field required>
@@ -76,6 +93,7 @@
                 class="inputRegisSeller" 
                 placeholder="ADDRESS" 
                 v-model="seller_address.address" />
+                <span is="sui-label" basic color="red" pointing v-if="seller_address.address==''">Enter address</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -94,6 +112,7 @@
                 class="inputRegisSeller" 
                 placeholder="DISTRICT" 
                 v-model="seller_address.seller_district" />
+                <span is="sui-label" basic color="red" pointing v-if="seller_address.seller_district==''">Enter district</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -103,6 +122,7 @@
                 class="inputRegisSeller" 
                 placeholder="SUB DISTRICT" 
                 v-model="seller_address.seller_sub_district" />
+                <span is="sui-label" basic color="red" pointing v-if="seller_address.seller_sub_district==''">Enter sub district</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -112,15 +132,19 @@
                 class="inputRegisSeller" 
                 placeholder="PROVINCE" 
                 v-model="seller_address.seller_province" />
+                <span is="sui-label" basic color="red" pointing v-if="seller_address.seller_province==''">Enter province</span>
         </sui-form-field>
 
         <sui-form-field required>
             <label class="labelRegisSeller">ZIP CODE</label>
             <input 
-                type="text" 
+                type="number" 
                 class="inputRegisSeller" 
                 placeholder="ZIP CODE" 
-                v-model="seller_address.seller_zipcode" />
+                v-model="seller_address.seller_zipcode" 
+                @change="checkZipcode" />
+                <span is="sui-label" basic color="red" pointing v-if="seller_address.seller_zipcode==''">Enter zipcode</span>
+            <span is="sui-label" basic color="red" pointing v-else-if="checkZipcodenum">Invalid zipcode</span>
         </sui-form-field>
 
 
@@ -136,6 +160,7 @@
                 class="inputRegisSeller" 
                 placeholder="ACCOUNT HOLDER NAME" 
                 v-model="Seller.bank_account_name"/>
+                <span is="sui-label" basic color="red" pointing v-if="Seller.bank_account_name==''">Enter account holder name</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -145,6 +170,7 @@
                 class="inputRegisSeller" 
                 placeholder="ACCOUNT NUMBER" 
                 v-model="Seller.bank_account_number" />
+                <span is="sui-label" basic color="red" pointing v-if="Seller.bank_account_number==''">Enter account number</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -154,6 +180,7 @@
                 class="inputRegisSeller" 
                 placeholder="BANK NAME" 
                 v-model="Seller.bank_name" />
+                <span is="sui-label" basic color="red" pointing v-if="Seller.bank_name==''">Enter bank name</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -163,6 +190,7 @@
                 class="inputRegisSeller" 
                 placeholder="BRANCH’S NAME" 
                 v-model="Seller.bank_branch_name" />
+                <span is="sui-label" basic color="red" pointing v-if="Seller.bank_branch_name==''">Enter branch's name</span>
         </sui-form-field>
 
         <div>
@@ -210,6 +238,11 @@ export default {
     name : "regisSeller",
     data() {
         return {
+            checkPhonenum : false,
+            checkLength : false,
+            checkzipcodenum : false,
+            checkEmail : false,
+            checkPasswordnum : false,
             step: 1,
             image:null,
             Seller :[{
@@ -324,6 +357,34 @@ export default {
         },
         //date
         dateToString,
+        checkPhone(){
+        if(this.Seller.seller_phonenumber.length != 10){
+          return this.checkPhonenum = true
+        }else if(this.Seller.seller_phonenumber.length == 10){
+          return this.checkPhonenum = false
+        }
+      },
+      checkZipcode(){
+        if(this.seller_address.seller_zipcode.length != 5){
+          return this.checkZipcodenum = true
+      }else if(this.seller_address.seller_zipcode.length == 5){
+          return this.checkZipcodenum = false
+      }
+      },
+      checkEmailAddress(){
+        if(!this.Seller.seller_email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)){
+          return this.checkEmail = true
+      }else{
+          return this.checkEmail = false
+      }
+      },
+      checkPasswordseller(){
+        if(this.Seller.seller_password.length != 8){
+          return this.checkPasswordnum = true
+      }else if(this.Seller.seller_password.length == 8){
+          return this.checkPasswordnum = false
+      }
+      }
     },
 };
 </script>

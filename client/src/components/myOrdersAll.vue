@@ -4,17 +4,17 @@
     <sui-table celled>
     <sui-table-header>
       <sui-table-row>
-        <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Order Date</sui-table-header-cell>
-        <sui-table-header-cell>Type</sui-table-header-cell>
-        <sui-table-header-cell>Status</sui-table-header-cell>
+        <sui-table-header-cell style="text-align:center">Order ID</sui-table-header-cell>
+        <sui-table-header-cell style="text-align:center">Order Date</sui-table-header-cell>
+        <sui-table-header-cell style="text-align:center">Type</sui-table-header-cell>
+        <sui-table-header-cell style="text-align:center">Status</sui-table-header-cell>
 
 
       </sui-table-row>
     </sui-table-header>
     <sui-table-body>
       <sui-table-row v-for="(key,index) in keyPickupOrder" :key="index">
-        <sui-table-cell  style="text-align:center"><a href="#" @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell style="text-align:center"><a href="#" @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{type_pickup}}</sui-table-cell>
         <sui-table-cell style="text-align:center; color:green" v-if="status[index] = 'complete' ">{{status[index]}}</sui-table-cell>
@@ -29,7 +29,11 @@
         <sui-table-cell style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100 )}}</a></sui-table-cell>
         <sui-table-cell style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{type_shipping}}</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{status_ship[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center; color:#F03A2E" v-if="status_ship[index]==='unpaid' ">{{status_ship[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center; color:#F08C2E" v-if="status_ship[index]==='packing' ">{{status_ship[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center; color:#F170EB" v-if="status_ship[index]==='delivery' ">{{status_ship[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center; color:#1557CB" v-if="status_ship[index]==='atstore' ">{{status_ship[index]}}</sui-table-cell>
+        <sui-table-cell style="text-align:center; color:#1EE55A" v-if="status_ship[index]==='complete' ">{{status_ship[index]}}</sui-table-cell>
 
       </sui-table-row>
     </sui-table-body>
