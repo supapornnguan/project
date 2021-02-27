@@ -10,20 +10,20 @@
     <sui-table celled>
     <sui-table-header>
       <sui-table-row>
-        <sui-table-header-cell>Tracking No.</sui-table-header-cell>
+        <!-- <sui-table-header-cell>Tracking No.</sui-table-header-cell> -->
         <sui-table-header-cell>Order ID</sui-table-header-cell>
         <sui-table-header-cell>Date received</sui-table-header-cell>
         <sui-table-header-cell>Total Price (THB)</sui-table-header-cell>
         <!-- <sui-table-header-cell>Number of Product</sui-table-header-cell> -->
       </sui-table-row>
     </sui-table-header>
-    <sui-table-body v-for="(key,index) in order" :key="index">
-      <sui-table-row v-if="branch_selected[index] == 'PU01' && status[index] == true && status1[index] == false">
-        <sui-table-cell>{{tracking_number[index]}}</sui-table-cell>
+    <sui-table-body v-for="(key,index) in key_order" :key="index">
+      <sui-table-row v-if="branch_selected[index] == 'PU01' ">
+        <!-- <sui-table-cell>{{tracking_number[index]}}</sui-table-cell> -->
         <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
-        <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell>
-        <sui-table-cell>{{total_amount_1[index]}}</sui-table-cell>
-        <!-- <sui-table-cell>{{quantity_return[index]}}</sui-table-cell> -->
+        <!-- <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell> -->
+        <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
+        <sui-table-cell>{{number_of_product[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
@@ -147,6 +147,7 @@
 </template>
 <script>
 import firebase from "../firebase"
+import {auth} from "../firebase"
 export default {
     data() {
         return {
@@ -165,6 +166,10 @@ export default {
             tracking_number : [],
             product_description : [],
             status_return : [],
+            product_des : [],
+            key_order : [],
+            receive_date : [],
+            check_complete : [],
 
             //return case
             product_unit_price_return : [],
@@ -174,6 +179,62 @@ export default {
 
             
         }
+    },
+    created() {
+        firebase.ref("pickup_order/").orderByChild("sellerUid").equalTo(auth.currentUser.uid).on("value" , snapshot => {
+          console.log(snapshot.val())
+          console.log("hello")
+          this.infoOrder = snapshot.val()
+          this.keysOrder = Object.keys(snapshot.val())
+          for(var i =0 ; i< this.keysOrder.length ; i++){
+            var  k = this.keysOrder[i]
+            var product_description = this.infoOrder[k].product_description
+            this.product_description[i] = product_description
+            this.check_complete[i] = this.infoOrder[k].status.complete.check_status
+
+          }
+          for(var j =0 ; j< this.product_description.length ; j++){
+            for(var a = 0 ; a <this.product_description[j].length ; a++){
+              console.log(this.product_description[j])
+              if(this.product_description[j][a].status.return_product.check_status == false && this.check_complete[j] != false){
+                  // this.date_time_return.push(this.product_description[j][a].status.return_product.return_date)
+                  this.key_order.push(this.keysOrder[j])
+                  this.key_order = [ ...new Set(this.key_order) ]
+              }
+            }
+          }
+          for(var q = 0 ; q < this.keysOrder.length ; q++){
+            var e = this.keysOrder[q]
+            console.log(e)
+            for(var t =0 ; t< this.key_order.length ; t++){
+              if(this.keysOrder[q] == this.key_order[t]){
+                console.log(this.key_order[q])
+                this.product_des[t] = this.infoOrder[e].product_description
+                var count = 0 
+                var total = 0
+                var branch_selected = this.infoOrder[e].branch_selected
+                
+                for(var y =0  ;y < this.product_des[t].length ; y++){
+                  var status = this.product_des[t][y].status.return_product.check_status
+                  if(status == false){
+                  
+                    var price = this.product_des[t][y].product_unit_price
+                    var qty = this.product_des[t][y].quantity
+                    count = count+1
+                    total += price* qty
+                  }
+                }
+                this.branch_selected.push(branch_selected)
+                this.number_of_product.push(count)
+                this.total_amount.push(total)
+              }
+            }
+          }
+          console.log(this.branch_selected)
+          console.log(this.product_description)
+          console.log(this.number_of_product)
+          console.log(this.total_amount)
+        })
     },
     mounted() {
 
@@ -189,54 +250,6 @@ export default {
            }
         })
 
-            firebase.ref('pickup_order/').on('value',snapshot => {
-            console.log(snapshot.val())
-            this.infoOrder = snapshot.val()
-            this.order = Object.keys(this.infoOrder)
-            for(var j =0 ; j<this.order.length ;j++){
-                var k = this.order[j]
-                var branch_selected = this.infoOrder[k].branch_selected
-                var status = this.infoOrder[k].status.complete.check_status //ต้องเป็น true ถึงจะ รับสินค้าเสร็จเรียบร้อย
-                var status1 = this.infoOrder[k].status.return.check_status
-                if(this.infoOrder[k].tracking_no.check_track == true){
-                    var tracking_number = this.infoOrder[k].tracking_no.tracking_no
-                }
-                
-                var date_time_to_order = this.infoOrder[k].status.complete.date_time_to_order
-                var total_amount = this.infoOrder[k].total_amount
-                var number_of_product = this.infoOrder[k].number_of_product
-                this.branch_selected[j] = branch_selected
-                this.status[j] = status
-                if(this.status[j] == true){
-                  this.product_description.push(this.infoOrder[k].product_description)
-                }
-                this.status1[j] = status1
-                this.date_time_to_order[j] = date_time_to_order
-                this.total_amount[j] = total_amount
-                this.number_of_product[j] = number_of_product
-                this.tracking_number[j] = tracking_number    
-            }
-             console.log(this.product_description)
-             for(var i =0; i < this.product_description.length; i++ ){
-               for(var a = 0; a < this.product_description[i].length ; a++){
-                 console.log(this.product_description[i][a])
-                 this.status_return[a] = this.product_description[i][a].status.return_product.check_status
-                 console.log(this.status_return[a])
-                 if(this.status_return[a] == false){
-                   this.product_unit_price_return[a] = this.product_description[i][a].product_unit_price
-                   this.quantity_return[a] = this.product_description[i][a].quantity
-                   console.log(this.product_unit_price_return[a])
-                   console.log(this.quantity_return[a])
-
-                   this.total_amount_1.push( parseInt(this.product_unit_price_return[a]) * parseInt(this.quantity_return[a]) )
-                   console.log(this.total_amount_1[a])
-                 }
-               }
-             }
-             console.log(this.total_amount_1)
-             console.log(this.quantity_return)
-            //  console.log(this.total_amount_2)
-        })
 
     },
     
