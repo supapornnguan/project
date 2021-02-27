@@ -9,25 +9,23 @@
             placeholder="EMAIL" 
             type="text" 
             v-model="Users.customer_email"
-          />
+            @change="checkEmailAddress" />
+            <!-- check email if invalid email will show error -->
+            <span is="sui-label" basic color="red" pointing v-if="Users.customer_email==''">Enter email</span>
+            <span is="sui-label" basic color="red" pointing v-else-if="checkEmail">Invalid email</span>
         </sui-form-field>
-        <!-- check email if invalid email will show error -->
-        <sui-message error visible v-if="Users.customer_email==''" id="message" >
-          <p style="font-weight:600; text-align:center">the email address is required</p>
-        </sui-message>
 
         <sui-form-field required>
           <label id="labelRegisUser">PASSWORD</label>
           <input 
             placeholder="PASSWORD" 
             type="password" 
-            v-model="Users.customer_password"
-      />
+            v-model="Users.customer_password" 
+            @change="checkPassword" />
+            <!-- check password -->
+            <span is="sui-label" basic color="red" pointing v-if="Users.customer_password==''">Enter password</span>
+            <span is="sui-label" basic color="red" pointing v-else-if="checkPasswordnum">Password must be have 8 characters</span>
         </sui-form-field>
-        <!-- check length password -->
-        <!-- <sui-message error visible v-if="checkLength" id="message" >
-          <p style="font-weight:600; text-align:center">password must have at least 8 characters </p>
-        </sui-message> -->
 
         <sui-form-field required>
           <label id="labelRegisUser">REPEAT PASSWORD</label>
@@ -35,11 +33,9 @@
             placeholder="REPEAT PASSWORD" 
             type="password" 
             v-model="Users.repeatPassword"/>
+            <!-- check repeatpassword -->
+            <span is="sui-label" basic color="red" pointing v-if="Users.customer_password != Users.repeatPassword">Password mismatch</span>
         </sui-form-field>
-      <!-- check repeatpassword -->
-        <sui-message error visible v-if="Users.customer_password != Users.repeatPassword" id="message" >
-          <p style="font-weight:600; text-align:center">password mismatch</p>
-        </sui-message>
 
         <sui-form-field required>
           <label id="labelRegisUser">FIRSTNAME</label>
@@ -47,6 +43,8 @@
             placeholder="FIRSTNAME" 
             type="text" 
             v-model="Users.customer_firstname" />
+            <!-- check firstname -->
+            <span is="sui-label" basic color="red" pointing v-if="Users.customer_firstname==''">Enter firstname</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -55,6 +53,8 @@
             placeholder="LASTNAME" 
             type="text" 
             v-model="Users.customer_lastname" />
+            <!-- check lastname -->
+            <span is="sui-label" basic color="red" pointing v-if="Users.customer_lastname==''">Enter lastname</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -64,11 +64,10 @@
             type="number" 
             v-model="Users.customer_phonenumber"
             @change="checkPhone"/>
+            <!-- check phone number -->
+            <span is="sui-label" basic color="red" pointing v-if="Users.customer_phonenumber==''">Enter phone number</span>
+            <span is="sui-label" basic color="red" pointing v-else-if="checkPhonenum">Phone number is bad formated</span>
         </sui-form-field>
-              <!-- check phone number -->
-        <sui-message error visible v-if="checkPhonenum" id="message" >
-          <p style="font-weight:600; text-align:center">Phone number is bad formated</p>
-        </sui-message>
 
         <sui-form-field required>
           <label id="labelRegisUser">ADDRESS</label>
@@ -76,6 +75,8 @@
             placeholder="ADDRESS" 
             type="text" 
             v-model="address.customer_address" />
+            <!-- check address -->
+            <span is="sui-label" basic color="red" pointing v-if="address.customer_address==''">Enter address</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -84,6 +85,8 @@
             placeholder="DISTRICT" 
             type="text" 
             v-model="address.customer_district" />
+            <!-- check district -->
+            <span is="sui-label" basic color="red" pointing v-if="address.customer_district==''">Enter district</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -92,14 +95,20 @@
             placeholder="PROVINCE" 
             type="text" 
             v-model="address.customer_province" />
+            <!-- check province -->
+            <span is="sui-label" basic color="red" pointing v-if="address.customer_province==''">Enter province</span>
         </sui-form-field>
 
         <sui-form-field required>
           <label id="labelRegisUser">ZIP CODE</label>
           <input 
             placeholder="ZIP CODE" 
-            type="text" 
-            v-model="address.customer_zipcode" />
+            type="number" 
+            v-model="address.customer_zipcode"
+            @change="checkZipcode" />
+            <!-- check zipcode -->
+            <span is="sui-label" basic color="red" pointing v-if="address.customer_zipcode==''">Enter zipcode</span>
+            <span is="sui-label" basic color="red" pointing v-else-if="checkZipcodenum">Invalid zipcode</span>
         </sui-form-field>        
         <div class="ui submit button" @click="addUser();" style="margin-left:170px">Submit</div>
   </sui-form>
@@ -116,6 +125,9 @@ export default {
       user:{},
       checkPhonenum : false,
       checkLength : false,
+      checkzipcodenum : false,
+      checkEmail : false,
+      checkPasswordnum : false,
       useruid : "",
       Users : [
         {
@@ -185,7 +197,28 @@ export default {
           return this.checkPhonenum = false
         }
       },
-  },
+      checkZipcode(){
+        if(this.address.customer_zipcode.length != 5){
+          return this.checkZipcodenum = true
+      }else if(this.address.customer_zipcode.length == 5){
+          return this.checkZipcodenum = false
+      }
+      },
+      checkEmailAddress(){
+        if(!this.Users.customer_email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)){
+          return this.checkEmail = true
+      }else{
+          return this.checkEmail = false
+      }
+      },
+      checkPassword(){
+        if(this.Users.customer_password.length != 8){
+          return this.checkPasswordnum = true
+      }else if(this.Users.customer_password.length == 8){
+          return this.checkPasswordnum = false
+      }
+      }
+  }
 };
 </script>
 
