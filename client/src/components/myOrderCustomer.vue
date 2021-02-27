@@ -15,18 +15,37 @@
 
 <!-- pick up -->
      <div v-if="pickup_show==1" >
-         <div style="margin-left:70px; margin-top:50px">
-           <p style="display:inline; font-weight:670; font-size:20px">Order ID</p>
-           <p style="display:inline; margin-left:190px; font-weight:670; font-size:20px">Date</p>
-           <p style="display:inline; margin-left:190px; font-weight:670; font-size:20px">Store Pick-up</p>
-           <p style="display:inline; margin-left:130px; font-weight:670; font-size:20px">Status</p>
+        <div style="margin-left:70px; margin-top:50px">
+          <p style="display:inline; font-weight:670; font-size:20px">Order ID</p>
+          <p style="display:inline; margin-left:190px; font-weight:670; font-size:20px">Date</p>
+          <p style="display:inline; margin-left:190px; font-weight:670; font-size:20px">Store Pick-up</p>
+          <p style="display:inline; margin-left:130px; font-weight:670; font-size:20px">Status</p>
         </div>
 
         <sui-segment v-for="(key,index) in  order" :key="index" id="orderSeg" @click="gotoOrderDetail(key,pickup_type)">
-               <p style="display:inline; position:absolute; left:35px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
-               <p style="display:inline; position:absolute; left:260px; top:20px;">{{date_time_to_order[index]}}</p>
-               <p style="display:inline; position:absolute; left:590px; top:20px;">{{store_pickup[index]}}</p>
-               <p style="display:inline; position:absolute; left:800px; top:20px;">{{status[index]}}</p>
+          <p style="display:inline; position:absolute; left:35px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
+          <p style="display:inline; position:absolute; left:260px; top:20px;">{{date_time_to_order[index]}}</p>
+          <p style="display:inline; position:absolute; left:590px; top:20px;">{{store_pickup[index]}}</p>
+          <p style="display:inline; position:absolute; left:800px; top:20px;">
+            <sui-label horizontal v-if="status[index] === 'ordered'">
+              ordered
+            </sui-label>
+            <sui-label color="orange" horizontal v-if="status[index] === 'packing'">
+              packing
+            </sui-label>
+            <sui-label color="yellow" horizontal v-if="status[index] === 'delively'">
+              ordered
+            </sui-label>
+            <sui-label color="blue" horizontal v-if="status[index] === 'atstore'">
+              atstore
+            </sui-label>
+            <sui-label color="green" horizontal v-if="status[index] === 'complete'">
+              complete
+            </sui-label>
+            <sui-label color="red" horizontal v-if="status[index] === 'return'">
+              return
+            </sui-label>
+            </p>
         </sui-segment>
         </div>
 
@@ -43,9 +62,25 @@
         </div>
 
         <sui-segment v-for="(key,index) in  orderShip" :key="index" id="orderSeg" @click="gotoOrderDetail(key,shipping_type)">
-               <p style="display:inline; position:absolute; left:35px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
-               <p style="display:inline; position:absolute; left:380px; top:20px;">{{date_time_to_order_ship[index]}}</p>
-               <p style="display:inline; position:absolute; left:710px; top:20px;">{{status_ship[index]}}</p>
+          <p style="display:inline; position:absolute; left:35px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
+          <p style="display:inline; position:absolute; left:380px; top:20px;">{{date_time_to_order_ship[index]}}</p>
+          <p style="display:inline; position:absolute; left:710px; top:20px;">
+            <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'">
+              unpaid
+            </sui-label>
+            <sui-label horizontal v-if="status_ship[index] === 'payment'">
+              paid
+            </sui-label>
+            <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'">
+              packing
+            </sui-label>
+            <sui-label color="yellow" horizontal v-if="status_ship[index] === 'delivery'">
+              delivery
+            </sui-label>
+            <sui-label color="green" horizontal v-if="status_ship[index] === 'complete'">
+              complete
+            </sui-label>
+            </p>
         </sui-segment>
         </div>
   </div>

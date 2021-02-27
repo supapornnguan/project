@@ -57,7 +57,26 @@
             <sui-table-cell style="text-align:center">{{number_of_product[index]}}</sui-table-cell>
             <sui-table-cell style="text-align:center">{{total_amount[index]}}</sui-table-cell>
             <sui-table-cell style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
-            <sui-table-cell style="text-align:center">{{status[index]}}</sui-table-cell>
+            <sui-table-cell style="text-align:center">
+            <sui-label horizontal v-if="status[index] === 'ordered'">
+              ordered
+            </sui-label>
+            <sui-label color="orange" horizontal v-if="status[index] === 'packing'">
+              packing
+            </sui-label>
+            <sui-label color="yellow" horizontal v-if="status[index] === 'delively'">
+              ordered
+            </sui-label>
+            <sui-label color="blue" horizontal v-if="status[index] === 'atstore'">
+              atstore
+            </sui-label>
+            <sui-label color="green" horizontal v-if="status[index] === 'complete'">
+              complete
+            </sui-label>
+            <sui-label color="red" horizontal v-if="status[index] === 'return'">
+              return
+            </sui-label>
+            </sui-table-cell>
         </sui-table-row>
       </sui-table-body>
       </sui-table>
@@ -82,7 +101,23 @@
             <sui-table-cell>{{date_time_to_order_ship[index]}}</sui-table-cell>
             <sui-table-cell style="text-align:center">{{number_of_product_ship[index]}}</sui-table-cell>
             <sui-table-cell style="text-align:center">{{total_amount_ship[index]}}</sui-table-cell>
-            <sui-table-cell style="text-align:center">{{status_ship[index]}}</sui-table-cell>
+            <sui-table-cell style="text-align:center">
+            <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'">
+              unpaid
+            </sui-label>
+            <sui-label horizontal v-if="status_ship[index] === 'paid'">
+              paid
+            </sui-label>
+            <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'">
+              packing
+            </sui-label>
+            <sui-label color="yellow" horizontal v-if="status_ship[index] === 'delivery'">
+              delivery
+            </sui-label>
+            <sui-label color="green" horizontal v-if="status_ship[index] === 'complete'">
+              complete
+            </sui-label>
+            </sui-table-cell>
         </sui-table-row>
       </sui-table-body>
       </sui-table>
