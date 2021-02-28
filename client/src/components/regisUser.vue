@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="regisUser">
     
+    
     <sui-form id="border1">
       <h1 id="H1">REGISTER</h1>
         <sui-form-field required>
