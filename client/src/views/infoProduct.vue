@@ -63,15 +63,16 @@ import navbar from "../components/navbar"
 import {mapActions} from "vuex"
 import store from "../store"
 import firebase from "../firebase"
+
 export default {
     data() {
         return {
-             value: 1,
+             value : 1,
              product_quantity : "",
              product_name : "",
              sellerUid : "",
              seller_name_shop : "",
-             product_unit_price: "",
+             product_unit_price : "",
              product_detail : "",
              product_detail_non_split : "",
              product_image : "",
@@ -81,14 +82,15 @@ export default {
              keysProduct : "",
              products:{},
              useruid : "",
-             quantity: 1,
+             quantity : 1,
              status : "ordered",
-             product_id: ""
+             product_id : "",
         }
     },
     components : {
         navbar
     },
+    
     methods: {
         addQuantity(){
             if(this.quantity<this.product_quantity)
@@ -118,14 +120,14 @@ export default {
             })
             this.$router.replace('/summary')
         },
-      ...mapActions(['updateCart']),
-      addItem() {
+        ...mapActions(['updateCart']),
+       addItem() {
         const order = {
-        keysProduct : this.keysProduct,
+        keysProduct : this.productKey,
         product_name : this.product_name,
         product_image : this.product_image,
         product_unit_price : this.product_unit_price,
-        product_detail : this.product_detail,
+        product_detail : this.product_detail_non_split,
         sellerUid : this.sellerUid,
         status : this.status,
         seller_name_shop : this.seller_name_shop,
@@ -148,6 +150,7 @@ export default {
         console.log(this.getkey)
     },
     mounted() {
+
         //query product collection
       
             firebase.ref('product/'+this.productKey).on('value',(snapshot)=>{

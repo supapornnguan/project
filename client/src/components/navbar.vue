@@ -29,7 +29,7 @@ export default {
     ...mapGetters({
       user : "users",
       cartList : "cartItemList"
-    })
+    }),
   },
   data() {
     return {

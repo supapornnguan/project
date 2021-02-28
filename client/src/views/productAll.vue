@@ -36,6 +36,16 @@
 </template>
 
 <script>
+
+// class Post {
+//   constructor(title, link, author, product_image) {
+//     this.title = title;
+//     this.link = link;
+//     this.author = author;
+//     this.product_image = product_image;
+//   }
+// }
+
 import Loading from 'vue-loading-overlay';
     // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -65,7 +75,9 @@ export default {
             seller_name_shop : [],
             getkey : "",
             isLoading : true,
-            search : ""
+        
+            search : "",
+            product_list : []
 
         }
     },
@@ -110,7 +122,12 @@ export default {
       Loading
   },
   //getting type of product
+  computed: {
+    // ...mapGetters({
+    //   getProductType : "getProductType"
+    // }),
 
+  },
   //Filtering description of product
   filters : {
     shortDescription(value) {
@@ -156,10 +173,6 @@ export default {
         this.sellerUid[i] = sellerUid
         this.seller_name_shop[i] = seller_name_shop
         
-
-        // console.log(this.product_name[i] = product_name)
-        // console.log(this.product_image[i] = product_image)
-        // console.log(this.product_detail[i] = product_detail)
       }
        this.isLoading = false
     })
