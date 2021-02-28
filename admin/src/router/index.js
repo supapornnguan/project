@@ -10,6 +10,7 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(SuiVue)
+// Vue.use(nodemailer)
 
 const routes = [
   {

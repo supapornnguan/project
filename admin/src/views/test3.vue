@@ -1,15 +1,16 @@
 <template>
     <div>
-        <button @click="send">dens</button>
+        <button @click="send">sends</button>
         
     </div>
 </template>
 <script>
+import nodemailer from "../nodemailer"
 
 export default {
     methods: {
         send(){
-            const nodemailer = require('nodemailer');
+           
 
 const transporter = nodemailer.createTransport({
   service: 'hotmail',

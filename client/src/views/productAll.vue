@@ -7,7 +7,12 @@
         :can-cancel="true" 
         :is-full-page="true">
         </loading>
-      <search/>
+      <!-- <search/> -->
+
+    <input type="text" v-model="search">
+
+
+
       <h1 style="margin-left:100px; left:100px; font-weight:600">{{this.$route.params.category}}</h1>
       <h4 style="position:absolute; left:100px; top:300px">FILTER BY</h4>
     <div class="con">
@@ -34,13 +39,14 @@
 import Loading from 'vue-loading-overlay';
     // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
-import search from "../components/search"
+// import search from "../components/search"
 import navbar from "../components/navbar"
 import firebase from "../firebase"
 
 // import store from "../store"
 // import {auth} from "../firebase"
  import { mapActions} from "vuex"
+
 export default {
     data() {
         return {
@@ -58,10 +64,18 @@ export default {
             status : "ordered",
             seller_name_shop : [],
             getkey : "",
-            isLoading : true
+            isLoading : true,
+            search : ""
 
         }
     },
+    // computed : {
+    //   filterProduct () {
+    //     return this.product_name.filter(product => product.product_name.includes(this.search))
+    //   }
+    // },
+
+    // },
     methods: {
       //go to infomation of product when click on image
       gotoInfoproduct(key){
@@ -69,6 +83,7 @@ export default {
         // this.$router.replace('/infoProduct')
         this.$router.push({name : "infoProduct" , params : {productId : key}})
       },
+    
 
       ...mapActions(['updateCart']),
       //add product to the cart when click ADD TO CART button
@@ -88,41 +103,14 @@ export default {
       console.log(order.quantity)
       this.updateCart(order);
     }
-      
-      // ...mapActions(["addItemToCart", "getProducts"]),
-      // addToCart(key,product_image,product_name,product_unit_price){
-      //   store.commit('SET_INFO_CART',{
-      //     product_image : product_image,
-      //     product_name : product_name,
-      //     product_unit_price : product_unit_price
-      //   })
-      //   console.log(key)
-      //   console.log(product_name)
-        
-        // let keyProduct1 = [{
-        //   key
-        // }]
-        // let newCart = [{
-        //   useruid : auth.currentUser.uid,
-        //   keysProduct : keyProduct1
-        // }]
-        // console.log(newCart)
-        // let test = firebase.ref("cart/").child('useruid').equalTo(auth.currentUser.uid).update(newCart)
-        // console.log(test)
-        // alert(key)
-      // }
     },
   components:{
-      search,
+      // search,
       navbar,
       Loading
   },
   //getting type of product
-  computed: {
-    // ...mapGetters({
-    //   getProductType : "getProductType"
-    // }),
-  },
+
   //Filtering description of product
   filters : {
     shortDescription(value) {

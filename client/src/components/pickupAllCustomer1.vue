@@ -356,7 +356,7 @@ export default {
                     this.status_return_1[i] = "RETURN"
                     this.product_unit_price[i] = this.product_description[i].product_unit_price
                     this.quantity[i] = this.product_description[i].quantity
-                }else if(this.status_return[i] == false){
+                }else if(this.status_return[i] == false && this.check_complete == true){
                     this.status_return_1[i] = "RECEIVED"
                     this.product_unit_price[i] = this.product_description[i].product_unit_price
                     this.quantity[i] = this.product_description[i].quantity
