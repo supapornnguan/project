@@ -27,7 +27,7 @@
 
                     <div style="margin-left:50px">
                         <sui-button basic secondary @click="gotoSummary" style="width:150px; margin-top:20px">BUY NOW</sui-button>
-                        <sui-button basic secondary @click="addItem(index)" style="width:150px; margin-left:20px">ADD TO CART</sui-button>
+                        <sui-button basic secondary @click="addItem" style="width:150px; margin-left:20px">ADD TO CART</sui-button>
                     </div>
                  
                 </sui-grid-column>
@@ -67,25 +67,24 @@ import firebase from "../firebase"
 export default {
     data() {
         return {
-             addItem1 : false,
-             value: 1,
-             product_quantity : [],
-             product_name : [],
-             sellerUid : [],
-             seller_name_shop : [],
-             product_unit_price: [],
-             product_detail : [],
+             value : 1,
+             product_quantity : "",
+             product_name : "",
+             sellerUid : "",
+             seller_name_shop : "",
+             product_unit_price : "",
+             product_detail : "",
              product_detail_non_split : "",
-             product_image : [],
+             product_image : "",
              timeToOrder : "",
              check : false,
              productKey : "",
-             keysProduct : [],
+             keysProduct : "",
              products:{},
              useruid : "",
-             quantity: 1,
+             quantity : 1,
              status : "ordered",
-             product_id: "",
+             product_id : "",
         }
     },
     components : {
@@ -122,23 +121,22 @@ export default {
             this.$router.replace('/summary')
         },
         ...mapActions(['updateCart']),
-        addItem(index) {
+       addItem() {
         const order = {
-        keysProduct : this.keysProduct[index],
-        product_name : this.product_name[index],
-        product_image : this.product_image[index],
-        product_unit_price : this.product_unit_price[index],
-        product_detail : this.product_detail[index],
-        sellerUid : this.sellerUid[index],
-        status : this.status[index],
-        seller_name_shop : this.seller_name_shop[index],
-        quantity: this.quantity[index],
+        keysProduct : this.productKey,
+        product_name : this.product_name,
+        product_image : this.product_image,
+        product_unit_price : this.product_unit_price,
+        product_detail : this.product_detail_non_split,
+        sellerUid : this.sellerUid,
+        status : this.status,
+        seller_name_shop : this.seller_name_shop,
+        quantity: this.quantity,
         isAdd: true
       };
       console.log(order.quantity)
       this.updateCart(order);
     }
-
     },
     computed: {
         // ...mapGetters({
