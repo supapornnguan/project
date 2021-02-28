@@ -36,10 +36,16 @@ export default {
       userid : ""
     }
   },
-  beforeCreate() {
-    this.userid = auth.currentUser.uid
-  },
+
+  // beforeMount() {
+  //   if(this.isLoading == false)
+  //   this.userid = auth.currentUser.uid
+  //   console.log(this.isLoading == false)
+  // },
+
   methods: {
+
+
     logout(){
       auth.signOut()
           .then(()=>{
@@ -54,8 +60,8 @@ export default {
       this.$router.push({name: "myAccountCustomer" , params : {userid : auth.currentUser.uid}})
       // this.$router.replace('MyAccountCustomer')
       console.log(auth.currentUser.uid)
-    }
-  },
+    },
+}
 }
 </script>
 

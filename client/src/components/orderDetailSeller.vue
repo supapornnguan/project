@@ -203,6 +203,7 @@ export default {
                 console.log(snapshot.val())
                 this.date_time_to_order = this.infoDetail.status.ordered.date_time_to_order
                 this.status_order = this.infoDetail.status.packing.check_status
+                console.log(this.status_order)
 
             })
 

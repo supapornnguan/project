@@ -4,9 +4,12 @@ import SuiVue from 'semantic-ui-vue';
 import BootstrapVue from 'bootstrap-vue'
 import Vuelidate from 'vuelidate'
 // import {auth} from '../firebase'
+// import store from "../store/index.js"
+//import user from '../store/modules/user'
 import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 // import orderDetailSeller from "../components/orderDetailSeller.vue"
 
 Vue.use(VueRouter)
@@ -19,6 +22,8 @@ const routes =[
     path: '/',
     name: 'home',
     component: () => import('../views/homepage.vue'),
+
+    // meta : {requireAuth : true}
   },
   {
     path: '/sellerRegis',
@@ -176,22 +181,36 @@ const routes =[
 ]
 
 
-// router.beforeEach((to, from, next) => {
-//   let currentUser = auth.currentUser
-//   let requireAuth = to.matched.some(record => record.meta.requireAuth)
-//   if(requireAuth && ! currentUser){
-//     next('userlogin')
-//   }else if (!requireAuth && currentUser){
-//     next('regisUser')
-//   }else{
-//     next()
-//   }
-// })
+
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   // let currentUser = auth.currentUser
+//   console.log(store.getters.users.loggedIn) 
+//   let requireAuth = to.matched.some(record => record.meta.requireAuth)
+//   if(requireAuth){
+//     console.log('before ech requireAuth if....')
+//     store.dispatch('checkUserStatus', store.getters.users.loggedIn)
+//     .then((uid) => {
+//       console.log(uid)
+//       next('userlogin')
+
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+
+//     next('userlogin')
+//   }else if (!requireAuth){
+//     next('regisUser')
+//   }else{
+//     next()
+//   }
+// })
 
 export default router

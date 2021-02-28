@@ -27,8 +27,8 @@
 
          <b-modal ref="my-modal" hide-footer title="CONFIRMATION">
       <div class="d-block text-center" style="margin-bottom:20px">
-        <h3 style="margin-bottom:20px">Store Pick-up : {{branch_confirm}}</h3>
-        <h5>Once you submit, you will no longer be able to change your store pick-up.</h5>
+        <p style="margin-bottom:20px">Store pick-up : {{branch_confirm}}</p>
+        <p>Once you submit, you will no longer be able to change your store pick-up.</p>
       </div>
       <b-button class="mt-3" variant="secondary" style="margin-left:290px;" @click="hideModal">CANCLE</b-button>
       <b-button class="mt-3" variant="secondary" style="margin-left:10px;" @click="chooseStore">CONFIRM</b-button>

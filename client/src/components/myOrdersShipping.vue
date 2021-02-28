@@ -17,14 +17,23 @@
       <sui-table-row >
         <sui-table-cell  style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell  style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
-         <sui-table-cell style="text-align:center; color:red" v-if="status[index]== 'VERIFIED' ">{{status[index]}}</sui-table-cell>
-         <sui-table-cell style="text-align:center; color:#F08C2E" v-if="status[index]== 'PACKING' ">{{status[index]}}</sui-table-cell>
-         <sui-table-cell style="text-align:center; color:#F170EB" v-if="status[index]== 'DELIVERY' ">{{status[index]}}</sui-table-cell>
-         <sui-table-cell style="text-align:center; color:#1EE55A" v-if="status[index]== 'COMPLETE' ">{{status[index]}}</sui-table-cell>
+         <sui-table-cell style="text-align:center; ">
+            <sui-label horizontal v-if="status[index] === 'verifyslip'" style="width:100px">
+              verified
+            </sui-label>
+            <sui-label color="orange" horizontal v-if="status[index] === 'packing'" style="width:100px">
+              packing
+            </sui-label>
+            <sui-label color="yellow" horizontal v-if="status[index] === 'delivery'" style="width:100px">
+              delivery
+            </sui-label>
+            <sui-label color="green" horizontal v-if="status[index] === 'complete'" style="width:100px">
+              complete
+            </sui-label>
+         </sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
-
 
 
   </b-tab>
@@ -140,13 +149,13 @@ export default {
           this.orderDate_shipping.push(this.infoShipping[k].status.unpaid.date_time_to_order) 
           var status
           if(this.infoShipping[k].status.packing.check_status == false){
-            status = "VERIFIED"
+            status = "verified"
           }else if(this.infoShipping[k].status.delivery.check_status == false){
-            status = "PACKING"
+            status = "packing"
           }else if(this.infoShipping[k].status.complete.check_status == false){
-            status = "DELIVERY"
+            status = "delivery"
           }else if(this.infoShipping[k].status.return.check_status == false){
-            status = "COMPLETE"
+            status = "complete"
           }
           this.status.push(status)
           

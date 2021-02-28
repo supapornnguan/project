@@ -75,25 +75,27 @@ export default {
             seller_name_shop : [],
             getkey : "",
             isLoading : true,
-        
             search : "",
             product_list : []
 
         }
     },
-    // computed : {
-    //   filterProduct () {
-    //     return this.product_name.filter(product => product.product_name.includes(this.search))
-    //   }
-    // },
 
-    // },
     methods: {
       //go to infomation of product when click on image
       gotoInfoproduct(key){
         // store.commit('SET_PRODUCT_ID',key)
         // this.$router.replace('/infoProduct')
         this.$router.push({name : "infoProduct" , params : {productId : key}})
+      },
+
+      nameFilter () {
+        let text = this.search.trim()
+        return this.product_name.filter(item => {
+          return item.product_name.indexOf(text) > -1
+      })
+
+
       },
     
 

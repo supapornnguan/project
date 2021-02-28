@@ -18,22 +18,22 @@
         <sui-table-cell style="text-align:center">{{filterDate[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{type_pickup}}</sui-table-cell>
         <sui-table-cell style="text-align:center">
-            <sui-label horizontal v-if="status[index] === 'ordered'">
+            <sui-label horizontal v-if="status2[index] === 'ordered'" style="width:100px">
               ordered
             </sui-label>
-            <sui-label color="orange" horizontal v-if="status[index] === 'packing'">
+            <sui-label color="orange" horizontal v-if="status2[index] === 'packing'" style="width:100px">
               packing
             </sui-label>
-            <sui-label color="yellow" horizontal v-if="status[index] === 'delivery'">
+            <sui-label color="yellow" horizontal v-if="status2[index] === 'delivery'" style="width:100px">
               delivery
             </sui-label>
-            <sui-label color="blue" horizontal v-if="status[index] === 'atstore'">
+            <sui-label color="blue" horizontal v-if="status2[index] === 'atstore'" style="width:100px">
               atstore
             </sui-label>
-            <sui-label color="green" horizontal v-if="status[index] === 'complete'">
+            <sui-label color="green" horizontal v-if="status2[index] === 'complete'" style="width:100px">
               complete
             </sui-label>
-            <sui-label color="red" horizontal v-if="status[index] === 'return'">
+            <sui-label color="red" horizontal v-if="status2[index] === 'return'" style="width:100px">
               return
             </sui-label>
         </sui-table-cell>
@@ -41,27 +41,21 @@
     </sui-table-body>
 
     <sui-table-body>
-      <sui-table-row v-for="(key,index) in keyShippingOrder1" :key="index">
+      <sui-table-row v-for="(key,index) in key_order" :key="index">
         <sui-table-cell style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100 )}}</a></sui-table-cell>
         <sui-table-cell style="text-align:center">{{filterDate_ship[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{type_shipping}}</sui-table-cell>
         <sui-table-cell style="text-align:center">
-          <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'">
-              unpaid
+            <sui-label horizontal v-if="status1[index] === 'verifyslip'" style="width:100px">
+              verified
             </sui-label>
-            <sui-label color="purple" horizontal v-if="status_ship[index] === 'paid'">
-              paid
-            </sui-label>
-            <sui-label horizontal v-if="status_ship[index] === 'verifyslip'">
-              verifyslip
-            </sui-label>
-            <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'">
+            <sui-label color="orange" horizontal v-if="status1[index] === 'packing'" style="width:100px">
               packing
             </sui-label>
-            <sui-label color="yellow" horizontal v-if="status_ship[index] === 'delivery'">
+            <sui-label color="yellow" horizontal v-if="status1[index] === 'delivery'" style="width:100px">
               delivery
             </sui-label>
-            <sui-label color="green" horizontal v-if="status_ship[index] === 'complete'">
+            <sui-label color="green" horizontal v-if="status1[index] === 'complete'" style="width:100px">
               complete
             </sui-label>
         </sui-table-cell>
@@ -120,7 +114,12 @@ export default {
        show : 1,
        status_ship : [],
        filterDate_ship : [],
+       status1 : [],
+       status2 : [],
 
+
+      check_verify : [],
+      key_order : []
     }
   },
   components : {
@@ -184,6 +183,7 @@ export default {
           for(var b = 0 ; b < this.orderDate_pickup.length ; b++){
             if(this.filterDate[a] == this.orderDate_pickup[b]){
               this.keyPickupOrder1[a] = this.keyPickupOrder[b]
+              this.status2[a] = this.status[b]
             }
           }
         }
@@ -220,17 +220,15 @@ export default {
         for(var i=0; i < this.keyShippingOrder.length ; i++){
           var k = this.keyShippingOrder[i]
 
-          var date_time_to_order = this.infoShipping[k].status.unpaid.date_time_to_order
+          this.check_verify[i] = this.infoShipping[k].status.slip_verified.check_status
           var descript = this.infoShipping[k].product_description
           var status_ship
 
- 
-          if(this.infoShipping[k].status.payment.check_status == false ){
-            status_ship = "unpaid"
-          }else if(this.infoShipping[k].status.slip_verified.check_status == false ){
-            status_ship = "paid"
-          }else if(this.infoShipping[k].status.packing.check_status == false ){
-            status_ship = "verifyslip"
+          if(this.check_verify[i] == true){
+          var date_time_to_order = this.infoShipping[k].status.unpaid.date_time_to_order
+          this.key_order.push(k) 
+          if(this.infoShipping[k].status.packing.check_status == false ){
+            status_ship = "verified"
           }else if(this.infoShipping[k].status.delivery.check_status == false ){
             status_ship = "packing"
           }else if(this.infoShipping[k].status.complete.check_status == false ){
@@ -238,10 +236,8 @@ export default {
           }else if(this.infoShipping[k].status.return.check_status == false ){
             status_ship = "complete"
           }
-          
           this.orderDate_shipping[i] = date_time_to_order
           this.status_ship[i] = status_ship
-          // this.infoDescript = Object.keys(descript)
 
         for(var q = 0 ; q < this.orderDate_shipping.length ; q++){
           this.filterDate_ship[q] = this.orderDate_shipping[q]
@@ -250,10 +246,15 @@ export default {
         for(var a = 0 ;a < this.filterDate_ship.length ; a++){
           for(var b = 0 ; b < this.orderDate_shipping.length ; b++){
             if(this.filterDate_ship[a] == this.orderDate_shipping[b]){
-              this.keyShippingOrder1[a] = this.keyShippingOrder[b]
+              this.keyShippingOrder1[a] = this.key_order[b]
+              this.status1[a] = this.status_ship[b]
             }
           }
         }
+      }        
+        // this.infoDescript = Object.keys(descript)
+
+
 
           console.log("hahah")
           console.log(descript)
@@ -264,6 +265,10 @@ export default {
           }
           console.log("hello des")
           console.log(this.infoDescript_ship)    
+          console.log(this.check_verify)
+          console.log(this.key_order)
+          console.log(this.filterDate_ship)
+          console.log(this.keyShippingOrder1)
         }
       })
   },

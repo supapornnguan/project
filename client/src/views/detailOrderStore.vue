@@ -15,7 +15,7 @@
         <hr>
         <p style="display:inline; font-weight:670; font-size:20px; margin-left:100px; ">Order ID : {{this.$route.params.idOrder.substring(1,100)}}</p>
 
-       <p style="font-weight:670; font-size:20px; margin-top:30px; margin-left:100px ">Customer Infomation</p>
+        <p style="font-weight:670; font-size:20px; margin-top:30px; margin-left:100px ">Customer Infomation</p>
             <div style="margin-bottom:20px; margin-left:100px">
                 <p style="display:inline; color:#808080">Name : </p> 
                 <p style="display:inline">{{customer_firstname}} {{customer_lastname}}</p>
@@ -130,7 +130,7 @@
 
         <b-modal ref="my-modal" hide-footer title="CONFIRMATION">
             <div class="d-block text-center" style="margin-bottom:50px">
-                <h3>Hello From My Modal!</h3>
+                <p style="margin-top:20px">Are you sure you want to confirm goods received?</p>
             </div>
             <b-button variant="secondary" style="margin-left:290px"  @click="hideModal">Cancel</b-button>
             <b-button variant="secondary" style="margin-left:10px" @click="receiveOrder(orderidParams)">confirm</b-button>
@@ -252,21 +252,6 @@ export default {
         },
 
         receiveOrder1(keyOrder){
-
-            // for(var i =0 ; i< this.keysProduct.length ; i++){
-            //     for(var j = 0 ; j < this.selected.length ; j++){
-            //         if(this.keysProduct[this.selected[j]] == this.keysProduct[i] ){
-            //             console.log(this.keysProduct[i])
-            //         }else{
-            //             console.log("not selected")
-            //             console.log(this.keysProduct[i])
-            //             firebase.ref("pickup_order/"+ keyOrder + "/product_description/" + i + "/status" + "/return_product/").update({
-            //             check_status : true,
-            //             return_date : dateToString(Date.now())
-            //         })
-            //         }
-            //     }
-            // }
 
             for(var j = 0 ; j < this.selected.length ; j++){
                 for(var i =0 ; i< this.keysProduct.length ; i++){

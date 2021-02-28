@@ -15,14 +15,36 @@
         <sui-table-header-cell style="text-align:center">Order ID</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Order Date</sui-table-header-cell>
         <sui-table-header-cell style="text-align:center">Store</sui-table-header-cell>
+        <sui-table-header-cell style="text-align:center">Status</sui-table-header-cell>
         <!-- <sui-table-header-cell style="text-align:center"></sui-table-header-cell> -->
       </sui-table-row>
     </sui-table-header>
     <sui-table-body>
-      <sui-table-row v-for="(key,index) in keyPickupOrder" :key="index">
-          <sui-table-cell v-if="status[index] == false " style="text-align:center"><a  href="#"  @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
-          <sui-table-cell v-if="status[index] == false " style="text-align:center">{{orderDate_pickup[index]}}</sui-table-cell>
-          <sui-table-cell v-if="status[index] == false " style="text-align:center">{{branch_selected[index]}}</sui-table-cell>
+      <sui-table-row v-for="(key,index) in keyPickupOrder1" :key="index">
+          <sui-table-cell  style="text-align:center"><a  href="#"  @click="detailPickup(key,type_pickup)">{{key.substring(1,100)}}</a></sui-table-cell>
+          <sui-table-cell  style="text-align:center">{{filterDate[index]}}</sui-table-cell>
+          <sui-table-cell  style="text-align:center">{{branch_selected1[index]}}</sui-table-cell>
+          <sui-table-cell  style="text-align:center">
+            <sui-label horizontal v-if="status1[index] === 'ordered'" style="width:100px">
+              ordered
+            </sui-label>
+            <sui-label color="orange" horizontal v-if="status1[index] === 'packing'" style="width:100px">
+              packing
+            </sui-label>
+            <sui-label color="yellow" horizontal v-if="status1[index] === 'delivery'" style="width:100px">
+              delivery
+            </sui-label>
+            <sui-label color="blue" horizontal v-if="status1[index] === 'atstore'" style="width:100px">
+              atstore
+            </sui-label>
+            <sui-label color="green" horizontal v-if="status1[index] === 'complete'" style="width:100px">
+              complete
+            </sui-label>
+            <sui-label color="red" horizontal v-if="status1[index] === 'return'" style="width:100px">
+              return
+            </sui-label>
+
+          </sui-table-cell>
       </sui-table-row>
     </sui-table-body>
 
@@ -102,7 +124,13 @@ export default {
       value:"",
       open: false,
       show : 1,
-      date_time_to_order1 : []
+      date_time_to_order1 : [],
+
+      filterDate : [],
+      keyPickupOrder1 : [],
+      // status1 : [],
+      branch_selected1 : [],
+      status1 : []
 
     }
   },
@@ -142,7 +170,7 @@ export default {
       // })
     },
   },
-  mounted() {
+  created() {
         firebase.ref("pickup_order/").orderByChild("sellerUid")
                                     .equalTo(auth.currentUser.uid).on('value',snapshot => {
         console.log(snapshot.val())
@@ -155,13 +183,42 @@ export default {
           var date_time_to_order = this.infoPickup[k].status.ordered.date_time_to_order
           var descript = this.infoPickup[k].product_description
           var branch_selected = this.infoPickup[k].branch_selected
-          var status = this.infoPickup[k].status.packing.check_status
-        
+          var status 
+
+          if(this.infoPickup[k].status.packing.check_status == false ){
+            status = "ordered"
+          }else if(this.infoPickup[k].status.delivery.check_status == false ){
+            status = "packing"
+          }else if(this.infoPickup[k].status.atstore.check_status == false ){
+            status = "delivery"
+          }else if(this.infoPickup[k].status.complete.check_status == false ){
+            status = "atstore"
+          }else if(this.infoPickup[k].status.return.check_status == false ){
+            status = "complete"
+          }else if(this.infoPickup[k].status.return.check_status == true ){
+            status = "return"
+          }
+
           
+        
+          this.status[i] = status
           this.orderDate_pickup[i] = date_time_to_order
           this.branch_selected[i] = branch_selected
-          this.status[i] = status
-   
+          // this.status[i] = status
+
+          for(var q = 0 ; q < this.orderDate_pickup.length ; q++){
+          this.filterDate[q] = this.orderDate_pickup[q]
+        }
+        this.filterDate.reverse()
+        for(var a = 0 ;a < this.filterDate.length ; a++){
+          for(var b = 0 ; b < this.orderDate_pickup.length ; b++){
+            if(this.filterDate[a] == this.orderDate_pickup[b]){
+              this.keyPickupOrder1[a] = this.keyPickupOrder[b]
+              this.status1[a] = this.status[b]
+              this.branch_selected1[a] = this.branch_selected[b]
+            }
+          }
+        }
           // this.infoDescript = Object.keys(descript)
 
           console.log("hahah")
@@ -174,6 +231,7 @@ export default {
           console.log("hello des")
           console.log(this.infoDescript)    
         }
+        console.log(this.keyPickupOrder1)
       })
   },
   // computed:{
