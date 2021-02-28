@@ -64,9 +64,7 @@ export default {
             status : "ordered",
             seller_name_shop : [],
             getkey : "",
-            isLoading : true,
-            search : ""
-
+            isLoading : true
         }
     },
     // computed : {
@@ -110,7 +108,12 @@ export default {
       Loading
   },
   //getting type of product
+  computed: {
+    // ...mapGetters({
+    //   getProductType : "getProductType"
+    // }),
 
+  },
   //Filtering description of product
   filters : {
     shortDescription(value) {
