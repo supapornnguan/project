@@ -3,10 +3,10 @@
     <navbar/>
     <div class="regisSeller">
        
-        <h1 class="openshop" v-if="step!=4">OPEN SHOP</h1>
-
+        <h1 class="openshop">OPEN SHOP</h1>
+    <div>
     <!-- form1-->
-    <sui-form v-if="step==1">
+    <sui-form>
         <sui-form-field required >
             <label class="labelRegisSeller" >EMAIL</label>
             <input 
@@ -55,9 +55,10 @@
                 <span is="sui-label" basic color="red" pointing v-if="Seller.seller_password != Seller.repassword">Password mismatch</span>
         </sui-form-field>
     </sui-form>
+    <br>
 
     <!-- form2 -->
-     <sui-form v-if="step==2">
+     <sui-form>
         <sui-form-field required class="box1">
             <label class="labelRegisSeller">FIRSTNAME</label>
             <input 
@@ -149,10 +150,10 @@
 
 
     </sui-form>
-
+    <br>
 
     <!-- form3 -->
-        <sui-form v-if="step==3">
+        <sui-form>
         <sui-form-field required id="box1">
             <label class="labelRegisSeller">ACCOUNT HOLDER NAME</label>
             <input 
@@ -209,15 +210,28 @@
         <!-- <button 
         @click="onUpload">upload</button> -->
     </sui-form>
-    <button @click="click1" v-if="step==3" id="buttonChoose">choose Image</button>
-    <button @click="create" v-if="step==3" id="buttonupload">upload</button>
-
+    <button @click="click1" id="buttonChoose">choose Image</button>
+    <button @click="create" id="buttonupload">upload</button>
+    </div>
     <!-- button -->
  
-    <div class="ui button" id="buttonNext" v-on:click="next" v-if="step==1 || step==2">Next</div>
-    <div class="ui submit button" v-if="step==3" v-on:click="next" @click="addSeller();" style="margin-top:50px">Submit</div>
+    <!-- <div disable content="Next" class="ui button" di id="buttonNext" v-on:click="next" v-if="step==1 || step==2">Next</div> -->
+    <!-- <div>
+    
+        <b-button disable id="buttonNext" v-on:click="next" v-if="step==1 || step==2">Next</b-button>
+    </div> -->
+    
+    <div class="ui submit button" @click="addSeller();" style="margin-top:50px">Submit</div>
 
-    <waitVerify v-if="step==4" />
+    <!-- <div>
+            <b-modal ref="my-modal" hide-footer title="REGISTER SUCCESSFULLY">
+                
+                Please wait for verify by SHOPAHOLIC.
+            
+            </b-modal>
+        </div> -->
+
+    
     </div>
 </div>
 </template>
@@ -230,14 +244,13 @@ import {auth} from  "../firebase";
 // const { isNavigationFailure, NavigationFailureType } = VueRouter
 // import router from "../router/index"
 // import VueRouter from 'vue-router'
-
-import waitVerify from "../components/waitingVerify"
 // import axios from "axios";
 import navbar from "../components/navbarSeller"
 export default {
     name : "regisSeller",
     data() {
         return {
+            isActive: false,
             checkPhonenum : false,
             checkLength : false,
             checkzipcodenum : false,
@@ -273,7 +286,7 @@ export default {
          },
          components:{
              navbar,
-             waitVerify
+    
          },
     methods: {  
         create() {
@@ -311,6 +324,7 @@ export default {
         },
         //structure of seller 
         async addSeller(){
+
             this.Seller.timstamp = Date.now();
             this.Seller.verify_seller = false
              let newaddress = {
@@ -337,6 +351,15 @@ export default {
                 timstamp : dateToString(this.Seller.timstamp),
                 seller_address1 : newaddress
             }
+            
+            // this.$refs['my-modal'].show()
+            this.$router.push({name : "waitingVerify"})
+        
+            if(!this.isActive){
+                this.isActive = true   
+            }
+            
+
 
            
 //auth seller
@@ -438,7 +461,7 @@ export default {
     background-color: white;
     border-radius: 10px;
     border: 1px solid black;
-    width: 300px;
+    width: 320px;
     padding: 5px;
 }
 #buttonupload{
