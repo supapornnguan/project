@@ -115,6 +115,9 @@
                 <sui-table-cell style="text-align:center">{{product_unit_price[index]}}</sui-table-cell>
                 <sui-table-cell style="text-align:center">{{quantity[index]}}</sui-table-cell>
                 <sui-table-cell style="text-align:center">{{quantity[index] * product_unit_price[index]}}</sui-table-cell>
+                <sui-table-cell style="text-align:center; color:orange" v-if="check_packing== true && check_shipped== false " ><p>PACKING</p></sui-table-cell>
+                <sui-table-cell style="text-align:center; color:purple" v-if="check_shipped== true && check_atstore== false  " ><p>SHIPPING</p></sui-table-cell>
+                <sui-table-cell style="text-align:center; color:orange" v-if="check_atstore== true && check_complete == false " ><p>AT STORE</p></sui-table-cell>
                 <sui-table-cell style="text-align:center; color:green" v-if="status_return_1[index]== 'RECEIVED' ">{{status_return_1[index]}}</sui-table-cell>
                 <sui-table-cell style="text-align:center; color:red" v-if="status_return_1[index]== 'RETURN' ">{{status_return_1[index]}}</sui-table-cell>
 
@@ -212,7 +215,7 @@
                         <sui-table-header-cell style="text-align:center">Price (THB)</sui-table-header-cell>
                         <sui-table-header-cell style="text-align:center">Quantity</sui-table-header-cell>
                         <sui-table-header-cell style="text-align:center">Sub Total (THB)</sui-table-header-cell>
-                        <sui-table-header-cell style="text-align:center">Status</sui-table-header-cell>
+                        <!-- <sui-table-header-cell style="text-align:center">Status</sui-table-header-cell> -->
 
                     </sui-table-row>
                 </sui-table-header>
@@ -229,9 +232,10 @@
             <h4 style="margin-left:700px; font-weight:600; margin-top:30px; margin-bottom:30px" >Total Amount:  {{total_amount}}.00 THB</h4>
 
         </div>
-            <b-button variant="secondary" v-if="orderDetail.type=='PICK-UP' && check_complete==false " style="margin-left:450px">Cancle Order</b-button>
-            <b-button variant="secondary" v-if="!check_complete" style="margin-left: 20px;">Confirm Order</b-button>
+            <b-button variant="secondary" v-if="orderDetail.type==='PICK-UP' " style="margin-left:450px">Cancle Order</b-button>
+            <!-- <b-button variant="secondary" v-if="!check_complete" style="margin-left: 20px;">Confirm Order</b-button> -->
             <b-button variant="secondary" style="margin-left: 450px;" v-if="orderDetail.type == 'SHIPPING' " :disabled="check_payment" @click="uploadSlip()">Upload Slip</b-button>
+            <!-- <p>{{orderDetail.type}}</p> -->
             <!-- <p>{{check_shipped}}</p>
             <p>{{check_complete}}</p> -->
             
@@ -260,7 +264,7 @@ export default {
             store_pickup : [],
             show : 1,
             check_shipped : false,
-            check_complete : true,
+            check_complete : false,
             check_payment : false,
             check_packing : false,
             check_atstore : false,
