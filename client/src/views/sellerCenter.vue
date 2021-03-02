@@ -48,7 +48,7 @@ import myshop from "../components/myshop"
 export default {
   data() {
     return {
-      items: ['DASH BOARD', 'ADD PRODUCT', 'MY ORDERS', 'MY SHOP', 'FINANCE'],
+      items: ['DASH BOARD', 'ADD PRODUCT', 'MY ORDERS', 'MY SHOP'],
       active: 'DASH BOARD',
       infoOrder : {},
       keyOrder : [],

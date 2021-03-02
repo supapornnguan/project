@@ -37,33 +37,11 @@
         </sui-grid-column>
       </sui-grid-row>
     </sui-grid>
-    <h3 id="spaceLeftRight" is="sui-header" align=center block>
+    <!-- <h3 id="spaceLeftRight" is="sui-header" align=center block>
     STATISTICS
-    </h3>
-    <sui-grid :columns="3">
+    </h3> -->
+    <!-- <sui-grid>
       <sui-grid-row id="spaceLeftRight" stretched>
-        <sui-grid-column>
-          <sui-segment>
-            <div class="single-example" align=center>
-              <sui-statistic>
-                <sui-statistic-label>RATING</sui-statistic-label>
-                <sui-statistic-value>4.5</sui-statistic-value>
-                <sui-statistic-label>(+4%)</sui-statistic-label>
-              </sui-statistic>
-            </div>
-          </sui-segment>
-        </sui-grid-column>
-        <sui-grid-column>
-          <sui-segment>
-            <div class="single-example" align=center>
-              <sui-statistic>
-                <sui-statistic-label>ORDERS SUCCESSFUL</sui-statistic-label>
-                <sui-statistic-value>200</sui-statistic-value>
-                <sui-statistic-label>(+12%)</sui-statistic-label>
-              </sui-statistic>
-            </div>
-          </sui-segment>
-        </sui-grid-column>
         <sui-grid-column>
           <sui-segment>
             <div class="single-example" align=center>
@@ -76,7 +54,7 @@
           </sui-segment>
         </sui-grid-column>
       </sui-grid-row>
-    </sui-grid>
+    </sui-grid> -->
   </div>
 </template>
 
@@ -90,11 +68,15 @@ export default {
       numInfo_pickup : [],
       infoProduct_shipping : {},
       numInfo_shipping : [],
-      total_order : 0
+      total_order : 0,
+      check_status_complete : [],
+      product_description : [],
+      status_product : []
+
+
     }
   },
 
- 
   mounted() {
     firebase.ref("pickup_order/").orderByChild("sellerUid")
                                     .equalTo(auth.currentUser.uid).on("value", snapshot => {
@@ -102,6 +84,16 @@ export default {
       this.infoProduct_pickup = snapshot.val()
       this.numInfo_pickup = Object.keys(this.infoProduct_pickup)
       console.log(this.numInfo_pickup)
+      for(var i = 0 ; i < this.numInfo_pickup.length ; i++){
+        var  k = this.numInfo_pickup[i]
+        this.check_status_complete[i] = this.infoProduct_pickup[k].status.complete.check_status
+        if(this.check_status_complete[i] == true){
+          this.product_description.push(this.infoProduct_pickup[k].product_description)
+      } 
+      }
+      
+console.log(this.check_status_complete)
+console.log(this.product_description)
     })
 
     firebase.ref("shipping_order/").orderByChild("sellerUid")
@@ -110,7 +102,7 @@ export default {
       this.numInfo_shipping = Object.keys(this.infoProduct_shipping)
     })
 
-    // this.total_order = this.numInfo_pickup.length + this.infoProduct_shipping.length
+    
     
   },
   

@@ -22,7 +22,7 @@
     </sui-table-header>
 
     <sui-table-body v-for="(key,index) in tracking_no" :key="index">
-      <sui-table-row v-if="check_status[index] == false && check_status_return[index] ==false " >
+      <sui-table-row  >
         <sui-table-cell style="text-align:center"> <router-link :to="{name : 'DetailOrderatstore', params : {idTrackAtstore : tracking_no[index]} }">{{tracking_no[index]}}</router-link></sui-table-cell>
         <sui-table-cell style="text-align:center">{{date_received[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{seller_name_shop[index]}}</sui-table-cell>

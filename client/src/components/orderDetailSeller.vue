@@ -113,7 +113,7 @@
                 <p style="display:inline">{{date_time_to_order}}</p>
             </div>            
         </div>
-        <b-button id="show-btn" variant="secondary" style="margin-left:400px" :disabled="status_order"  @click="showModal">CONFIRM ALL ORDER</b-button>
+        <b-button id="show-btn" variant="secondary" style="margin-left:400px" :disabled="status_order"  @click="showModal">CONFIRM ORDER</b-button>
         <!-- <button id="confirmButton" style="margin-left:400px"  @click="confirmOrder(orderDetail.keysOrder,orderDetail.type)">CONFIRM ALL ORDER</button> -->
         <p>{{orderDetail.type}}</p>
 

@@ -44,7 +44,7 @@
 
 
                 <div class="circle" style="position:absolute; left:650px" v-if="check_complete==true"></div>
-                <div class="circle1" style="position:absolute; left:650px" v-if="check_complete==true"></div>
+                <div class="circle1" style="position:absolute; left:650px" v-if="check_complete==false"></div>
                 <p style="position:absolute; top: 120px;left: 760px;">Complete</p>
             </sui-segment>
 
@@ -356,7 +356,14 @@ export default {
                     this.status_return_1[i] = "RETURN"
                     this.product_unit_price[i] = this.product_description[i].product_unit_price
                     this.quantity[i] = this.product_description[i].quantity
-                }else if(this.status_return[i] == false && this.check_complete == true){
+                } if(this.check_complete == false){
+                    console.log(this.check_complete)
+                    this.status_return_1[i] = "PENDING"
+                    this.product_unit_price[i] = this.product_description[i].product_unit_price
+                    this.quantity[i] = this.product_description[i].quantity
+                    this.total_amount += (this.quantity[i] * parseInt(this.product_unit_price[i]))
+                }
+                if(this.status_return[i] == false && this.check_complete == true){
                     this.status_return_1[i] = "RECEIVED"
                     this.product_unit_price[i] = this.product_description[i].product_unit_price
                     this.quantity[i] = this.product_description[i].quantity

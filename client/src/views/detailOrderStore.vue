@@ -119,7 +119,7 @@
             </sui-accordion-content>
         </sui-accordion>
         <p style="margin-left:1000px; font-size:25px; font-weight:700">Total : {{this.totalOrder()}} .00 THB</p>
-        <p>{{selected}}</p>
+        <!-- <p>{{selected}}</p> -->
         </div>
 
 
@@ -138,10 +138,10 @@
 
         <b-modal ref="my-modal1" hide-footer title="CONFIRMATION">
             <div class="d-block text-center" style="margin-bottom:50px">
-                <h3>Confirm receive order</h3>
+                <p>Confirm receive order</p>
             </div>
             <b-button variant="secondary" style="margin-left:290px"  @click="hideModal1">Cancel</b-button>
-            <b-button variant="secondary" style="margin-left:10px" @click="receiveOrder1(orderidParams)">confirm1188</b-button>
+            <b-button variant="secondary" style="margin-left:10px" @click="receiveOrder1(orderidParams)">confirm</b-button>
         </b-modal>
         
     </div>

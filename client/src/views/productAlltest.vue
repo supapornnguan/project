@@ -9,15 +9,15 @@
         </loading>
       <!-- <search/> -->
 
-    <!-- <input type="text" v-model="search"> -->
+    <input type="text" v-model="search">
 
 
 
-      <h1 style="position:absolute; left:100px; font-weight:600; margin-top:100px">{{this.$route.params.category}}</h1>
-      <!-- <h4 style="position:absolute; left:100px; top:300px">FILTER BY</h4> -->
+      <h1 style="margin-left:100px; left:100px; font-weight:600">"PET"</h1>
+      <h4 style="position:absolute; left:100px; top:300px">FILTER BY</h4>
     <div class="con">
     
-    <sui-card-group :items-per-row="3" style="margin-top:120px" >
+    <sui-card-group :items-per-row="3" >
       <sui-card 
         v-for="(key,index) in keysProduct" 
         :key="index" 
@@ -141,24 +141,27 @@ export default {
       }
     }
   },
-  created() {
-    console.log(this.$route.params.category)
-    this.getkey = this.$route.params.category
-    console.log(this.getkey)
+//   created() {
+//     console.log(this.$route.params.category)
+//     this.getkey = this.$route.params.category
+//     console.log(this.getkey)
     
-  },
+//   },
   mounted() {
     // this.getProducts();
    
     //geting all product from database
     this.isLoading = true
-    firebase.ref('product/').orderByChild('product_category').equalTo(this.$route.params.category).on('value', (snapshot) => {
+    firebase.ref('product/').orderByChild('product_category').equalTo("PET").on('value', (snapshot) => {
       this.products = snapshot.val()
       this.keysProduct = Object.keys(snapshot.val())
       // console.log("this is keyProduct "+this.keysProduct)
       
+        let product_test = []
+
       for(var i=0 ; i< this.keysProduct.length ; i++){
         var k = this.keysProduct[i];
+
         var product_name = this.products[k].product_name
         var product_quantity = this.products[k].product_quantity
         var product_image = this.products[k].product_image
@@ -174,10 +177,25 @@ export default {
         this.product_detail[i] = product_detail
         this.sellerUid[i] = sellerUid
         this.seller_name_shop[i] = seller_name_shop
+
+        let test = {
+            info :[ {
+            product_name : this.product_name[i],
+            product_quantity : this.product_quantity[i],
+            product_image : this.product_image[i],
+            product_unit_price : this.product_unit_price[i],
+            product_detail : this.product_detail[i]
+            }]
+            
+        }
+
+        product_test.push(test)
         
       }
+      console.log(product_test)
        this.isLoading = false
     })
+
    
      
   },

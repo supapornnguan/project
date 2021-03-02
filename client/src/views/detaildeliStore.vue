@@ -24,7 +24,7 @@
 
     
     <sui-table-body v-for="(key,index) in tracking_no1" :key="index">
-      <sui-table-row v-if="check_status[index] == false">
+      <sui-table-row>
         <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailTrackStore', params : {idTrack : tracking_no1[index]} }">{{tracking_no1[index]}}</router-link></sui-table-cell>
         <sui-table-cell style="text-align:center">{{delivery_date1[index]}}</sui-table-cell>
       </sui-table-row>
@@ -137,6 +137,7 @@ export default {
           console.log(this.check_status[i])
 
           if(this.branch_selected[i] === this.$route.params.idStoreDeli){
+            console.log("kkkk")
             
             var tracking_no1 = this.info_pickup_order[k].tracking_no.tracking_no
             var delivery_date1 = this.info_pickup_order[k].status.delivery.date_time_to_order

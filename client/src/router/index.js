@@ -173,6 +173,11 @@ const routes =[
     name : 'waitingVerify',
     component : () => import('../views/waitingVerify.vue'),
   },
+  {
+    path : '/productAlltest',
+    name : 'productAlltest',
+    component : () => import('../views/productAlltest.vue'),
+  }
   // {
   //   path: '/homeStore',
   //   name : 'homeStore',

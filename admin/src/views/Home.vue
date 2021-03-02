@@ -3,7 +3,7 @@
     <h3 style="font-weight:600">TO-DO-LIST</h3>
     <br>
     <div id="todo1">
-      <sui-grid :columns="3" id="todo">
+      <sui-grid :columns="2" id="todo">
         <sui-grid-row stretched>
           <sui-grid-column>
             <sui-segment @click="gotoVerifyStore">
@@ -33,20 +33,7 @@
               </div>
             </sui-segment>
           </sui-grid-column>
-          <sui-grid-column>
-            <sui-segment>
-              <div align=center>
-              <img src="../assets/bank.png" :width="50">
-              <br>
-              <br>
-                <sui-statistic>
-                  <sui-statistic-value>{{numBankTran.length}}</sui-statistic-value>
-                  <br>
-                  <sui-statistic-label>Bank Transfer</sui-statistic-label>
-                </sui-statistic>
-              </div>
-            </sui-segment>
-          </sui-grid-column>
+  
         </sui-grid-row>
       </sui-grid>
     </div>

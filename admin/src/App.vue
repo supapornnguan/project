@@ -14,7 +14,7 @@
       </div>
       
       <div id="divvv">
-        <router-link to="/userManageHome" id="menu1">USER MANAGEMENT</router-link>
+        <router-link to="/userManageHome" id="menu1">CUSTOMER MANAGEMENT</router-link>
       </div>
       
       <div id="divvv">

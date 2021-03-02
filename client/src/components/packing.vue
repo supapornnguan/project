@@ -156,19 +156,33 @@
         <b-form-input v-model="tracking_no"  placeholder="Tracking No."></b-form-input>
       </div>
 
-      <b-button class="mt-2" variant="secondary" style="margin-left:300px; " @click="submitModal">Submit</b-button>
+      <b-button class="mt-2" variant="secondary" style="margin-left:300px; " @click="submitModal(tracking_no)">Submit</b-button>
       <b-button class="mt-2" variant="secondary" style="margin-left:10px; "  @click="hideModal">Cancle</b-button>
     </b-modal>
 
     <b-modal ref="my-modal1" hide-footer title="CONFIRMATION">
         <div class="d-block text-center" style="margin-bottom:30px">
-        
-        
+
       </div>
 
       <b-button class="mt-2" variant="secondary" style="margin-left:300px; " @click="okModal">OK</b-button>
       <b-button class="mt-2" variant="secondary" style="margin-left:10px; "  @click="cancleModal">Cancle</b-button>
     </b-modal>
+
+
+    <b-modal ref="my-modal2" hide-footer title="Warning">
+      <div class="d-block text-center" style="margin-bottom:30px">
+        <p>Tracking is required</p>
+
+      </div>
+
+      <b-button class="mt-2" variant="secondary" style="margin-left:220px; " @click="okModal1">OK</b-button>
+    </b-modal>
+
+
+
+
+
       </sui-accordion-content>
     </sui-accordion>
 
@@ -213,13 +227,21 @@ export default {
       hideModal() {
         this.$refs['my-modal'].hide()
       },
-      submitModal() {
+      submitModal(tracking_no) {
+        if(tracking_no == ""){
+          this.$refs['my-modal2'].show()
+        }else{
           this.$refs['my-modal'].hide()
           this.$refs['my-modal1'].show()
+        }
+          
       },
       cancleModal() {
           this.$refs['my-modal1'].hide()
           this.$refs['my-modal'].show()
+      },
+      okModal1(){
+        this.$refs['my-modal2'].hide()
       },
       okModal(){
           this.$refs['my-modal1'].hide()

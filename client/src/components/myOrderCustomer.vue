@@ -28,22 +28,22 @@
          
           <p style="display:inline; position:absolute; left:590px; top:20px;">{{ store_pickup1[index]}}</p>
           <p style="display:inline; position:absolute; left:800px; top:20px;">
-            <sui-label horizontal v-if="status1[index] === 'ordered'">
+            <sui-label horizontal v-if="status1[index] === 'ordered'" style="width:100px; text-align:center">
               ordered
             </sui-label>
-            <sui-label color="orange" horizontal v-if="status1[index] === 'packing'">
+            <sui-label color="orange" horizontal v-if="status1[index] === 'packing'" style="width:100px; text-align:center">
               packing
             </sui-label>
-            <sui-label color="yellow" horizontal v-if="status1[index] === 'delively'">
+            <sui-label color="yellow" horizontal v-if="status1[index] === 'delively'" style="width:100px; text-align:center">
               ordered
             </sui-label>
-            <sui-label color="blue" horizontal v-if="status1[index] === 'atstore'">
+            <sui-label color="blue" horizontal v-if="status1[index] === 'atstore'" style="width:100px; text-align:center">
               atstore
             </sui-label>
-            <sui-label color="green" horizontal v-if="status1[index] === 'complete'">
+            <sui-label color="green" horizontal v-if="status1[index] === 'complete'" style="width:100px; text-align:center">
               complete
             </sui-label>
-            <sui-label color="red" horizontal v-if="status1[index] === 'return'">
+            <sui-label color="red" horizontal v-if="status1[index] === 'return'" style="width:100px; text-align:center">
               return
             </sui-label>
             </p>
@@ -66,22 +66,22 @@
           <p style="display:inline; position:absolute; left:35px; top:20px;">{{filterDate1[index]}}</p>
           <p style="display:inline; position:absolute; left:340px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
           <p style="display:inline; position:absolute; left:710px; top:20px;">
-            <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'">
+            <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'" style="width:100px; text-align:center">
               unpaid
             </sui-label>
-            <sui-label color="purple" horizontal v-if="status_ship[index] === 'paid'">
+            <sui-label color="purple" horizontal v-if="status_ship[index] === 'paid'" style="width:100px; text-align:center">
               paid
             </sui-label>
-            <sui-label horizontal v-if="status_ship[index] === 'verifyslip'">
+            <sui-label horizontal v-if="status_ship[index] === 'verifyslip'" style="width:100px; text-align:center">
               verifyslip
             </sui-label>
-            <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'">
+            <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'" style="width:100px; text-align:center">
               packing
             </sui-label>
-            <sui-label color="yellow" horizontal v-if="status_ship[index] === 'delivery'">
+            <sui-label color="yellow" horizontal v-if="status_ship[index] === 'delivery'" style="width:100px; text-align:center">
               delivery
             </sui-label>
-            <sui-label color="green" horizontal v-if="status_ship[index] === 'complete'">
+            <sui-label color="green" horizontal v-if="status_ship[index] === 'complete'" style="width:100px; text-align:center">
               complete
             </sui-label>
             </p>
