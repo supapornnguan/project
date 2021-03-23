@@ -59,7 +59,7 @@
     <sui-table-body v-for="(key,index) in key_order" :key="index">
       <sui-table-row v-if="branch_selected[index] == 'PU02'">
         <!-- <sui-table-cell>{{tracking_number[index]}}</sui-table-cell> -->
-        <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell><a href="#"  @click="ProductDetail(key)" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_return[index]}}</sui-table-cell>
         <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
         <sui-table-cell>{{number_of_product[index]}}</sui-table-cell>
@@ -86,7 +86,7 @@
     <sui-table-body v-for="(key,index) in key_order" :key="index">
       <sui-table-row v-if="branch_selected[index] == 'PU03'">
         <!-- <sui-table-cell>{{tracking_number[index]}}</sui-table-cell> -->
-        <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell><a href="#"  @click="ProductDetail(key)" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_return[index]}}</sui-table-cell>
         <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
         <sui-table-cell>{{number_of_product[index]}}</sui-table-cell>
@@ -114,7 +114,7 @@
     <sui-table-body v-for="(key,index) in key_order" :key="index">
       <sui-table-row v-if="branch_selected[index] == 'PU04'">
         <!-- <sui-table-cell>{{tracking_number[index]}}</sui-table-cell> -->
-        <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell><a href="#"  @click="ProductDetail(key)">{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_return[index]}}</sui-table-cell>
         <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
         <sui-table-cell>{{number_of_product[index]}}</sui-table-cell>
@@ -142,7 +142,7 @@
     <sui-table-body v-for="(key,index) in key_order" :key="index">
       <sui-table-row v-if="branch_selected[index] == 'PU05'">
         <!-- <sui-table-cell>{{tracking_number[index]}}</sui-table-cell> -->
-        <sui-table-cell><a href="#" >{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell><a href="#"  @click="ProductDetail(key)" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{date_time_return[index]}}</sui-table-cell>
         <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
         <sui-table-cell>{{number_of_product[index]}}</sui-table-cell>
@@ -239,7 +239,8 @@ export default {
             product_unit_price_modal : [],
             quantity_modal : [],
             seller_name_shop_modal : [],
-            total_amount_modal : []
+            total_amount_modal : [],
+            date_time_return2 : []
 
   
       
@@ -299,12 +300,13 @@ export default {
             for(var a = 0 ; a <this.product_description[j].length ; a++){
               console.log(this.product_description[j])
               if(this.product_description[j][a].status.return_product.check_status == true){
-                  this.date_time_return.push(this.product_description[j][a].status.return_product.return_date)
+                  // this.date_time_return.push(this.product_description[j][a].status.return_product.return_date)
                   this.key_order.push(this.keysOrder[j])
                   this.key_order = [ ...new Set(this.key_order) ]
               }
             }
           }
+          // console.log(this.date_time_return)
           for(var q = 0 ; q < this.keysOrder.length ; q++){
             var e = this.keysOrder[q]
             console.log(e)
@@ -312,18 +314,23 @@ export default {
               if(this.keysOrder[q] == this.key_order[t]){
                 console.log(this.key_order[q])
                 this.product_des[t] = this.infoOrder[e].product_description
+                console.log(this.product_des[t])
                 var count = 0 
                 var total = 0
                 var branch_selected = this.infoOrder[e].branch_selected
                 for(var y =0  ;y < this.product_des[t].length ; y++){
                   var status = this.product_des[t][y].status.return_product.check_status
+
                   if(status == true){
+                    this.date_time_return.push(this.product_des[t][y].status.return_product.return_date)
                     var price = this.product_des[t][y].product_unit_price
                     var qty = this.product_des[t][y].quantity
-                    count = count+1
+                    count = count+qty
                     total += price* qty
                   }
                 }
+                this.date_time_return = [ ...new Set(this.date_time_return) ]
+                this.date_time_return2.push(this.date_time_return)
                 this.branch_selected.push(branch_selected)
                 this.number_of_product.push(count)
                 this.total_amount.push(total)
@@ -334,6 +341,9 @@ export default {
           console.log(this.product_description)
           console.log(this.number_of_product)
           console.log(this.total_amount)
+          console.log(this.date_time_return)
+          console.log(this.key_order)
+          // console.log(this.date_time_return2[-1])
         })
     },
     mounted() {

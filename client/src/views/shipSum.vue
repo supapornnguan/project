@@ -54,15 +54,16 @@
             </sui-table-body>
         </sui-table>
         <p id="successWord1">Plase transfer money within 7 days. <br> If overdue,your order will be cancled.</p>
-        <button id="buttonUplaod" @click="gotoUploadSlip">BACK TO MAIN PAGE</button>
+        <button id="buttonUplaod" @click="gotoHomePage">BACK TO MAIN PAGE</button>
         
     </div>
 </template>
 <script>
 import navbar from "../components/navbar"
-import {mapGetters} from "vuex"
+import {mapGetters, mapActions} from "vuex"
 import firebase from "../firebase"
 import {auth} from "../firebase"
+
 export default {
     data() {
         return {
@@ -75,8 +76,16 @@ export default {
         navbar
     },
     methods: {
-        gotoUploadSlip(){
+        ...mapActions(['removeItemInCart']),
+        gotoHomePage(){
             this.$router.replace('/')
+            if(this.checkPage.check==true){
+                for(var i = 0 ; i< this.summaryCart.length ; i++){
+                this.removeItemInCart({
+                    keysProduct : this.summaryCart[i].keysProduct
+                })
+            }
+            }   
         }
     },
     computed: {
@@ -85,7 +94,8 @@ export default {
             summary : "getSummaryPage",
             type : "getReceivingType",
             checkPage : "getStateIscart",
-            cartList : "cartItemList"
+            cartList : "cartItemList",
+            summaryCart : "getSummaryCart",
         })
 
     },

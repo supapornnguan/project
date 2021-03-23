@@ -1,45 +1,34 @@
 <template>
-    <div>
-        <button @click="send">sends</button>
-        
-    </div>
+  <div>
+    <button @click="sendEmail" >send</button>
+
+  </div>
 </template>
+
 <script>
-import nodemailer from "../nodemailer"
-
+import emailjs from 'emailjs-com';
+// import{ init } from 'emailjs-com';
+// init("user_5dyI9G8yYC3Cf29ssQmCL");
 export default {
-    methods: {
-        send(){
-           
-
-const transporter = nodemailer.createTransport({
-  service: 'hotmail',
-  auth: {
-    user: 'supapronnguan@hotmail.com', // your email
-    pass: 'Numwan14477'              // your password
-  }
-});
-
-const mailOptions = {
-  from: 'shopngnguan@hotmail.com',              // sender
-  to: 'supapronnguan@hotmail.com',              // list of receivers
-  subject: 'Hello from sender',            // Mail subject
-  html: '<b>Do you receive this mail?</b>' // HTML body
-};
-
-transporter.sendMail(mailOptions, function (err, info) {
-   if(err)
-     console.log(err)
-   else
-     console.log(info);
-});
+  methods: {
+    sendEmail: () => {
 
 
-        }
-    },
+    var templateParams = {
+    from_name: 'shopaholic',
+    to_name: 'seller center',
+    reply_to : '2020shopaholic@gmail.com'
+    };
     
+      emailjs.send('service_zqe19ol', 'template_v4hansp',templateParams, 'user_5dyI9G8yYC3Cf29ssQmCL')
+        .then(() => {
+            console.log('SUCCESS!');
+        }, (error) => {
+            console.log('FAILED...', error);
+        });
+
+
+    }
+  }
 }
 </script>
-<style scoped>
-    
-</style>

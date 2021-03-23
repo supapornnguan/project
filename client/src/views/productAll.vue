@@ -10,6 +10,10 @@
       <!-- <search/> -->
 
     <!-- <input type="text" v-model="search"> -->
+      <div style="position:absolute; top:130px; width:400px; margin-left:550px;">
+    <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
+  </div>
+
 
 
 
@@ -19,14 +23,14 @@
     
     <sui-card-group :items-per-row="3" style="margin-top:120px" >
       <sui-card 
-        v-for="(key,index) in keysProduct" 
+        v-for="(key,index) in resultQuery" 
         :key="index" 
         style="height:490px">
         
-          <img :src="product_image[index]" id="img1" @click="gotoInfoproduct(key)" :width="280" :height="230">
-          <p style="position:absolute; top:270px; font-weight:800">{{product_name[index]}}</p>
-          <p style="position:absolute; top:315px">{{product_detail[index] | shortDescription}}</p>
-          <p style="position:absolute; top:380px">{{product_unit_price[index]}}  THB</p>
+          <img :src="resultQuery[index].product_image" id="img1" @click="gotoInfoproduct(keysProduct[index])" :width="280" :height="230">
+          <p style="position:absolute; top:270px; font-weight:800">{{resultQuery[index].product_name}}</p>
+          <p style="position:absolute; top:315px">{{resultQuery[index].product_detail | shortDescription}}</p>
+          <p style="position:absolute; top:380px">{{resultQuery[index].product_unit_price}}  THB</p>
           <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:410px; left:10px"/>
         <button class= "buttonCart" @click="addItem(index)" style="position:absolute; top:440px; ">ADD TO CART</button>
       </sui-card>
@@ -76,7 +80,9 @@ export default {
             getkey : "",
             isLoading : true,
             search : "",
-            product_list : []
+            product_list : [],
+            searchQuery: null,
+            detail : []
 
         }
     },
@@ -125,9 +131,16 @@ export default {
   },
   //getting type of product
   computed: {
-    // ...mapGetters({
-    //   getProductType : "getProductType"
-    // }),
+      resultQuery() {
+      if(this.searchQuery){
+        return this.detail.filter((item)=>{
+        return item.product_name.toLowerCase().includes(this.searchQuery.toLowerCase());
+      })
+      }else{
+        return this.detail;
+      }
+}
+    
 
   },
   //Filtering description of product
@@ -167,6 +180,8 @@ export default {
         var sellerUid = this.products[k].sellerUid
         var seller_name_shop = this.products[k].seller_name_shop
 
+       
+
         this.product_name[i] = product_name
         this.product_quantity[i] = product_quantity
         this.product_image[i] = product_image
@@ -174,9 +189,19 @@ export default {
         this.product_detail[i] = product_detail
         this.sellerUid[i] = sellerUid
         this.seller_name_shop[i] = seller_name_shop
-        
+
+        var detailProduct = {
+          product_name : this.product_name[i],
+          product_image : this.product_image[i],
+          product_unit_price : this.product_unit_price[i],
+          product_detail : this.product_detail[i],
+        }
+
+        this.detail.push(detailProduct)
       }
+      console.log(this.detail)
        this.isLoading = false
+
     })
    
      

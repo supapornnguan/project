@@ -15,6 +15,9 @@
 
       <p style="font-weight:600; font-size:20px; margin-top:20px; margin-left:30px" v-if="isLoading==false">Tracking No. : {{this.$route.params.idTrack}}</p>
 
+      <div style="width:400px; margin-left:550px; margin-bottom:30px">
+    <input class="form-control" type="text" v-model="searchQuery" placeholder="Search by order ID" />
+  </div>
   <sui-table celled style="width:1000px; margin-left:210px">
     <sui-table-header>
       <sui-table-row v-if="isLoading==false">
@@ -25,8 +28,8 @@
     </sui-table-header>
 
     <sui-table-body v-if="this.isLoading ==  false">
-      <sui-table-row v-for="(key,index) in key_pickup_order_list" :key="index" >
-        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailOrderStore' , params : {idOrder : key}}">{{key_pickup_order_list[index].substring(1,100)}} </router-link></sui-table-cell>
+      <sui-table-row v-for="(key,index) in resultQuery" :key="index" >
+        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailOrderStore' , params : {idOrder : key}}">{{resultQuery[index].substring(1,100)}} </router-link></sui-table-cell>
         <sui-table-cell style="text-align:center"  >{{customer_firstname[index] }} {{customer_lastname[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{status1[index]}}</sui-table-cell>
       </sui-table-row>
@@ -64,10 +67,23 @@ export default {
             userid1 : [],
             customer_firstname : [],
             customer_lastname : [],
-            status1 : []
+            status1 : [],
+            searchQuery : null
 
         }
     },
+    computed : {
+
+    resultQuery() {
+      if(this.searchQuery){
+        return this.key_pickup_order_list.filter((item)=>{
+        return item.toLowerCase().includes(this.searchQuery.toLowerCase());
+      })
+      }else{
+        return this.key_pickup_order_list;
+      }
+  }
+},
     components: {
       Loading
     },

@@ -11,7 +11,7 @@
                 ref="input1"
                 style="display:none"
                 @change="previewImage2">
-                <p>{{img.name}}</p>
+                <!-- <p>{{img.name}}</p> -->
 
                 <button @click="click1" class="chooseImage">Choose Image</button>
                 <button @click="create" class="upload">upload</button>
@@ -21,24 +21,46 @@
         </div>
         <div id="formTransfer">
             <sui-form>
-                <sui-form-field>
+                <sui-form-field required>
                     <label style="text-align:left">Last 4 digits of bank account</label>
                     <input 
                         type="number"
                         placeholder="Last 4 digits of bank account"
-                        v-model="fourdigits" />
+                        v-model="fourdigits"
+                        max=4 />
+                <p style="text-align:left; color:red" v-if="fourdigits == '' ">Four digits is required</p>
                 </sui-form-field>
-                <sui-form-field>
+                <sui-form-field required >
                     <label style="text-align:left">Amount of transfer</label>
                     <input 
                         type="number"
                         placeholder="Amount of transfer"
-                        v-model="total_amount" />
+                        v-model="total_amount"
+                        
+                         />
+                <p style="text-align:left; color:red" v-if="total_amount == '' ">Amount of transfer is required</p>
+                <p>{{warn}}</p>
+                    
+                    
                 </sui-form-field>
             </sui-form>
-            <sui-button type="submit" style="margin-left:150px; margin-top:20px" @click="submitSlip">Submit</sui-button>
-            <p>{{this.$route.params.orderId}}</p>
+            <sui-button type="submit" style="margin-left:150px; margin-top:20px" @click="submitSlip(img,fourdigits,total_amount)">Submit</sui-button>
+            <!-- <p>{{this.$route.params.orderId}}</p> -->
         </div>
+
+          <div>
+    <b-modal ref="my-modal" hide-footer title="Warning">
+      <div class="d-block ">
+          <p v-if="img == '' " style="text-align:center">image field is required.</p>
+          <p v-if="fourdigits == '' " style="text-align:center">four digits field is required.</p>
+          <p v-if="total_amount == '' " style="text-align:center">total amount field is required.</p>
+      </div>
+      <b-button class="mt-3"  variant="secondary" style="margin-left:220px" @click="hideModal">OK</b-button>
+
+    </b-modal>
+  </div>
+
+
     </div>
 </template>
 <script>
@@ -59,7 +81,8 @@ export default {
             total_amount : "",
             value : "",
             uploadvalue : 0,
-            keyOrder : ""
+            keyOrder : "",
+   
         }
     },
     components:{
@@ -100,7 +123,23 @@ export default {
                 })
             })
         },
-        async submitSlip(){
+        hideModal () {
+            this.$refs['my-modal'].hide()
+            
+        },
+        async submitSlip(img,fourdigits,total_amount){
+            if(total_amount == ""){
+                this.$refs['my-modal'].show()
+            }else{
+                this.warn =0
+            }
+            if(fourdigits == ""){
+                this.$refs['my-modal'].show()
+            }
+            if(img == "" ){
+                this.$refs['my-modal'].show()
+            }
+            if(total_amount != "" && fourdigits != "" && img != "" ){
             this.date_time_submit = Date.now();
             let newSlip = {
                 date_time_submit : dateToString(this.date_time_submit),
@@ -119,7 +158,7 @@ export default {
                                 check_status : true,
                                 date_time_to_order : dateToString(this.date_time_submit)
                             })
-
+            }
         }
     },
 }

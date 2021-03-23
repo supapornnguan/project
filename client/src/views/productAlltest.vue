@@ -36,26 +36,13 @@
 </template>
 
 <script>
-
-// class Post {
-//   constructor(title, link, author, product_image) {
-//     this.title = title;
-//     this.link = link;
-//     this.author = author;
-//     this.product_image = product_image;
-//   }
-// }
-
 import Loading from 'vue-loading-overlay';
     // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
 // import search from "../components/search"
 import navbar from "../components/navbar"
 import firebase from "../firebase"
-
-// import store from "../store"
-// import {auth} from "../firebase"
- import { mapActions} from "vuex"
+import { mapActions} from "vuex"
 
 export default {
     data() {
@@ -82,10 +69,7 @@ export default {
     },
 
     methods: {
-      //go to infomation of product when click on image
       gotoInfoproduct(key){
-        // store.commit('SET_PRODUCT_ID',key)
-        // this.$router.replace('/infoProduct')
         this.$router.push({name : "infoProduct" , params : {productId : key}})
       },
 
@@ -94,13 +78,10 @@ export default {
         return this.product_name.filter(item => {
           return item.product_name.indexOf(text) > -1
       })
-
-
       },
     
 
       ...mapActions(['updateCart']),
-      //add product to the cart when click ADD TO CART button
       addItem(index) {
       const order = {
         keysProduct : this.keysProduct[index],

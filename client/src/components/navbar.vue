@@ -23,12 +23,15 @@
 <script>
 import {auth} from  "../firebase";
 import { mapGetters } from "vuex";
+import store from "../store"
 export default {
   name : "navigation",
   computed: {
     ...mapGetters({
       user : "users",
-      cartList : "cartItemList"
+      cartList : "cartItemList",
+      user1 : "getUserloggedIn",
+      cartlist : "cartItemList"
     }),
   },
   data() {
@@ -49,6 +52,9 @@ export default {
     logout(){
       auth.signOut()
           .then(()=>{
+            store.commit("SET_LOGGED_IN" , false)
+            console.log("log out !!!")
+            console.log(this.user1)
             this.$router.replace('/').catch(()=>{});
           })
     },

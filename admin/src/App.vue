@@ -21,9 +21,6 @@
         <router-link to="/storeManageHome" id="menu1">STORE MANAGEMENT</router-link>
       </div>
       
-      <!-- <div id="divvv">
-        <router-link to="/finance" id="menu1">FINANCE</router-link>
-      </div> -->
     </div>
 
     <router-view/>
@@ -45,7 +42,6 @@ h1{
   height: 1000px;
   margin-top: 30px;
   position: relative;
-
 }
 #menu1{
   color: black;

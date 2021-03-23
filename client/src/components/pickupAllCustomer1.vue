@@ -2,6 +2,7 @@
     <div>
         <!-- pickup -->
         <div  style="margin-top:40px" v-if="orderDetail.type=='PICK-UP' ">
+            <!-- <p>{{orderDetail.keysOrder}}</p> -->
             <sui-segment id="stepSegment" raised>
                 <div class="circle" style="position:absolute; margin-left:175px "></div>
                 <p style="position:absolute; top: 120px;left: 180px;">ordered</p>

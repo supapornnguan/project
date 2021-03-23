@@ -31,7 +31,7 @@ const user = {
             return state.orderDetailUser
         },
         getUserloggedIn ( state ){
-            return state.loggedIn
+            return state.users.loggedIn
         }
     },
     mutations : {

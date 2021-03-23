@@ -22,7 +22,7 @@
 
     <sui-table-body >
       <sui-table-row v-for="(key,index) in key_order" :key="index">
-        <sui-table-cell style="text-align:center"> <a href="#" @click="detailProduct(info_pickup_list[index])">{{info_pickup_list[index].substring(1,100)}}</a> </sui-table-cell>
+        <sui-table-cell style="text-align:center"> <a href="#" @click="detailProduct(key_order[index])">{{key_order[index].substring(1,100)}}</a> </sui-table-cell>
         <sui-table-cell style="text-align:center">{{return_date[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
         <sui-table-cell style="text-align:center">{{number_of_product[index]}}</sui-table-cell>
@@ -158,25 +158,32 @@ export default {
         console.log(snapshot.val())
         this.info_pickup = snapshot.val()
         this.info_pickup_list = Object.keys(snapshot.val())
+        var list_key_order = []
         for(var j =0 ; j< this.info_pickup_list.length ; j++){
           var k = this.info_pickup_list[j]
           var branch_selected = this.info_pickup[k].branch_selected
           this.branch_selected[j] = branch_selected
           if(this.branch_selected[j] == this.$route.params.idStore){
             this.product_description.push(this.info_pickup[k].product_description)
+            list_key_order.push(k)
+            
           }
         }
+        console.log(this.product_description)
+        console.log(list_key_order)
+
         for(var a = 0 ; a< this.product_description.length ; a++){
           for(var b = 0 ; b < this.product_description[a].length ; b++){
             console.log(this.product_description[a][b])
             if(this.product_description[a][b].status.return_product.check_status == true){
               console.log(this.product_description[a][b])
               this.return_date.push(this.product_description[a][b].status.return_product.return_date)
-              this.key_order.push(this.info_pickup_list[a])
+              this.key_order.push(list_key_order[a])
               this.key_order = [ ...new Set(this.key_order) ] //filter duplicate key_order
             }
           }
         }
+        console.log(this.key_order)
         for(var w = 0 ; w < this.info_pickup_list.length ; w++){
           var e = this.info_pickup_list[w]
           console.log(e)

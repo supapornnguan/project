@@ -86,19 +86,19 @@
     <sui-table celled>
     <sui-table-header>
       <sui-table-row>
-        <sui-table-header-cell>Tracking No.</sui-table-header-cell>
         <sui-table-header-cell>Order ID</sui-table-header-cell>
         <sui-table-header-cell>Date received</sui-table-header-cell>
         <sui-table-header-cell>Total Price (THB)</sui-table-header-cell>
+        <sui-table-header-cell>Number of Product</sui-table-header-cell>
         <!-- <sui-table-header-cell>Number of Product</sui-table-header-cell> -->
       </sui-table-row>
     </sui-table-header>
-    <sui-table-body v-for="(key,index) in order" :key="index">
-      <sui-table-row v-if="branch_selected[index] == 'PU04' && status[index] == true && status1[index] == false">
-        <sui-table-cell>{{tracking_number[index]}}</sui-table-cell>
-        <sui-table-cell><a href="#" @click="ProductDetail(key)">{{key.substring(1,100)}}</a></sui-table-cell>
+    <sui-table-body v-for="(key,index) in key_order" :key="index">
+      <sui-table-row v-if="branch_selected[index] == 'PU04' ">
+        <sui-table-cell><a href="#" @click="ProductDetail(key)" >{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell>{{receive_date[index]}}</sui-table-cell>
-        <sui-table-cell>{{total_amount_2[index]}}</sui-table-cell>
+        <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
+        <sui-table-cell>{{number_of_product[index]}}</sui-table-cell>
         <!-- <sui-table-cell>{{quantity_return[index]}}</sui-table-cell> -->
       </sui-table-row>
     </sui-table-body>
@@ -114,19 +114,19 @@
     <sui-table celled>
     <sui-table-header>
       <sui-table-row>
-        <sui-table-header-cell>Tracking No.</sui-table-header-cell>
         <sui-table-header-cell>Order ID</sui-table-header-cell>
         <sui-table-header-cell>Date received</sui-table-header-cell>
         <sui-table-header-cell>Total Price (THB)</sui-table-header-cell>
+        <sui-table-header-cell>Number of Product</sui-table-header-cell>
         <!-- <sui-table-header-cell>Number of Product</sui-table-header-cell> -->
       </sui-table-row>
     </sui-table-header>
-    <sui-table-body v-for="(key,index) in order" :key="index">
-      <sui-table-row v-if="branch_selected[index] == 'PU05' && status[index] == true && status1[index] == false">
-        <sui-table-cell>{{tracking_number[index]}}</sui-table-cell>
-        <sui-table-cell><a href="#" @click="ProductDetail(key)">{{key.substring(1,100)}}</a></sui-table-cell>
-        <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell>
-        <sui-table-cell>{{total_amount_2[index]}}</sui-table-cell>
+    <sui-table-body v-for="(key,index) in key_order" :key="index">
+      <sui-table-row v-if="branch_selected[index] == 'PU05' ">
+        <sui-table-cell><a href="#" @click="ProductDetail(key)" >{{key.substring(1,100)}}</a></sui-table-cell>
+        <sui-table-cell>{{receive_date[index]}}</sui-table-cell>
+        <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
+        <sui-table-cell>{{number_of_product[index]}}</sui-table-cell>
         <!-- <sui-table-cell>{{quantity_return[index]}}</sui-table-cell> -->
       </sui-table-row>
     </sui-table-body>
@@ -288,9 +288,10 @@ export default {
                   
                     var price = this.product_des[t][y].product_unit_price
                     var qty = this.product_des[t][y].quantity
-                    count = count+1
+                    count = count+qty
                     total += price* qty
                   }
+
                 }
                 this.branch_selected.push(branch_selected)
                 this.number_of_product.push(count)
@@ -298,6 +299,7 @@ export default {
               }
             }
           }
+ 
           console.log(this.branch_selected)
           console.log(this.product_description)
           console.log(this.number_of_product)

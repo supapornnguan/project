@@ -108,10 +108,11 @@ export default {
           var k = this.infoPickup_list[i]
           var status = this.infoPickup[k].status.delivery.check_status
           var status1 = this.infoPickup[k].status.atstore.check_status
+          var status2 = this.infoPickup[k].status.complete.check_status
           if(status == true && status1 == false){
             count = count + 1
           }
-          if(status1 == true){
+          if(status1 == true && status2 == false ){
             count1 = count1 + 1 
           }
         var branch_selected = this.infoPickup[k].branch_selected

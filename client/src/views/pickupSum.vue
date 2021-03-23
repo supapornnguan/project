@@ -32,6 +32,7 @@
             </sui-table-body>
 
         </sui-table>
+
         <br>
         <p style="font-weight:600; margin-left:150px;">Pick up at :</p>
         <p style="margin-left:150px;">{{name_store_pickup}}</p>
@@ -55,7 +56,8 @@ export default {
         return {
             name_store_pickup : "",
             address : "",
-            hours : ""
+            hours : "",
+            key_product_clear : []
         }
     },
     name: "pickupSum",
@@ -63,10 +65,18 @@ export default {
         navbar
     },
     methods: {
-        ...mapActions(['clearCart']),
+        ...mapActions(['clearCart','removeItemInCart']),
         gotoHome(){
             this.$router.replace('/')
-            this.clearCart()
+            if(this.checkPage.check==true){
+                for(var i = 0 ; i< this.summaryCart.length ; i++){
+                this.removeItemInCart({
+                    keysProduct : this.summaryCart[i].keysProduct
+                })
+            }
+            }
+            
+            // this.clearCart()
         }
     },
     computed: {

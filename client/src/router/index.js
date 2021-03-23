@@ -177,7 +177,53 @@ const routes =[
     path : '/productAlltest',
     name : 'productAlltest',
     component : () => import('../views/productAlltest.vue'),
-  }
+  },
+  //admin
+  {
+    path : '/HomeAdmin',
+    name : 'HomeAdmin',
+    component : () => import('../views/HomeAdmin.vue'),
+  },
+  {
+  path: '/verifySlip',
+  name: 'verifySlip',
+  component: () => import('../views/verifySlipAdmin.vue')
+  },
+  {
+  path: '/verifyStore',
+  name: 'verifyStore',
+  component: () => import('../views/verifyStoreAdmin.vue')
+  },
+  {
+    path: '/sellerManageHome',
+    name: 'sellerManageHome',
+    component: () => import('../views/sellerManageHomeAdmin.vue')
+  },
+  {
+    path: '/sellerManageInfo/:sellerId',
+    name: 'sellerManageInfo',
+    component: () => import('../views/sellerManageInfoAdmin.vue')
+  },
+  {
+    path: '/userManageHome',
+    name: 'userManageHome',
+    component: () => import('../views/userManageHomeAdmin.vue')
+  },
+  {
+    path: '/userManageInfo/:userId',
+    name: 'userManageInfo',
+    component: () => import('../views/userManageInfoAdmin.vue')
+  },
+  {
+    path: '/storeManageHome',
+    name: 'storeManageHome',
+    component: () => import('../views/storeManageHomeAdmin.vue')
+  },
+  {
+    path: '/storeManageInfo/:storeId',
+    name: 'storeManageInfo',
+    component: () => import('../views/storeManageInfoAdmin.vue')
+  },
   // {
   //   path: '/homeStore',
   //   name : 'homeStore',

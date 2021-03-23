@@ -49,7 +49,7 @@
   </p></b-tab>
 
   <!-- COMPLETE -->
-    <b-tab title="Complete" ><p>
+    <!-- <b-tab title="Complete" ><p>
     <sui-table celled>
     <sui-table-header>
       <sui-table-row>
@@ -80,7 +80,7 @@
       </sui-table-row>
     </sui-table-body>
   </sui-table>
-  </p></b-tab>
+  </p></b-tab> -->
 
   </b-tabs>
 </div>

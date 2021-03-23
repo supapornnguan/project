@@ -19,6 +19,8 @@
 <script>
 import {auth} from  "../firebase";
 import VueRouter from 'vue-router'
+import {mapGetters} from "vuex"
+import store from "../store"
 // import router from "../router"
 const { isNavigationFailure, NavigationFailureType } = VueRouter
 export default {
@@ -32,6 +34,9 @@ export default {
        async loginSuccess(){
            await auth.signInWithEmailAndPassword(this.customer_email,this.customer_password)
                 .then( () =>{
+                    console.log("login")
+                    store.commit("SET_LOGGED_IN" , true)
+                    console.log(this.user1)
                     this.$router.replace({ name: "home" }).catch(failure => {
                         if (isNavigationFailure(failure, NavigationFailureType.redirected)) {
                         // show a small notification to the user
@@ -41,6 +46,11 @@ export default {
                     })
         }
     },
+    computed : {
+       ...mapGetters({
+      user1 : "getUserloggedIn"
+    }),
+    }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
        <navbar/>
-       <searchBar/>
+       <!-- <searchBar/> -->
       <div class="ui container three column grid medium" style="margin-top:10px">
     <div class="column" >
          <img class="ui rounded image centered" src="../assets/pet.jpeg" width="250px" height="400px">
@@ -62,12 +62,12 @@
   </div>
 </template>
 <script>
-import searchBar from "../components/search.vue"
+// import searchBar from "../components/search.vue"
 import navbar from "../components/navbar"
 // import store from "../store"
 export default {
      components :{
-          searchBar,
+          // searchBar,
           navbar
      },
      methods: {

@@ -11,6 +11,10 @@
       <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">DURING SHIPMENT</p>
       <hr>
 
+  <div style="width:400px; margin-left:550px; margin-bottom:30px">
+    <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
+  </div>
+  
       <div v-if="isLoading==false">
   <sui-table celled style="width:1000px; margin-left:210px">
     <sui-table-header>
@@ -23,35 +27,15 @@
 
 
     
-    <sui-table-body v-for="(key,index) in tracking_no1" :key="index">
-      <sui-table-row>
-        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailTrackStore', params : {idTrack : tracking_no1[index]} }">{{tracking_no1[index]}}</router-link></sui-table-cell>
-        <sui-table-cell style="text-align:center">{{delivery_date1[index]}}</sui-table-cell>
+    <sui-table-body v-for="(key,index) in resultQuery" :key="index">
+      <sui-table-row v-if="check_status[index] == false ">
+        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailTrackStore', params : {idTrack : resultQuery[index].tracking_number} }" >{{resultQuery[index].tracking_number}}</router-link></sui-table-cell>
+        <sui-table-cell style="text-align:center">{{resultQuery[index].delivery_date}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
   </div>
 
-
-<!-- modal -->
-    <b-modal ref="my-modal" size="lg" hide-footer title="Using Component Methods">
-      <div class="d-block">
-        <p style="margin-left:60px; font-weight:900; font-size:20px; display:inline">Order Id:</p>
-        <p style="margin-left:170px; font-weight:900; font-size:20px; display:inline">Customer Name : </p>
-        <br>
-        <br>
-        <div v-for="(key,index) in order_id" :key="index">
-          <sui-segment color="grey" style="border-radius:15px; height:60px; margin-bottom:20px">
-            <p style="display:inline">{{order_id[index].substring(1,100)}}</p>
-            <p style="display:inline; margin-left:30px">{{userid[index]}}</p>
-          </sui-segment>
-        </div>
-        
-      </div>
-    </b-modal>
-    <h1>{{getAtstore}}</h1>
-
-    
 
 
   <router-view></router-view>
@@ -98,7 +82,9 @@ export default {
       tracking_no1 : [],
       delivery_date1 :[],
 
-      check_status : []
+      check_status : [],
+      searchQuery: null,
+      detail : []
       
 
     }
@@ -107,7 +93,17 @@ export default {
     ...mapGetters({
       getNameStore :'getNameStore',
       getAtstore : 'getAtstore'
-    })
+    }),
+
+    resultQuery() {
+      if(this.searchQuery){
+        return this.detail.filter((item)=>{
+        return item.tracking_number.toLowerCase().includes(this.searchQuery.toLowerCase());
+      })
+      }else{
+        return this.detail;
+      }
+}
   },
   created() {
     this.doAjax()
@@ -132,8 +128,7 @@ export default {
           var branch_selected = this.info_pickup_order[k].branch_selected
           this.branch_selected[i] = branch_selected
 
-          var check_status = this.info_pickup_order[k].status.atstore.check_status
-          this.check_status[i] = check_status
+          
           console.log(this.check_status[i])
 
           if(this.branch_selected[i] === this.$route.params.idStoreDeli){
@@ -141,13 +136,27 @@ export default {
             
             var tracking_no1 = this.info_pickup_order[k].tracking_no.tracking_no
             var delivery_date1 = this.info_pickup_order[k].status.delivery.date_time_to_order
+
+            var check_status = this.info_pickup_order[k].status.atstore.check_status
+            this.check_status.push(check_status)
             this.tracking_no1.push(tracking_no1) 
             this.delivery_date1.push(delivery_date1)
           }
         }
-           this.tracking_no1 = [...new Set(this.tracking_no1)]
-
-               this.isLoading = false
+        console.log(this.tracking_no1)
+        console.log(this.delivery_date1)
+          this.tracking_no1 = [...new Set(this.tracking_no1)]
+          this.isLoading = false
+          for(var a = 0 ; a< this.tracking_no1.length ; a++){
+            var detailtrack = {
+              tracking_number : this.tracking_no1[a],
+              delivery_date : this.delivery_date1[a]
+            }
+            this.detail.push(detailtrack)
+          }
+          console.log(this.tracking_no1)
+          console.log(this.detail)
+          console.log(this.check_status)
       })
 
    
@@ -156,63 +165,9 @@ export default {
 
 
     },
-    //  showModal(keyTrack) {
- 
-    //    console.log(keyTrack)
-    //    firebase.ref("tracking_number/" + keyTrack).on("value" , snapshot => {
-    //      console.log(snapshot.val())
-    //      this.order_id = snapshot.val().order_id
-    //    })
-    //    console.log("order_id")
-    //    console.log(this.order_id)
 
-       
-    //   for(var i =0; i< this.order_id.length ;i++ ){
-    //     firebase.ref("pickup_order/" + this.order_id[i]).on("value" , snapshot => {
-    //       console.log(snapshot.val())
-    //       console.log(snapshot.val().userid) 
-    //       this.userid[i] = snapshot.val().userid
-    //       // console.log(this.userid[i])
-    //     })
-    //   }
-    //   console.log(this.userid)
-    //   for(var j=0 ; j< this.userid.length ;j++){
-    //     console.log("useruid1")
-    //   }
-    //     this.$refs['my-modal'].show()
-    //   },
   },
-  // beforeCreate() {
-  //   console.log(this.$route.params.idStoreDeli)
-  //   console.log(this.getNameStore)
-  //   firebase.ref("tracking_number/").orderByChild("branch_selected").equalTo(this.$route.params.idStoreDeli).on("value", snapshot => {
-  //     console.log(snapshot.val())
-  //     this.key_track = snapshot.val()
-  //     console.log(this.key_track)
-  //     this.track_list = Object.keys(this.key_track)
-  //     console.log(this.track_list)
-
-  //     for(var i=0;i<this.track_list.length ; i++){
-  //       var k = this.track_list[i]
-
-  //       var tracking_no = this.key_track[k].tracking_no
-  //       this.tracking_no[i] = tracking_no
-  //       console.log(this.tracking_no)
-
-  //       var delivery_date = this.key_track[k].delivery_date
-  //       this.delivery_date[i] = delivery_date
-  //       console.log(this.delivery_date)
-
-  //       var sellerUid = this.key_track[k].sellerUid
-  //       this.sellerUid[i] = sellerUid
-  //       console.log(this.sellerUid)
-
-  //       var seller_name_shop = this.key_track[k].seller_name_shop
-  //       this.seller_name_shop[i] = seller_name_shop
-  //       console.log(this.seller_name_shop)
-  //     }
-  //   })
-  // },
+ 
 
 }
 </script>

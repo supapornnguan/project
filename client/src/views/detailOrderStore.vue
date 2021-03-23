@@ -119,7 +119,8 @@
             </sui-accordion-content>
         </sui-accordion>
         <p style="margin-left:1000px; font-size:25px; font-weight:700">Total : {{this.totalOrder()}} .00 THB</p>
-        <!-- <p>{{selected}}</p> -->
+        <p>{{selected}}</p>
+        <p>{{keysProduct}}</p>
         </div>
 
 
@@ -253,21 +254,23 @@ export default {
 
         receiveOrder1(keyOrder){
 
-            for(var j = 0 ; j < this.selected.length ; j++){
-                for(var i =0 ; i< this.keysProduct.length ; i++){
-                    if( this.keysProduct[this.selected[j]] == this.keysProduct[i] ){
-                        console.log("match!!")
+            var check = false
+            for(var i =0 ; i< this.keysProduct.length ; i++){
+                for(var j = 0 ; j < this.selected.length ; j++){
+                    if( (this.keysProduct[i] == this.keysProduct[parseInt(this.selected[j])]) && check == false){
+               
                         console.log(this.keysProduct[i])
-                    }else{
-                        console.log("not selected")
-                        console.log(this.keysProduct[i])
-                        firebase.ref("pickup_order/"+ keyOrder + "/product_description/" + this.selected[j] + "/status" + "/return_product/").update({
+                        check = true
+                    }
+                }
+                if(check == false){
+                    firebase.ref("pickup_order/"+ keyOrder + "/product_description/" + i + "/status" + "/return_product/").update({
                         check_status : true,
                         return_date : dateToString(Date.now())
-                    })
+                        })
                 }
+                check = false
             }
-        }
 
 
         firebase.ref("pickup_order/" + keyOrder + "/status" + "/complete").update({

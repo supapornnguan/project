@@ -15,6 +15,44 @@
 
 <!-- pick up -->
      <div v-if="pickup_show==1" >
+       <!-- <div style="position:absolute; top:170px; width:400px; margin-left:300px;">
+    <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
+  </div> -->
+
+        <b-button id="show-btn" @click="showModal" style="margin-left:890px" data-backdrop="static" data-keyboard="false">Search</b-button>
+
+        <b-modal size="lg" ref="my-modal" hide-footer title="Search" no-close-on-esc no-close-on-backdrop hide-header-close>
+          <div style="width:400px;">
+            <input  class="form-control" type="text" v-model="searchQuery" placeholder="Search by product name, name shop" />
+            <b-button style="position:absolute; top:14px; left:450px " variant="primary" @click="searchButton(searchQuery)">Search</b-button>
+          </div>
+          <div>
+            <div style="margin-top:40px">
+              <sui-table>
+                <sui-table-header>
+                  <sui-table-row>
+                    <sui-table-header-cell></sui-table-header-cell>
+                    <sui-table-header-cell>name shop</sui-table-header-cell>
+                    <sui-table-header-cell>name product</sui-table-header-cell>
+                    <sui-table-header-cell></sui-table-header-cell>
+                  </sui-table-row>
+                </sui-table-header>
+
+                <sui-table-body >
+                  <sui-table-row v-for="(key,index) in list_product_image" :key="index">
+                    <sui-table-cell><img :src="list_product_image[index]" :width="100"></sui-table-cell>
+                    <sui-table-cell>{{list_seller_name_shop_filter_by_name[index]}}</sui-table-cell>
+                    <sui-table-cell>{{list_product_name[index]}}</sui-table-cell>
+                    <sui-table-cell><b-button variant="success" @click="gotoOrderDetail(list_order_id[index],list_type_receive[index])">More</b-button></sui-table-cell>
+                  </sui-table-row>
+                </sui-table-body>
+              </sui-table>
+              <b-button variant="danger" style="margin-left:700px" @click="hideModal">Close</b-button>
+            </div>
+          </div>
+        </b-modal>
+
+
         <div style="margin-left:70px; margin-top:50px">
           <p style="display:inline;  font-weight:670; font-size:20px; margin-left:50px">Date</p>
           <p style="display:inline; font-weight:670; font-size:20px; margin-left:200px; ">Order ID</p>
@@ -56,6 +94,7 @@
 
         <!-- shipping -->
         <div v-if="pickup_show==3" >
+          
          <div style="margin-left:70px; margin-top:50px">
            <p style="display:inline; margin-left:40px; font-weight:670; font-size:20px">Date</p>
            <p style="display:inline; margin-left:250px; font-weight:670; font-size:20px">Order ID</p>
@@ -137,11 +176,16 @@ export default {
         filterDate1 : [],
         orderShip1 : [],
         
+        searchQuery : null,
+        detail :[],
+        detail1 :[],
+        list_product_name : [],
+        list_seller_name_shop : [],
 
-
-
-
-        
+        list_product_image : [],
+        list_seller_name_shop_filter_by_name : [],
+        list_type_receive : [],
+        list_order_id : []   
     }
   },
   components:{
@@ -151,6 +195,43 @@ export default {
       // myOrderPickupCus
   },
   methods: {
+    searchButton(searchQuery) {
+      this.list_product_name = []
+      this.list_seller_name_shop = []
+      this.list_product_image = []
+      this.list_type_receive = []
+      this.list_order_id = []
+      this.detail.filter((item) => {
+        if(item.product_name.toLowerCase().includes(searchQuery.toLowerCase())){
+          this.list_product_name.push(item.product_name)
+          this.list_product_image.push(item.product_image)
+          this.list_seller_name_shop_filter_by_name.push(item.seller_name_shop)
+          this.list_type_receive.push(item.type_receive)
+          this.list_order_id.push(item.order_id)
+        }else if(item.seller_name_shop.toLowerCase().includes(searchQuery.toLowerCase())){
+          // this.list_seller_name_shop.push(item.seller_name_shop)
+          this.list_product_name.push(item.product_name)
+          this.list_product_image.push(item.product_image)
+          this.list_seller_name_shop_filter_by_name.push(item.seller_name_shop)
+          this.list_type_receive.push(item.type_receive)
+          this.list_order_id.push(item.order_id)
+        }
+      })
+      console.log(this.list_product_name)
+      console.log(this.list_seller_name_shop)
+      this.searchQuery = null
+    },
+    showModal(){
+      this.$refs['my-modal'].show()
+    },
+    hideModal(){
+      this.$refs['my-modal'].hide()
+      this.list_product_name = []
+      this.list_seller_name_shop = []
+      this.list_product_image = []
+      this.list_type_receive = []
+      this.list_order_id = []
+    },
     gotoOrderDetail(key,type){
             store.commit("SET_KEY_ORDER_DETAIL_USER",{
                 keysOrder : key,
@@ -215,7 +296,9 @@ export default {
                 this.date_time_to_order[i] = date_time_to_order
                 this.store_pickup[i] = store_pickup
                 this.product_description[i] = product_description
-                console.log(this.product_description)
+                console.log(this.product_description.length)
+                console.log(this.order.length)
+
 
                 for(var q = 0 ; q < this.date_time_to_order.length ; q++){
                 this.filterDate[q] = this.date_time_to_order[q]
@@ -231,6 +314,20 @@ export default {
               }
             }
           }
+          for(var t = 0 ; t < this.product_description.length ; t++){
+            for(var y = 0 ; y < this.product_description[t].length; y ++){
+              console.log(this.product_description[t][y].product_name)
+              var detailorder = {
+                product_name : this.product_description[t][y].product_name,
+                seller_name_shop : this.product_description[t][y].seller_name_shop,
+                product_image : this.product_description[t][y].product_image,
+                type_receive : "PICK-UP",
+                order_id : this.order[t]
+              }
+              this.detail.push(detailorder)
+            }
+          }
+          console.log(this.detail)
         }),
 
         //shiping
@@ -243,8 +340,10 @@ export default {
             var m = this.orderShip[j]
 
             var date_time_to_order_ship = this.infoShipping[m].status.unpaid.date_time_to_order
+            var product_description = this.infoShipping[m].product_description
 
             this.date_time_to_order_ship[j] = date_time_to_order_ship
+            this.product_description[j] = product_description
 
 
             for(var q = 0 ; q < this.date_time_to_order_ship.length ; q++){
@@ -275,8 +374,21 @@ export default {
               }
             this.status_ship[j] = status_ship
           }
-
+          for(var t = 0 ; t < this.product_description.length ; t++){
+            for(var y = 0 ; y < this.product_description[t].length; y ++){
+              console.log(this.product_description[t][y].product_name)
+              var detailorder = {
+                product_name : this.product_description[t][y].product_name,
+                seller_name_shop : this.product_description[t][y].seller_name_shop,
+                product_image : this.product_description[t][y].product_imagel,
+                type_receive : "SHIPPING"
+              }
+              this.detail1.push(detailorder)
+            }
+          }
+          console.log(this.detail)
         })
+
     },
 }
 
