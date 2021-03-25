@@ -25,14 +25,15 @@
       </sui-table-row>
     </sui-table-header>
 
-    <sui-table-body v-for="(key,index) in tracking_no" :key="index">
-      <sui-table-row v-if="check_status[index] == false">
-        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'DetailOrderatstore', params : {idTrackAtstore : tracking_no[index]} }">{{tracking_no[index]}}</router-link></sui-table-cell>
-        <sui-table-cell style="text-align:center">{{date_received[index]}}</sui-table-cell>
+    <sui-table-body v-for="(key,index) in resultQuery" :key="index">
+      <sui-table-row>
+        <sui-table-cell style="text-align:center"> <router-link :to="{name : 'DetailOrderatstore', params : {idTrackAtstore : resultQuery[index].tracking_number} }">{{resultQuery[index].tracking_number}}</router-link></sui-table-cell>
+        <sui-table-cell style="text-align:center">{{resultQuery[index].delivery_date}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{seller_name_shop[index]}}</sui-table-cell>
       </sui-table-row>
     </sui-table-body>
   </sui-table>
+  <!-- <p>{{filterDate}}</p> -->
   </div>
     </div>
 </template>
@@ -93,6 +94,7 @@ export default {
     firebase.ref("pickup_order/").orderByChild("tracking_no/check_track").equalTo(true).on("value" , snapshot => {
       console.log(snapshot.val())
       this.info_pickup_order = snapshot.val()
+      // console.log(this.info_pickup_order)
       this.info_pickup_order_list = Object.keys(snapshot.val())
 
       for(var j =0 ; j< this.info_pickup_order_list.length ;j++){
@@ -108,32 +110,37 @@ export default {
         this.branch_selected.push(branch_selected)
         if(this.status[j] == true && this.branch_selected[j] == this.$route.params.idStore ){
           var check_status = this.info_pickup_order[k].status.complete.check_status
-          this.check_status.push(check_status)
-          console.log(this.status[j])
-          console.log(this.branch_selected[j])
-          var tracking_no = this.info_pickup_order[k].tracking_no.tracking_no
+          // this.check_status.push(check_status)
+          // console.log(this.status[j])
+          // console.log(this.branch_selected[j])
+          if(check_status == false){
+            var tracking_no = this.info_pickup_order[k].tracking_no.tracking_no
           this.tracking_no.push(tracking_no)
 
           var sellerUid = this.info_pickup_order[k].sellerUid
-          this.sellerUid.push(sellerUid)
+          firebase.ref("seller/" + sellerUid).on("value" , snapshot => {
+          console.log(snapshot.val().seller_name_shop)
+          this.seller_name_shop.push(snapshot.val().seller_name_shop)
+          console.log(this.seller_name_shop)
+        })
+          // this.sellerUid.push(sellerUid)
 
           var date_received = this.info_pickup_order[k].status.atstore.date_time_to_order
           this.date_received.push(date_received)
+          }
+          
         }
       }
-      console.log(this.check_status)
-      for(var i =0; i < this.sellerUid.length ; i++){
-        firebase.ref("seller/" + this.sellerUid[i]).on("value" , snapshot => {
-          console.log(snapshot.val())
-          var seller_name_shop = snapshot.val().seller_name_shop
-          this.seller_name_shop.push(seller_name_shop)
-        })
-      }
+   
+      console.log(this.seller_name_shop)
+      // console.log(this.seller_name_shop[0])
 
       for(var q = 0 ; q< this.date_received.length ; q++){
         this.filterDate[q] = this.date_received[q]
       }
       this.filterDate.reverse()
+      console.log(this.seller_name_shop)
+      console.log(this.date_received.length)
       for(var w = 0 ; w < this.filterDate.length ; w++){
         for(var e = 0 ; e < this.date_received.length ; e++){
           if(this.filterDate[w] == this.date_received[e] ){
@@ -143,7 +150,7 @@ export default {
         }
       }
       console.log(this.tracking_no)
-      console.log(this.sellerUid)
+      // console.log(this.sellerUid)
       console.log(this.seller_name_shop)
       console.log(this.date_received)
       console.log(this.filterDate)
@@ -151,6 +158,16 @@ export default {
       console.log(this.seller_name_shop1)
 
       this.isLoading = false
+        for(var a = 0 ; a< this.tracking_no1.length ; a++){
+            var detailtrack = {
+              tracking_number : this.tracking_no1[a],
+              delivery_date : this.filterDate[a],
+              seller_name_shop : this.seller_name_shop
+            }
+            this.detail.push(detailtrack)
+          }
+
+
     })
   },
     

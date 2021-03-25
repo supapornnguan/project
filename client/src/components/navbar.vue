@@ -14,7 +14,7 @@
     <router-link to="/myCart"><img src="../assets/cart_icon.svg" class="cart" v-if="user.loggedIn"></router-link>
     <div class="circle" v-if="cartList.length!=0 & user.loggedIn">{{cartList.length}}</div>
     <img src="../assets/user_icon.svg" id="Myaccount" v-if="user.loggedIn" @click="myaccount">
-    <p>{{userid}}</p>
+    <!-- <p>{{userid}}</p> -->
   </div>
   
 </div>
@@ -22,7 +22,8 @@
 
 <script>
 import {auth} from  "../firebase";
-import { mapGetters } from "vuex";
+import { mapGetters , mapActions } from "vuex";
+import firebase from "../firebase"
 import store from "../store"
 export default {
   name : "navigation",
@@ -34,28 +35,71 @@ export default {
       cartlist : "cartItemList"
     }),
   },
+  // beforeMount() {
+  //   this.userid =  auth.currentUser.uid
+  //   console.log(this.cartlist)
+    
+  // },
   data() {
     return {
-      userid : ""
+      userid : "",
+      key_product : {},
+      key_product_list : []
+
     }
   },
 
-  // beforeMount() {
-  //   if(this.isLoading == false)
-  //   this.userid = auth.currentUser.uid
-  //   console.log(this.isLoading == false)
-  // },
+  beforeMount() {
+    
+    // if(this.user1 == true){
+    //   this.userid =  auth.currentUser.uid
+    //   firebase.ref("user/" + this.userid + "/cart/").on("value" , snapshot => {
+    //     console.log(snapshot.val())
+    //     this.key_product = snapshot.val()
+    //     this.key_product_list = Object.keys(this.key_product)
+    //     for(var i = 0 ; i< this.key_product_list.length ; i++){
+    //       var k = this.key_product_list[i]
+    //       // var keysProduct = this.key_product[k].keysProduct
+    //       const order = {
+    //         keysProduct : this.key_product[k].keysProduct,
+    //         product_name : this.key_product[k].product_name,
+    //         product_image : this.key_product[k].product_image,
+    //         product_unit_price : this.key_product[k].product_unit_price,
+    //         product_detail : this.key_product[k].product_detail_non_split,
+    //         sellerUid : this.key_product[k].sellerUid,
+    //         status : this.key_product[k].status,
+    //         seller_name_shop : this.key_product[k].seller_name_shop,
+    //         quantity: this.key_product[k].quantity,
+    //         isAdd: true
+    //     };
+      
+    //       this.updateCart(order);
+
+    //       // console.log(keysProduct)
+    //     }
+
+    //   })
+    // }
+  
+  },
 
   methods: {
-
+    ...mapActions(['updateCart','clearCart']),
 
     logout(){
+      this.userid =  auth.currentUser.uid
       auth.signOut()
           .then(()=>{
             store.commit("SET_LOGGED_IN" , false)
             console.log("log out !!!")
             console.log(this.user1)
             this.$router.replace('/').catch(()=>{});
+            if(this.user1 == false){
+              firebase.ref("user/" + this.userid  + "/cart/").update(this.cartlist)
+              // this.clearCart()
+              this.$router.replace('/').catch(()=>{});
+            }
+            
           })
     },
     myCart(){

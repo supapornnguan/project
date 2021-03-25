@@ -12,7 +12,7 @@
       <sui-table-row>
         <!-- <sui-table-header-cell>Tracking No.</sui-table-header-cell> -->
         <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Date received</sui-table-header-cell>
+        <sui-table-header-cell>Return Date</sui-table-header-cell>
         <sui-table-header-cell>Total Price (THB)</sui-table-header-cell>
         <sui-table-header-cell>Number of Product</sui-table-header-cell>
       </sui-table-row>
@@ -51,7 +51,7 @@
       <sui-table-row>
         <!-- <sui-table-header-cell>Tracking No.</sui-table-header-cell> -->
         <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Date received</sui-table-header-cell>
+        <sui-table-header-cell>Return Date</sui-table-header-cell>
         <sui-table-header-cell>Total Price (THB)</sui-table-header-cell>
         <sui-table-header-cell>Number of Product</sui-table-header-cell>
       </sui-table-row>
@@ -78,7 +78,7 @@
       <sui-table-row>
         <!-- <sui-table-header-cell>Tracking No.</sui-table-header-cell> -->
         <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Date received</sui-table-header-cell>
+        <sui-table-header-cell>Return Date</sui-table-header-cell>
         <sui-table-header-cell>Total Price (THB)</sui-table-header-cell>
         <sui-table-header-cell>Number of Product</sui-table-header-cell>
       </sui-table-row>
@@ -106,7 +106,7 @@
       <sui-table-row>
         <!-- <sui-table-header-cell>Tracking No.</sui-table-header-cell> -->
         <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Date received</sui-table-header-cell>
+        <sui-table-header-cell>Return Date</sui-table-header-cell>
         <sui-table-header-cell>Total Price (THB)</sui-table-header-cell>
         <sui-table-header-cell>Number of Product</sui-table-header-cell>
       </sui-table-row>
@@ -134,7 +134,7 @@
       <sui-table-row>
         <!-- <sui-table-header-cell>Tracking No.</sui-table-header-cell> -->
         <sui-table-header-cell>Order ID</sui-table-header-cell>
-        <sui-table-header-cell>Date received</sui-table-header-cell>
+        <sui-table-header-cell>Return Date</sui-table-header-cell>
         <sui-table-header-cell>Total Price (THB)</sui-table-header-cell>
         <sui-table-header-cell>Number of Product</sui-table-header-cell>
       </sui-table-row>

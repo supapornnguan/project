@@ -119,8 +119,8 @@
             </sui-accordion-content>
         </sui-accordion>
         <p style="margin-left:1000px; font-size:25px; font-weight:700">Total : {{this.totalOrder()}} .00 THB</p>
-        <p>{{selected}}</p>
-        <p>{{keysProduct}}</p>
+        <!-- <p>{{selected}}</p>
+        <p>{{keysProduct}}</p> -->
         </div>
 
 
