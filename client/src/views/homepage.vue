@@ -65,7 +65,7 @@
 // import searchBar from "../components/search.vue"
 import navbar from "../components/navbar"
 // import {dateToString} from '../utils/utils';
-import {dateOnlyToString} from "../utils/utils"
+
 // import store from "../store"
 export default {
      components :{
@@ -81,14 +81,7 @@ export default {
                this.$router.push({name : "productAll" , params : {category : data}})
           }
      },
-     mounted() {
-          var date = new Date();
-          date.setDate(date.getDate());
-          console.log(dateOnlyToString( date.setDate(date.getDate() + 14)))
-          console.log(dateOnlyToString(Date.now()))
-
-          // console.log(dateToString(Date.getMonth()))
-     },
+ 
 }
 </script>
 

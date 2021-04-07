@@ -37,6 +37,8 @@
         </sui-grid-column>
       </sui-grid-row>
     </sui-grid>
+    <!-- <h1>{{this.$route.params.sellerid}}</h1> -->
+    <!-- <p>kkoko</p> -->
     <!-- <h3 id="spaceLeftRight" is="sui-header" align=center block>
     STATISTICS
     </h3> -->
@@ -60,7 +62,7 @@
 
 <script>
 import firebase from "../firebase"
-import {auth} from "../firebase"
+// import {auth} from "../firebase"
 export default {
   data() {
     return {
@@ -71,15 +73,22 @@ export default {
       total_order : 0,
       check_status_complete : [],
       product_description : [],
-      status_product : []
+      status_product : [],
+      seller_uid : ""
 
 
     }
   },
+  created(){
+    // this.seller_uid = this.$route.params.sellerId
+    console.log(this.$route.params.sellerid)
+  },
 
   mounted(){
+    // this.seller_uid = auth.currentUser.uid
+    console.log(this.$route.params.sellerid)
     firebase.ref("pickup_order/").orderByChild("sellerUid")
-                                    .equalTo(auth.currentUser.uid).on("value", snapshot => {
+                                    .equalTo(this.$route.params.sellerid).on("value", snapshot => {
       console.log(snapshot.val())
       this.infoProduct_pickup = snapshot.val()
       this.numInfo_pickup = Object.keys(this.infoProduct_pickup)
@@ -97,7 +106,7 @@ console.log(this.product_description)
     })
 
     firebase.ref("shipping_order/").orderByChild("sellerUid")
-                                    .equalTo(auth.currentUser.uid).on("value", snapshot =>{
+                                    .equalTo(this.$route.params.sellerid).on("value", snapshot =>{
       this.infoProduct_shipping = snapshot.val()
       this.numInfo_shipping = Object.keys(this.infoProduct_shipping)
     })
