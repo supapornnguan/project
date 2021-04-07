@@ -77,7 +77,7 @@ export default {
     }
   },
 
-  mounted() {
+  mounted(){
     firebase.ref("pickup_order/").orderByChild("sellerUid")
                                     .equalTo(auth.currentUser.uid).on("value", snapshot => {
       console.log(snapshot.val())

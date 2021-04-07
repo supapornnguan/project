@@ -159,6 +159,7 @@ import { mapGetters } from 'vuex'
 
 
 import {dateToString} from '../utils/utils';
+import {dateOnlyToString} from "../utils/utils"
 // import store from "../store"
 export default {
     data() {
@@ -167,6 +168,7 @@ export default {
             sellerUid : "",
             branch_selected : "",
             product_description : [],
+            name_branch : "",
 
             //user
             customer_firstname : "",
@@ -203,7 +205,12 @@ export default {
             show : 2,
             status : "",
             selected: [],
-            number_of_product : ""
+            number_of_product : "",
+
+            
+            success: false,
+            error: false,
+            hours : ""
             
 
         }
@@ -243,10 +250,45 @@ export default {
             return total_amount
         },
         receiveOrder(keyOrder){
+            //receive order 
             firebase.ref("pickup_order/" + keyOrder + "/status" + "/atstore").update({
                 check_status : true,
                 date_time_to_order : dateToString(Date.now())
             })
+            var date = new Date();
+            const detail_email = {
+                email : this.customer_email,
+                order_id : this.orderidParams.substring(1,100),
+                name_branch : this.name_branch,
+                hours : this.hours,
+                startDate : dateOnlyToString(Date.now()),
+                endDate : dateOnlyToString( date.setDate(date.getDate() + 14))
+            }
+
+            const url = 'http://localhost:5001/shopaholic-2385d/us-central1/orderAtStore';
+            const {email, order_id, name_branch, hours, startDate, endDate} = detail_email;
+             const payload = {email, order_id, name_branch, hours, startDate, endDate};
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(() => {
+                    this.success = true;
+                    console.log("success")
+                
+                })
+                .catch(() => {
+                    this.error = true;
+                    console.log("fail")
+                })
+
+
+
+
+
             this.$router.back()
             console.log("update! pickup order")
             // store.commit("SET_PAGE_RECEIVE_PRODUCT" , {show_detailOrder : false})
@@ -336,6 +378,15 @@ export default {
             this.number_of_product = snapshot.val().number_of_product
             console.log("status")
             console.log(this.status)
+            
+            firebase.ref("Store/" + this.branch_selected).on("value", snapshot => {
+                console.log(snapshot.val())
+                this.name_branch = snapshot.val().name_store_pickup
+                this.hours = snapshot.val().pick_up_hours
+                console.log(this.name_branch)
+                console.log(this.hours)
+
+            })
 
             for(var i = 0 ;i<this.product_description.length ; i++){
                 this.keysProduct[i] = this.product_description[i].keysProduct

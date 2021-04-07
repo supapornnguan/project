@@ -198,7 +198,7 @@
 
 <script>
 import firebase from "../firebase"
-import emailjs from 'emailjs-com';
+
 export default {
     data() {
         return {
@@ -237,31 +237,47 @@ export default {
             number_of_product_ship : [],
             total_amount_ship : [],
             status_ship : [],
+            seller_uid_params : ""
         }
     },
     methods: {
-        verifySuccess: () =>{
+        verifySuccess (){
 
-        var templateParams = {
-          from_name: 'shopaholic',
-          to_name: this.seller_firstname,
-          to_email : this.seller_email
-        };
+              const detail_email = {
+                email : this.seller_email,
+                firstname : this.seller_firstname,
+                lastname : this.seller_lastname
+                }
+                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/verifySeller';
+                const {email, firstname, lastname} = detail_email;
+                const payload = {email, firstname, lastname};
 
-        emailjs.send('service_zqe19ol', 'template_v4hansp',templateParams, 'user_5dyI9G8yYC3Cf29ssQmCL')
-        .then(() => {
-            console.log('SUCCESS!');
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                    .then(() => {
+                        this.success = true;
+                        console.log("success")
+                        console.log(payload)
+                
+                    })
+                    .catch(() => {
+                        this.error = true;
+                        console.log("fail")
+                        console.log(payload)
+                    })
+
+      
             firebase.ref("seller/" + this.$route.params.sellerId).update({
                     verify_seller : true
             })
             this.$refs['my-modal'].hide()
-
-        }, (error) => {
-            console.log('FAILED...', error);
-        });        
-      },
-
-        showModal() {
+        },
+          showModal() {
         this.$refs['my-modal'].show()
         },
         hideModal() {
@@ -270,9 +286,9 @@ export default {
          gotoHome() {
           this.$router.replace('/HomeAdmin')
         }
-    },
-    
-    mounted() {
+      },
+    beforeMount(){
+      this.seller_uid_params = this.$route.params.sellerId
 
     firebase.ref('seller/'+ this.$route.params.sellerId).on('value',(snapshot)=>{
     console.log(snapshot.val());
@@ -299,7 +315,7 @@ export default {
      
     })
     console.log(this.$route.params.userId)
-    firebase.ref("pickup_order/").orderByChild("sellerUid").equalTo(this.$route.params.sellerId).on("value", snapshot => {
+    firebase.ref("pickup_order/").orderByChild("sellerUid").equalTo(this.seller_uid_params).on("value", snapshot => {
             console.log(snapshot.val());
             this.info_order = snapshot.val()
             this.info_order_list = Object.keys(snapshot.val())
@@ -343,7 +359,7 @@ export default {
             }
         })
         
-        firebase.ref("shipping_order/").orderByChild("sellerUid").equalTo(this.$route.params.sellerId).on("value", snapshot => {
+        firebase.ref("shipping_order/").orderByChild("sellerUid").equalTo(this.seller_uid_params).on("value", snapshot => {
             console.log(snapshot.val());
             this.info_order_ship = snapshot.val()
             this.info_order_list_ship = Object.keys(snapshot.val())

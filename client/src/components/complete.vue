@@ -145,7 +145,7 @@
         <sui-table-header-cell>Product Name</sui-table-header-cell>
         <sui-table-header-cell>Unit Price</sui-table-header-cell>
         <sui-table-header-cell>Quantity</sui-table-header-cell>
-        <sui-table-header-cell>Name Shop</sui-table-header-cell>
+        <!-- <sui-table-header-cell>Name Shop</sui-table-header-cell> -->
       </sui-table-row>
     </sui-table-header>
 
@@ -155,7 +155,7 @@
         <sui-table-cell>{{product_name_modal[index]}}</sui-table-cell>
         <sui-table-cell>{{product_unit_price_modal[index]}}</sui-table-cell>
         <sui-table-cell>{{quantity_modal[index]}}</sui-table-cell>
-        <sui-table-cell>{{seller_name_shop_modal[index]}}</sui-table-cell>
+        <!-- <sui-table-cell>{{seller_name_shop_modal[index]}}</sui-table-cell> -->
       </sui-table-row>
     </sui-table-body>
   </sui-table>   

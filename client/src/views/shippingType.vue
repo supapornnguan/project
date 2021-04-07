@@ -65,7 +65,14 @@ export default {
             sellerUid_uni : [],
             order_group_by_sellerUid : [],
             number_of_product : 0,
-            total_amount : 0
+            total_amount : 0,
+             
+            key_order_mail : {},
+            key_order_mail_list : [],
+            order_id : "",
+            product_description : [],
+        
+
         }
     },
     components:{
@@ -122,6 +129,55 @@ export default {
             }
             //add order to shipping_order
             firebase.ref("shipping_order").push(newOrder)
+
+//send email
+             firebase.ref("shipping_order").limitToLast(1).on("value" , snapshot => {
+                 console.log(snapshot.val())
+                 this.key_order_mail = snapshot.val()
+                 this.key_order_mail_list = Object.keys(snapshot.val())
+                 for(var i = 0 ; i< this.key_order_mail_list.length ; i++){
+                     var k = this.key_order_mail_list[i]
+                     this.order_id = k
+                    this.product_description = this.key_order_mail[k].product_description
+                 }
+                
+                 for(var j = 0 ; j< this.product_description.length ; j++){
+                     console.log(this.product_description[j])
+                     console.log(this.product_description[j].keysProduct)
+
+                 }
+
+                 console.log(this.order_id)
+
+             })
+              const detail_email = {
+                email : auth.currentUser.email,
+                order_id : this.order_id.substring(1,100),
+                product : this.product_description,
+                address_customer : this.customer_address + ',' + this.customer_district+ ',' + this.customer_province+ ',' + this.customer_zipcode
+                }
+                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/orderedShipping';
+                const {email, order_id, product, address_customer} = detail_email;
+                const payload = {email, order_id, product, address_customer};
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                    .then(() => {
+                        this.success = true;
+                        console.log("success")
+                        console.log(payload)
+                
+                    })
+                    .catch(() => {
+                        this.error = true;
+                        console.log("fail")
+                        console.log(payload)
+                    })
             
             // await firebase.ref("shipping_order").push(newOrder)
             }else{
@@ -177,6 +233,60 @@ export default {
                 this.order_group_by_sellerUid = []
                 }
             // await firebase.ref("shipping_order/").push(newOrder)
+
+                firebase.ref("shipping_order").limitToLast(1).on("value" , snapshot => {
+                // console.log(hello)
+                 console.log(snapshot.val())
+                 this.key_order_mail = snapshot.val()
+                 this.key_order_mail_list = Object.keys(snapshot.val())
+                 for(var i = 0 ; i< this.key_order_mail_list.length ; i++){
+                     var k = this.key_order_mail_list[i]
+                     this.order_id = k
+                    this.product_description = this.key_order_mail[k].product_description
+                   
+                 }
+                
+                 for(var j = 0 ; j< this.product_description.length ; j++){
+                     console.log(this.product_description[j])
+                     console.log(this.product_description[j].keysProduct)
+
+                 }
+                console.log(this.product_description)
+                const detail_email = {
+                email : auth.currentUser.email,
+                order_id : this.order_id.substring(1,100),
+                address_customer : this.customer_address + ',' + this.customer_district+ ',' + this.customer_province+ ',' + this.customer_zipcode,
+                product : this.product_description
+                }
+
+                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/orderedShipping';
+                const {email, order_id,address_customer, product} = detail_email;
+                const payload = {email, order_id,address_customer, product};
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                    .then(() => {
+                        this.success = true;
+                        console.log("success")
+                        console.log(payload)
+                
+                    })
+                    .catch(() => {
+                        this.error = true;
+                        console.log("fail")
+                        console.log(payload)
+                    })
+
+
+
+             })
+
+
             }
 
             //get product_quantity from product collection

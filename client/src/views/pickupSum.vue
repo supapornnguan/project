@@ -51,13 +51,21 @@
 import navbar from "../components/navbar"
 import {mapGetters ,mapActions} from "vuex"
 import firebase from "../firebase"
+// import {auth} from "../firebase"
 export default {
     data() {
         return {
             name_store_pickup : "",
             address : "",
             hours : "",
-            key_product_clear : []
+            hours1 : "",
+            tell : "",
+            key_product_clear : [],
+            key_order_mail : {},
+            key_order_mail_list : [],
+            product_description : [],
+            order_id : ""
+
         }
     },
     name: "pickupSum",
@@ -89,14 +97,84 @@ export default {
             summaryCart : "getSummaryCart",
         })
     },
-    mounted() {
+    // mounted() {
+    //     firebase.ref('Store/' + this.branch).on('value', snapshot => {
+    //         this.name_store_pickup = snapshot.val().name_store_pickup
+    //         this.address = snapshot.val().address
+    //         this.hours = snapshot.val().pick_up_hours.split(',')
+    //         // console.log(snapshot.val())
+    //     })
+    // },
+    beforeMount() {
+
         firebase.ref('Store/' + this.branch).on('value', snapshot => {
             this.name_store_pickup = snapshot.val().name_store_pickup
             this.address = snapshot.val().address
             this.hours = snapshot.val().pick_up_hours.split(',')
-            console.log(snapshot.val())
+            this.hours1 = snapshot.val().pick_up_hours
+            this.tell = snapshot.val().phone
+            console.log(this.tell)
+            // console.log(snapshot.val())
         })
+
+
+        //  firebase.ref("pickup_order/").limitToLast(1).on("value", snapshot => {
+        //          console.log(snapshot.ref.key)
+        //          console.log("hello")
+        //          console.log(snapshot.val())
+        //          this.key_order_mail = snapshot.val()
+        //          this.key_order_mail_list = Object.keys(snapshot.val())
+        //          console.log(this.key_order_mail)
+        //          console.log(this.key_order_mail_list)
+        //          for(var i = 0 ; i< this.key_order_mail_list.length ; i++){
+        //              var k = this.key_order_mail_list[i]
+        //              this.order_id = k
+        //             this.product_description = this.key_order_mail[k].product_description
+        //          }
+        //          console.log(this.product_description)
+        //          for(var j = 0 ; j< this.product_description.length ; j++){
+        //              console.log(this.product_description[j])
+        //              console.log(this.product_description[j].keysProduct)
+
+        //          }
+        //          console.log(auth.currentUser.email)
+        //          console.log(this.product_description)
+
+        //          })
+
+        //           const detail_email = {
+        //         email : auth.currentUser.email,
+        //         order_id : this.order_id,
+        //         address : this.address,
+        //         tell : this.tell,
+        //         hours : this.hours1,
+        //         product : this.product_description
+        //         }
+
+        //         const url = 'http://localhost:5001/shopaholic-2385d/us-central1/ordered';
+        //         const {email, order_id, address, tell, hours, product} = detail_email;
+        //         const payload = {email, order_id, address, tell, hours, product};
+
+        //         fetch(url, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify(payload)
+        //         })
+        //             .then(() => {
+        //                 this.success = true;
+        //                 console.log("success")
+        //                 console.log(payload)
+                
+        //             })
+        //             .catch(() => {
+        //                 this.error = true;
+        //                 console.log("fail")
+        //             })
+
     },
+
 }
 </script>
 <style scoped>

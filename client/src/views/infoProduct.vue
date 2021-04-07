@@ -5,7 +5,7 @@
         <sui-grid :columns="2">
             <sui-grid-row stretched>
                 <sui-grid-column>
-                        <img :src="product_image" :width="300" :height="400"/>
+                        <img :src="product_image" :width="350" :height="350"/>
                 </sui-grid-column>
                 <sui-grid-column>
                
@@ -54,13 +54,23 @@
             </li>
         </ul>
             <h2 class="H2">Customer Rating and reviews</h2>
+
+        <b-modal ref="my-modal" hide-footer hide-header  no-close-on-esc no-close-on-backdrop hide-header-close>
+      <div class="d-block text-center">
+        <p style="margin-top:20px; margin-bottom:40px">Please Login to continue.</p>
+          <router-link to="/userlogin" class="ui item"  style="color:#FFFFFF; margin-right:20px" > <b-button>Login</b-button></router-link>
+          <b-button @click="hideModal()">Cancle</b-button>
+            
+        <p></p>
+      </div>
+    </b-modal>
  
         
     </div>
 </template>
 <script>
 import navbar from "../components/navbar"
-import {mapActions} from "vuex"
+import {mapActions , mapGetters} from "vuex"
 import store from "../store"
 import firebase from "../firebase"
 
@@ -101,8 +111,11 @@ export default {
             return this.quantity--
         },
          gotoSummary(){
-            this.check = false
-            store.commit("SET_SUMMARY_PAGE",{
+             if(this.user1 == false){
+                 this.$refs['my-modal'].show()
+             }else{
+                  this.check = false
+                store.commit("SET_SUMMARY_PAGE",{
                 quantity : this.quantity,
                 product_name : this.product_name,
                 product_unit_price : this.product_unit_price,
@@ -119,6 +132,8 @@ export default {
                 keysProduct : this.productKey
             })
             this.$router.replace('/summary')
+             }
+           
         },
         ...mapActions(['updateCart']),
        addItem() {
@@ -136,12 +151,19 @@ export default {
       };
       console.log(order.quantity)
       this.updateCart(order);
-    }
+    },
+    hideModal(){
+        this.$refs['my-modal'].hide()
+
+      },
     },
     computed: {
         // ...mapGetters({
         //     key : "getProductId"
         // })
+            ...mapGetters({
+      user1 : "getUserloggedIn"
+    }),
     },
     created() {
         this.productKey = this.$route.params.productId

@@ -87,7 +87,7 @@ export default {
     }
       
     },
-  beforeCreate() {
+  mounted() {
     this.isLoading = true
     console.log(this.$route.params.idStore)
 //check status atstore == true and check branch_selected 

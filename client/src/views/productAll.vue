@@ -36,6 +36,19 @@
       </sui-card>
     </sui-card-group>
     </div>
+
+    <b-modal ref="my-modal" hide-footer hide-header  no-close-on-esc no-close-on-backdrop hide-header-close>
+      <div class="d-block text-center">
+        <p style="margin-top:20px; margin-bottom:40px">Please Login to continue.</p>
+          <router-link to="/userlogin" class="ui item"  style="color:#FFFFFF; margin-right:20px" > <b-button>Login</b-button></router-link>
+          <b-button @click="hideModal()">Cancle</b-button>
+            
+        <p></p>
+      </div>
+    </b-modal>
+
+
+
   </div>
 </template>
 
@@ -59,7 +72,7 @@ import firebase from "../firebase"
 
 // import store from "../store"
 // import {auth} from "../firebase"
- import { mapActions} from "vuex"
+ import { mapActions , mapGetters} from "vuex"
 
 export default {
     data() {
@@ -103,6 +116,10 @@ export default {
 
 
       },
+      hideModal(){
+        this.$refs['my-modal'].hide()
+
+      },
     
 
       ...mapActions(['updateCart']),
@@ -121,7 +138,12 @@ export default {
         isAdd: true
       };
       console.log(order.quantity)
-      this.updateCart(order);
+      if(this.user1 == false){
+        this.$refs['my-modal'].show()
+      }else{
+        this.updateCart(order);
+      }
+      
     }
     },
   components:{
@@ -139,7 +161,11 @@ export default {
       }else{
         return this.detail;
       }
-}
+    },
+    ...mapGetters({
+      user1 : "getUserloggedIn"
+    }),
+
     
 
   },

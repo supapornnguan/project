@@ -87,7 +87,7 @@ export default {
     components: {
       Loading
     },
-    beforeCreate (){
+    mounted (){
       console.log(this.$route.params.idTrack)
       firebase.ref("pickup_order").orderByChild("tracking_no/tracking_no").equalTo(this.$route.params.idTrack).on("value", snapshot => {
         console.log(snapshot.val())

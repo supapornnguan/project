@@ -1,9 +1,13 @@
 <template>
-    <div id="verifySlip">
+    <div>
+        <div>
+            <h1 style="font-weight:600" @click="gotoHome">ADMIN SHOPAHOLIC</h1>
+        </div>
+        <div style="margin-left:130px; margin-top:30px">
         <h3 style="font-weight:600">VERIFY SLIP</h3>
         <br>
         <!-- table -->
-        <sui-table celled style="width:1000px">
+        <sui-table celled style="width:1000px; margin-left:130px; margin-top:30px">
         <sui-table-header>
           <sui-table-row>
             <sui-table-header-cell style="text-align:center">No.</sui-table-header-cell>
@@ -20,7 +24,8 @@
             <sui-table-cell style="text-align:center" @click="gotoDetailVerify(key)"><b-button variant="outline-primary">More</b-button></sui-table-cell>
         </sui-table-row>
       </sui-table-body>
-      </sui-table>        
+      </sui-table> 
+       </div>       
     </div>
 </template>
 <script>
@@ -39,8 +44,12 @@ export default {
         gotoDetailVerify(key){
             console.log(key)
             this.$router.push({name : "detailVerifySlip" , params : {idSlip : key }})
+        },
+        gotoHome() {
+          this.$router.push('/HomeAdmin')
         }
     },
+    
     created() {
         firebase.ref("slip/").orderByChild("verify_slip").equalTo(false).on("value", snapshot => {
             console.log(snapshot.val())
@@ -64,15 +73,14 @@ export default {
 </script>
 
 <style scoped>
-#VerifySeg{
-    width: 900px;
-    height: 70px;
-    margin-left: 40px;
-    border-radius: 15px;
+h1{
+  text-align: center;
+  background-color: 	#0F4C81;
+  color:#FFFF;
+  padding: 20px;
+  margin-top: -9px;
+  margin-left: -9px;
+  margin-right: -9px;
 }
-#verifySlip{
-    position: relative;
-    left: 400px;
-    top: -990px;
-}
+
 </style>

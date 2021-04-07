@@ -40,13 +40,14 @@
       </sui-table-row>
     </sui-table-body>
 
+    <!-- shipping -->
     <sui-table-body>
       <sui-table-row v-for="(key,index) in key_order" :key="index">
         <sui-table-cell style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100 )}}</a></sui-table-cell>
         <sui-table-cell style="text-align:center">{{filterDate_ship[index]}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{type_shipping}}</sui-table-cell>
         <sui-table-cell style="text-align:center">
-            <sui-label horizontal v-if="status1[index] === 'verifyslip'" style="width:100px">
+            <sui-label horizontal v-if="status1[index] === 'verified'" style="width:100px">
               verified
             </sui-label>
             <sui-label color="orange" horizontal v-if="status1[index] === 'packing'" style="width:100px">
@@ -213,9 +214,9 @@ export default {
       //shipping
         firebase.ref("shipping_order/").orderByChild("sellerUid")
                                     .equalTo(auth.currentUser.uid).on('value',snapshot => {
-        console.log(snapshot.val())
-        this.infoShipping = snapshot.val()
-        this.keyShippingOrder = Object.keys(this.infoShipping)
+        console.log(snapshot.val())     //shipping_order all (object)
+        this.infoShipping = snapshot.val()    //object
+        this.keyShippingOrder = Object.keys(this.infoShipping)   //array
         console.log(this.keyShippingOrder)
         for(var i=0; i < this.keyShippingOrder.length ; i++){
           var k = this.keyShippingOrder[i]
@@ -236,9 +237,12 @@ export default {
           }else if(this.infoShipping[k].status.return.check_status == false ){
             status_ship = "complete"
           }
-          this.orderDate_shipping[i] = date_time_to_order
-          this.status_ship[i] = status_ship
 
+          if(date_time_to_order !== undefined){
+            this.orderDate_shipping.push(date_time_to_order)
+            this.status_ship.push(status_ship)
+          }
+        
         for(var q = 0 ; q < this.orderDate_shipping.length ; q++){
           this.filterDate_ship[q] = this.orderDate_shipping[q]
         }
@@ -269,6 +273,7 @@ export default {
           console.log(this.key_order)
           console.log(this.filterDate_ship)
           console.log(this.keyShippingOrder1)
+          console.log(this.status1)
         }
       })
   },

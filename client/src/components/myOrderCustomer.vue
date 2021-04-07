@@ -111,7 +111,7 @@
             <sui-label color="purple" horizontal v-if="status_ship[index] === 'paid'" style="width:100px; text-align:center">
               paid
             </sui-label>
-            <sui-label horizontal v-if="status_ship[index] === 'verifyslip'" style="width:100px; text-align:center">
+            <sui-label horizontal v-if="status_ship[index] === 'verified'" style="width:100px; text-align:center">
               verifyslip
             </sui-label>
             <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'" style="width:100px; text-align:center">

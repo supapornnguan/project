@@ -190,6 +190,11 @@ const routes =[
   component: () => import('../views/verifySlipAdmin.vue')
   },
   {
+    path: '/detailVerifySlip/:idSlip',
+    name: 'detailVerifySlip',
+    component: () => import('../views/detailVerifySlip.vue')
+  },
+  {
   path: '/verifyStore',
   name: 'verifyStore',
   component: () => import('../views/verifyStoreAdmin.vue')

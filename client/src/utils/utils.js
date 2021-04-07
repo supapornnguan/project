@@ -5,4 +5,11 @@ function dateToString(date) {
   }
  return ''
 }
+function dateOnlyToString(date){
+  if(date){
+    return moment(date).format('MMMM Do YYYY')
+  }
+  return ''
+}
 export {dateToString}
+export {dateOnlyToString}

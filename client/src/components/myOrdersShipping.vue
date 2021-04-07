@@ -18,7 +18,7 @@
         <sui-table-cell  style="text-align:center"><a href="#" @click="detailPickup(key,type_shipping)">{{key.substring(1,100)}}</a></sui-table-cell>
         <sui-table-cell  style="text-align:center">{{orderDate_shipping[index]}}</sui-table-cell>
          <sui-table-cell style="text-align:center; ">
-            <sui-label horizontal v-if="status[index] === 'verifyslip'" style="width:100px">
+            <sui-label horizontal v-if="status[index] === 'verified'" style="width:100px">
               verified
             </sui-label>
             <sui-label color="orange" horizontal v-if="status[index] === 'packing'" style="width:100px">
@@ -158,6 +158,7 @@ export default {
             status = "complete"
           }
           this.status.push(status)
+          console.log(this.status)
           
 
 

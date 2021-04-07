@@ -22,7 +22,7 @@
     </sui-table-body>
   </sui-table>
 
-      <b-modal ref="my-modal" hide-footer title="Tracking number">
+    <b-modal ref="my-modal" hide-footer title="Tracking number">
       <div class="d-block text-center">
         <b-form-input  type="text" v-model="tracking_input"></b-form-input>
         <b-button variant="secondary" style="margin-top:30px" @click="gotoDelivery(tracking_input)">Submit</b-button>
@@ -52,7 +52,8 @@ export default {
             number_of_product : [],
             check_delivery : [],
             tracking_input : "",
-            keyOrder_press : ""
+            keyOrder_press : "",
+            customer_email : ""
             
         }
     },
@@ -70,6 +71,43 @@ export default {
                 check_status : true,
                 date_time_to_order : dateToString(Date.now())
             })
+            firebase.ref("shipping_order/" + this.keyOrder_press ).on("value", snapshot=>{
+                console.log(snapshot.val().userid)
+                
+                firebase.ref("user/" + snapshot.val().userid).on("value" , snapshot => {
+                    console.log(snapshot.val().customer_email)
+                    this.customer_email = snapshot.val().customer_email
+
+                             const detail_email = {
+                email : this.customer_email,
+                order_id : this.keyOrder_press.substring(1,100),
+                tracking_no : tracking,
+                }
+                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/orderdelivered';
+                const {email, order_id, tracking_no} = detail_email;
+                const payload = {email, order_id, tracking_no};
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                    .then(() => {
+                        this.success = true;
+                        console.log("success")
+                        console.log(payload)
+                
+                    })
+                    .catch(() => {
+                        this.error = true;
+                        console.log("fail")
+                        console.log(payload)
+                    })
+                })
+            })
+        this.$refs['my-modal'].hide()
         }
     },
     created() {
@@ -77,6 +115,7 @@ export default {
             console.log(snapshot.val())
             this.infoShiping = snapshot.val()
             this.infoShiping_list = Object.keys(snapshot.val())
+            console.log(this.infoShiping)
 
             for(var i =0 ;i< this.infoShiping_list.length ; i++){
                 var k = this.infoShiping_list[i]
@@ -88,7 +127,7 @@ export default {
                     this.total_amount.push(this.infoShiping[k].total_amount) 
                     this.number_of_product.push(this.infoShiping[k].number_of_product)
                 }
-                this.date_time_to_order[i] = this.infoShiping[k].status.unpaid.date_time_to_order
+               
             }
             console.log(this.date_time_to_order)
             console.log(this.check_delivery)

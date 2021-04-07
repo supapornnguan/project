@@ -63,7 +63,7 @@ export default {
     components : {
         Loading
     },
-    beforeCreate() {
+    beforeMount() {
         this.isLoading = true 
         firebase.ref("pickup_order").orderByChild("tracking_no/tracking_no").equalTo(this.$route.params.idTrackAtstore).on("value" , snapshot => {
             console.log(snapshot.val())

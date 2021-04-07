@@ -63,7 +63,19 @@ export default {
             order_group_by_sellerUid : [],
             showStoreInModal : "",
             number_of_product : 0,
-            branch_confirm : ""
+            branch_confirm : "",
+            customer_email : "",
+
+            key_order_mail : {},
+            key_order_mail_list : [],
+            order_id : "",
+            product_description : [],
+            address : "",
+            tell : "",
+            hours : "",
+            branch_selected : ""
+
+
          
 
         }
@@ -143,13 +155,71 @@ export default {
                 status : status_check,
                 product_description : description,
                 }
-
              firebase.ref("pickup_order").push(newOrder)
+//send email
+             firebase.ref("pickup_order").limitToLast(1).on("value" , snapshot => {
+                 console.log(snapshot.val())
+                 this.key_order_mail = snapshot.val()
+                 this.key_order_mail_list = Object.keys(snapshot.val())
+                 for(var i = 0 ; i< this.key_order_mail_list.length ; i++){
+                     var k = this.key_order_mail_list[i]
+                     this.order_id = k
+                    this.product_description = this.key_order_mail[k].product_description
+                    this.branch_selected = this.key_order_mail[k].branch_selected
+                 }
+                 firebase.ref("Store/" + this.branch_selected).on("value" , snapshot => {
+                     this.address = snapshot.val().address
+                     this.tell  = snapshot.val().phone
+                     this.hours = snapshot.val().pick_up_hours
+                     
+                 })
+                 for(var j = 0 ; j< this.product_description.length ; j++){
+                     console.log(this.product_description[j])
+                     console.log(this.product_description[j].keysProduct)
+
+                 }
+             })
+             var date = new Date();
+             date.setDate(date.getDate());
+
+                const detail_email = {
+                email : auth.currentUser.email,
+                order_id : this.order_id.substring(1,100),
+                address : this.address,
+                tell : this.tell,
+                hours : this.hours,
+                product : this.product_description,
+                
+                }
+
+                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/ordered';
+                const {email, order_id, address, tell, hours, product} = detail_email;
+                const payload = {email, order_id, address, tell, hours, product};
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                    .then(() => {
+                        this.success = true;
+                        console.log("success")
+                        console.log(payload)
+                
+                    })
+                    .catch(() => {
+                        this.error = true;
+                        console.log("fail")
+                    })
+
             this.$router.replace('pickupSum')
 
 //order from cart
 
             }else{
+                var hello = 0 ;
 
             for(var a = 0 ; a < this.sellerUid_uni.length ; a ++ ){
                 for(var b = 0; b < this.summaryCart.length ; b++){
@@ -184,8 +254,70 @@ export default {
                 }
                 console.log(this.order_group_by_sellerUid)
                 firebase.ref("pickup_order").push(newOrder)
+                hello = 1
                 this.order_group_by_sellerUid = []
-            }   
+            }
+
+
+
+
+            firebase.ref("pickup_order").limitToLast(1).on("value" , snapshot => {
+                console.log(hello)
+                 console.log(snapshot.val())
+                 this.key_order_mail = snapshot.val()
+                 this.key_order_mail_list = Object.keys(snapshot.val())
+                 for(var i = 0 ; i< this.key_order_mail_list.length ; i++){
+                     var k = this.key_order_mail_list[i]
+                     this.order_id = k
+                    this.product_description = this.key_order_mail[k].product_description
+                    this.branch_selected = this.key_order_mail[k].branch_selected
+                 }
+                 firebase.ref("Store/" + this.branch_selected).on("value" , snapshot => {
+                     this.address = snapshot.val().address
+                     this.tell  = snapshot.val().phone
+                     this.hours = snapshot.val().pick_up_hours
+                     
+                 })
+                 for(var j = 0 ; j< this.product_description.length ; j++){
+                     console.log(this.product_description[j])
+                     console.log(this.product_description[j].keysProduct)
+
+                 }
+ console.log(this.product_description)
+                const detail_email = {
+                email : auth.currentUser.email,
+                order_id : this.order_id.substring(1,100),
+                address : this.address,
+                tell : this.tell,
+                hours : this.hours,
+                product : this.product_description
+                }
+const url = 'http://localhost:5001/shopaholic-2385d/us-central1/ordered';
+                const {email, order_id, address, tell, hours, product} = detail_email;
+                const payload = {email, order_id, address, tell, hours, product};
+
+ fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                    .then(() => {
+                        this.success = true;
+                        console.log("success")
+                        console.log(payload)
+                
+                    })
+                    .catch(() => {
+                        this.error = true;
+                        console.log("fail")
+                        console.log(payload)
+                    })
+
+
+
+             })
             
             // await firebase.ref("pickup_order/").push(newOrder)
             this.$router.replace('pickupSum')

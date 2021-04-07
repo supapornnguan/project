@@ -212,6 +212,9 @@
     </sui-form>
     <button @click="click1" id="buttonChoose">choose Image</button>
     <button @click="create" id="buttonupload">upload</button>
+    <p>{{image.name}}</p>
+    <b-progress :value="uploadvalue" variant="primary" max="100" style="width:300px; margin-top:15px"></b-progress>
+
     </div>
     <!-- button -->
  
@@ -238,7 +241,7 @@
 
 <script>
 import {dateToString} from '../utils/utils';
-import firebase from "../firebase";
+// import firebase from "../firebase";
 import {storage} from "../firebase"
 import {auth} from  "../firebase";
 // const { isNavigationFailure, NavigationFailureType } = VueRouter
@@ -258,6 +261,7 @@ export default {
             checkPasswordnum : false,
             step: 1,
             image:null,
+            uploadvalue : 0,
             Seller :[{
                 seller_email : "",
                 seller_name_shop : "",
@@ -304,10 +308,12 @@ export default {
             const storageRef = storage.ref(`/bookbank/${this.image.name}`).put(this.image);
             
             storageRef.on(`state_changed`, snapshot =>{
+                this.uploadvalue = (snapshot.bytesTransferred.snapshot.totalBytes)*100;
                 console.log(snapshot)
             },error => {
                 console.log(error.message)
             }, () => {
+                this.uploadvalue = 100;
                 storageRef.snapshot.ref.getDownloadURL().then((url)=>{
                     this.Seller.bank_book_picture = url
                     console.log(this.Seller.bank_book_picture)
@@ -372,11 +378,11 @@ export default {
                     console.log("this is uid of seller " + this.uidSeller)
                   }
                 )
-            await firebase.ref("seller/" + this.uidSeller).set(newSeller)
-            .then((data) => {
-                console.log(data)
-                this.$router.push({name: "sellerCenter" , params : {sellerid : auth.currentUser.uid}})
-            })
+            // await firebase.ref("seller/" + this.uidSeller).set(newSeller)
+            // .then((data) => {
+            //     console.log(data)
+            //     this.$router.push({name: "sellerCenter" , params : {sellerid : auth.currentUser.uid}})
+            // })
         },
         //date
         dateToString,
