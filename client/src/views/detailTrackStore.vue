@@ -103,6 +103,7 @@ export default {
             this.status1.push("DELIVERY")
           }
           this.userid1[i] = userid1
+          console.log(this.userid1)
         }
         console.log(this.userid1.length)
         for(var j =0 ; j< this.userid1.length ;j ++){

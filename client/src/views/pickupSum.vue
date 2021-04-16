@@ -42,7 +42,7 @@
         <p style="margin-left:150px" v-for="item in hours" :key="item.message">{{item}}</p>
         <br>
         <br>
-        <p style="text-align:center">Receive the product 3 days later from the date of purchase.Please pick up the product by April 18, 2020.</p>
+        <!-- <p style="text-align:center">Receive the product 3 days later from the date of purchase.Please pick up the product by April 18, 2020.</p> -->
         <button id="buttonBack" @click="gotoHome">BACK TO MAIN PAGE</button>
         
     </div>

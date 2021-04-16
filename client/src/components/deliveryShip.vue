@@ -49,7 +49,7 @@ export default {
 
         }
     },
-    created() {
+    beforeMount(){
         firebase.ref("shipping_order/").orderByChild("sellerUid").equalTo(auth.currentUser.uid).on("value" , snapshot => {
             console.log(snapshot.val())
             this.infoDelivery = snapshot.val()

@@ -296,7 +296,7 @@ const url = 'http://localhost:5001/shopaholic-2385d/us-central1/ordered';
                 const {email, order_id, address, tell, hours, product} = detail_email;
                 const payload = {email, order_id, address, tell, hours, product};
 
- fetch(url, {
+            fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

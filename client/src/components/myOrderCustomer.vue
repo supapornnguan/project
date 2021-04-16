@@ -105,22 +105,22 @@
           <p style="display:inline; position:absolute; left:35px; top:20px;">{{filterDate1[index]}}</p>
           <p style="display:inline; position:absolute; left:340px; top:20px; font-weight:670; ">{{key.substring(1,100)}}</p>
           <p style="display:inline; position:absolute; left:710px; top:20px;">
-            <sui-label color="red" horizontal v-if="status_ship[index] === 'unpaid'" style="width:100px; text-align:center">
+            <sui-label color="red" horizontal v-if="status_ship1[index] === 'unpaid'" style="width:100px; text-align:center">
               unpaid
             </sui-label>
-            <sui-label color="purple" horizontal v-if="status_ship[index] === 'paid'" style="width:100px; text-align:center">
+            <sui-label color="purple" horizontal v-if="status_ship1[index] === 'paid'" style="width:100px; text-align:center">
               paid
             </sui-label>
-            <sui-label horizontal v-if="status_ship[index] === 'verified'" style="width:100px; text-align:center">
+            <sui-label horizontal v-if="status_ship1[index] === 'verified'" style="width:100px; text-align:center">
               verifyslip
             </sui-label>
-            <sui-label color="orange" horizontal v-if="status_ship[index] === 'packing'" style="width:100px; text-align:center">
+            <sui-label color="orange" horizontal v-if="status_ship1[index] === 'packing'" style="width:100px; text-align:center">
               packing
             </sui-label>
-            <sui-label color="yellow" horizontal v-if="status_ship[index] === 'delivery'" style="width:100px; text-align:center">
+            <sui-label color="yellow" horizontal v-if="status_ship1[index] === 'delivery'" style="width:100px; text-align:center">
               delivery
             </sui-label>
-            <sui-label color="green" horizontal v-if="status_ship[index] === 'complete'" style="width:100px; text-align:center">
+            <sui-label color="green" horizontal v-if="status_ship1[index] === 'complete'" style="width:100px; text-align:center">
               complete
             </sui-label>
             </p>
@@ -175,6 +175,7 @@ export default {
 
         filterDate1 : [],
         orderShip1 : [],
+        status_ship1 : [],
         
         searchQuery : null,
         detail :[],
@@ -345,6 +346,22 @@ export default {
             this.date_time_to_order_ship[j] = date_time_to_order_ship
             this.product_description[j] = product_description
 
+            var status_ship 
+              if(this.infoShipping[m].status.payment.check_status == false ){
+                status_ship = "unpaid"
+              }else if(this.infoShipping[m].status.slip_verified.check_status == false ){
+                status_ship = "paid"
+              }else if(this.infoShipping[m].status.packing.check_status == false ){
+                status_ship = "verified"
+              }else if(this.infoShipping[m].status.delivery.check_status == false ){
+                status_ship = "packing"
+              }else if(this.infoShipping[m].status.complete.check_status == false ){
+                status_ship = "delivery"
+              }else if(this.infoShipping[m].status.return.check_status == false ){
+                status_ship = "complete"
+              }
+            this.status_ship[j] = status_ship
+
 
             for(var q = 0 ; q < this.date_time_to_order_ship.length ; q++){
                 this.filterDate1[q] = this.date_time_to_order_ship[q]
@@ -354,25 +371,12 @@ export default {
               for(var b = 0 ; b < this.date_time_to_order_ship.length ; b++){
                 if(this.filterDate1[a] == this.date_time_to_order_ship[b]){
                   this.orderShip1[a] = this.orderShip[b]
+                  this.status_ship1[a] = this.status_ship[b]
                }
               }
             }
             
-            var status_ship 
-              if(this.infoShipping[m].status.payment.check_status == false ){
-                status_ship = "unpaid"
-              }else if(this.infoShipping[m].status.slip_verified.check_status == false ){
-                status_ship = "paid"
-              }else if(this.infoShipping[m].status.packing.check_status == false ){
-                status_ship = "verifyslip"
-              }else if(this.infoShipping[m].status.delivery.check_status == false ){
-                status_ship = "packing"
-              }else if(this.infoShipping[m].status.complete.check_status == false ){
-                status_ship = "delivery"
-              }else if(this.infoShipping[m].status.return.check_status == false ){
-                status_ship = "complete"
-              }
-            this.status_ship[j] = status_ship
+
           }
           for(var t = 0 ; t < this.product_description.length ; t++){
             for(var y = 0 ; y < this.product_description[t].length; y ++){

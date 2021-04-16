@@ -71,13 +71,17 @@ export default {
       customer_address : "",
       customer_district : "",
       customer_province : "",
-      customer_zipcode : ""
+      customer_zipcode : "",
+      userid_params : ""
 
 
     }
   },
+  beforeMount() {
+    this.userid_params = this.$route.params.userid
+  },
     mounted() {
-    firebase.ref("user/" + this.$route.params.userid).on("value", snapshot => {
+    firebase.ref("user/" + this.userid_params).on("value", snapshot => {
       console.log(snapshot.val())
       this.customer_email = snapshot.val().customer_email
       this.customer_firstname = snapshot.val().customer_firstname

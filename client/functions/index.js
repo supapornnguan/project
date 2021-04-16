@@ -17,10 +17,12 @@ admin.initializeApp();
 */
 let transporter = nodemailer.createTransport({
     service: 'gmail',
+    host: 'smtp.gmail.com',
     auth: {
         user: '2020shopaholic@gmail.com',
         pass: 'shopaholic1234'
-    }
+    },
+    debug: true,
 });
 
 //order at store
@@ -49,9 +51,9 @@ exports.orderAtStore = functions.https.onRequest((req, res) => {
                 <p>Your order <strong>${req.body.order_id}</strong> <br> has arrived at the ${req.body.name_branch}</p>
                 <p><strong>To Do : </strong> <br>Pick up your order within 14 days <br> Show this order id to the staff to collect your order</p>
                 <br>
-                <p>If the order has not been picked up during ${req.body.startDate} - ${req.body.endDate}, we will return it to seller.</p>
+                <p>If the order has not been picked up during ${req.body.startDate} - ${req.body.endDate}, we will return it to the seller.</p>
                 <br>
-                <p><strong>When:</strong> <br> ${req.body.hours}</p>
+                <p><strong>Opening time:</strong> <br> ${req.body.hours}</p>
                 <br>
                 <p><strong>Where: </strong> <br>${req.body.name_branch}</p>
             </div>
@@ -326,7 +328,7 @@ exports.orderdelivered = functions.https.onRequest((req, res) => {
         const mailOptions = {
             from: 'SHOPAHOLIC <yourgmailaccount@gmail.com>', 
             to: email_customer,
-            subject: 'SHOPAHOLIC Order Delivered Notification ' , 
+            subject: 'SHOPAHOLIC Order Delivered Notification ' +'(#'+ order_id + ')' , 
             html: `
             <!DOCTYPE html>
             <html lang="en">

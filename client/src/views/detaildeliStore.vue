@@ -28,7 +28,7 @@
 
     
     <sui-table-body v-for="(key,index) in resultQuery" :key="index">
-      <sui-table-row v-if="check_status[index] == false ">
+      <sui-table-row >
         <sui-table-cell style="text-align:center"> <router-link :to="{name : 'detailTrackStore', params : {idTrack : resultQuery[index].tracking_number} }" >{{resultQuery[index].tracking_number}}</router-link></sui-table-cell>
         <sui-table-cell style="text-align:center">{{resultQuery[index].delivery_date}}</sui-table-cell>
       </sui-table-row>
@@ -84,7 +84,8 @@ export default {
 
       check_status : [],
       searchQuery: null,
-      detail : []
+      detail : [],
+      check_show : true
       
 
     }
@@ -136,16 +137,20 @@ export default {
             
             var tracking_no1 = this.info_pickup_order[k].tracking_no.tracking_no
             var delivery_date1 = this.info_pickup_order[k].status.delivery.date_time_to_order
-
             var check_status = this.info_pickup_order[k].status.atstore.check_status
-            this.check_status.push(check_status)
-            this.tracking_no1.push(tracking_no1) 
-            this.delivery_date1.push(delivery_date1)
+
+            // this.check_status.push(check_status)
+            if(check_status == false){
+              this.tracking_no1.push(tracking_no1) 
+              this.delivery_date1.push(delivery_date1)
+            }
+            
           }
         }
         console.log(this.tracking_no1)
         console.log(this.delivery_date1)
           this.tracking_no1 = [...new Set(this.tracking_no1)]
+          console.log(this.tracking_no1)
           this.isLoading = false
           for(var a = 0 ; a< this.tracking_no1.length ; a++){
             var detailtrack = {
@@ -156,7 +161,7 @@ export default {
           }
           console.log(this.tracking_no1)
           console.log(this.detail)
-          console.log(this.check_status)
+          // console.log(this.check_status)
       })
 
    

@@ -72,7 +72,8 @@ export default {
       return_no : 0,
       branch_selected : [],
       product_description : [],
-      key_order : []
+      key_order : [],
+      tracking_no : []
       
     }
   },
@@ -110,6 +111,7 @@ export default {
           var status1 = this.infoPickup[k].status.atstore.check_status
           var status2 = this.infoPickup[k].status.complete.check_status
           if(status == true && status1 == false){
+            this.tracking_no.push(this.infoPickup[k].tracking_no.tracking_no)
             count = count + 1
           }
           if(status1 == true && status2 == false ){
@@ -121,11 +123,13 @@ export default {
             this.product_description.push(this.infoPickup[k].product_description)
         }
         }
-        this.delivery_no = count
+        this.tracking_no = [ ...new Set(this.tracking_no) ]
+        console.log(this.tracking_no)
+        this.delivery_no = this.tracking_no.length
         this.atstore_no = count1
         for(var a = 0 ; a< this.product_description.length ; a++){
           for(var b = 0 ; b < this.product_description[a].length ; b++){
-            console.log(this.product_description[a][b])
+            // console.log(this.product_description[a][b])
             if(this.product_description[a][b].status.return_product.check_status == true){
               console.log(this.product_description[a][b])
               this.key_order.push(this.infoPickup_list[a])

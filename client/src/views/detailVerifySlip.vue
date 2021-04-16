@@ -96,6 +96,7 @@ export default {
                 date_time :  dateToString(Date.now())
             })
             this.$refs['my-modal'].hide()
+            this.$router.go(-1)
         },
         showModal() {
         this.$refs['my-modal'].show()

@@ -134,7 +134,7 @@
                 <div class="circle" style="position:absolute"></div>
                 <p style="position:absolute; top: 120px;left: 120px;">unpaid</p>
 
-                <div style="position:absolute; top:160px;left: 90px; font-size:11px; color:#A9A9A9" >
+                <div style="position:absolute; top:160px;left: 100px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
@@ -146,7 +146,7 @@
                 <div class="rectangle" style="position:absolute; left:150px"></div>
                 <p style="position:absolute; top: 120px;left: 250px;">Payment</p>
 
-                <div style="position:absolute; top:160px;left: 230px; font-size:11px; color:#A9A9A9" >
+                <div style="position:absolute; top:160px;left: 240px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order1" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
@@ -156,7 +156,7 @@
                 <div class="circle1" style="position:absolute; left:300px" v-if="check_slip_verified ==false "></div>
                 <div class="rectangle" style="position:absolute; left:300px"></div>
                 <p style="position:absolute; top: 120px;left: 390px;">Slip Verified</p>
-                 <div style="position:absolute; top:160px;left: 375px; font-size:11px; color:#A9A9A9" >
+                 <div style="position:absolute; top:160px;left: 385px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order2" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
@@ -166,7 +166,7 @@
                 <div class="circle1" style="position:absolute; left:450px" v-if="check_confirm == false"></div>
                 <div class="rectangle" style="position:absolute; left:450px"></div>
                 <p style="position:absolute; top: 120px;left: 540px;">Seller Confirm</p>
-                <div style="position:absolute; top:160px;left: 535px; font-size:11px; color:#A9A9A9" >
+                <div style="position:absolute; top:160px;left: 545px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order3" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 
@@ -175,7 +175,7 @@
                 <div class="circle1" style="position:absolute; left:600px" v-if="check_delivery == false"></div>
                 <div class="rectangle" style="position:absolute; left:600px"></div>
                 <p style="position:absolute; top: 120px;left: 710px;">Shipped</p>
-                <div style="position:absolute; top:160px;left: 685px; font-size:11px; color:#A9A9A9" >
+                <div style="position:absolute; top:160px;left: 695px; font-size:11px; color:#A9A9A9" >
                     <p v-for="item in date_time_to_order4" :key="item" style="text-align:center">{{item}}</p>
                 </div>
 

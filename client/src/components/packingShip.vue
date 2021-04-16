@@ -12,7 +12,7 @@
       </sui-table-row>
     </sui-table-header>
     <sui-table-body v-for="(key,index) in key_filter" :key="index" >
-      <sui-table-row>
+      <sui-table-row v-if="check_packing1[index] == true && check_delivery1[index] == false">
         <sui-table-cell>{{key.substring(1,100)}}</sui-table-cell>
         <sui-table-cell>{{date_time_to_order[index]}}</sui-table-cell>
         <sui-table-cell>{{total_amount[index]}}</sui-table-cell>
@@ -53,7 +53,9 @@ export default {
             check_delivery : [],
             tracking_input : "",
             keyOrder_press : "",
-            customer_email : ""
+            customer_email : "",
+            check_delivery1 : [],
+            check_packing1 : []
             
         }
     },
@@ -110,7 +112,7 @@ export default {
         this.$refs['my-modal'].hide()
         }
     },
-    created() {
+    beforeMount() {
         firebase.ref("shipping_order/").orderByChild("sellerUid").equalTo(auth.currentUser.uid).on("value" , snapshot => {
             console.log(snapshot.val())
             this.infoShiping = snapshot.val()
@@ -119,13 +121,16 @@ export default {
 
             for(var i =0 ;i< this.infoShiping_list.length ; i++){
                 var k = this.infoShiping_list[i]
-                this.check_packing[i] = this.infoShiping[k].status.slip_verified.check_status
+                this.check_packing[i] = this.infoShiping[k].status.packing.check_status
                 this.check_delivery[i] = this.infoShiping[k].status.delivery.check_status
                 if(this.check_packing[i] == true && this.check_delivery[i] == false){
                     this.key_filter.push(k)
                     this.date_time_to_order.push(this.infoShiping[k].status.unpaid.date_time_to_order)
                     this.total_amount.push(this.infoShiping[k].total_amount) 
                     this.number_of_product.push(this.infoShiping[k].number_of_product)
+                    this.check_packing1.push(this.check_packing[i])
+                    this.check_delivery1.push(this.check_delivery[i])
+                    
                 }
                
             }
