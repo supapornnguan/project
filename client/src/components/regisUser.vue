@@ -126,7 +126,7 @@ export default {
       user:{},
       checkPhonenum : false,
       checkLength : false,
-      checkzipcodenum : false,
+      checkZipcodenum : false,
       checkEmail : false,
       checkPasswordnum : false,
       useruid : "",
@@ -201,9 +201,9 @@ export default {
       checkZipcode(){
         if(this.address.customer_zipcode.length != 5){
           return this.checkZipcodenum = true
-      }else if(this.address.customer_zipcode.length == 5){
+        }else if(this.address.customer_zipcode.length == 5){
           return this.checkZipcodenum = false
-      }
+        }
       },
       checkEmailAddress(){
         if(!this.Users.customer_email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)){
