@@ -1,6 +1,5 @@
 <template>
     <div>
-    <p>test</p>
         <regisSeller/>
     </div>
 </template>

@@ -212,7 +212,7 @@
     </sui-form>
     <button @click="click1" id="buttonChoose">choose Image</button>
     <button @click="create" id="buttonupload">upload</button>
-    <p>{{image.name}}</p>
+    <!-- <p>{{image.name}}</p> -->
     <b-progress :value="uploadvalue" variant="primary" max="100" style="width:300px; margin-top:15px"></b-progress>
 
     </div>
@@ -256,7 +256,7 @@ export default {
             isActive: false,
             checkPhonenum : false,
             checkLength : false,
-            checkzipcodenum : false,
+            checkZipcodenum : false,
             checkEmail : false,
             checkPasswordnum : false,
             step: 1,
