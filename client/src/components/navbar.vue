@@ -1,11 +1,11 @@
 <template>
   <div class="ui secondary menu" style="background-color:#0F4C81; height:90px;" >
     <router-link to="/" class="ui item" style="color:#FFFFFF">HOME</router-link>
-    <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF">SELLER CENTER</router-link>
+    <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF" target="_blank">SELLER CENTER</router-link>
     
-       <h1 id="logo" style="color:#FFFFFF; font-family: 'Michroma', cursive; font-size:40px; margin-left:310px; margin-top:15px">SHOPAHOLIC</h1>
+       <h1 id="logo" style="color:#FFFFFF; font-family: 'Michroma', cursive; font-size:40px; margin-left:310px; margin-top:15px; cursor:pointer">SHOPAHOLIC</h1>
 
-   
+
     <div class="right menu">
     <router-link to="/userRegis"  class="ui item"  v-if="!user.loggedIn" style="color:#FFFFFF">REGISTER</router-link>
     <router-link to="/userlogin" class="ui item" v-if="!user.loggedIn" style="color:#FFFFFF">LOGIN</router-link>
@@ -44,7 +44,8 @@ export default {
     return {
       userid : "",
       key_product : {},
-      key_product_list : []
+      key_product_list : [],
+      
 
     }
   },
@@ -82,6 +83,7 @@ export default {
     // }
   
   },
+
 
   methods: {
     ...mapActions(['updateCart','clearCart']),
@@ -132,6 +134,7 @@ export default {
   top: 25px;
   width: 40px;
   height: 40px;
+  cursor:pointer;
 }
 .circle {
     position: absolute;

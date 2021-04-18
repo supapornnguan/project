@@ -25,13 +25,21 @@
       <sui-card 
         v-for="(key,index) in resultQuery" 
         :key="index" 
-        style="height:490px">
+        style="height:490px;">
         
           <img :src="resultQuery[index].product_image" id="img1" @click="gotoInfoproduct(keysProduct[index])" :width="280" :height="230">
-          <p style="position:absolute; top:270px; font-weight:800">{{resultQuery[index].product_name}}</p>
-          <p style="position:absolute; top:315px">{{resultQuery[index].product_detail | shortDescription}}</p>
-          <p style="position:absolute; top:380px">{{resultQuery[index].product_unit_price}}  THB</p>
-          <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:410px; left:10px"/>
+          <p style="position:absolute; top:270px; font-weight:800; left:10px">{{resultQuery[index].product_name}}</p>
+          <p style="position:absolute; top:315px; left:10px">{{resultQuery[index].product_detail | shortDescription}}</p>
+          <p style="position:absolute; top:380px; left:10px">{{resultQuery[index].product_unit_price}}  THB</p>
+          <StarRating v-bind:star-size="20"
+                                v-bind:max-rating="5"
+                                inactive-color="#BEBEBE"
+                                active-color="#FFCC33"
+                                v-bind:read-only="true"
+                                v-bind:show-rating="false"
+                                v-bind:rating="1"
+                                style="margin-top:0px; margin-left:10px ">
+                    </StarRating>
         <button class= "buttonCart" @click="addItem(index)" style="position:absolute; top:440px; ">ADD TO CART</button>
       </sui-card>
     </sui-card-group>
@@ -69,6 +77,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 // import search from "../components/search"
 import navbar from "../components/navbar"
 import firebase from "../firebase"
+import StarRating from 'vue-star-rating'
 
 // import store from "../store"
 // import {auth} from "../firebase"
@@ -149,7 +158,8 @@ export default {
   components:{
       // search,
       navbar,
-      Loading
+      Loading,
+       StarRating
   },
   //getting type of product
   computed: {

@@ -77,7 +77,7 @@ export default {
                // store.commit("SET_PRODUCT_TYPE", {
                //      productType : data
                // })
-               this.$router.replace('productAll')
+               // this.$router.replace('productAll')
                this.$router.push({name : "productAll" , params : {category : data}})
           }
      },

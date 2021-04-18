@@ -4,8 +4,8 @@
       <div id="homeSeller">
     <h1 class="welcome">WELCOME TO THE SELLER CENTER</h1>
     <div id="groupButton">
-      <button class="ui secondary basic button" @click="regisSell">OPEN YOUR SHOP</button>
-      <button class="ui secondary basic button" @click="loginSel">LOGIN</button>
+      <router-link to="/sellerRegis" ><button class="ui secondary basic button" >OPEN YOUR SHOP</button></router-link>
+      <router-link to="/sellerLogin" ><button class="ui secondary basic button" >LOGIN</button></router-link>
     </div>
   </div>
   </div>
@@ -15,14 +15,7 @@
 <script>
 import navbar from "../components/navbarSeller"
 export default {
-  methods: {
-    regisSell () {
-      this.$router.replace('sellerRegis')
-    },
-    loginSel () {
-      this.$router.replace('sellerLogin')
-    }
-  },
+ 
   components : {
     navbar
   }

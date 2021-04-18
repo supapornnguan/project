@@ -47,8 +47,8 @@ import firebase from "../firebase"
 export default {
     data() {
         return {
-            seller_email :'test100@seller.com',
-            seller_password :'testtest123',
+            seller_email :'',
+            seller_password :'',
             key_seller : {},
             key_seller_list : [],
             check_verify : false

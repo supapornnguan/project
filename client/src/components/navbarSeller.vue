@@ -1,6 +1,6 @@
 <template>
     <div style="background-color:#0F4C81; height:80px;">
-        <h1 is="sui-header" style="color:#FFFFFF;" id="logo1" @click="gotohomeSeller">SHOPAHOLIC SELLER CENTER</h1>
+        <h1 is="sui-header" style="color:#FFFFFF; cursor:pointer; " id="logo1" @click="gotohomeSeller">SHOPAHOLIC SELLER CENTER</h1>
         <p v-if="sellers.loggedInSeller" class="ui item"><a @click="logout" id="positionLogout">LOGOUT</a></p>
     </div>
 </template>

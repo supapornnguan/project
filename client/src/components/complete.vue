@@ -135,9 +135,8 @@
     </sui-accordion>
 
 
-          <b-modal ref="my-modal" size="xl" hide-footer :title=" 'ORDER ID : '+ orderid_modal">
+    <b-modal ref="my-modal" size="xl" hide-footer :title=" 'ORDER ID : '+ orderid_modal">
       <div class="d-block text-center">
-
       <sui-table celled >
      <sui-table-header>
       <sui-table-row>
@@ -162,6 +161,8 @@
   <p style="color:red; font-size:20px; margin-left:20px" > Total Amount : {{total_amount_modal}}.00 THB</p>
     </div>
   </b-modal>
+
+
 
 
     </div>

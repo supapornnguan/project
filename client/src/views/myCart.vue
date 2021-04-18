@@ -47,9 +47,9 @@
                     <sui-table-cell><p style="font-size:15px;">{{subtotal(index)}}.00 THB</p></sui-table-cell>
                     <sui-table-cell><img src="../assets/delete.png" 
                                         :width="30" 
-                                        @click="removeItem(
-                                       key.keysProduct
-                                        )"></sui-table-cell>
+                                        style="cursor:pointer"
+                                        @click="removeItem(key.keysProduct)">
+                                        </sui-table-cell>
                 </sui-table-row>
             </sui-table-body>
         </sui-table>
@@ -63,7 +63,15 @@
       <div class="d-block text-center">
         <h3>Hello From My Modal!</h3>
       </div>
-       </b-modal>
+    </b-modal>
+
+    <b-modal ref="my-modal1" hide-footer title="Delete Confirmation">
+      <div class="d-block text-center">
+        <p>Are you sure you want to delete this item?</p>
+      </div>
+      <b-button  @click="hideModal1">Cancel</b-button>
+      <b-button  >Delete</b-button>
+    </b-modal>
 
 
 
@@ -199,6 +207,12 @@ export default {
 				});
             console.log(key)
         },
+        beforeDelete(){
+            this.$refs['my-modal1'].show()
+        },
+        hideModal1(){
+            this.$refs['my-modal1'].hide()
+        }
     },
     filters : {
     shortDescription(value1) {
