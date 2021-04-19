@@ -1,7 +1,9 @@
 <template>
     <div>
         <navbar/>
+        <div style="width: 600px; height: 400px; margin: 0 auto; background-color: #a799b7;">
         <loginSeller/>
+        </div>
     </div>
 </template>
 <script>

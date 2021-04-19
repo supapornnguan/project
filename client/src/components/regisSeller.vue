@@ -1,6 +1,5 @@
 <template lang="html">
-<div> 
-    <navbar/>
+
     <div class="regisSeller">
        
         <h1 class="openshop">OPEN SHOP</h1>
@@ -224,7 +223,7 @@
         <b-button disable id="buttonNext" v-on:click="next" v-if="step==1 || step==2">Next</b-button>
     </div> -->
     
-    <div class="ui submit button" @click="addSeller();" style="margin-top:50px">Submit</div>
+    <div class="ui submit button" @click="addSeller();" style="background-color:#fdca40; color:#000000; width: 400px; margin-top:50px">Submit</div>
 
     <!-- <div>
             <b-modal ref="my-modal" hide-footer title="REGISTER SUCCESSFULLY">
@@ -236,7 +235,6 @@
 
     
     </div>
-</div>
 </template>
 
 <script>
@@ -248,7 +246,7 @@ import {auth} from  "../firebase";
 // import router from "../router/index"
 // import VueRouter from 'vue-router'
 // import axios from "axios";
-import navbar from "../components/navbarSeller"
+// import navbar from "../components/navbarSeller"
 export default {
     name : "regisSeller",
     data() {
@@ -288,10 +286,10 @@ export default {
             }]
             }
          },
-         components:{
-             navbar,
+        //  components:{
+        //      navbar,
     
-         },
+        //  },
     methods: {  
         create() {
              const bank_book_picture1 = this.Seller.bank_book_picture
@@ -444,7 +442,6 @@ export default {
 }
 .ui.submit.button{
     margin-top: 20px;
-    margin-left: 150px;
 }
 .numberCircle {
     position: relative;

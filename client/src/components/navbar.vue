@@ -1,5 +1,5 @@
 <template>
-  <div class="ui secondary menu" style="background-color:#0F4C81; height:90px;" >
+  <div class="ui secondary menu" style="background-color:#542e71; height:90px;" >
     <router-link to="/" class="ui item" style="color:#FFFFFF">HOME</router-link>
     <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF">SELLER CENTER</router-link>
     

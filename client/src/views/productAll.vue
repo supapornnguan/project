@@ -253,9 +253,10 @@ div.ui.card{
     height: 400px;
 }
 .buttonCart{
-    background-color: white;
+    background-color: #fb3640;
+    color: white;
     border-radius: 10px;
-    border: solid black 1px;
+    border: solid #fb3640 1px;
     width: 170px;
     padding: 5px;
     position: absolute;
