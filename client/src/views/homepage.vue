@@ -2,7 +2,7 @@
   <div class="home">
        <navbar/>
        <!-- <searchBar/> -->
-      <div class="ui container three column grid medium" style="margin-top:10px">
+      <div class="ui container three column grid medium" style="margin-top:100px">
     <div class="column" >
          <img class="ui rounded image centered" src="../assets/pet.jpeg" width="250px" height="400px">
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('PET')">PET'S ACCESSORIES</button>
@@ -15,8 +15,8 @@
          <img class="ui rounded image centered" src="../assets/womencloth.jpg" width="250px" height="400px">
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('WOMEN')">WOMEN'S FASHION</button>
     </div>
-</div>
-<div class="ui container three column grid medium" style="margin-top:30px">
+     </div>
+<div class="ui container three column grid medium" style="margin-top:90px">
     <div class="column">
          <img class="ui rounded image centered" src="../assets/kid.jpg" width="250px" height="400px">
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('KID')">KID</button>
@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<div class="ui container three column grid medium" style="margin-top:30px">
+<div class="ui container three column grid medium" style="margin-top:90px">
     <div class="column">
          <img class="ui rounded image centered" src="../assets/kitchen1.jpg" width="250px" height="400px">
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('HOME & LIFESTYLE')">HOME & LIFESTYLE</button>
@@ -45,7 +45,7 @@
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('COMPUTERS')">COMPUTERS</button>
     </div>
 </div>
-<div class="ui container three column grid medium" style="margin-top:30px">
+<div class="ui container three column grid medium" style="margin-top:90px">
     <div class="column">
          <img class="ui rounded image centered" src="../assets/beauty1.jpg" width="250px" height="400px">
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('HEALTH & BEAUTY')">HEALTH & BEAUTY</button>
