@@ -6,7 +6,7 @@
         :is-full-page="true"></loading>
 
       <div style="background-color:#0F4C81; height:80px;">
-      <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
+      <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive; " id="headerbar">STORE PICK-UP</h1>
       </div>
       <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">DURING SHIPMENT</p>
       <hr>

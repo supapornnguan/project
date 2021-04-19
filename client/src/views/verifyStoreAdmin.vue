@@ -1,10 +1,10 @@
 <template>
     <div>
       <div >
-    <h1 style="font-weight:600" @click="gotoHome">ADMIN SHOPAHOLIC</h1>
+    <h1 style="font-weight:600; cursor:pointer" @click="gotoHome">ADMIN SHOPAHOLIC</h1>
     </div>
         <div style="margin-left:130px; margin-top:30px">
-        <h3 style="font-weight:600;">VERTIFY SELLER</h3>
+        <h3 style="font-weight:600;">VERIFY SELLER</h3>
         <br>
         
         <!-- search -->
@@ -50,7 +50,12 @@ export default {
             seller_email : [],
             verify_seller : [],
             timstamp : [],
-            check_status : []
+            check_status : [],
+            timstamp_filter : [],
+            seller_name_shop_filter : [],
+            seller_email_filter : [],
+            keys_filter : []
+
         } 
     },
     methods: {
@@ -81,6 +86,7 @@ export default {
               this.verify_seller[i] = verify_seller
               this.timstamp[i] = timestamp
         }
+
       })
   },
 }     

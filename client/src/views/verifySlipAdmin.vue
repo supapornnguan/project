@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <h1 style="font-weight:600" @click="gotoHome">ADMIN SHOPAHOLIC</h1>
+            <h1 style="font-weight:600; cursor:pointer" @click="gotoHome">ADMIN SHOPAHOLIC</h1>
         </div>
         <div style="margin-left:130px; margin-top:30px">
         <h3 style="font-weight:600">VERIFY SLIP</h3>
@@ -37,7 +37,8 @@ export default {
             infoSlip : {},
             infoSlip_list : [],
             orderid : [],
-            date_time_submit : []
+            date_time_submit : [],
+            date_time_submit_filter : []
         }
     },
     methods: {
@@ -67,6 +68,16 @@ export default {
                 this.date_time_submit.push(date_time_submit)
 
             }
+
+            //sort date
+            // for(var i = 0 ; i < this.date_time_submit.length ; i++){
+            //   this.date_time_submit_filter[i] = this.date_time_submit[i]
+            // }
+            // this.date_time_submit_filter.reverse()
+            // for(var a = 0 ; a < this.date_time_submit_filter.length ; a ++){
+            //   for(var b = 0 ; b < this.orderid)
+            // }
+
         })
     },
 }

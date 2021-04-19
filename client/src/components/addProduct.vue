@@ -47,7 +47,7 @@
           style="display:none"
           @change="previewImage2" />
       </sui-form-field>
-      <sui-form-field required>
+      <!-- <sui-form-field required>
         <input 
           type="file" 
           placeholder="Product Picture"
@@ -65,7 +65,7 @@
           style="display:none"
           @change="previewImage2" 
           />
-      </sui-form-field>
+      </sui-form-field> -->
     </sui-form-fields>
   </sui-form>
   <button @click="click2" id="chooseImage">Choose Product Image1</button>

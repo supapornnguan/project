@@ -3,7 +3,7 @@
 
   <div>
     <div >
-    <h1 style="font-weight:600">ADMIN SHOPAHOLIC</h1>
+    <h1 style="font-weight:600; cursor:pointer">ADMIN SHOPAHOLIC</h1>
     </div>
 
      <div id="menuAdmin">
@@ -36,7 +36,8 @@
       <sui-grid :columns="2" id="todo">
         <sui-grid-row stretched>
           <sui-grid-column>
-            <sui-segment @click="gotoVerifyStore">
+            <router-link to="/verifyStore"  class="ui item" style="color:#FFFFFF">
+            <sui-segment  style="cursor:pointer">
               <div align=center>
               <img src="../assets/check.png" :width="50">
               <br>
@@ -48,9 +49,11 @@
                 </sui-statistic>
               </div>
             </sui-segment>
+            </router-link>
           </sui-grid-column>
           <sui-grid-column>
-            <sui-segment @click="gotoVerifySlip">
+            <router-link to="/verifySlip"  class="ui item" style="color:#FFFFFF">
+            <sui-segment @click="gotoVerifySlip" style="cursor:pointer">
               <div align=center>
               <img src="../assets/slip.png" :width="50">
               <br>
@@ -62,6 +65,7 @@
                 </sui-statistic>
               </div>
             </sui-segment>
+            </router-link>
           </sui-grid-column>
   
         </sui-grid-row>
@@ -85,9 +89,9 @@ export default {
     }
   },
   methods: {
-    gotoVerifyStore(){
-      this.$router.replace('verifyStore')
-    },
+    // gotoVerifyStore(){
+    //   this.$router.replace('verifyStore')
+    // },
     gotoVerifySlip(){
       this.$router.replace('verifySlip')
     }

@@ -1,7 +1,7 @@
 <template>
     <div>
        <div >
-    <h1 style="font-weight:600" @click="gotoHome">ADMIN SHOPAHOLIC</h1>
+    <h1 style="font-weight:600; cursor:pointer" @click="gotoHome">ADMIN SHOPAHOLIC</h1>
     </div>
 
 

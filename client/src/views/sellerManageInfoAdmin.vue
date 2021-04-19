@@ -275,6 +275,7 @@ export default {
             firebase.ref("seller/" + this.$route.params.sellerId).update({
                     verify_seller : true
             })
+            this.$router.go(-1)
             this.$refs['my-modal'].hide()
         },
           showModal() {

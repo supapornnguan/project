@@ -241,7 +241,7 @@
 
 <script>
 import {dateToString} from '../utils/utils';
-// import firebase from "../firebase";
+import firebase from "../firebase";
 import {storage} from "../firebase"
 import {auth} from  "../firebase";
 // const { isNavigationFailure, NavigationFailureType } = VueRouter
@@ -378,7 +378,7 @@ export default {
                     console.log("this is uid of seller " + this.uidSeller)
                   }
                 )
-            // await firebase.ref("seller/" + this.uidSeller).set(newSeller)
+            await firebase.ref("seller/" + this.uidSeller).push(newSeller)
             // .then((data) => {
             //     console.log(data)
             //     this.$router.push({name: "sellerCenter" , params : {sellerid : auth.currentUser.uid}})
