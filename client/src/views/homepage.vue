@@ -59,7 +59,7 @@
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('MOBILE & TABLET')">MOBILE & TABLET</button>
     </div>
 </div>
-
+<br>
   </div>
 </template>
 <script>

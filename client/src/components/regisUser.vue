@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="regisUser">
-    
+    <br>
     
     <sui-form id="border1">
       <h1 id="H1">REGISTER</h1>
@@ -111,8 +111,10 @@
             <span is="sui-label" basic color="red" pointing v-if="address.customer_zipcode==''">Enter zipcode</span>
             <span is="sui-label" basic color="red" pointing v-else-if="checkZipcodenum">Invalid zipcode</span>
         </sui-form-field>        
-        <div class="ui submit button" @click="addUser();" style="margin-left:170px">Submit</div>
+        <div class="ui submit button" @click="addUser();" style="background-color:#fdca40; color:#000000; width: 450px; margin-top:50px">Submit</div>
   </sui-form>
+  <br>
+  <br>
   </div>
 </template>
 <script>
@@ -246,7 +248,7 @@ export default {
   margin: 0 auto;
 }
 .ui.submit.button{
-  margin-left: 150px;
+  margin-left: 0px;
 }
 #message{
   border-style: none;
@@ -255,8 +257,8 @@ export default {
 }
 #border1{
   border-radius: 10px;
-  border: 1px solid #B5C7D3;
+  border: 1px solid #a799b7;
   padding: 50px;
-  background-color: 	#B5C7D3;
+  background-color: 	#a799b7;
 }
 </style>
