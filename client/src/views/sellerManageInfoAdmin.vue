@@ -248,7 +248,7 @@ export default {
                 firstname : this.seller_firstname,
                 lastname : this.seller_lastname
                 }
-                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/verifySeller';
+                const url = 'https://us-central1-shopaholic-2385d.cloudfunctions.net/verifySeller';
                 const {email, firstname, lastname} = detail_email;
                 const payload = {email, firstname, lastname};
 

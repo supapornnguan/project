@@ -13,6 +13,9 @@ const mutations = {
 							seller_name_shop,
 							quantity, 
 							isAdd}) {
+		// const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
+		// const record1 = item.find(element => element.keysProduct === keysProduct);
+
 		const record = state.cartItemList.find(element => element.keysProduct === keysProduct);
 		if (record) {
 			if (isAdd) {
@@ -21,6 +24,21 @@ const mutations = {
 				record.quantity = quantity;
 			}
 		} else {
+			const cartItemList = {
+				keysProduct,
+                product_name,
+                product_image,
+                product_unit_price,
+				product_detail,
+				sellerUid,
+				status,
+				seller_name_shop,
+				quantity
+			}
+			//get
+			const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
+			item.push(cartItemList)
+			localStorage.setItem("cartItem",JSON.stringify(item))
 			state.cartItemList.push({
                 keysProduct,
                 product_name,

@@ -3,7 +3,7 @@
     <router-link to="/" class="ui item" style="color:#FFFFFF">HOME</router-link>
     <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF" target="_blank">SELLER CENTER</router-link>
     
-       <h1 id="logo" style="color:#FFFFFF; font-family: 'Michroma', cursive; font-size:40px; margin-left:310px; margin-top:15px">SHOPAHOLIC</h1>
+       <h1 id="logo" style="color:#FFFFFF; font-family: 'Michroma', cursive; font-size:40px; margin-left:310px; margin-top:15px; cursor:pointer;">SHOPAHOLIC</h1>
 
    
     <div class="right menu">
@@ -12,8 +12,8 @@
     <button id="logout" v-if="user.loggedIn" @click="logout">LOGOUT</button>
     <!-- <p v-if="user.loggedIn" class="ui item"><a @click="logout"  style="color:#FFFFFF;">LOGOUT</a></p> -->
     <router-link to="/myCart"><img src="../assets/cart_icon.svg" class="cart" v-if="user.loggedIn"></router-link>
-    <div class="circle" v-if="number_product!=0 & user.loggedIn">{{number_product}}</div>
-    <img src="../assets/user_icon.svg" id="Myaccount" v-if="user.loggedIn" @click="myaccount">
+    <div class="circle" v-if="cartList.length!=0 & user.loggedIn">{{cartList.length}}</div>
+    <img src="../assets/user_icon.svg" id="Myaccount" style="cursor:pointer;" v-if="user.loggedIn" @click="myaccount">
     <!-- <p>{{userid}}</p> -->
   </div>
   
@@ -31,6 +31,7 @@ export default {
     ...mapGetters({
       user : "users",
       user1 : "getUserloggedIn",
+      cartList : "cartItemList",
     }),
   },
   // beforeMount() {
@@ -50,6 +51,7 @@ export default {
   },
 
   beforeMount() {
+    console.log(this.cartList)
     const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
     console.log(item)
     console.log(item.length)

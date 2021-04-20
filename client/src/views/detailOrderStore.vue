@@ -265,7 +265,7 @@ export default {
                 endDate : dateOnlyToString( date.setDate(date.getDate() + 14))
             }
 
-            const url = 'http://localhost:5001/shopaholic-2385d/us-central1/orderAtStore';
+            const url = 'https://us-central1-shopaholic-2385d.cloudfunctions.net/orderAtStore';
             const {email, order_id, name_branch, hours, startDate, endDate} = detail_email;
              const payload = {email, order_id, name_branch, hours, startDate, endDate};
             fetch(url, {

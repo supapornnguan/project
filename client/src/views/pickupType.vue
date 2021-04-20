@@ -192,7 +192,7 @@ export default {
                 
                 }
 
-                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/ordered';
+                const url = 'https://us-central1-shopaholic-2385d.cloudfunctions.net/ordered';
                 const {email, order_id, address, tell, hours, product} = detail_email;
                 const payload = {email, order_id, address, tell, hours, product};
 
@@ -292,7 +292,7 @@ export default {
                 hours : this.hours,
                 product : this.product_description
                 }
-const url = 'http://localhost:5001/shopaholic-2385d/us-central1/ordered';
+const url = 'https://us-central1-shopaholic-2385d.cloudfunctions.net/ordered';
                 const {email, order_id, address, tell, hours, product} = detail_email;
                 const payload = {email, order_id, address, tell, hours, product};
 

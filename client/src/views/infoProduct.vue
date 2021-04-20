@@ -40,7 +40,9 @@
             </sui-grid-row>
         </sui-grid>
         </div>
+  
         <h2 class="H2" >Reviews</h2>
+   
         <div>
            <p  style="display:inline; margin-left:20px">Overall: </p> 
            <StarRating v-bind:star-size="20"

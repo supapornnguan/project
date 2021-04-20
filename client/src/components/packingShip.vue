@@ -85,7 +85,7 @@ export default {
                 order_id : this.keyOrder_press.substring(1,100),
                 tracking_no : tracking,
                 }
-                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/orderdelivered';
+                const url = 'https://us-central1-shopaholic-2385d.cloudfunctions.net/orderdelivered';
                 const {email, order_id, tracking_no} = detail_email;
                 const payload = {email, order_id, tracking_no};
 

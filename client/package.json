@@ -27,6 +27,7 @@
     "vue-loading-overlay": "^3.4.2",
     "vue-router": "^3.5.1",
     "vue-semantic-modal": "^2.1.0",
+    "vue-star-rating": "^1.7.0",
     "vuelidate": "^0.7.6",
     "vuex": "^3.6.2"
   },

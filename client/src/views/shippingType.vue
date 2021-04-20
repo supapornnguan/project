@@ -156,7 +156,7 @@ export default {
                 product : this.product_description,
                 address_customer : this.customer_address + ',' + this.customer_district+ ',' + this.customer_province+ ',' + this.customer_zipcode
                 }
-                const url = 'http://localhost:5001/shopaholic-2385d/us-central1/orderedShipping';
+                const url = 'https://us-central1-shopaholic-2385d.cloudfunctions.net/orderedShipping';
                 const {email, order_id, product, address_customer} = detail_email;
                 const payload = {email, order_id, product, address_customer};
 

@@ -16,7 +16,7 @@
 
 
 
-<div style="width:1200px; height:390px; margin-left:100px">
+<div style="width:1200px; height:390px; margin-left:100px" v-if="this.$route.params.category == 'PET' ">
     <b-carousel
       id="carousel-1"
       v-model="slide"
@@ -58,6 +58,63 @@
     </b-carousel>
 </div>
 
+<div v-if="this.$route.params.category == 'CAMERA'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      caption="Second Slide"
+      img-src="https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Third Slide"
+      img-src="https://images.pexels.com/photos/1784259/pexels-photo-1784259.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Fourth Slide"
+      img-src="https://images.pexels.com/photos/212372/pexels-photo-212372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/1830937/pexels-photo-1830937.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 200px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+  <div style=" position: absolute;
+  top: 202px;
+  right: 423px;
+  font-size: 18px;
+  font-weight:900;">Polaroid</div>
+
+  <b-img src="https://images.pexels.com/photos/1787220/pexels-photo-1787220.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 200px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+
+  <div style=" position: absolute;
+  top: 202px;
+  right: 143px;
+  font-size: 18px;
+  font-weight:900;">DSLR</div>
+
+
+</div>
+
 
 
 
@@ -81,7 +138,7 @@
         :key="index" 
         style="height:490px">
         
-          <img :src="resultQuery[index].product_image" id="img1" @click="gotoInfoproduct(keysProduct[index])" :width="280" :height="230">
+          <img :src="resultQuery[index].product_image" id="img1" style="cursor:pointer;" @click="gotoInfoproduct(keysProduct[index])" :width="280" :height="230">
           <p style="position:absolute; top:270px; font-weight:800; left:10px">{{resultQuery[index].product_name}}</p>
           <p style="position:absolute; top:315px; left:10px">{{resultQuery[index].product_detail | shortDescription}}</p>
           <p style="position:absolute; top:380px; left:10px">{{resultQuery[index].product_unit_price}}  THB</p>
@@ -92,8 +149,8 @@
                                 v-bind:read-only="true"
                                 v-bind:show-rating="false"
                                 v-bind:rating="1"
-                                style="margin-top:0px; margin-left:10px ">
-                    </StarRating>
+                                style="margin-top:10px; margin-left:10px ">
+          </StarRating>
         <button class= "buttonCart" @click="addItem(index)" style="position:absolute; top:440px; ">ADD TO CART</button>
       </sui-card>
     </sui-card-group>
@@ -105,7 +162,6 @@
           <router-link to="/userlogin" class="ui item"  style="color:#FFFFFF; margin-right:20px" > <b-button>Login</b-button></router-link>
           <b-button @click="hideModal()">Cancle</b-button>
             
-        <p></p>
       </div>
     </b-modal>
 
