@@ -67,17 +67,14 @@
 
   >
     <b-carousel-slide
-      caption="Second Slide"
       img-src="https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       style="width:700px; height:350px"
     ></b-carousel-slide>
     <b-carousel-slide
-      caption="Third Slide"
       img-src="https://images.pexels.com/photos/1784259/pexels-photo-1784259.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       style="width:700px; height:350px"
     ></b-carousel-slide>
     <b-carousel-slide
-      caption="Fourth Slide"
       img-src="https://images.pexels.com/photos/212372/pexels-photo-212372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       style="width:700px; height:350px"
     ></b-carousel-slide>
@@ -111,6 +108,21 @@
   right: 143px;
   font-size: 18px;
   font-weight:900;">DSLR</div>
+
+  <div style="height: 120px;
+              width: 480px;
+              background-color: #99004d;
+              position:absolute;
+              top:413px;
+              left:838px"></div>
+
+<div style=" position: absolute;
+  top: 195px;
+  right: 140px;
+  font-size: 18px;
+  font-weight:900;
+  font-size:25px;
+  color:#FFFF"><p>Capturing today for tomorrow view</p>  <p>For tomorrow view</p></div>
 
 
 </div>
