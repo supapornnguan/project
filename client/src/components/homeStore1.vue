@@ -24,7 +24,7 @@
         <h5>Password</h5>
         <b-form-input type="password" v-model="id_store"></b-form-input>
         <!-- <p>{{id_store}}</p> -->
-        <button @click="gotoHomeStore" style="background-color:	#E8E8E8; border-radius:10px; border:solid gray 1px; padding:6px; margin-left:200px; margin-top:30px">Enter</button>
+        <button @click="gotoHomeStore" style="width:100px; background-color:	#fdca40; border-radius:5px; border:solid #fdca40 1px; padding:6px; margin-left:190px; margin-top:30px">Enter</button>
       </div>
     </b-modal>
 
@@ -33,7 +33,7 @@
       <div class="d-block text-center">
         <p>The password you entered is incorrect.</p>
         <p>Please ry again</p>
-        <button @click="again" style="background-color:	white; border-radius:10px; border:solid gray 1px; padding:5px; margin-top:10px">Try again</button>
+        <button @click="again" style="width:100px; color:white; background-color:	#fb3640; border-radius:5px; border:solid #fb3640 1px; padding:5px; margin-top:10px">Try again</button>
       </div>
     </b-modal>
 
