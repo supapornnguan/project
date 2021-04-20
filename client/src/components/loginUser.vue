@@ -1,5 +1,7 @@
 <template>
     <div class="loginUser">
+        <br>
+        <br>
         <h1 id="login">LOG IN</h1>
         <sui-form>
             <sui-form-field>
@@ -12,7 +14,7 @@
             </sui-form-field>
         </sui-form>
         
-    <sui-button  @click="loginSuccess" style="margin-left:150px; margin-top:30px">Login</sui-button>
+    <sui-button  @click="loginSuccess" style="background-color:#fdca40; color:#000000; width: 400px; margin-top:50px">Login</sui-button>
 
     <b-modal ref="my-modal" hide-footer title="ACCOUNT NOT FOUND">
         <div class="d-block text-center">
