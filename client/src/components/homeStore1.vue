@@ -3,7 +3,12 @@
            <div style="background-color:#542e71; height:80px;">
       <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
     </div>
-      <div>
+    
+      <div align=center style="margin-top:100px">
+        <div>
+       <img src="../assets/box.png" :width="200"> 
+       </div>
+       <br>
   <b-dropdown
     split
     split-variant="outline-secondary"

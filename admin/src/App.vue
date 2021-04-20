@@ -30,7 +30,7 @@
 <style scoped>
 h1{
   text-align: center;
-  background-color: 	#0F4C81;
+  background-color:	#542e71;
   color:#FFFF;
   padding: 20px;
   margin-top: -9px;
