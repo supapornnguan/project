@@ -5,8 +5,10 @@
     <sui-form-fields inline id="centertext">
       <sui-form-field width="twelve">
         <label id="textfit">FIRSTNAME</label>
-        <input id="centerbox" type="text" placeholder="First name" v-model="customer_firstname" />
+        <input id="centerbox" type="text" placeholder="First name"  v-model="customer_firstname" />
       </sui-form-field >
+
+      
     </sui-form-fields>
     <sui-form-fields inline id="centertext">
       <sui-form-field width="twelve">
@@ -51,7 +53,18 @@
       </sui-form-field >
     </sui-form-fields>
   </sui-form>
-      <sui-button basic color="black" id="centersave">SAVE</sui-button>
+      <sui-button basic color="black" id="centersave" @click="showModal()">SAVE</sui-button>
+
+  <b-modal ref="my-modal" hide-footer title="Confimation">
+    <div class="d-block text-center">
+      <p>Are you sure you want to update your profile</p>
+    </div>
+ 
+      <b-button  variant="primary" style="margin-top:40px; margin-right:10px; margin-left:270px"  @click="confirmUpdate()">Confirm</b-button>
+      <b-button  variant="primary" style="margin-top:40px; margin-right:10px" @click="cancleUpdate()">Cancle</b-button>
+
+    
+  </b-modal>
     
 </div>
 </template>
@@ -76,6 +89,29 @@ export default {
 
 
     }
+  },
+  methods: {
+    confirmUpdate(){
+      firebase.ref("user/" + this.userid_params).update({
+        customer_firstname : this.customer_firstname,
+        customer_lastname : this.customer_lastname,
+        customer_phonenumber : this.customer_phonenumber,
+      })
+     
+     firebase.ref("user/" + this.userid_params+ "/address/" + "0").update({
+       customer_district : this.customer_district,
+        customer_province : this.customer_province,
+        customer_zipcode : this.customer_zipcode
+     })
+      location.reload();
+    },
+    cancleUpdate(){
+      this.$refs['my-modal'].hide()
+    },
+    showModal(){
+      this.$refs['my-modal'].show()
+    }
+
   },
   beforeMount() {
     this.userid_params = this.$route.params.userid
