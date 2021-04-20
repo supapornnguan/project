@@ -6,7 +6,7 @@
         :is-full-page="true">
         </loading>
 
-        <div style="background-color:#0F4C81; height:80px;">
+        <div style="background-color:#542e71; height:80px;">
         <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
         </div>
     <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">ORDER AT STORE</p>
@@ -35,6 +35,8 @@
   </sui-table>
   <!-- <p>{{filterDate}}</p> -->
   </div>
+  <br>
+  <br>
     </div>
 </template>
 <script>

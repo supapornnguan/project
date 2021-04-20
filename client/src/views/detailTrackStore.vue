@@ -5,7 +5,7 @@
         :is-full-page="true">
         </loading>
 
-    <div style="background-color:#0F4C81; height:80px;">
+    <div style="background-color:#542e71; height:80px;">
     <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
     </div>
 

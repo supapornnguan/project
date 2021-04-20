@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="background-color:#0F4C81; height:80px;">
+    <div style="background-color:#542e71; height:80px;">
     <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
     </div>
     <h4 style="margin-left:50px; margin-top:50px">Branch : {{this.$route.params.idStore}}</h4>

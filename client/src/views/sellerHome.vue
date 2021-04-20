@@ -3,7 +3,7 @@
     <navbar/>
       <div id="homeSeller">
     <h1 class="welcome">WELCOME TO THE SELLER CENTER</h1>
-    <div id="groupButton">
+    <div id="groupButton" align=center>
       <router-link to="/sellerRegis" ><button class="ui secondary basic button" >OPEN YOUR SHOP</button></router-link>
       <router-link to="/sellerLogin" ><button class="ui secondary basic button" >LOGIN</button></router-link>
     </div>
@@ -36,6 +36,5 @@ export default {
 }
 #groupButton{
   position: relative;
-  left: 350px;
 }
 </style>
