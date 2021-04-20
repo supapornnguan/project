@@ -11,9 +11,15 @@
                
                     <h3 class="info">{{product_name}}</h3>
                     <router-link to="/acSeller" id="linkShop">{{seller_name_shop}}</router-link>
-                    <div id="rate">
-                         <sui-rating :rating="value" :max-rating="5" id="ratting"/>
-                    </div>
+                    <StarRating v-bind:star-size="20"
+                                v-bind:max-rating="5"
+                                inactive-color="#BEBEBE"
+                                active-color="#FFCC33"
+                                v-bind:read-only="true"
+                                v-bind:show-rating="false"
+                                v-bind:rating="1"
+                                style="margin-top:-20px; margin-bottom:15px">
+                    </StarRating>
                 
                     <p class="info">{{product_unit_price}} THB</p>
                     
@@ -37,7 +43,15 @@
         <h2 class="H2" >Reviews</h2>
         <div>
            <p  style="display:inline; margin-left:20px">Overall: </p> 
-           <sui-rating :rating="value" :max-rating="5" id="ratting"  style="display:inline"/> 
+           <StarRating v-bind:star-size="20"
+                                v-bind:max-rating="5"
+                                inactive-color="#BEBEBE"
+                                active-color="#FFCC33"
+                                v-bind:read-only="true"
+                                v-bind:show-rating="false"
+                                v-bind:rating="1"
+                                style="position:absolute; top:618px; left:80px">
+                    </StarRating>
         </div>
         
         <b-progress :value="90" variant="danger" class="mt-2" id="progressStar"></b-progress> 
@@ -73,6 +87,7 @@ import navbar from "../components/navbar"
 import {mapActions , mapGetters} from "vuex"
 import store from "../store"
 import firebase from "../firebase"
+import StarRating from 'vue-star-rating'
 
 export default {
     data() {
@@ -98,7 +113,8 @@ export default {
         }
     },
     components : {
-        navbar
+        navbar,
+         StarRating
     },
     
     methods: {

@@ -8,30 +8,92 @@
         :is-full-page="true">
         </loading>
       <!-- <search/> -->
+ <!-- <img src="../assets/PET3.jpg" style="margin-top:30px;width:100% height:500px; margin-left:25px"> -->
+
+
+
+  <!-- <img src="../assets/PET4.jpg" style="width:1200px; height:390px; margin-left:130px; margin-top:60px" v-bind:style="{ display:disply_image}"> -->
+
+
+
+<div style="width:1200px; height:390px; margin-left:100px">
+    <b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="2500"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height="480"
+      style="text-shadow: 1px 1px 2px #333; margin-top:70px"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+
+    >
+  
+      <b-carousel-slide>
+        <template #img>
+          <img
+            class="d-block img-fluid w-100"
+            width="1024"
+            height="480"
+            src="../assets/PET4.jpg"
+            alt="image slot"
+          >
+        </template>
+      </b-carousel-slide>
+
+      <b-carousel-slide>
+      <template #img>
+          <img
+            class="d-block img-fluid w-100"
+            width="1024"
+            height="480"
+            src="../assets/PET3.jpg"
+            alt="image slot"
+          >
+        </template>
+      </b-carousel-slide>
+    </b-carousel>
+</div>
+
+
+
 
     <!-- <input type="text" v-model="search"> -->
-      <div style="position:absolute; top:130px; width:400px; margin-left:550px;">
-    <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
-  </div>
+    <div style="position:absolute; top:100px; width:200px; margin-left:1200px;">
+      <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
+    </div>
+    
+    
+   
 
 
 
-
-      <h1 style="position:absolute; left:100px; font-weight:600; margin-top:100px">{{this.$route.params.category}}</h1>
+    <h1 style="position:absolute; left:100px; font-weight:600; margin-top:50px">{{this.$route.params.category}}</h1>
       <!-- <h4 style="position:absolute; left:100px; top:300px">FILTER BY</h4> -->
     <div class="con">
     
-    <sui-card-group :items-per-row="3" style="margin-top:120px" >
+    <sui-card-group :items-per-row="3" style="margin-top:50px" >
       <sui-card 
         v-for="(key,index) in resultQuery" 
         :key="index" 
         style="height:490px">
         
           <img :src="resultQuery[index].product_image" id="img1" @click="gotoInfoproduct(keysProduct[index])" :width="280" :height="230">
-          <p style="position:absolute; top:270px; font-weight:800">{{resultQuery[index].product_name}}</p>
-          <p style="position:absolute; top:315px">{{resultQuery[index].product_detail | shortDescription}}</p>
-          <p style="position:absolute; top:380px">{{resultQuery[index].product_unit_price}}  THB</p>
-          <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:410px; left:10px"/>
+          <p style="position:absolute; top:270px; font-weight:800; left:10px">{{resultQuery[index].product_name}}</p>
+          <p style="position:absolute; top:315px; left:10px">{{resultQuery[index].product_detail | shortDescription}}</p>
+          <p style="position:absolute; top:380px; left:10px">{{resultQuery[index].product_unit_price}}  THB</p>
+          <StarRating v-bind:star-size="20"
+                                v-bind:max-rating="5"
+                                inactive-color="#BEBEBE"
+                                active-color="#FFCC33"
+                                v-bind:read-only="true"
+                                v-bind:show-rating="false"
+                                v-bind:rating="1"
+                                style="margin-top:0px; margin-left:10px ">
+                    </StarRating>
         <button class= "buttonCart" @click="addItem(index)" style="position:absolute; top:440px; ">ADD TO CART</button>
       </sui-card>
     </sui-card-group>
@@ -69,11 +131,11 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 // import search from "../components/search"
 import navbar from "../components/navbar"
 import firebase from "../firebase"
+import StarRating from 'vue-star-rating'
 
 // import store from "../store"
 // import {auth} from "../firebase"
  import { mapActions , mapGetters} from "vuex"
-
 export default {
     data() {
         return {
@@ -95,7 +157,12 @@ export default {
             search : "",
             product_list : [],
             searchQuery: null,
-            detail : []
+            detail : [],
+            disply_image: "block",
+
+            slide: 0,
+        sliding: null
+           
 
         }
     },
@@ -120,7 +187,15 @@ export default {
         this.$refs['my-modal'].hide()
 
       },
-    
+      onSlideStart() {
+        this.sliding = true
+      },
+      onSlideEnd() {
+        this.sliding = false
+      },
+
+
+  
 
       ...mapActions(['updateCart']),
       //add product to the cart when click ADD TO CART button
@@ -149,7 +224,8 @@ export default {
   components:{
       // search,
       navbar,
-      Loading
+      Loading,
+       StarRating
   },
   //getting type of product
   computed: {
@@ -238,7 +314,7 @@ export default {
 <style scoped>
 div.con{
     width: 990px;
-    margin-left: 370px;
+    margin-left: 280px;
 }
 #filterBy{
     text-align: left;
@@ -266,5 +342,16 @@ div.ui.card{
 #img1{
   border: none;
   width: 250px;
+}
+li.on {
+  display: block;
+}
+li {
+  display: none;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 </style>

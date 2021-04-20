@@ -1,7 +1,7 @@
 <template>
   <div class="ui secondary menu" style="background-color:#542e71; height:90px;" >
     <router-link to="/" class="ui item" style="color:#FFFFFF">HOME</router-link>
-    <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF">SELLER CENTER</router-link>
+    <router-link to="/sellerHome" class="ui item" style="color:#FFFFFF" target="_blank">SELLER CENTER</router-link>
     
        <h1 id="logo" style="color:#FFFFFF; font-family: 'Michroma', cursive; font-size:40px; margin-left:310px; margin-top:15px">SHOPAHOLIC</h1>
 
