@@ -25,7 +25,7 @@
             @change="checkPassword" />
             <!-- check password -->
             <span is="sui-label" basic color="red" pointing v-if="Users.customer_password==''">Enter password</span>
-            <span is="sui-label" basic color="red" pointing v-else-if="checkPasswordnum">Password must be have 8 characters</span>
+            <span is="sui-label" basic color="red" pointing v-else-if="checkPasswordnum">The password should be at least 8 characters.</span>
         </sui-form-field>
 
         <sui-form-field required>
@@ -215,9 +215,9 @@ export default {
       }
       },
       checkPassword(){
-        if(this.Users.customer_password.length != 8){
+        if(this.Users.customer_password.length < 8){
           return this.checkPasswordnum = true
-      }else if(this.Users.customer_password.length == 8){
+      }else if(this.Users.customer_password.length >= 8){
           return this.checkPasswordnum = false
       }
       }

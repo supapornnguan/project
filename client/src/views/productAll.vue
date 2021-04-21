@@ -144,7 +144,7 @@
       <!-- <h4 style="position:absolute; left:100px; top:300px">FILTER BY</h4> -->
     <div class="con">
     
-    <sui-card-group :items-per-row="3" style="margin-top:50px" >
+    <sui-card-group :items-per-row="3" style="margin-top:120px" >
       <sui-card 
         v-for="(key,index) in resultQuery" 
         :key="index" 
