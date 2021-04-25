@@ -12,10 +12,11 @@
     <button id="logout" v-if="user.loggedIn" @click="logout">LOGOUT</button>
     <!-- <p v-if="user.loggedIn" class="ui item"><a @click="logout"  style="color:#FFFFFF;">LOGOUT</a></p> -->
     <router-link to="/myCart"><img src="../assets/cart_icon.svg" class="cart" v-if="user.loggedIn"></router-link>
-    <div class="circle" v-if="number_product!=0 & user.loggedIn">{{number_product}}</div>
+    <div class="circle" v-if="cartList.length!=0 & user.loggedIn">{{cartList.length}}</div>
     <img src="../assets/user_icon.svg" id="Myaccount" style="cursor:pointer;" v-if="user.loggedIn" @click="myaccount">
     <!-- <p>{{userid}}</p> -->
   </div>
+
   
 </div>
 </template>
@@ -44,7 +45,8 @@ export default {
       userid : "",
       key_product : {},
       key_product_list : [],
-      number_product: ""
+      number_product: "",
+      timer : null
       
 
     }

@@ -10,10 +10,13 @@ import * as actions from './actions';
 import message from './modules/message';
 import checkPage from "./modules/checkPage"
 import storePickup from "./modules/storePickup"
+import createPersistedState from 'vuex-persistedstate';
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   actions,
   modules: {
     user,

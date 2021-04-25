@@ -31,10 +31,10 @@
         <h1 style="margin-bottom:40px; margin-top:40px">MY PRODUCT</h1>
 
         <sui-card-group :items-per-row="3" >
-            <sui-card v-for="(key,index) in keysProduct" :key="index" style="height:490px">
+            <sui-card v-for="(key,index) in keysProduct" :key="index" style="height:490px;  box-shadow: 0px 0px 20px 10px #D5D8DC;">
                 <sui-card-content >
                     <img :src="product_image[index]" id="img1" :width="280" :height="230">
-                    <p style="position:absolute; top:270px">{{product_name[index]}}</p>
+                    <p style="position:absolute; top:270px; font-weight:900">{{product_name[index]}}</p>
                     <p style="position:absolute; top:315px">{{product_detail[index] | shortDescription}}</p>
                     <p style="position:absolute; top:380px">{{product_unit_price[index]}}  THB</p>
                 <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:410px; left:10px" />

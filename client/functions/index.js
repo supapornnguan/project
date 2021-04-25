@@ -1,4 +1,5 @@
 const functions = require("firebase-functions");
+// const express = require("express")
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -9,7 +10,7 @@ const functions = require("firebase-functions");
 // });
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
-const cors = require('cors')({origin: true});
+const cors = require('cors')({origin: true,  credentials: true});
 admin.initializeApp();
 
 /**
@@ -25,9 +26,30 @@ let transporter = nodemailer.createTransport({
     debug: true,
 });
 
+
+exports.corsEnabledFunction = (req, res) => {
+    // Set CORS headers for preflight requests
+    // Allows GETs from any origin with the Content-Type header
+    // and caches preflight response for 3600s
+  
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Credentials', 'true');
+  
+    if (req.method === 'OPTIONS') {
+      // Send response to OPTIONS requests
+      res.set('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, DELETE, OPTIONS');
+      res.set('Access-Control-Allow-Headers','Content-Type, Option, Authorization');
+      res.set('Access-Control-Max-Age', '3600');
+      res.status(204).send('');
+    } else {
+      res.send('Hello World!');
+    }
+  };
+
+
 //order at store
 exports.orderAtStore = functions.https.onRequest((req, res) => {
-    cors(req, res, () => {
+   return cors(req, res, () => {
       
         // getting dest email by query string
         const email_customer = req.body.email;
@@ -74,8 +96,10 @@ exports.orderAtStore = functions.https.onRequest((req, res) => {
 
 //ordered
 exports.ordered = functions.https.onRequest((req, res) => {
-    cors(req, res, () => {
-      
+    return cors(req, res, () => {
+        res.set('Access-Control-Allow-Origin', "*")
+        res.set('Access-Control-Allow-Methods', 'GET, POST')
+
         // getting dest email by query string
         const email_customer = req.body.email;
         const order_id = req.body.order_id;
@@ -413,3 +437,4 @@ exports.verifySeller = functions.https.onRequest((req, res) => {
         });
     });    
 });
+

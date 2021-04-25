@@ -24,21 +24,6 @@ const mutations = {
 				record.quantity = quantity;
 			}
 		} else {
-			const cartItemList = {
-				keysProduct,
-                product_name,
-                product_image,
-                product_unit_price,
-				product_detail,
-				sellerUid,
-				status,
-				seller_name_shop,
-				quantity
-			}
-			//get
-			const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
-			item.push(cartItemList)
-			localStorage.setItem("cartItem",JSON.stringify(item))
 			state.cartItemList.push({
                 keysProduct,
                 product_name,
@@ -50,6 +35,32 @@ const mutations = {
 				seller_name_shop,
 				quantity
 			});
+			// const cartItemList = {
+			// 	keysProduct,
+            //     product_name,
+            //     product_image,
+            //     product_unit_price,
+			// 	product_detail,
+			// 	sellerUid,
+			// 	status,
+			// 	seller_name_shop,
+			// 	quantity
+			// }
+			// //get
+			// const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
+			// item.push(cartItemList)
+			// localStorage.setItem("cartItem",JSON.stringify(item))
+			// state.cartItemList.push({
+            //     keysProduct,
+            //     product_name,
+            //     product_image,
+            //     product_unit_price,
+			// 	product_detail,
+			// 	sellerUid,
+			// 	status,
+			// 	seller_name_shop,
+			// 	quantity
+			// });
 		}
 	},	
 	'ADD_QUANTITY' (state,{keysProduct}){

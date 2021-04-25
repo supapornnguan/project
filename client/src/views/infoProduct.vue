@@ -9,7 +9,7 @@
                 </sui-grid-column>
                 <sui-grid-column>
                
-                    <h3 class="info">{{product_name}}</h3>
+                    <p style="font-size:30px; font-weigth:900">{{product_name}}</p>
                     <router-link to="/acSeller" id="linkShop">{{seller_name_shop}}</router-link>
                     <StarRating v-bind:star-size="20"
                                 v-bind:max-rating="5"
@@ -18,7 +18,7 @@
                                 v-bind:read-only="true"
                                 v-bind:show-rating="false"
                                 v-bind:rating="1"
-                                style="margin-top:-20px; margin-bottom:15px">
+                                style="margin-top:-10px; margin-bottom:15px">
                     </StarRating>
                 
                     <p class="info">{{product_unit_price}} THB</p>
@@ -33,7 +33,7 @@
 
                     <div style="margin-left:50px">
                         <sui-button basic secondary @click="gotoSummary" style="width:150px; margin-top:20px">BUY NOW</sui-button>
-                        <sui-button basic secondary @click="addItem" style="width:150px; margin-left:20px">ADD TO CART</sui-button>
+                        <sui-button basic secondary @click="addItem" style="width:150px; margin-left:20px; ">ADD TO CART</sui-button>
                     </div>
                  
                 </sui-grid-column>

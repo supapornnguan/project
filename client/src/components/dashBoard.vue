@@ -6,7 +6,7 @@
     <sui-grid :columns="3">
       <sui-grid-row id="spaceLeftRight" stretched>
         <sui-grid-column>
-          <sui-segment>
+          <sui-segment raised>
             <div class="single-example" align=center>
               <sui-statistic>
                 <sui-statistic-label>TOTAL ORDERS</sui-statistic-label>
@@ -16,17 +16,17 @@
           </sui-segment>
         </sui-grid-column>
         <sui-grid-column>
-          <sui-segment>
+          <sui-segment raised>
             <div class="single-example" align=center>
               <sui-statistic>
                 <sui-statistic-label>PICKUP ORDERS</sui-statistic-label>
-                <sui-statistic-value>{{numInfo_pickup.length}}</sui-statistic-value>
+                <sui-statistic-value> {{numInfo_pickup.length}}</sui-statistic-value>
               </sui-statistic>
             </div>
           </sui-segment>
         </sui-grid-column>
         <sui-grid-column>
-          <sui-segment>
+          <sui-segment raised>
             <div class="single-example" align=center>
               <sui-statistic>
                 <sui-statistic-label>SHIPPING ORDERS</sui-statistic-label>

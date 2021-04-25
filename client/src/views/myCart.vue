@@ -30,26 +30,25 @@
             </sui-table-header>
             
    
-            <sui-table-body v-for="(key,index) in cartItemList1" :key="index">
-                <sui-table-row style="height:100px" v-if="cartItemList1[index].seller_name_shop == name_shop_list_uni[index1]" >
-                    <sui-table-cell><sui-checkbox v-model="selected"  :value="cartItemList1[index].keysProduct"/></sui-table-cell>
-                    <sui-table-cell style="width:190px"><img :src="cartItemList1[index].product_image" :width="150" style="margin-left:30px; margin-right:50px"></sui-table-cell>
+            <sui-table-body v-for="(key,index) in cartItemList" :key="index">
+                <sui-table-row style="height:100px" v-if="cartItemList[index].seller_name_shop == name_shop_list_uni[index1]" >
+                    <sui-table-cell><sui-checkbox v-model="selected"  :value="cartItemList[index].keysProduct"/></sui-table-cell>
+                    <sui-table-cell style="width:190px"><img :src="cartItemList[index].product_image" :width="150" style="margin-left:30px; margin-right:50px"></sui-table-cell>
                     <sui-table-cell style="width:400px">
-                        <p class="info" style="font-weight:800">{{cartItemList1[index].product_name}}</p>
-                        <p>{{cartItemList1[index].product_detail | shortDescription}}</p>
+                        <p class="info" style="font-weight:800">{{cartItemList[index].product_name}}</p>
+                        <p>{{cartItemList[index].product_detail | shortDescription}}</p>
                     </sui-table-cell>
                     <sui-table-cell>
-                        <button id="buttonAdd" @click="miniQuantity(index, cartItemList1[index].keysProduct)">-</button>
-                        <input type="text" id="inputQTY" v-model="quantity[index]">
-                        <button id="buttonAdd" @click="addQuantity(cartItemList1[index].keysProduct)">+</button>
+                        <button id="buttonAdd" @click="miniQuantity(index, cartItemList[index].keysProduct)">-</button>
+                        <input type="text" id="inputQTY" v-model="cartItemList[index].quantity">
+                        <button id="buttonAdd" @click="addQuantity(cartItemList[index].keysProduct)">+</button>
                     </sui-table-cell>
-                    <sui-table-cell><p style="font-size:15px;">{{cartItemList1[index].product_unit_price}}.00 THB</p></sui-table-cell>
+                    <sui-table-cell><p style="font-size:15px;">{{cartItemList[index].product_unit_price}}.00 THB</p></sui-table-cell>
                     <sui-table-cell><p style="font-size:15px;">{{subtotal(index)}}.00 THB</p></sui-table-cell>
                     <sui-table-cell><img src="../assets/delete.png" 
                                         :width="30" 
-                                        @click="removeItem(
-                                       key.keysProduct
-                                        )"></sui-table-cell>
+                                        @click="removeItem(key.keysProduct)"
+                                        style="cursor:pointer"></sui-table-cell>
                 </sui-table-row>
             </sui-table-body>
         </sui-table>
@@ -96,7 +95,6 @@ export default {
             name_shop_list : [],
             name_shop_list_uni : [],
             selected: [],
-            hello:1,
 
             sellected_product : [],
             cartItemList1: [],
@@ -149,8 +147,8 @@ export default {
             })
 
             for(var i=0;i<this.selected.length;i++){
-                for(var j=0;j<this.cartItemList1.length;j++){
-                    if(this.selected[i]==this.cartItemList1[j].keysProduct)
+                for(var j=0;j<this.cartItemList.length;j++){
+                    if(this.selected[i]==this.cartItemList[j].keysProduct)
                     store.commit("SET_SUMMARY_PAGE_FROM_CART",{
                         keysProduct : this.selected[i],
                         product_detail : this.cartItemList[j].product_detail,
@@ -178,23 +176,23 @@ export default {
 
         },
         subtotal(index) {
-				return this.cartItemList1[index].quantity * this.cartItemList1[index].product_unit_price;
+				return this.cartItemList[index].quantity * this.cartItemList[index].product_unit_price;
 			},
         addQuantity(key){
 
 
-        var item = JSON.parse(localStorage.getItem("cartItem") || "[]");
-        console.log(item)
-        for(var i = 0 ; i< item.length; i++){
-            if(key == item[i].keysProduct){
-                item[i].quantity +=1
-                this.quantity[i] = item[i].quantity
-                console.log(this.quantity[i])
-                break;   
-            }
-        }
+        // var item = JSON.parse(localStorage.getItem("cartItem") || "[]");
+        // console.log(item)
+        // for(var i = 0 ; i< item.length; i++){
+        //     if(key == item[i].keysProduct){
+        //         item[i].quantity +=1
+        //         this.quantity[i] = item[i].quantity
+        //         console.log(this.quantity[i])
+        //         break;   
+        //     }
+        // }
         
-        localStorage.setItem("cartItem", JSON.stringify(item));
+        // localStorage.setItem("cartItem", JSON.stringify(item));
 
 
         //not use
@@ -211,15 +209,14 @@ export default {
                 return "1"
             }
             else{
-                for(var i = 0 ; i< item.length; i++){
-                    if(key == item[i].keysProduct){
-                        item[i].quantity -=1
-                        this.quantity[i] = item[i].quantity
-                        break;   
-                    }
-                }
-                localStorage.setItem("cartItem", JSON.stringify(item));
-            
+                // for(var i = 0 ; i< item.length; i++){
+                //     if(key == item[i].keysProduct){
+                //         item[i].quantity -=1
+                //         this.quantity[i] = item[i].quantity
+                //         break;   
+                //     }
+                // }
+                // localStorage.setItem("cartItem", JSON.stringify(item));
             
 
             //not use
@@ -232,18 +229,22 @@ export default {
         ...mapActions(['updateCart','removeItemInCart','addQuantityStore','miniQuantityStore']),
         //remove product in cart
 		removeItem(key) {
+
+//             var originalSetItem = localStorage.setItem; 
+// localStorage.setItem = function(){
+//     document.createEvent('Event').initEvent('cartItem', true, true);
+//     originalSetItem.apply(this, arguments);
+// }
+// console.log(originalSetItem)
+
+
             this.removeItemInCart({
 					keysProduct: key
 				});
             console.log(key)
+
+
         },
-    },
-    watch : {
-
-      quantity: function(newVal) {
-      console.log(newVal);
-    }
-
     },
     filters : {
     shortDescription(value1) {
@@ -260,17 +261,29 @@ export default {
 
    
     created() {
-        this.cartItemList1 = JSON.parse(localStorage.getItem("cartItem") || "[]");
+        // this.cartItemList1 = JSON.parse(localStorage.getItem("cartItem") || "[]");
 
-        console.log(this.cartItemList1)
-        this.totalOrder()
+        // console.log(this.cartItemList1)
+        // this.totalOrder()
+        //  console.log("hello")
+        // console.log(this.cartItemList1.length)
+        // for(var i =0;i<this.cartItemList1.length;i++){
+        //     this.name_shop_list[i] = this.cartItemList1[i].seller_name_shop
+        //     console.log(this.name_shop_list[i]) 
+        //     this.quantity[i] = this.cartItemList1[i].quantity
+        //     console.log(this.cartItemList1[i].quantity)
+            
+        //    // [...new Set(numbers)]
+        // }
+        // this.name_shop_list_uni = [...new Set(this.name_shop_list)]
+        // console.log(this.name_shop_list_uni)
+
+         this.totalOrder()
          console.log("hello")
-        console.log(this.cartItemList1.length)
-        for(var i =0;i<this.cartItemList1.length;i++){
-            this.name_shop_list[i] = this.cartItemList1[i].seller_name_shop
+        console.log(this.cartItemList.length)
+        for(var i =0;i<this.cartItemList.length;i++){
+            this.name_shop_list[i] = this.cartItemList[i].seller_name_shop
             console.log(this.name_shop_list[i]) 
-            this.quantity[i] = this.cartItemList1[i].quantity
-            console.log(this.cartItemList1[i].quantity)
             
            // [...new Set(numbers)]
         }
