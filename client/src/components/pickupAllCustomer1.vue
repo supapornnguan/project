@@ -76,7 +76,7 @@
             </div>
             <hr>
 
-            <h4 style="font-weight:670; margin-bottom:30px; margin-top:30px">Seller Infomation</h4>
+            <h4 style="font-weight:670; margin-bottom:30px; margin-top:30px">Seller Information</h4>
             <div style="margin-bottom:10px">
                 <p style="display:inline; font-weight:670; ">Name shop : </p> 
                 <p style="display:inline; margin-top:20px; margin-bottom:20px">{{seller_name_shop}}</p>
@@ -189,7 +189,7 @@
 
             <p v-for="(item,index) in customer_address" :key="index">{{customer_address1[index]}},{{customer_district[index]}},{{customer_province[index]}},{{customer_zipcode[index]}}</p>
 <hr>
-            <h4 style="font-weight:670; margin-bottom:30px; margin-top:30px">Seller Infomation</h4>
+            <h4 style="font-weight:670; margin-bottom:30px; margin-top:30px">Seller Information</h4>
             <div style="margin-bottom:10px">
                 <p style="display:inline; font-weight:670; ">Name shop : </p> 
                 <p style="display:inline; margin-top:20px; margin-bottom:20px">{{seller_name_shop}}</p>
