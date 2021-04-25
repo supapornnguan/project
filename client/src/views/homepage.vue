@@ -92,5 +92,6 @@ export default {
      position: relative;
      top: 20px;
      left: 87px;
+
 }
 </style>

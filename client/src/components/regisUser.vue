@@ -260,5 +260,6 @@ export default {
   border: 1px solid #a799b7;
   padding: 50px;
   background-color: 	#a799b7;
+  box-shadow: 0px 0px 20px 10px #D5D8DC;
 }
 </style>

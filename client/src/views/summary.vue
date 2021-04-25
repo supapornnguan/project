@@ -2,10 +2,11 @@
     <div >
         <navbar/>
         <div>
-        <h3 style="text-align:left; color:black; margin-left:100px; font-weight:1000">My Order</h3>
+        <p style="text-align:left; color:black; margin-left:100px; font-weight:700; font-size:35px; margin-bottom:50px;">My Order</p>
+  
       
 <!-- form infoProduct page -->
-        <sui-table style="width:1200px; margin-left:140px" v-if="checkPage.check == false">
+        <sui-table style="width:1200px; margin-left:140px; box-shadow: 0px 0px 20px 10px #D5D8DC;" v-if="checkPage.check == false">
             <sui-table-header>
                 <sui-table-row>
                     <sui-table-header-cell>Product</sui-table-header-cell>
@@ -48,25 +49,31 @@
         </sui-table>
 
 
-        <p style="text-align:left; margin-left:1000px; margin-top:30px; font-size:20px" v-if="checkPage.check == false">Total: {{parseInt(infoSummary.product_unit_price) * parseInt(infoSummary.quantity)}}.00 THB</p>
-        <p style="text-align:left; margin-left:1000px; margin-top:30px; font-size:20px" v-else>Total: {{cartValue}}.00 THB</p>
+        <p style="text-align:left; margin-left:1000px; margin-top:30px; font-size:20px; color:red;" v-if="checkPage.check == false">Total: {{parseInt(infoSummary.product_unit_price) * parseInt(infoSummary.quantity)}}.00 THB</p>
+        <p style="text-align:left; margin-left:1000px; margin-top:30px; font-size:20px; color:red;" v-else>Total: {{cartValue}}.00 THB</p>
 
 
-        <h3 style="text-align:left; color:black; margin-left:100px; margin-bottom:50px; font-weight:1000">Select Your Receiving Types</h3>
-            <div style="margin-left:500px">
-               <img src="../assets/pickup.png" :width="100"  >
-                <img src="../assets/delivery.png" :width="100" style="margin-left:250px"> 
+        <p style="text-align:left; color:black; margin-left:100px; margin-bottom:50px; font-weight:700; font-size:35px;">Select Your Receiving Types</p>
+            <div style="margin: auto;
+                        width: 60%;
+                        border: 3px solid #D5D8DC;
+                        padding: 10px;
+                        box-shadow: 0px 0px 20px 10px #D5D8DC;">
+                        <div style="margin-left:155px">
+                            <img src="https://img.icons8.com/pastel-glyph/2x/pickup-point.png" :width="120"   >
+                <img src="https://www.pngkit.com/png/full/781-7817952_delivery-icon-transparent-background-shipping-cost-icon.png" :width="140" style="margin-left:250px"> 
                 <br>
 
                 <input type="radio" id="yes" value="pickUp" v-model="picked" style="margin-top:30px">
                 <label for="yes" style="margin-left:10px">Pick-up in store</label>
 
-                <input type="radio" id="no" value="shipping" v-model="picked" style="margin-left:250px; margin-top:30px">
+                <input type="radio" id="no" value="shipping" v-model="picked" style="margin-left:280px; margin-top:30px">
                 <label for="no" style="margin-left:10px">Shipping</label>
+                        </div>
+               
             </div>
         </div>
-        <sui-button basic secondary style="margin-top:70px; margin-left:690px" @click="gotoreceiving">Place Order</sui-button>
-        <p>{{checkPage}}</p>
+        <sui-button basic secondary style=" margin-left:665px; margin-top:50px " @click="gotoreceiving">Place Order</sui-button>
     </div>
 </template>
 
