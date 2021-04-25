@@ -125,11 +125,432 @@
   font-size:25px;
   color:#FFFF"><p>Capturing today for tomorrow view</p>  <p>For tomorrow view</p></div>
 
-
 </div>
 
 
+<div v-if="getkey == 'MEN'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
 
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/4210860/pexels-photo-4210860.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/6311121/pexels-photo-6311121.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3755706/pexels-photo-3755706.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/5935748/pexels-photo-5935748.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/5935793/pexels-photo-5935793.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+<div v-if="getkey == 'WOMEN'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/1082528/pexels-photo-1082528.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/5705505/pexels-photo-5705505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/5480689/pexels-photo-5480689.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/4937220/pexels-photo-4937220.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+
+<div v-if="getkey == 'KID'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3661452/pexels-photo-3661452.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3661348/pexels-photo-3661348.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3661387/pexels-photo-3661387.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/7322449/pexels-photo-7322449.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/4484894/pexels-photo-4484894.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+
+<div v-if="getkey == 'ACCESSORIES'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/1460838/pexels-photo-1460838.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/2777076/pexels-photo-2777076.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/4595717/pexels-photo-4595717.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/1472858/pexels-photo-1472858.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/3385375/pexels-photo-3385375.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+<div v-if="getkey == 'SPORT'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/221247/pexels-photo-221247.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/4587703/pexels-photo-4587703.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3763115/pexels-photo-3763115.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/4587426/pexels-photo-4587426.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/4753927/pexels-photo-4753927.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+<div v-if="getkey == 'HOME & LIFESTYLE'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3505699/pexels-photo-3505699.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3847438/pexels-photo-3847438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/298842/pexels-photo-298842.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/5491147/pexels-photo-5491147.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/4993062/pexels-photo-4993062.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+
+<div v-if="getkey == 'COMPUTERS'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/4072683/pexels-photo-4072683.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/4195406/pexels-photo-4195406.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3829226/pexels-photo-3829226.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/5632367/pexels-photo-5632367.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/3394663/pexels-photo-3394663.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+<div v-if="getkey == 'HEALTH & BEAUTY'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/1029896/pexels-photo-1029896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/208052/pexels-photo-208052.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/6634180/pexels-photo-6634180.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/6634179/pexels-photo-6634179.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/5938635/pexels-photo-5938635.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+
+<div v-if="getkey == 'ELECTRONIC'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/6976102/pexels-photo-6976102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/4219883/pexels-photo-4219883.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3945658/pexels-photo-3945658.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/3962990/pexels-photo-3962990.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/2527839/pexels-photo-2527839.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
+
+<div v-if="getkey == 'MOBILE & TABLET'" style="width:700px; margin-left:100px; margin-top:100px">
+  <b-carousel
+    id="carousel-no-animation"
+    style="text-shadow: 0px 0px 2px #000"
+    no-animation
+    indicators
+
+  >
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/3082341/pexels-photo-3082341.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/4957/person-woman-hand-smartphone.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      img-src="https://images.pexels.com/photos/6377/man-hand-smartphone-lake.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+      style="width:700px; height:350px"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-img src="https://images.pexels.com/photos/4123561/pexels-photo-4123561.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:837px"
+  ></b-img>
+
+
+  <b-img src="https://images.pexels.com/photos/3756879/pexels-photo-3756879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+         style="width: 200px; 
+                height: 350px; 
+                object-fit: cover;
+                position:absolute;
+                top:190px;
+                left:1081px"
+  ></b-img>
+</div>
 
     <!-- <input type="text" v-model="search"> -->
     <div style="position:absolute; top:100px; width:200px; margin-left:1200px;">
