@@ -10,7 +10,7 @@
 
         </div>
       
-      <div  v-if="cartItemList.lenght != 0">
+      <div  v-if="cartItemList.lenght != 0" >
     <div v-for="(key,index1) in this.name_shop_list_uni" :key="index1">
        
         
@@ -53,10 +53,10 @@
                 </sui-table-row>
             </sui-table-body>
         </sui-table>
-        <p>{{quantity}}</p>
+        <!-- <p>{{quantity}}</p> -->
         </div>
         <h5 style="margin-left:1100px; font-weight:700; margin-top:40px">Total: {{this.total()}} .00 THB</h5>
-        <button class="checkout" @click="checkout">CHECKOUT</button>
+        <button class="checkout" style="margin-bottom:100px" @click="checkout">CHECKOUT</button>
         </div>
 
 

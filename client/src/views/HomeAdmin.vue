@@ -30,15 +30,15 @@
 
     <div style="margin-left:380px; margin-top:20px">
 
-    <h3 style="font-weight:600">TO-DO-LIST</h3>
+    <p style="font-weight:600; font-size:40px">TO DO LIST</p>
     <br>
     <div id="todo1">
       <sui-grid :columns="2" id="todo">
         <sui-grid-row stretched>
           <sui-grid-column>
-            <sui-segment @click="gotoVerifyStore">
+            <sui-segment @click="gotoVerifyStore" style="box-shadow: 0px 0px 20px 10px #D5D8DC;">
               <div align=center>
-              <img src="../assets/check.png" :width="50">
+              <img src="https://give.thechesedfund.com/dist/redesign/images/varifacy_icon.png" :width="100">
               <br>
               <br>
                 <sui-statistic>
@@ -50,9 +50,9 @@
             </sui-segment>
           </sui-grid-column>
           <sui-grid-column>
-            <sui-segment @click="gotoVerifySlip">
+            <sui-segment @click="gotoVerifySlip"  style="box-shadow: 0px 0px 20px 10px #D5D8DC;">
               <div align=center>
-              <img src="../assets/slip.png" :width="50">
+              <img src="https://www.pinclipart.com/picdir/big/109-1093730_find-the-data-regulatory-compliance-icon-clipart.png" :width="110">
               <br>
               <br>
                 <sui-statistic>
@@ -115,8 +115,9 @@ export default {
 }
 #todo1{
   border-radius: 10px;
-  background-color: 	#F4F6F6;
+  background-color: 	#dee7ee4d;
   width: 1000px;
+
 
 }
 h1{
@@ -134,11 +135,13 @@ h1{
   padding:10px;
   margin-left: 10px;
   margin-bottom: 5px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
+  cursor:pointer;
+  box-shadow: 0px 0px 20px 10px #D5D8DC;
 }
 #menuAdmin{
   position : absolute;
   width: 350px;
-  margin-top: 30px;
+  margin-top: 130px;
 }
 </style>

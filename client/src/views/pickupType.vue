@@ -200,6 +200,8 @@ export default {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods' : 'POST'
                     },
                     body: JSON.stringify(payload)
                 })
@@ -298,8 +300,10 @@ const url = 'https://us-central1-shopaholic-2385d.cloudfunctions.net/ordered';
 
             fetch(url, {
                     method: 'POST',
+                    
                     headers: {
                         'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
                     },
                     body: JSON.stringify(payload)
                 })

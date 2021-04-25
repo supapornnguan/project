@@ -12,7 +12,7 @@
     <button id="logout" v-if="user.loggedIn" @click="logout">LOGOUT</button>
     <!-- <p v-if="user.loggedIn" class="ui item"><a @click="logout"  style="color:#FFFFFF;">LOGOUT</a></p> -->
     <router-link to="/myCart"><img src="../assets/cart_icon.svg" class="cart" v-if="user.loggedIn"></router-link>
-    <div class="circle" v-if="cartList.length!=0 & user.loggedIn">{{cartList.length}}</div>
+    <div class="circle" v-if="number_product!=0 & user.loggedIn">{{number_product}}</div>
     <img src="../assets/user_icon.svg" id="Myaccount" style="cursor:pointer;" v-if="user.loggedIn" @click="myaccount">
     <!-- <p>{{userid}}</p> -->
   </div>
@@ -50,42 +50,19 @@ export default {
     }
   },
 
-  beforeMount() {
+  mounted() {
     console.log(this.cartList)
     const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
     console.log(item)
     console.log(item.length)
     this.number_product = item.length
+
+//       var originalSetItem = localStorage.setItem; 
+// localStorage.setItem = function(){
+//     document.createEvent('Event').initEvent('itemInserted', true, true);
+//     originalSetItem.apply(this, arguments);
+// }
     
-    // if(this.user1 == true){
-    //   this.userid =  auth.currentUser.uid
-    //   firebase.ref("user/" + this.userid + "/cart/").on("value" , snapshot => {
-    //     console.log(snapshot.val())
-    //     this.key_product = snapshot.val()
-    //     this.key_product_list = Object.keys(this.key_product)
-    //     for(var i = 0 ; i< this.key_product_list.length ; i++){
-    //       var k = this.key_product_list[i]
-    //       // var keysProduct = this.key_product[k].keysProduct
-    //       const order = {
-    //         keysProduct : this.key_product[k].keysProduct,
-    //         product_name : this.key_product[k].product_name,
-    //         product_image : this.key_product[k].product_image,
-    //         product_unit_price : this.key_product[k].product_unit_price,
-    //         product_detail : this.key_product[k].product_detail_non_split,
-    //         sellerUid : this.key_product[k].sellerUid,
-    //         status : this.key_product[k].status,
-    //         seller_name_shop : this.key_product[k].seller_name_shop,
-    //         quantity: this.key_product[k].quantity,
-    //         isAdd: true
-    //     };
-      
-    //       this.updateCart(order);
-
-    //       // console.log(keysProduct)
-    //     }
-
-    //   })
-    // }
   
   },
 
@@ -100,13 +77,15 @@ export default {
             console.log("log out !!!")
             console.log(this.user1)
             this.$router.replace('/').catch(()=>{});
+            const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
             if(this.user1 == false){
-              firebase.ref("user/" + this.userid  + "/cart/").update(this.cartlist)
+              firebase.ref("user/" + this.userid  + "/cart/").update(item)
               // this.clearCart()
               this.$router.replace('/').catch(()=>{});
             }
             
           })
+          localStorage.clear();
     },
     myCart(){
       // this.$router.replace('myCart')

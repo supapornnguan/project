@@ -2,7 +2,7 @@
 <div >
   <navbar/>
 
-  <sui-grid style="margin-top:70px">
+  <sui-grid style="margin-top:70px; margin-bottom:100px">
     <sui-grid-column :width="3">
       <sui-menu fluid vertical tabular>
       <!-- <img class="imageIconAccount" src="../assets/user.png" width="50px" height="50px">

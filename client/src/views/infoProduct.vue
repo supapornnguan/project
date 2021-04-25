@@ -64,12 +64,11 @@
         <h2 class="H2">Detail Product</h2>
 
         <br>
-        <ul id="example-1">
+        <ul id="example-1" style="margin-bottom:100px">
             <li v-for="item in product_detail" :key="item.message">
                 {{ item }}
             </li>
         </ul>
-            <h2 class="H2">Customer Rating and reviews</h2>
 
         <b-modal ref="my-modal" hide-footer hide-header  no-close-on-esc no-close-on-backdrop hide-header-close>
       <div class="d-block text-center">

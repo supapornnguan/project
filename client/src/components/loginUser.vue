@@ -72,6 +72,10 @@ export default {
                         }
                     })
                 })
+            firebase.ref("user/" + auth.currentUser.uid + "/cart/").on("value" , snapshot => {
+                console.log(snapshot.val())
+                localStorage.setItem("cartItem",JSON.stringify(snapshot.val()))
+            })
         }
     },
     computed : {

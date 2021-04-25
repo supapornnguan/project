@@ -16,7 +16,7 @@
 
 
 
-<div style="width:1200px; height:390px; margin-left:100px" v-if="this.$route.params.category == 'PET' ">
+<div style="width:1200px; height:390px; margin-left:100px" v-if=" getkey == 'PET' ">
     <b-carousel
       id="carousel-1"
       v-model="slide"
@@ -58,7 +58,7 @@
     </b-carousel>
 </div>
 
-<div v-if="this.$route.params.category == 'CAMERA'" style="width:700px; margin-left:100px; margin-top:100px">
+<div v-if="getkey == 'CAMERA'" style="width:700px; margin-left:100px; margin-top:100px">
   <b-carousel
     id="carousel-no-animation"
     style="text-shadow: 0px 0px 2px #000"
@@ -114,10 +114,11 @@
               background-color: #99004d;
               position:absolute;
               top:413px;
-              left:838px"></div>
+              left:838px;
+              "></div>
 
 <div style=" position: absolute;
-  top: 195px;
+  top: 430px;
   right: 140px;
   font-size: 18px;
   font-weight:900;
@@ -144,11 +145,11 @@
       <!-- <h4 style="position:absolute; left:100px; top:300px">FILTER BY</h4> -->
     <div class="con">
     
-    <sui-card-group :items-per-row="3" style="margin-top:120px" >
+    <sui-card-group :items-per-row="3" style="margin-top:120px; margin-bottom:100px" >
       <sui-card 
         v-for="(key,index) in resultQuery" 
         :key="index" 
-        style="height:490px">
+        style="height:490px;  box-shadow: 0px 0px 20px 10px #D5D8DC;">
         
           <img :src="resultQuery[index].product_image" id="img1" style="cursor:pointer;" @click="gotoInfoproduct(keysProduct[index])" :width="280" :height="230">
           <p style="position:absolute; top:270px; font-weight:800; left:10px">{{resultQuery[index].product_name}}</p>
@@ -406,6 +407,7 @@ div.ui.card{
     position: absolute;
     top: 350px;
     left: 70px;
+   
 }
 #img1{
   border: none;
