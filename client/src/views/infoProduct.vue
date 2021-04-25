@@ -28,12 +28,14 @@
                         <button id="buttonAdd" @click="miniQuantity">-</button>
                         <input type="text" id="inputQTY" v-model="quantity">
                         <button id="buttonAdd" @click="addQuantity">+</button>
-                        <p style="margin-left:50px; color:gray;">{{product_quantity}} pice available</p>
+                        <p style="margin-left:50px; color:gray;">{{product_quantity}} piece available</p>
                     </div>
 
                     <div style="margin-left:50px">
-                        <sui-button basic secondary @click="gotoSummary" style="width:150px; margin-top:20px">BUY NOW</sui-button>
-                        <sui-button basic secondary @click="addItem" style="width:150px; margin-left:20px; ">ADD TO CART</sui-button>
+                        <sui-button basic secondary v-if="product_quantity > 0" @click="gotoSummary" style="width:150px; margin-top:20px">BUY NOW</sui-button>
+                        <sui-button basic secondary v-else-if="product_quantity == 0" style="width:150px; margin-top:20px">BUY NOW</sui-button>
+                        <sui-button basic secondary v-if="product_quantity > 0" @click="addItem" style="width:150px; margin-left:20px; ">ADD TO CART</sui-button>
+                        <sui-button basic secondary v-else-if="product_quantity == 0" style="width:150px; margin-left:20px; ">ADD TO CART</sui-button>
                     </div>
                  
                 </sui-grid-column>
