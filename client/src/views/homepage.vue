@@ -45,7 +45,7 @@
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('COMPUTERS')">COMPUTERS</button>
     </div>
 </div>
-<div class="ui container three column grid medium" style="margin-top:90px; margin-bottom:110px">
+<div class="ui container three column grid medium" style="margin-top:90px; ">
     <div class="column">
          <img class="ui rounded image centered" src="../assets/beauty1.jpg" width="250px" height="400px">
          <button class="ui secondary basic button" id="but" @click="gotoProductAll('HEALTH & BEAUTY')">HEALTH & BEAUTY</button>
