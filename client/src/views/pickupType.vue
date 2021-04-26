@@ -34,6 +34,7 @@
       <b-button class="mt-3" variant="secondary" style="margin-left:10px;" @click="chooseStore">CONFIRM</b-button>
     </b-modal>
 
+<p>{{key}}</p>
 
     </div>
 </template>
@@ -221,7 +222,7 @@ export default {
 //order from cart
 
             }else{
-                var hello = 0 ;
+            
 
             for(var a = 0 ; a < this.sellerUid_uni.length ; a ++ ){
                 for(var b = 0; b < this.summaryCart.length ; b++){
@@ -256,7 +257,6 @@ export default {
                 }
                 console.log(this.order_group_by_sellerUid)
                 firebase.ref("pickup_order").push(newOrder)
-                hello = 1
                 this.order_group_by_sellerUid = []
             }
 
@@ -264,7 +264,7 @@ export default {
 
 
             firebase.ref("pickup_order").limitToLast(1).on("value" , snapshot => {
-                console.log(hello)
+ 
                  console.log(snapshot.val())
                  this.key_order_mail = snapshot.val()
                  this.key_order_mail_list = Object.keys(snapshot.val())

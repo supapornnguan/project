@@ -2,7 +2,7 @@
     <div>
         <navbar/>
         <h1 id="successWord">SUCCESSFUL TRANSACTION</h1>
-        <sui-table style="width:1200px; margin-left:140px; margin-top:50px">
+        <sui-table style="width:1200px; margin-left:140px; margin-top:50px; box-shadow: 0px 0px 20px 10px #D5D8DC;">
             <sui-table-header>
                 <sui-table-row>
                     <sui-table-header-cell>Product</sui-table-header-cell>

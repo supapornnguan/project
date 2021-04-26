@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
 
         <loading :active.sync="isLoading" 
         :can-cancel="true" 
@@ -16,7 +16,7 @@
 
 
 
-    <sui-table celled style="width:1000px; margin-left:210px">
+    <sui-table celled style="width:1000px; margin-left:210px; ">
         <sui-table-header>
             <sui-table-row>
                 <sui-table-header-cell><p style="font-size:20px; text-align:center">Order ID.</p></sui-table-header-cell>
@@ -35,7 +35,11 @@
       </sui-table-row>
     </sui-table-body>
   </sui-table>
-      
+  <br>
+  <br>
+  <br>
+  <br>
+
         
     </div>
 </template>

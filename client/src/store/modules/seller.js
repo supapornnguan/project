@@ -15,7 +15,12 @@ const seller = {
             // seller_name_shop_pickup : "",
             // status_pickup : "",
             type : ""
+        },
+        keydetail : {
+             keysProductEdit : "",
+             edit : 0
         }
+       
     },
     getters : {
         sellers(state){
@@ -23,6 +28,9 @@ const seller = {
         },
         keyProductDetail(state){
             return state.orderDetail
+        },
+        getKeyProductEdit(state){
+            return state.keydetail
         }
     },
     mutations : {
@@ -35,7 +43,10 @@ const seller = {
         SET_KEY_ORDER_DETAIL(state,payload){
             state.orderDetail.keysOrder = payload.keysOrder
             state.orderDetail.type = payload.type
-        }
+        },
+        SET_PRODUCT_ID_EDIT (state,data){
+            state.keydetail.keysProductEdit=data.keysProductEdit
+        },
     },
     actions : {
         fetchSeller({ commit }, sellers) {

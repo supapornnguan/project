@@ -5,7 +5,16 @@
         <sui-grid :columns="2">
             <sui-grid-row stretched>
                 <sui-grid-column>
-                        <img :src="product_image" :width="350" :height="350"/>
+
+                      <b-img :src="product_image" 
+         style="width: 450px; 
+                height: 350px; 
+                object-fit: cover;
+                "
+  ></b-img>
+
+
+                        <!-- <img :src="product_image" :width="350" :height="350"/> -->
                 </sui-grid-column>
                 <sui-grid-column>
                

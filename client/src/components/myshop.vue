@@ -1,6 +1,7 @@
 <template>
     <div>
         <div v-if="this.edit == '1' ">
+            <p>{{keysProduct_form_store.edit}}</p>
         <h1 style="margin-bottom:40px">MY PERSONAL</h1>
 
        <div style="margin-bottom:10px">
@@ -38,7 +39,7 @@
                     <p style="position:absolute; top:315px">{{product_detail[index] | shortDescription}}</p>
                     <p style="position:absolute; top:380px">{{product_unit_price[index]}}  THB</p>
                 <sui-rating :rating="value" :max-rating="5" style="position:absolute; top:410px; left:10px" />
-                <button class= "buttonEdit" style="position:absolute; top:440px;" @click="gotoeditInfoproduct">EDIT</button>
+                <button class= "buttonEdit" style="position:absolute; top:440px;" @click="gotoeditInfoproduct(key)">EDIT</button>
                 </sui-card-content>
             </sui-card>
         </sui-card-group>
@@ -47,6 +48,7 @@
             <infoEditProduct>
             </infoEditProduct>
         </div>
+    
     </div>
 </template>
 
@@ -54,6 +56,8 @@
 import {auth} from "../firebase"
 import firebase from "../firebase"
 import infoEditProduct from "../components/infoEditProduct"
+import store from "../store"
+import {mapGetters} from "vuex"
 export default {
     data() {
         return {
@@ -72,12 +76,18 @@ export default {
             product_quantity : [],
             product_unit_price: [],
             product_detail : [],
+            keysProductEdit : "",
 
             edit : "1"
         }
     },
     components:{
         infoEditProduct
+    },
+    computed : {
+        ...mapGetters ({
+            keysProduct_form_store : "getKeyProductEdit"
+        })
     },
     filters : {
     shortDescription(value) {
@@ -90,8 +100,12 @@ export default {
     }
   },
  methods: {
-     gotoeditInfoproduct(){
+     gotoeditInfoproduct(key){
          this.edit++
+         this.keysProductEdit = key
+          store.commit("SET_PRODUCT_ID_EDIT" , {
+                keysProductEdit : this.keysProductEdit
+            })
      }
  },
     mounted() {

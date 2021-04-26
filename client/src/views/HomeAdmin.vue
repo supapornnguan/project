@@ -38,7 +38,7 @@
           <sui-grid-column>
             <sui-segment @click="gotoVerifyStore" style="box-shadow: 0px 0px 20px 10px #D5D8DC;">
               <div align=center>
-              <img src="https://give.thechesedfund.com/dist/redesign/images/varifacy_icon.png" :width="100">
+              <img src="../assets/check.png" :width="100">
               <br>
               <br>
                 <sui-statistic>
@@ -52,7 +52,7 @@
           <sui-grid-column>
             <sui-segment @click="gotoVerifySlip"  style="box-shadow: 0px 0px 20px 10px #D5D8DC;">
               <div align=center>
-              <img src="https://www.pinclipart.com/picdir/big/109-1093730_find-the-data-regulatory-compliance-icon-clipart.png" :width="110">
+              <img src="../assets/slip.png" :width="110">
               <br>
               <br>
                 <sui-statistic>

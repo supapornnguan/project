@@ -33,6 +33,7 @@ export default {
       user : "users",
       user1 : "getUserloggedIn",
       cartList : "cartItemList",
+      infoSummary : "getSummaryPage"
     }),
   },
   // beforeMount() {
@@ -79,15 +80,17 @@ export default {
             console.log("log out !!!")
             console.log(this.user1)
             this.$router.replace('/').catch(()=>{});
-            const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
+           
             if(this.user1 == false){
-              firebase.ref("user/" + this.userid  + "/cart/").update(item)
-              // this.clearCart()
+              firebase.ref("user/" + this.userid  + "/cart/").update(this.cartItemList)
+              
               this.$router.replace('/').catch(()=>{});
             }
             
           })
-          localStorage.clear();
+          // this.clearCart()
+          store.commit("SET_SUMMARY_PAGE", null)
+
     },
     myCart(){
       // this.$router.replace('myCart')
