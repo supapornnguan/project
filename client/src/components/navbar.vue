@@ -33,7 +33,6 @@ export default {
       user : "users",
       user1 : "getUserloggedIn",
       cartList : "cartItemList",
-      infoSummary : "getSummaryPage"
     }),
   },
   // beforeMount() {
@@ -54,11 +53,15 @@ export default {
   },
 
   mounted() {
-    console.log(this.cartList)
-    const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
-    console.log(item)
-    console.log(item.length)
-    this.number_product = item.length
+
+
+
+
+    // console.log(this.cartList)
+    // const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
+    // console.log(item)
+    // console.log(item.length)
+    // this.number_product = item.length
 
 //       var originalSetItem = localStorage.setItem; 
 // localStorage.setItem = function(){
@@ -80,17 +83,15 @@ export default {
             console.log("log out !!!")
             console.log(this.user1)
             this.$router.replace('/').catch(()=>{});
-           
+            const item = JSON.parse(localStorage.getItem("cartItem") || "[]");
             if(this.user1 == false){
-              firebase.ref("user/" + this.userid  + "/cart/").update(this.cartItemList)
-              
+              firebase.ref("user/" + this.userid  + "/cart/").update(item)
+              // this.clearCart()
               this.$router.replace('/').catch(()=>{});
             }
             
           })
-          // this.clearCart()
-          store.commit("SET_SUMMARY_PAGE", null)
-
+          localStorage.clear();
     },
     myCart(){
       // this.$router.replace('myCart')

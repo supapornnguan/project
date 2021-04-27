@@ -65,6 +65,9 @@ const pickup ={
         },
         SET_BRANCH (state,payload){
             state.branch = payload.picked
+        },
+        RESET_SUMMARY_PAGE_FROM_CART(state,payload){
+            state.summaryCart = payload
         }
     }
 }

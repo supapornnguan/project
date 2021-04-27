@@ -145,6 +145,7 @@ export default {
             store.commit("SET_CHECK_STATE",{
                 check : this.check
             })
+            store.commit("RESET_SUMMARY_PAGE_FROM_CART",[])
 
             for(var i=0;i<this.selected.length;i++){
                 for(var j=0;j<this.cartItemList.length;j++){
