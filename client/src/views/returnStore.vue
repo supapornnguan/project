@@ -1,5 +1,9 @@
 <template>
     <div>
+       <loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        :is-full-page="true">
+        </loading>
         <div style="background-color:#542e71; height:80px;">
         <h1 align=center is="sui-header" style="color:#FFFFFF; font-family: 'Michroma', cursive;" id="headerbar">STORE PICK-UP</h1>
         </div>
@@ -11,14 +15,14 @@
   </div>
 
 
-  <sui-table celled style="width:1000px; margin-left:210px">
+  <sui-table celled style="width:1000px; margin-left:210px" v-if="isLoading == false">
     <sui-table-header>
       <sui-table-row>
         <sui-table-header-cell><p style="font-size:20px; text-align:center">Order Id</p></sui-table-header-cell>
         <sui-table-header-cell><p style="font-size:20px; text-align:center">Return Date</p></sui-table-header-cell>
         <sui-table-header-cell><p style="font-size:20px; text-align:center">Total Price</p></sui-table-header-cell>
         <sui-table-header-cell><p style="font-size:20px; text-align:center">Number Of Product</p></sui-table-header-cell>
-        <sui-table-header-cell><p style="font-size:20px; text-align:center">Seller Name</p></sui-table-header-cell>
+      
 
       </sui-table-row>
     </sui-table-header>
@@ -30,13 +34,37 @@
         <sui-table-cell style="text-align:center">{{resultQuery[index].filterDate1}}</sui-table-cell>
         <sui-table-cell style="text-align:center">{{resultQuery[index].total_amount1}}.00 THB</sui-table-cell>
         <sui-table-cell style="text-align:center">{{resultQuery[index].number_of_product1}}</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{resultQuery[index].seller_firstname1}}</sui-table-cell>
+
 
       </sui-table-row>
     </sui-table-body>
   </sui-table>
 
       <b-modal ref="my-modal" size="xl" hide-footer :title=" 'ORDER ID : '+ orderid_modal">
+      <p style="font-size:15px"><strong>SELLER INFORMATION</strong></p>
+
+        <div>
+            <p style="display:inline; font-size:15px">Firstname : </p>
+            <p style="display:inline; position:absolute; left:120px; font-size:15px">{{seller_firstname}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Lastname : </p>
+            <p style="display:inline; position:absolute; left:120px; font-size:15px">{{seller_lastname}}</p>
+        </div>
+        <br>
+        <div>
+            <p style="display:inline; font-size:15px">Email : </p>
+            <p style="display:inline; position:absolute; left:120px; font-size:15px">{{seller_email}}</p>
+        </div>
+        <br>
+
+        <div>
+            <p style="display:inline; font-size:15px">Phone : </p>
+            <p style="display:inline; position:absolute; left:120px; font-size:15px">{{seller_phonenumber}}</p>
+        </div>
+        <br>
+
       <div class="d-block text-center">
 
       <sui-table celled >
@@ -69,10 +97,14 @@
     </div>
 </template>
 <script>
+import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
 import firebase from "../firebase"
 export default {
     data() {
       return {
+          isLoading : true,
         info_pickup : {},
         info_pickup_list : [],
         
@@ -98,7 +130,7 @@ export default {
         key_order : [],
         product_des : [],
         number_of_product : [],
-        sellerUid : [],
+        sellerUid : "",
 
         orderid_modal : "",
         product_description_modal : [],
@@ -108,10 +140,10 @@ export default {
         quantity_modal : [],
         seller_name_shop_modal : [],
         total_amount_modal : "",
-        seller_email: [], 
-        seller_firstname: [],
-        seller_lastname: [],
-        seller_phonenumber : [],
+        seller_email: "", 
+        seller_firstname: "",
+        seller_lastname: "",
+        seller_phonenumber : "",
 
         searchQuery : null,
         detail : [],
@@ -138,6 +170,15 @@ export default {
       firebase.ref("pickup_order/" + orderid).on("value" , snapshot => {
           console.log(snapshot.val())
           this.product_description_modal = snapshot.val().product_description
+          this.sellerUid = snapshot.val().sellerUid
+          firebase.ref("seller/" + this.sellerUid).on("value", snapshot => {
+            console.log(snapshot.val())
+            this.seller_email = snapshot.val().seller_email 
+            this.seller_firstname = snapshot.val().seller_firstname
+            this.seller_lastname = snapshot.val().seller_lastname
+            this.seller_phonenumber = snapshot.val().seller_phonenumber
+          })
+
           var total = 0
           for(var i = 0 ;i < this.product_description_modal.length ; i++){
             console.log(this.product_description_modal[i])
@@ -207,7 +248,7 @@ export default {
               this.key_order = [ ...new Set(this.key_order) ] //filter duplicate key_order
             }
           }
-        }
+        } 
         console.log(this.key_order)
         for(var w = 0 ; w < this.info_pickup_list.length ; w++){
           var e = this.info_pickup_list[w]
@@ -227,20 +268,11 @@ export default {
                   this.return_date.push(this.product_des[t][y].status.return_product.return_date)
                   var price = this.product_des[t][y].product_unit_price
                   var qty = this.product_des[t][y].quantity
-                  var sellerUid = this.product_des[t][y].sellerUid
+  
 
-                  firebase.ref("seller/" + sellerUid).on("value" , snapshot => {
-                  this.seller_firstname.push(snapshot.val().seller_firstname) 
-                  this.seller_lastname.push(snapshot.val().seller_lastname)
-                  this.seller_email.push(snapshot.val().seller_email)
-                  this.seller_phonenumber.push(snapshot.val().seller_phonenumber)
-                })
-
-                  this.sellerUid.push(sellerUid)
 
                   console.log(price)
                   console.log(qty)
-                  console.log(this.sellerUid)
                   console.log(this.product_des[t][y])
                   count = count+1
                   total += price * qty                  
@@ -254,17 +286,7 @@ export default {
             }
           }
         }
-        // this.sellerUid = [ ...new Set(this.sellerUid)]
-        // this.sellerUid = this.sellerUid.filter(val => (val!==undefined) && val!==null)
-        // console.log(this.sellerUid)
-        // firebase.ref("seller/" + this.sellerUid[0]).on("value" , snapshot => {
-        //   this.seller_firstname = snapshot.val().seller_firstname
-        //   this.seller_lastname = snapshot.val().seller_lastname
-        //   this.seller_email = snapshot.val().seller_email
-        //   this.seller_phonenumber = snapshot.val().seller_phonenumber
-        // })
-        // console.log(this.sellerUid)
-        console.log(this.seller_firstname)
+
         console.log(this.return_date)
         console.log(this.key_order)
 
@@ -278,28 +300,32 @@ export default {
           for(var x = 0 ; x < this.return_date.length ; x++){
             if(this.filterDate[z] == this.return_date[x] ){
               this.key_order1[z] = this.key_order[x]
-              this.seller_firstname1[z] = this.seller_firstname[x]
+ 
               this.number_of_product1[z] = this.number_of_product[x]
               this.total_amount1[z] = this.total_amount[x]
             }
           }
         }
-        console.log(this.seller_firstname1)
+
 
         for(var n = 0 ; n< this.key_order1.length ; n++){
-          var detailKey = {
+            var detailKey = {
             key_order1 : this.key_order1[n],
-            seller_firstname1 : this.seller_firstname1[n],
+
             number_of_product1 : this.number_of_product1[n],
             filterDate1 : this.filterDate[n],
             total_amount1 : this.total_amount1[n]
           }
             this.detail.push(detailKey)
+ 
         }
-
+        this.isLoading = false
 
       })
     },
+      components : {
+    Loading
+  },
 }
 </script>
 <style scoped>
