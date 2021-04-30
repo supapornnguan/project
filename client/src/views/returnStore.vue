@@ -6,6 +6,10 @@
         <p style="font-weight:600; font-size:25px; margin-top:20px; margin-left:30px">RETURN</p>
         <hr>
 
+        <div style="width:400px; margin-left:550px; margin-bottom:30px">
+    <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
+  </div>
+
 
   <sui-table celled style="width:1000px; margin-left:210px">
     <sui-table-header>
@@ -21,12 +25,12 @@
 
 
     <sui-table-body >
-      <sui-table-row v-for="(key,index) in key_order" :key="index">
-        <sui-table-cell style="text-align:center"> <a href="#" @click="detailProduct(key_order[index])">{{key_order[index].substring(1,100)}}</a> </sui-table-cell>
-        <sui-table-cell style="text-align:center">{{return_date[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{total_amount[index]}}.00 THB</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{number_of_product[index]}}</sui-table-cell>
-        <sui-table-cell style="text-align:center">{{seller_firstname}}</sui-table-cell>
+      <sui-table-row v-for="(key,index) in resultQuery" :key="index">
+        <sui-table-cell style="text-align:center"> <a href="#" @click="detailProduct(resultQuery[index].key_order1)">{{resultQuery[index].key_order1.substring(1,100)}}</a> </sui-table-cell>
+        <sui-table-cell style="text-align:center">{{resultQuery[index].filterDate1}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{resultQuery[index].total_amount1}}.00 THB</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{resultQuery[index].number_of_product1}}</sui-table-cell>
+        <sui-table-cell style="text-align:center">{{resultQuery[index].seller_firstname1}}</sui-table-cell>
 
       </sui-table-row>
     </sui-table-body>
@@ -104,10 +108,18 @@ export default {
         quantity_modal : [],
         seller_name_shop_modal : [],
         total_amount_modal : "",
-        seller_email: "", 
-        seller_firstname: "",
-        seller_lastname: "",
-        seller_phonenumber : ""
+        seller_email: [], 
+        seller_firstname: [],
+        seller_lastname: [],
+        seller_phonenumber : [],
+
+        searchQuery : null,
+        detail : [],
+        filterDate : [],
+        key_order1 : [],
+        seller_firstname1 : [],
+        number_of_product1 : [],
+        total_amount1 :[]
         
 
         
@@ -153,6 +165,18 @@ export default {
       }
       
     },
+    computed : {
+      resultQuery() {
+        if(this.searchQuery){
+          return this.detail.filter((item)=>{
+          return item.key_order1.toLowerCase().includes(this.searchQuery.toLowerCase());
+        })
+        }else{
+          return this.detail;
+        }
+      }
+
+    },
     created() {
 
       firebase.ref("pickup_order/").on("value" , snapshot => {
@@ -178,7 +202,7 @@ export default {
             console.log(this.product_description[a][b])
             if(this.product_description[a][b].status.return_product.check_status == true){
               console.log(this.product_description[a][b])
-              this.return_date.push(this.product_description[a][b].status.return_product.return_date)
+              // this.return_date.push(this.product_description[a][b].status.return_product.return_date)
               this.key_order.push(list_key_order[a])
               this.key_order = [ ...new Set(this.key_order) ] //filter duplicate key_order
             }
@@ -199,9 +223,19 @@ export default {
                 console.log(status)
                 if(status == true){
                   // this.number_of_product.push(this.product_des[t][y].length)
+                  console.log(this.product_des[t][y])
+                  this.return_date.push(this.product_des[t][y].status.return_product.return_date)
                   var price = this.product_des[t][y].product_unit_price
                   var qty = this.product_des[t][y].quantity
                   var sellerUid = this.product_des[t][y].sellerUid
+
+                  firebase.ref("seller/" + sellerUid).on("value" , snapshot => {
+                  this.seller_firstname.push(snapshot.val().seller_firstname) 
+                  this.seller_lastname.push(snapshot.val().seller_lastname)
+                  this.seller_email.push(snapshot.val().seller_email)
+                  this.seller_phonenumber.push(snapshot.val().seller_phonenumber)
+                })
+
                   this.sellerUid.push(sellerUid)
 
                   console.log(price)
@@ -212,6 +246,7 @@ export default {
                   total += price * qty                  
                 }
               }
+              this.return_date = [ ...new Set(this.return_date) ]
               console.log(count)
               this.number_of_product.push(count)
               this.total_amount.push(total)
@@ -219,17 +254,49 @@ export default {
             }
           }
         }
-        this.sellerUid = [ ...new Set(this.sellerUid)]
-        this.sellerUid = this.sellerUid.filter(val => (val!==undefined) && val!==null)
-        firebase.ref("seller/" + this.sellerUid[0]).on("value" , snapshot => {
-          this.seller_firstname = snapshot.val().seller_firstname
-          this.seller_lastname = snapshot.val().seller_lastname
-          this.seller_email = snapshot.val().seller_email
-          this.seller_phonenumber = snapshot.val().seller_phonenumber
-        })
-        console.log(this.sellerUid)
+        // this.sellerUid = [ ...new Set(this.sellerUid)]
+        // this.sellerUid = this.sellerUid.filter(val => (val!==undefined) && val!==null)
+        // console.log(this.sellerUid)
+        // firebase.ref("seller/" + this.sellerUid[0]).on("value" , snapshot => {
+        //   this.seller_firstname = snapshot.val().seller_firstname
+        //   this.seller_lastname = snapshot.val().seller_lastname
+        //   this.seller_email = snapshot.val().seller_email
+        //   this.seller_phonenumber = snapshot.val().seller_phonenumber
+        // })
+        // console.log(this.sellerUid)
+        console.log(this.seller_firstname)
         console.log(this.return_date)
         console.log(this.key_order)
+
+        for(var q = 0 ; q< this.return_date.length ; q++){
+          this.filterDate[q] = this.return_date[q]
+        }
+        this.filterDate.reverse()
+        console.log(this.filterDate)
+
+        for(var z = 0 ; z < this.filterDate.length ; z++){
+          for(var x = 0 ; x < this.return_date.length ; x++){
+            if(this.filterDate[z] == this.return_date[x] ){
+              this.key_order1[z] = this.key_order[x]
+              this.seller_firstname1[z] = this.seller_firstname[x]
+              this.number_of_product1[z] = this.number_of_product[x]
+              this.total_amount1[z] = this.total_amount[x]
+            }
+          }
+        }
+        console.log(this.seller_firstname1)
+
+        for(var n = 0 ; n< this.key_order1.length ; n++){
+          var detailKey = {
+            key_order1 : this.key_order1[n],
+            seller_firstname1 : this.seller_firstname1[n],
+            number_of_product1 : this.number_of_product1[n],
+            filterDate1 : this.filterDate[n],
+            total_amount1 : this.total_amount1[n]
+          }
+            this.detail.push(detailKey)
+        }
+
 
       })
     },

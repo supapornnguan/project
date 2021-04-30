@@ -3,7 +3,7 @@
   <navbar/>
   <br>
 
-  <sui-grid style="margin-bottom:200px">
+  <sui-grid style="margin-bottom:300px">
     <sui-grid-column :width="3">
       <sui-menu fluid vertical tabular>
         <a

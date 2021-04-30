@@ -34,7 +34,7 @@
       <b-button class="mt-3" variant="secondary" style="margin-left:10px;" @click="chooseStore">CONFIRM</b-button>
     </b-modal>
 
-<p>{{key}}</p>
+<!-- <p>{{key}}</p> -->
 
     </div>
 </template>

@@ -233,7 +233,7 @@
             <h4 style="margin-left:700px; font-weight:600; margin-top:30px; margin-bottom:30px" >Total Amount:  {{total_amount}}.00 THB</h4>
 
         </div>
-            <b-button variant="secondary" v-if="orderDetail.type==='PICK-UP' " style="margin-left:450px">Cancle Order</b-button>
+            <b-button variant="secondary" v-if="orderDetail.type==='PICK-UP' && check_complete === false  " style="margin-left:450px">Cancle Order</b-button>
             <!-- <b-button variant="secondary" v-if="!check_complete" style="margin-left: 20px;">Confirm Order</b-button> -->
             <b-button variant="secondary" style="margin-left: 450px;" v-if="orderDetail.type == 'SHIPPING' " :disabled="check_payment" @click="uploadSlip()">Upload Slip</b-button>
             <!-- <p>{{orderDetail.type}}</p> -->
