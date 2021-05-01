@@ -3,7 +3,7 @@
 
   <div>
     <div >
-    <h1 style="font-weight:600">ADMIN SHOPAHOLIC</h1>
+    <h1 style="font-weight:600; background-color:#542e71;">ADMIN SHOPAHOLIC</h1>
     </div>
 
      <div id="menuAdmin">
@@ -36,23 +36,26 @@
       <sui-grid :columns="2" id="todo">
         <sui-grid-row stretched>
           <sui-grid-column>
-            <sui-segment @click="gotoVerifyStore" style="box-shadow: 0px 0px 20px 10px #D5D8DC;">
+            <router-link to="/verifyStore" style="text-decoration: none;">
+            <sui-segment  style="box-shadow: 0px 0px 20px 10px #D5D8DC; cursor:pointer">
               <div align=center>
               <img src="../assets/check.png" :width="100">
               <br>
               <br>
-                <sui-statistic>
+                <sui-statistic >
                   <sui-statistic-value>{{numVerifySeller.length}}</sui-statistic-value>
                   <br>
                   <sui-statistic-label>Verify Seller</sui-statistic-label>
                 </sui-statistic>
               </div>
             </sui-segment>
+            </router-link>
           </sui-grid-column>
           <sui-grid-column>
-            <sui-segment @click="gotoVerifySlip"  style="box-shadow: 0px 0px 20px 10px #D5D8DC;">
+            <router-link to="/verifySlip" style="text-decoration: none;">
+            <sui-segment  style="box-shadow: 0px 0px 20px 10px #D5D8DC; cursor:pointer">
               <div align=center>
-              <img src="../assets/slip.png" :width="110">
+              <img src="../assets/slip.png" :width="100">
               <br>
               <br>
                 <sui-statistic>
@@ -62,6 +65,7 @@
                 </sui-statistic>
               </div>
             </sui-segment>
+            </router-link>
           </sui-grid-column>
   
         </sui-grid-row>
