@@ -8,13 +8,6 @@
         :is-full-page="true">
         </loading>
       <!-- <search/> -->
- <!-- <img src="../assets/PET3.jpg" style="margin-top:30px;width:100% height:500px; margin-left:25px"> -->
-
-
-
-  <!-- <img src="../assets/PET4.jpg" style="width:1200px; height:390px; margin-left:130px; margin-top:60px" v-bind:style="{ display:disply_image}"> -->
-
-
 
 <div style="width:1200px; height:390px; margin-left:100px" v-if=" getkey == 'PET' ">
     <b-carousel
@@ -68,7 +61,8 @@
   >
     <b-carousel-slide
       img-src="https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-      style="width:700px; height:350px"
+      style="width:700px; height:350px; "
+      
     ></b-carousel-slide>
     <b-carousel-slide
       img-src="https://images.pexels.com/photos/1784259/pexels-photo-1784259.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -127,7 +121,7 @@
 
 </div>
 
-
+<!-- MEN -->
 <div v-if="getkey == 'MEN'" style="width:700px; margin-left:100px; margin-top:100px">
   <b-carousel
     id="carousel-no-animation"
@@ -138,7 +132,7 @@
   >
     <b-carousel-slide
       img-src="https://images.pexels.com/photos/4210860/pexels-photo-4210860.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-      style="width:700px; height:350px"
+      style="width:700px; height:350px;"
     ></b-carousel-slide>
     <b-carousel-slide
       img-src="https://images.pexels.com/photos/6311121/pexels-photo-6311121.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -844,5 +838,9 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+.responsive {
+  width: 100%;
+  height: auto;
 }
 </style>

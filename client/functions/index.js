@@ -11,6 +11,7 @@ const functions = require("firebase-functions");
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const cors = require('cors')({origin: true,  credentials: true});
+import firebase from "../src/firebase"
 admin.initializeApp();
 
 /**
